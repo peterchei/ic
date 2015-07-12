@@ -1,0 +1,3 @@
+set path = E:\jdk1.1.8\bin;E:\jdk1.1.8
+
+D:\jdk1.1.8\bin\javac ChartScreen.java TempApplet.java CommentarySource.java CommentaryEngine.java CommentaryPanel.java LoginPanel.java TeleTextPanel.java FinetExpress.java Top10Panel.java Top10Engine.java Top10Source.java StockWatchEngine.java  StockWatchPanel.java NewsPanel.java TeleTextSource.java TeleTextEngine.java NewsSource.java StockWatchSource.java FTable.java NewsEngine.java FLabel.java  FormatData.java ChartFrame.java FUser.java -deprecation

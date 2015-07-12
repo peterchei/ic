@@ -1,0 +1,36 @@
+[PropertyInfo]
+btCancel,Button,false,false, , ,false,<default>
+btHelp,Button,false,false, , ,false,<default>
+btMACDApply,Button,false,false, , ,false,<default>
+btOK,Button,false,false, , ,false,<default>
+btRSIApply,Button,false,false, , ,false,<default>
+btSTCApply,Button,false,false, , ,false,<default>
+btWilliamApply,Button,false,false, , ,false,<default>
+chartScreen,ChartScreen,false,false, , ,false,<default>
+gridBagLayout1,GridBagLayout,false,false, , ,false,<default>
+label1,Label,false,false, , ,false,<default>
+label10,Label,false,false, , ,false,<default>
+label11,Label,false,false, , ,false,<default>
+label12,Label,false,false, , ,false,<default>
+label14,Label,false,false, , ,false,<default>
+label6,Label,false,false, , ,false,<default>
+label7,Label,false,false, , ,false,<default>
+language,int,false,false, , ,true,<default>
+lbArray,String[][],false,false, , ,false,<default>
+lbMACD,Label,false,false, , ,false,<default>
+lbRSI,Label,false,false, , ,false,<default>
+lbSTC,Label,false,false, , ,false,<default>
+lbWilliam,Label,false,false, , ,false,<default>
+TAChartName,String,false,false, , ,true,<default>
+tfEAMA,TextField,false,false, , ,false,<default>
+tfELMA,TextField,false,false, , ,false,<default>
+tfESMA,TextField,false,false, , ,false,<default>
+tfRSI,TextField,false,false, , ,false,<default>
+tfSTCD,TextField,false,false, , ,false,<default>
+tfSTCK,TextField,false,false, , ,false,<default>
+tfWR,TextField,false,false, , ,false,<default>
+[IconNames]
+
+
+
+

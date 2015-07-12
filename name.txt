@@ -1,0 +1,26 @@
+開市
+收市
+最高
+最低
+成交
+百分比
+加入
+移除
+關閉
+年月日
+至
+
+
+
+http://203.161.232.88/FMEQuoteBase/newchart/getIntra.php?code=1
+intraday data:
+num_of_row;english_name;chinese_name;\n
+hh:ss;open;high;low;last;vol;\n
+hh:ss;open;high;low;last;vol;\n
+hh:ss;open;high;low;last;vol;\n
+hh:ss;open;high;low;last;vol;\n
+hh:ss;open;high;low;last;vol;\n
+
+10:00 to 12:30
+2:30 to 4:00
+

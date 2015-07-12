@@ -1,0 +1,24 @@
+[PropertyInfo]
+bbDevation,float,false,false, , ,false,<default>
+bbN,int,false,false, , ,false,<default>
+EMA1,int,false,false, , ,false,<default>
+EMA2,int,false,false, , ,false,<default>
+EMA3,int,false,false, , ,false,<default>
+MACDAEMA,int,false,false, , ,false,<default>
+MACDLEMA,int,false,false, , ,false,<default>
+MACDSEMA,int,false,false, , ,false,<default>
+RSIPeriod,int,false,false, , ,false,<default>
+SMAN1,int,false,false, , ,false,<default>
+SMAN2,int,false,false, , ,false,<default>
+SMAN3,int,false,false, , ,false,<default>
+STCDPeriod,int,false,false, , ,false,<default>
+STCKPeriod,int,false,false, , ,false,<default>
+WilliamPeriod,int,false,false, , ,false,<default>
+WMAN1,int,false,false, , ,false,<default>
+WMAN2,int,false,false, , ,false,<default>
+WMAN3,int,false,false, , ,false,<default>
+[IconNames]
+
+
+
+

@@ -1,0 +1,11 @@
+build/
+.idea/
+.gradle/
+.settings/
+.classpath
+.project
+bin/
+lib/
+nbproject/
+**/*java~
+/.metadata/

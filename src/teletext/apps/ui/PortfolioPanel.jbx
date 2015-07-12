@@ -1,0 +1,32 @@
+[PropertyInfo]
+border1,Border,false,false, , ,false,<default>
+border10,Border,false,false, , ,false,<default>
+border11,Border,false,false, , ,false,<default>
+border12,Border,false,false, , ,false,<default>
+border2,Border,false,false, , ,false,<default>
+border3,Border,false,false, , ,false,<default>
+border4,Border,false,false, , ,false,<default>
+border5,Border,false,false, , ,false,<default>
+border6,Border,false,false, , ,false,<default>
+border7,Border,false,false, , ,false,<default>
+border8,Border,false,false, , ,false,<default>
+border9,Border,false,false, , ,false,<default>
+borderLayout1,BorderLayout,false,false, , ,false,<default>
+borderLayout2,BorderLayout,false,false, , ,false,<default>
+borderLayout3,BorderLayout,false,false, , ,false,<default>
+flowLayout1,FlowLayout,false,false, , ,false,<default>
+gridBagLayout1,GridBagLayout,false,false, , ,false,<default>
+jButton1,JButton,false,false, , ,false,<default>
+jButton2,JButton,false,false, , ,false,<default>
+jPanel1,JPanel,false,false, , ,false,<default>
+jPanel2,JPanel,false,false, , ,false,<default>
+jPanel3,JPanel,false,false, , ,false,<default>
+jPanel4,JPanel,false,false, , ,false,<default>
+jScrollPane1,JScrollPane,false,false, , ,false,<default>
+jTable1,JTable,false,false, , ,false,<default>
+jTable2,JTable,false,false, , ,false,<default>
+[IconNames]
+
+
+
+
