@@ -1,0 +1,18 @@
+package com.ic.core;
+
+public enum ChartType {
+    BAR,
+    CANDLE,
+    LINE,
+    VOLUME,
+    PERCENTAGE,
+    SIMPLE_MOVING_AVERAGE,
+    WEIGHTED_MOVING_AVERAGE,
+    EXPONENTIAL_MOVING_AVERAGE,
+    BOLLINGERBAND,
+    RSI,
+    STC,
+    OBV,
+    MACD,
+    WILLIAM_R
+}
