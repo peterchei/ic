@@ -236,8 +236,8 @@ public class FMEChartA extends JPanel {
         chartWindow.setChartPanel(this);
         chartWindow.setBounds(0, 0, 800, 600);
         chartWindow.setResizable(true);
-        chartWindow.setTitle("FME Chart Window");
-        chartWindow.show();
+        chartWindow.setTitle("IC");
+        chartWindow.setVisible(true);
 
     }
 

@@ -53,8 +53,8 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     //Define of Resolution and display information
     private final int minResolution = 3;
     //The screenImage for drawing....
-    public Image screenImage = null; //the chart image
-    public Image allscreenImage = null; //the full screen image
+    private Image screenImage = null; //the chart image
+    private Image allscreenImage = null; //the full screen image
     public Image loadingBarImage[] = new Image[4];
     //Action Object to record and repersent all the action.
     FAction faction = new FAction();
@@ -63,8 +63,8 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     private Color gridColor;
     private int language = FConfig.constChinese;
     ///The space of top, left, right and bottom in pixels.
-    private int topSpace = 30;
-    private int leftSpace = 38;
+    private int topSpace = 20;
+    private int leftSpace = 40;
     private int rightSpace = 38;
     private int bottomSpace = 15;
     //The maximun number of point that the chart have....
@@ -76,6 +76,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     private ScreenActionListener screenActionListener = null;
     //A list of add ChartUIObject needed to plot to this screen.....
     private Vector chartObjects = new Vector();
+
     public ChartScreen(int TOPSpace, int BOTTOMSpace, int LEFTSpace, int RIGHTSpace) {
         topSpace = TOPSpace;
         bottomSpace = BOTTOMSpace;
@@ -92,6 +93,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         }
 
     }
+
     public ChartScreen() {
         try {
             //Enable Mouse Event Listeners.
@@ -290,11 +292,11 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     //function to initScreen, it should be called once in applet.start function in order to fix UI bug.
     public void initScreen() {
         if (getSize().width > 0 && getSize().height > 0) {
-            if (screenImage == null) {
-                screenImage = createImage(getSize().width, getSize().height);
+            if (getScreenImage() == null) {
+                setScreenImage(createImage(getSize().width, getSize().height));
             }
-            if (allscreenImage == null) {
-                allscreenImage = createImage(getSize().width, getSize().height);
+            if (getAllscreenImage() == null) {
+                setAllscreenImage(createImage(getSize().width, getSize().height));
             }
 
             if (loadingBarImage[0] == null) {
@@ -385,13 +387,13 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         Image newImage1 = null;
         Image newImage2 = null;
         try {
-            if (screenImage != null && (screenImage.getHeight(this) != h || screenImage.getWidth(this) != w)) {
+            if (getScreenImage() != null && (getScreenImage().getHeight(this) != h || getScreenImage().getWidth(this) != w)) {
                 newImage1 = createImage(w, h);
-                screenImage = newImage1;
+                setScreenImage(newImage1);
             }
-            if (allscreenImage != null && (allscreenImage.getHeight(this) != h || allscreenImage.getWidth(this) != w)) {
+            if (getAllscreenImage() != null && (getAllscreenImage().getHeight(this) != h || getAllscreenImage().getWidth(this) != w)) {
                 newImage2 = createImage(w, h);
-                allscreenImage = newImage2;
+                setAllscreenImage(newImage2);
             }
             super.setBounds(x, y, w, h);
         } catch (Exception ee) {
@@ -406,7 +408,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     public boolean zoom(int startIndex, int endIndex) {
         //first, determine the new resolution.....
         int numberOfpoints = endIndex - startIndex + 1;
-        float fpixelsperpoint = (float) (getXAxisWidth() - 2) / numberOfpoints;
+        float fpixelsperpoint = (float) (getXAxisWidth() - 2) / numberOfpoints ;
         resolution = (int) (fpixelsperpoint + 0.01d);
 
         startDisplayIndex = startIndex;
@@ -439,15 +441,15 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         if (isUpdatingBaseScreen) {
             return;
         }
-        if (screenImage == null) {
-            screenImage = createImage(getSize().width, this.getSize().height);
+        if (getScreenImage() == null) {
+            setScreenImage(createImage(getSize().width, this.getSize().height));
         }
-        if (allscreenImage == null) {
-            allscreenImage = createImage(getSize().width, this.getSize().height);
+        if (getAllscreenImage() == null) {
+            setAllscreenImage(createImage(getSize().width, this.getSize().height));
         }
 
-        Graphics g = allscreenImage.getGraphics();
-        g.drawImage(screenImage, 0, 0, getSize().width, getSize().height, this);
+        Graphics g = getAllscreenImage().getGraphics();
+        g.drawImage(getScreenImage(), 0, 0, getSize().width, getSize().height, this);
         g.setColor(Color.black);
         for (int i = 0; i < faction.lineRecords.size(); i++) {
             FLine fline = (FLine) faction.lineRecords.elementAt(i);
@@ -717,21 +719,20 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         if (this.screenState == LOADING) {
             plotLoading();
         }
-        gg.drawImage(allscreenImage, 0, 0, getSize().width, getSize().height, this);
+        gg.drawImage(getAllscreenImage(), 0, 0, getSize().width, getSize().height, this);
     }
 
     private void plotCloseButton() {
-        Graphics g = allscreenImage.getGraphics();
-        g.setColor(FConfig.ToolBarColor);
+        Graphics g = getAllscreenImage().getGraphics();
+        g.setColor(FConfig.ChatBackground);
         g.fillRoundRect(getWidth() - 17, 0, 15, 15, 3, 3);
         g.setColor(Color.black);
         g.drawRoundRect(getWidth() - 17, 0, 15, 15, 3, 3);
         g.fillRect(getWidth() - 14, 7, 10, 2);
-
     }
 
     private void plotWatchTable(ChartItem cchart, int x, int y) {
-        Graphics g = allscreenImage.getGraphics();
+        Graphics g = getAllscreenImage().getGraphics();
         if (cchart != null) {
             int index = getPointIndexFromScreen(faction.currentMpoint.x);
             FPoint fpoint = (FPoint) cchart.getChartData().getData().elementAt(index);
@@ -740,9 +741,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                 fTApoint = (FTAPoint) cchart.getChartData().getTAdata().elementAt(index);
             }
 
-
             String sDate = "";
-
 
             if (cchart.getChartData().dataType == ChartData.DAILY) {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy");
@@ -847,7 +846,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
         // draw the value where the mouse pointed.
         double pointedValue = this.getYValueFromScreen(faction.currentMpoint.y, leftChart.getUpperBound(), leftChart.getLowerBound());
-        Graphics g = allscreenImage.getGraphics();
+        Graphics g = getAllscreenImage().getGraphics();
         g.setColor(FConfig.WatchLabelColor);
         g.setFont(new Font("default", 1, 12));
         if (leftChart.getChartType() == ChartType.VOLUME) {
@@ -879,10 +878,10 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
     // Plot function:::
     public synchronized void updateBaseScreen() {
-        if (this.screenImage == null) {
+        if (this.getScreenImage() == null) {
             return;
         }
-        if (this.allscreenImage == null) {
+        if (this.getAllscreenImage() == null) {
             return;
         }
         //System.out.println("Entering updateBaseScreen");
@@ -926,7 +925,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
      * plot a loading messaage box in the font of the screen...
      */
     private void plotLoading() {
-        Graphics gg = allscreenImage.getGraphics();
+        Graphics gg = getAllscreenImage().getGraphics();
         int currentIndex = (loadingBarIndex++) % 4;
 
         gg.drawImage(loadingBarImage[currentIndex], getSize().width / 2 - loadingBarImage[currentIndex].getWidth(null) / 2, getSize().height / 2, this);
@@ -937,16 +936,14 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         double Min = currentChart.getChartBound().getLowerPercentageBound();
 
 
-        Graphics g = screenImage.getGraphics();
+        Graphics g = getScreenImage().getGraphics();
         g.setColor(currentChart.getFirstColor());
 
         FPoint fpoint1 = null;
         FPoint fpoint2 = null;
         int lastValidPoint = 0;
         for (int i = startDisplayIndex + 1; i <= endDisplayIndex; i++) {
-            //System.out.println("pp: " + i);
             fpoint1 = (FPoint) currentChart.getChartData().getData().elementAt(i);
-            //System.out.println("fpoint1: " + fpoint1.isValid());
             fpoint2 = (FPoint) currentChart.getChartData().getData().elementAt(i - 1);
             if (fpoint2.isValid()) {
                 lastValidPoint = i - 1;
@@ -977,7 +974,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         double Min = currentChart.getChartBound().getLowerVolumeBound();// .LowerStockBound;
         Max = Math.max(Max, 1);
 
-        Graphics g = screenImage.getGraphics();
+        Graphics g = getScreenImage().getGraphics();
         g.setColor(currentChart.getFirstColor());
 
         int hWidth = 1;
@@ -1004,7 +1001,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         double Max = currentChart.getChartBound().getUpperStockBound();
         double Min = currentChart.getChartBound().getLowerStockBound();
 
-        Graphics g = screenImage.getGraphics();
+        Graphics g = getScreenImage().getGraphics();
         g.setColor(currentChart.getFirstColor());
 
 
@@ -1052,7 +1049,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         double Max = currentChart.getChartBound().getUpperStockBound();
         double Min = currentChart.getChartBound().getLowerStockBound();
 
-        Graphics g = screenImage.getGraphics();
+        Graphics g = getScreenImage().getGraphics();
         g.setColor(FConfig.BarColor);
 
 
@@ -1091,7 +1088,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
         int N = currentChart.getChartData().getfTAconfig().bbN;
 
-        Graphics g = screenImage.getGraphics();
+        Graphics g = getScreenImage().getGraphics();
         g.setColor(currentChart.getFirstColor());
 
         FTAPoint fTApoint1 = null;
@@ -1139,7 +1136,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         double Max = currentChart.getChartBound().getUpperOBVBound();
         double Min = currentChart.getChartBound().getLowerOBVBound();
 
-        Graphics g = screenImage.getGraphics();
+        Graphics g = getScreenImage().getGraphics();
         g.setColor(currentChart.getFirstColor());
 
         FTAPoint fTApoint1 = null;
@@ -1176,7 +1173,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         double Max = currentChart.getChartBound().getUpperMACDBound();
         double Min = currentChart.getChartBound().getLowerMACDBound();
 
-        Graphics g = screenImage.getGraphics();
+        Graphics g = getScreenImage().getGraphics();
         g.setColor(currentChart.getFirstColor());
 
         FTAPoint fTApoint1 = null;
@@ -1224,7 +1221,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         double Max = currentChart.getChartBound().getUpperWilliamRBound();
         double Min = currentChart.getChartBound().getLowerWilliamRBound();
 
-        Graphics g = screenImage.getGraphics();
+        Graphics g = getScreenImage().getGraphics();
         g.setColor(currentChart.getFirstColor());
 
         FTAPoint fTApoint1 = null;
@@ -1265,7 +1262,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         double Max = currentChart.getChartBound().getUpperSTCBound();
         double Min = currentChart.getChartBound().getLowerSTCBound();
 
-        Graphics g = screenImage.getGraphics();
+        Graphics g = getScreenImage().getGraphics();
         g.setColor(currentChart.getFirstColor());
 
         FTAPoint fTApoint1 = null;
@@ -1311,7 +1308,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         double Max = currentChart.getChartBound().getUpperRSIBound();
         double Min = currentChart.getChartBound().getLowerRSIBound();
 
-        Graphics g = screenImage.getGraphics();
+        Graphics g = getScreenImage().getGraphics();
         g.setColor(currentChart.getFirstColor());
 
         FTAPoint fTApoint1 = null;
@@ -1374,7 +1371,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
             N2 = 0;
             N3 = 0;
         }
-        Graphics g = screenImage.getGraphics();
+        Graphics g = getScreenImage().getGraphics();
         g.setColor(currentChart.getFirstColor());
 
         FTAPoint fTApoint1 = null;
@@ -1429,7 +1426,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         double Max = currentChart.getChartBound().getUpperStockBound();
         double Min = currentChart.getChartBound().getLowerStockBound();
 
-        Graphics g = screenImage.getGraphics();
+        Graphics g = getScreenImage().getGraphics();
         g.setColor(FConfig.LineColor);
 
         FPoint fpoint1 = null;
@@ -1450,6 +1447,8 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                     int y1 = this.getScreenYPosition(fpoint1.getClose(), Max, Min);
                     int y2 = getScreenYPosition(fpoint2.getClose(), Max, Min);
                     g.drawLine(x1, y1, x2, y2);
+                    g.drawLine(x1, y1-1, x2, y2-1);
+                    g.drawLine(x1, y1-2, x2, y2-2);
                     lastValidPoint = i;
                 } catch (Exception ee) {
                     ee.printStackTrace();
@@ -1488,8 +1487,8 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
             gridColor = new Color(200, 200, 200);
         }
         int dpoint = endDisplayIndex;// this.getMaxNumberOfDisplayPointInCurrentResolution()+startDisplayIndex;
-        Graphics g = allscreenImage.getGraphics();
-        Graphics gg = screenImage.getGraphics();
+        Graphics g = getAllscreenImage().getGraphics();
+        Graphics gg = getScreenImage().getGraphics();
 
         // when the resolution is small, set the font size to some.
         if (resolution <= 4) {
@@ -1512,7 +1511,6 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
                         g.setColor(Color.black);
                         g.drawLine(getScreenXPositionFromPoint(i), topSpace + getYAxisWidth(), getScreenXPositionFromPoint(i), topSpace + getYAxisWidth() + 2);
-//                        String dateMY =  fpoint.Month + "-" + fpoint.Year;
                         String dateMY = FormatUtil.formatDate(fpoint.getDate());
                         if (bottomSpace > 8) {
                             g.drawString(dateMY, getScreenXPositionFromPoint(i) - 10, topSpace + getYAxisWidth() + 12);
@@ -1578,12 +1576,9 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                         if (bottomSpace > 8) {
                             g.drawString(dateTime, getScreenXPositionFromPoint(i), topSpace + getYAxisWidth() + 11);
                         }
-
                     }
                 }
             }
-
-
         }
 
     }
@@ -1607,7 +1602,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
             if (faction.currentMpoint.x > x1 && faction.currentMpoint.x < (x1 + ww) && faction.currentMpoint.y > y1 && faction.currentMpoint.y < (y1 + hh)) {
                 return;
             }
-            Graphics gg = allscreenImage.getGraphics();
+            Graphics gg = getAllscreenImage().getGraphics();
             gg.setColor(new Color(240, 240, 240));
             gg.fill3DRect(x1, y1, ww, hh, true);
             int lcount = 1;
@@ -1634,7 +1629,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     // draw the chart name .
     private void drawLabel(ChartItem currentChart) {
 
-        Graphics g = allscreenImage.getGraphics();
+        Graphics g = getAllscreenImage().getGraphics();
         if (currentChart.getAxisBar() == AxisType.LEFTAXIS) {
             if (currentChart.getChartType() == ChartType.BAR || currentChart.getChartType() == ChartType.LINE || currentChart.getChartType() == ChartType.CANDLE) {
                 g.setColor(currentChart.getFirstColor());
@@ -1806,8 +1801,8 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
             ddiv = 20f;
         }
 
-        Graphics g = allscreenImage.getGraphics();
-        Graphics gg = screenImage.getGraphics();
+        Graphics g = getAllscreenImage().getGraphics();
+        Graphics gg = getScreenImage().getGraphics();
 
         // if the screen is small, reduce the font size
         if (this.getSize().height < 150) {
@@ -1876,17 +1871,13 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         switch (currentChart.getChartType()) {
             case LINE:
                 plotLineChart(currentChart);
-                //plotVolumeChart(currentChart);
-                break;
-
+                 break;
             case BAR:
                 plotBarChart(currentChart);
-                //plotVolumeChart(currentChart);
-                break;
+          break;
 
             case CANDLE:
                 plotCandleChart(currentChart);
-                //plotVolumeChart(currentChart);
                 break;
 
             case VOLUME:
@@ -1941,7 +1932,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     // clear the Screen
     private boolean clearScreen() {
         //System.out.println("Entering ClearScreen");
-        Graphics screenG = screenImage.getGraphics();
+        Graphics screenG = getScreenImage().getGraphics();
         screenG.setColor(FConfig.ChatBackground);
         screenG.fillRect(0, 0, getSize().width, getSize().height);
         return true;
@@ -1955,7 +1946,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
     // plot the Axis
     private synchronized boolean plotAxis(boolean isLabel) {
-        Graphics screenG = allscreenImage.getGraphics();
+        Graphics screenG = getAllscreenImage().getGraphics();
         screenG.setColor(Color.black);
         screenG.drawLine(leftSpace, topSpace, leftSpace, topSpace + getYAxisWidth());
         screenG.drawLine(leftSpace, topSpace + getYAxisWidth(), leftSpace + getXAxisWidth(), topSpace + getYAxisWidth());
@@ -2420,5 +2411,21 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     public void flipLoading() {
 
         repaint();
+    }
+
+    public Image getScreenImage() {
+        return screenImage;
+    }
+
+    public void setScreenImage(Image screenImage) {
+        this.screenImage = screenImage;
+    }
+
+    public Image getAllscreenImage() {
+        return allscreenImage;
+    }
+
+    public void setAllscreenImage(Image allscreenImage) {
+        this.allscreenImage = allscreenImage;
     }
 }

@@ -7,7 +7,7 @@ public class FConfig {
     public static final int constChinese = 1;
 
     //the Color....
-    public static final Color ToolBarColor = new Color(200, 200, 200);
+    public static final Color ToolBarColor = new Color(0, 118, 215);
     public static final Color ScreenBackground = new Color(244, 244, 244);
     public static final Color ChatBackground = new Color(244, 244, 244);
 

@@ -47,8 +47,6 @@ public class Main extends Application {
                 JPanel panel = new JPanel();
 
 
-
-
                 FMEChartA fMEChartA1 = new FMEChartA();
 
 
@@ -71,7 +69,7 @@ public class Main extends Application {
                 fMEChartA1.chartOptionBar1.btTA.setButtonImage(new ImageIcon(getClass().getResource("/ST.gif")).getImage());
                 fMEChartA1.chartOptionBar1.btVolume.setButtonImage(new ImageIcon(getClass().getResource("/SV.gif")).getImage());
                 fMEChartA1.btOpenClose.setButtonImage(new ImageIcon(getClass().getResource("/open.gif")).getImage());
-                fMEChartA1.btPrinter.setButtonImage(new ImageIcon(getClass().getResource("/printer.gif")).getImage());
+                fMEChartA1.btPrinter.setButtonImage(new ImageIcon(getClass().getResource("/print.gif")).getImage());
 
                 // Init the chart screen
                 fMEChartA1.chartScreen1.initScreen();
@@ -90,9 +88,9 @@ public class Main extends Application {
                 fMEChartA1.chartScreen3.setScreenState(ChartScreen.LOADING);
 
                 // change the language by calling set language function
-                fMEChartA1.SetLanguage(FConfig.constChinese);
+                fMEChartA1.SetLanguage(FConfig.constEnglish);
 
-                fMEChartA1.setSize(2000,1000);
+                fMEChartA1.setSize(2000, 1000);
 
 
                 swingNode.setVisible(true);
