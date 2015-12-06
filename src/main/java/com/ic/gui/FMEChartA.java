@@ -60,14 +60,14 @@ public class FMEChartA extends JPanel {
 
         //System.out.print("FMEChartA resized.");
         if (this.btOpenClose != null) {
-            btOpenClose.setBounds(w - 23, 0, 22, 22);
+            btOpenClose.setBounds(w -  FConfig.BUTTON_SIZE, 0, FConfig.BUTTON_SIZE , FConfig.BUTTON_SIZE );
         }
 
         if (this.btPrinter != null) {
             if (btOpenClose.isVisible()) {
-                btPrinter.setBounds(w - 44, 0, 22, 22);
+                btPrinter.setBounds(w - (FConfig.BUTTON_SIZE +2)*2, 0, FConfig.BUTTON_SIZE , FConfig.BUTTON_SIZE );
             } else {
-                btPrinter.setBounds(w - 23, 0, 22, 22);
+                btPrinter.setBounds(w - (FConfig.BUTTON_SIZE +2), 0, FConfig.BUTTON_SIZE , FConfig.BUTTON_SIZE );
             }
         }
 
@@ -119,10 +119,10 @@ public class FMEChartA extends JPanel {
 
         }
 
-        panelToolbar.setBounds(new Rectangle(0, 0, w, 52));
-        chartScreen1.setBounds(new Rectangle(1, 52, w, x1));
-        chartScreen2.setBounds(new Rectangle(1, 52 + x1, w, x2));
-        chartScreen3.setBounds(new Rectangle(1, 52 + x1 + x2, w, x3));
+        panelToolbar.setBounds(new Rectangle(0, 0, w, (FConfig.BUTTON_SIZE +2)* 2));
+        chartScreen1.setBounds(new Rectangle(1, (FConfig.BUTTON_SIZE +2)* 2, w, x1));
+        chartScreen2.setBounds(new Rectangle(1,(FConfig.BUTTON_SIZE +2)* 2 + x1, w, x2));
+        chartScreen3.setBounds(new Rectangle(1, (FConfig.BUTTON_SIZE +2)* 2 + x1 + x2, w, x3));
 
         chartScreen1.getFaction().lineRecords.removeAllElements();
         chartScreen2.getFaction().lineRecords.removeAllElements();
@@ -148,11 +148,6 @@ public class FMEChartA extends JPanel {
         panelToolbar.setBackground(FConfig.ToolBarColor);
         panelToolbar.setLayout(null);
 
-        //chartScreen1.setBounds(new Rectangle(1, 53, 500, 178));
-        //chartScreen2.setBounds(new Rectangle(1, 231, 500, 125));
-        //chartScreen3.setBounds(new Rectangle(1, 356, 500, 125));
-
-
         int x = 400 - 52 - 50;
         x = x / 3;
 
@@ -175,23 +170,23 @@ public class FMEChartA extends JPanel {
         }
 
 
-        panelToolbar.setBounds(new Rectangle(0, 0, 1024, 52));
-        chartScreen1.setBounds(new Rectangle(1, 53, 600, x1));
-        chartScreen2.setBounds(new Rectangle(1, 53 + x1, 600, x2));
-        chartScreen3.setBounds(new Rectangle(1, 53 + x1 + x2, 600, x3));
+        panelToolbar.setBounds(new Rectangle(0, 0, 1024, (FConfig.BUTTON_SIZE +2)* 2));
+        chartScreen1.setBounds(new Rectangle(1, (FConfig.BUTTON_SIZE +2)* 2 , 600, x1));
+        chartScreen2.setBounds(new Rectangle(1, (FConfig.BUTTON_SIZE +2)* 2 + x1, 600, x2));
+        chartScreen3.setBounds(new Rectangle(1, (FConfig.BUTTON_SIZE +2)* 2 + x1 + x2, 600, x3));
 
         fbuttonBar.setBackground(FConfig.ToolBarColor);
-        fbuttonBar.setBounds(new Rectangle(1, 26, 286, 26));
+        fbuttonBar.setBounds(new Rectangle(1, FConfig.BUTTON_SIZE +2, 9 + (FConfig.BUTTON_SIZE + 1) * 12, FConfig.BUTTON_SIZE +2));
         fbuttonBar.setLayout(null);
         fmenuBar.setBackground(FConfig.ToolBarColor);
-        fmenuBar.setBounds(new Rectangle(1, 0, 295, 26));
+        fmenuBar.setBounds(new Rectangle(1, 0, 295, FConfig.BUTTON_SIZE +2));
 
-        fCompareBar.setBounds(new Rectangle(1, 0, 436, 26));
+        fCompareBar.setBounds(new Rectangle(1, 0, 436, FConfig.BUTTON_SIZE +2));
         fCompareBar.setVisible(false);
         fCompareBar.setBackground(FConfig.ToolBarColor);
         fTAMenu1.setBackground(FConfig.ToolBarColor);
-        fTAMenu1.setBounds(new Rectangle(288, 27, 114, 24));
-        btOpenClose.setBounds(new Rectangle(571, 0, 22, 22));
+        fTAMenu1.setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 13, FConfig.BUTTON_SIZE +2, FConfig.BUTTON_SIZE + 100, FConfig.BUTTON_SIZE +2));
+        btOpenClose.setBounds(new Rectangle(571, 0, FConfig.BUTTON_SIZE +2, FConfig.BUTTON_SIZE +2));
         btOpenClose.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -204,7 +199,7 @@ public class FMEChartA extends JPanel {
                 btOpenClose_actionPerformed(e);
             }
         });
-        btPrinter.setBounds(new Rectangle(548, 0, 23, 22));
+        btPrinter.setBounds(new Rectangle(548, 0,  FConfig.BUTTON_SIZE,  FConfig.BUTTON_SIZE));
         btPrinter.setLabel("fImageButton1");
         btPrinter.addActionListener(new ActionListener() {
 
@@ -213,8 +208,11 @@ public class FMEChartA extends JPanel {
             }
         });
         chartOptionBar1.setPreferredSize(new Dimension(1, 10));
-        chartOptionBar1.setBounds(new Rectangle(299, 1, 215, 25));
+        chartOptionBar1.setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 14 + 100, FConfig.BUTTON_SIZE +2, 2 + (FConfig.BUTTON_SIZE +2) * 3, FConfig.BUTTON_SIZE +2));
         chartOptionBar1.setBackground(FConfig.ToolBarColor);
+
+        //9 + (FConfig.BUTTON_SIZE + 1) * 13, FConfig.BUTTON_SIZE +2, 200, FConfig.BUTTON_SIZE +2)
+
         this.add(chartScreen1, null);
         this.add(panelToolbar, null);
         panelToolbar.add(fmenuBar, null);

@@ -53,8 +53,8 @@ public class FTAMenu extends TabBar {
         this.setLayout(null);
         chChartType.setFont(new Font("Dialog", 0, 10));
         chChartType.setBorder(BorderFactory.createLineBorder(Color.black));
-        chChartType.setBounds(new Rectangle(8, 3, 82, 18));
-        btSetting.setBounds(new Rectangle(91, 1, 22, 22));
+        chChartType.setBounds(new Rectangle(8, 3, 82, FConfig.BUTTON_SIZE));
+        btSetting.setBounds(new Rectangle(91, 1, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         btSetting.setLabel("fImageButton1");
         btSetting.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -108,9 +108,7 @@ public class FTAMenu extends TabBar {
 
         String cType = (String) chChartType.getSelectedItem(); // get the ITEM we select.
 
-
         //below : process the ITEM
-
         if (cType == lbArray[0][0] || cType == lbArray[0][1]) {
             //System.out.println("RSI Selected");
             lchart.setChartType(ChartType.RSI);

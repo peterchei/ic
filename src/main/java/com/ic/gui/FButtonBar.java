@@ -63,8 +63,8 @@ public class FButtonBar extends TabBar implements ScreenActionListener {
 
     private void jbInit() throws Exception {
 
-        getBtNone().setBackground(Color.gray);
-        getBtNone().setBounds(new Rectangle(9, 2, 22, 22));
+        //getBtNone().setBackground(Color.gray);
+        getBtNone().setBounds(new Rectangle(9, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtNone().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
@@ -73,8 +73,8 @@ public class FButtonBar extends TabBar implements ScreenActionListener {
         });
         getBtNone().setLabel("FImageButton1");
         this.setLayout(null);
-        getBtWatch().setBackground(Color.gray);
-        getBtWatch().setBounds(new Rectangle(32, 2, 22, 22));
+        //getBtWatch().setBackground(Color.gray);
+        getBtWatch().setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 1, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtWatch().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
@@ -82,8 +82,8 @@ public class FButtonBar extends TabBar implements ScreenActionListener {
             }
         });
         getBtWatch().setLabel("FImageButton2");
-        getBtZoomIn().setBackground(Color.gray);
-        getBtZoomIn().setBounds(new Rectangle(55, 2, 22, 22));
+        //getBtZoomIn().setBackground(Color.gray);
+        getBtZoomIn().setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 2, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtZoomIn().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
@@ -91,8 +91,8 @@ public class FButtonBar extends TabBar implements ScreenActionListener {
             }
         });
         getBtZoomIn().setLabel("FImageButton3");
-        getBtZoomOut().setBackground(Color.gray);
-        getBtZoomOut().setBounds(new Rectangle(78, 2, 22, 22));
+        //getBtZoomOut().setBackground(Color.gray);
+        getBtZoomOut().setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 3, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtZoomOut().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
@@ -100,8 +100,8 @@ public class FButtonBar extends TabBar implements ScreenActionListener {
             }
         });
         getBtZoomOut().setLabel("FImageButton4");
-        getBtMove().setBackground(Color.gray);
-        getBtMove().setBounds(new Rectangle(101, 2, 22, 22));
+        //getBtMove().setBackground(Color.gray);
+        getBtMove().setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 4, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtMove().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
@@ -110,8 +110,8 @@ public class FButtonBar extends TabBar implements ScreenActionListener {
         });
         getBtMove().setLabel("FImageButton5");
         getBtInsertLine().setLabel("FImageButton5");
-        getBtInsertLine().setBackground(Color.gray);
-        getBtInsertLine().setBounds(new Rectangle(124, 2, 22, 22));
+        //getBtInsertLine().setBackground(Color.gray);
+        getBtInsertLine().setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 5, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtInsertLine().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
@@ -119,8 +119,8 @@ public class FButtonBar extends TabBar implements ScreenActionListener {
             }
         });
         getBtInsertPLine().setLabel("FImageButton5");
-        getBtInsertPLine().setBackground(Color.gray);
-        getBtInsertPLine().setBounds(new Rectangle(147, 2, 22, 22));
+        //getBtInsertPLine().setBackground(Color.gray);
+        getBtInsertPLine().setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 6, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtInsertPLine().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
@@ -128,8 +128,8 @@ public class FButtonBar extends TabBar implements ScreenActionListener {
             }
         });
         getBtGPartition().setLabel("FImageButton5");
-        getBtGPartition().setBackground(Color.gray);
-        getBtGPartition().setBounds(new Rectangle(170, 2, 22, 22));
+        //getBtGPartition().setBackground(Color.gray);
+        getBtGPartition().setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 7, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtGPartition().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
@@ -137,8 +137,8 @@ public class FButtonBar extends TabBar implements ScreenActionListener {
             }
         });
         getBtRemoveLine().setLabel("FImageButton5");
-        getBtRemoveLine().setBackground(Color.gray);
-        getBtRemoveLine().setBounds(new Rectangle(193, 2, 22, 22));
+        //getBtRemoveLine().setBackground(Color.gray);
+        getBtRemoveLine().setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 8, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtRemoveLine().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
@@ -147,8 +147,8 @@ public class FButtonBar extends TabBar implements ScreenActionListener {
         });
 
         getBtClear().setLabel("FImageButton5");
-        getBtClear().setBackground(Color.gray);
-        getBtClear().setBounds(new Rectangle(216, 2, 22, 22));
+        //getBtClear().setBackground(Color.gray);
+        getBtClear().setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 9, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtClear().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
@@ -157,8 +157,8 @@ public class FButtonBar extends TabBar implements ScreenActionListener {
         });
 
         getBtCompare().setLabel("Compare Button");
-        getBtCompare().setBackground(Color.gray);
-        getBtCompare().setBounds(new Rectangle(239, 2, 22, 22));
+        //getBtCompare().setBackground(Color.gray);
+        getBtCompare().setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 10, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtCompare().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
@@ -168,8 +168,8 @@ public class FButtonBar extends TabBar implements ScreenActionListener {
 
 
         getBtSetting().setLabel("FImageButton5");
-        getBtSetting().setBackground(Color.gray);
-        getBtSetting().setBounds(new Rectangle(263, 2, 22, 22));
+        //getBtSetting().setBackground(Color.gray);
+        getBtSetting().setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 11, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtSetting().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {

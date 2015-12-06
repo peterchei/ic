@@ -1,6 +1,7 @@
 package com.ic.gui;
 
 import com.ic.core.ChartScreen;
+import com.ic.core.FConfig;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -23,15 +24,16 @@ public class ChartOptionBar extends TabBar {
     }
 
     private void jbInit() throws Exception {
+        int start = 9;
         btStock.setLabel("fImageButton1");
-        btStock.setBounds(new Rectangle(9, 2, 22, 22));
+        btStock.setBounds(new Rectangle(9, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         btStock.addActionListener(new ChartOptionBar_btStock_actionAdapter(this));
         this.setLayout(null);
         btTA.setLabel("fImageButton2");
-        btTA.setBounds(new Rectangle(33, 2, 22, 22));
+        btTA.setBounds(new Rectangle(9 + FConfig.BUTTON_SIZE + 1, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         btTA.addActionListener(new ChartOptionBar_btTA_actionAdapter(this));
         btVolume.setLabel("fImageButton3");
-        btVolume.setBounds(new Rectangle(57, 2, 22, 22));
+        btVolume.setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 2, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         btVolume.addActionListener(new ChartOptionBar_btVolume_actionAdapter(this));
         this.add(btStock, null);
         this.add(btTA, null);
@@ -53,8 +55,7 @@ public class ChartOptionBar extends TabBar {
     }
 
     //set the reference of the chartScrenn such that the button bar can control it.
-    public void setChartScreen(ChartScreen cs1, ChartScreen cs2,
-                               ChartScreen cs3) {
+    public void setChartScreen(ChartScreen cs1, ChartScreen cs2, ChartScreen cs3) {
         chartScreen1 = cs1;
         chartScreen2 = cs2;
         chartScreen3 = cs3;

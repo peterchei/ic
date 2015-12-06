@@ -100,14 +100,14 @@ public class FCompareBar extends TabBar implements KeyListener, ChartDataService
     private void jbInit() throws Exception {
         tfCode.setBackground(Color.white);
         tfCode.setBorder(BorderFactory.createLineBorder(Color.black));
-        tfCode.setBounds(new Rectangle(10, 3, 56, 20));
+        tfCode.setBounds(new Rectangle(10, 3, 56, FConfig.BUTTON_SIZE));
         this.setLayout(null);
         btAddChart.setFont(new Font("Dialog", 0, 10));
         btAddChart.setAlignmentX((float) 0.0);
         btAddChart.setAlignmentY((float) 0.0);
         btAddChart.setBorder(BorderFactory.createLineBorder(Color.black));
         btAddChart.setLabel("Add");
-        btAddChart.setBounds(new Rectangle(69, 3, 55, 20));
+        btAddChart.setBounds(new Rectangle(69, 3, 55, FConfig.BUTTON_SIZE));
         btAddChart.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 btAddChart_actionPerformed(e);
@@ -118,7 +118,7 @@ public class FCompareBar extends TabBar implements KeyListener, ChartDataService
         btRemove.setAlignmentY((float) 0.0);
         btRemove.setBorder(BorderFactory.createLineBorder(Color.black));
         btRemove.setLabel("Remove");
-        btRemove.setBounds(new Rectangle(125, 3, 66, 20));
+        btRemove.setBounds(new Rectangle(125, 3, 66, FConfig.BUTTON_SIZE));
         btRemove.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 btRemove_actionPerformed(e);
@@ -126,12 +126,12 @@ public class FCompareBar extends TabBar implements KeyListener, ChartDataService
         });
         chACode.setFont(new Font("Dialog", 0, 10));
         chACode.setBorder(BorderFactory.createLineBorder(Color.black));
-        chACode.setBounds(new Rectangle(192, 3, 76, 19));
+        chACode.setBounds(new Rectangle(192, 3, 76, FConfig.BUTTON_SIZE));
         btClose.setFont(new Font("Dialog", 0, 10));
         btClose.setAlignmentY((float) 0.0);
         btClose.setBorder(BorderFactory.createLineBorder(Color.black));
         btClose.setLabel("Close");
-        btClose.setBounds(new Rectangle(270, 3, 55, 20));
+        btClose.setBounds(new Rectangle(270, 3, 55, FConfig.BUTTON_SIZE));
         btClose.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 btClose_actionPerformed(e);

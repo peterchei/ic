@@ -355,7 +355,7 @@ public class FMenuBar extends TabBar implements KeyListener, ChartDataServiceLis
         tfCode.setBorder(BorderFactory.createLineBorder(Color.black));
         tfCode.setCaretPosition(0);
         tfCode.setColumns(4);
-        tfCode.setBounds(new Rectangle(9, 4, 50, 19));
+        tfCode.setBounds(new Rectangle(9, 4, 50, FConfig.BUTTON_SIZE));
         tfCode.setBackground(Color.white);
         tfCode.addKeyListener(this);   //add a key listener
         this.setLayout(null);
@@ -363,17 +363,17 @@ public class FMenuBar extends TabBar implements KeyListener, ChartDataServiceLis
         chDuration.setFont(new Font("Dialog", 0, 10));
         chDuration.setAutoscrolls(true);
         chDuration.setBorder(BorderFactory.createLineBorder(Color.black));
-        chDuration.setBounds(new Rectangle(62, 4, 54, 19));
+        chDuration.setBounds(new Rectangle(62, 4, 54, FConfig.BUTTON_SIZE));
         chChartType.setBackground(Color.white);
         chChartType.setFont(new Font("Dialog", 0, 10));
         chChartType.setAutoscrolls(true);
         chChartType.setBorder(BorderFactory.createLineBorder(Color.black));
-        chChartType.setBounds(new Rectangle(225, 4, 63, 19));
+        chChartType.setBounds(new Rectangle(225, 4, 63, FConfig.BUTTON_SIZE));
         chMA1.setFont(new Font("Dialog", 0, 10));
         chMA1.setAutoscrolls(true);
         chMA1.setBackground(Color.white);
         chMA1.setBorder(BorderFactory.createLineBorder(Color.black));
-        chMA1.setBounds(new Rectangle(120, 4, 101, 19));
+        chMA1.setBounds(new Rectangle(120, 4, 101, FConfig.BUTTON_SIZE));
         chMinute.setVisible(false);
         chMinute.setBounds(new Rectangle(415, 0, 83, 26));
         this.setFont(new Font("Dialog", 0, 10));

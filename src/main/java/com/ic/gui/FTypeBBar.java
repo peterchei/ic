@@ -1,6 +1,7 @@
 package com.ic.gui;
 
 import com.ic.core.ChartScreen;
+import com.ic.core.FConfig;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -48,8 +49,10 @@ public class FTypeBBar
 
     private void jbInit() throws Exception {
 
+        int startX = 55;
+
         btTypeA.setBackground(Color.orange);
-        btTypeA.setBounds(new Rectangle(78, 2, 22, 22));
+        btTypeA.setBounds(new Rectangle(startX, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
 
         btTypeA.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -60,7 +63,8 @@ public class FTypeBBar
         btTypeA.addActionListener(new FTypeBBar_btTypeA_actionAdapter(this));
         this.setLayout(null);
         btTypeB.setBackground(Color.orange);
-        btTypeB.setBounds(new Rectangle(55, 2, 22, 22));
+
+        btTypeB.setBounds(new Rectangle(startX + (FConfig.BUTTON_SIZE + 2) * 1, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         btTypeB.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 btTypeB_actionPerformed(e);
@@ -69,7 +73,7 @@ public class FTypeBBar
         btTypeB.setLabel("FImageButton2");
         btTypeB.addActionListener(new FTypeBBar_btTypeB_actionAdapter(this));
         btTypeC.setBackground(Color.orange);
-        btTypeC.setBounds(new Rectangle(32, 2, 22, 22));
+        btTypeC.setBounds(new Rectangle(startX + (FConfig.BUTTON_SIZE + 2) * 2, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         btTypeC.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 btTypeC_actionPerformed(e);
@@ -78,7 +82,7 @@ public class FTypeBBar
         btTypeC.setLabel("FImageButton3");
         btTypeC.addActionListener(new FTypeBBar_btTypeC_actionAdapter(this));
         btTypeD.setBackground(Color.orange);
-        btTypeD.setBounds(new Rectangle(9, 2, 22, 22));
+        btTypeD.setBounds(new Rectangle(startX + (FConfig.BUTTON_SIZE + 2) * 3, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         btTypeD.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 btTypeD_actionPerformed(e);
@@ -102,16 +106,9 @@ public class FTypeBBar
         chartScreen2.setVisible(true);
         chartScreen2.setVisible(true);
         chartScreen3.setVisible(true);
-        chartScreen1.setBounds(new Rectangle(1, panelHeight,
-                chartScreen1.getSize().width,
-                cs1Height));
-        chartScreen2.setBounds(new Rectangle(1, panelHeight + cs1Height,
-                chartScreen2.getSize().width,
-                cs2Height));
-        chartScreen3.setBounds(new Rectangle(1,
-                panelHeight + cs1Height + cs2Height,
-                chartScreen2.getSize().width,
-                cs3Height));
+        chartScreen1.setBounds(new Rectangle(1, panelHeight, chartScreen1.getSize().width, cs1Height));
+        chartScreen2.setBounds(new Rectangle(1, panelHeight + cs1Height, chartScreen2.getSize().width, cs2Height));
+        chartScreen3.setBounds(new Rectangle(1, panelHeight + cs1Height + cs2Height, chartScreen2.getSize().width, cs3Height));
         chartScreen1.updateBaseScreen();
         chartScreen1.repaint();
         chartScreen2.updateBaseScreen();
@@ -128,13 +125,8 @@ public class FTypeBBar
         chartScreen1.setVisible(true);
         chartScreen2.setVisible(false);
         chartScreen3.setVisible(true);
-        chartScreen1.setBounds(new Rectangle(1, panelHeight,
-                chartScreen1.getSize().width,
-                cs1Height + cs2Height));
-        chartScreen3.setBounds(new Rectangle(1,
-                panelHeight + cs1Height + cs2Height,
-                chartScreen3.getSize().width,
-                cs3Height));
+        chartScreen1.setBounds(new Rectangle(1, panelHeight, chartScreen1.getSize().width, cs1Height + cs2Height));
+        chartScreen3.setBounds(new Rectangle(1, panelHeight + cs1Height + cs2Height, chartScreen3.getSize().width, cs3Height));
 
         chartScreen1.updateBaseScreen();
         chartScreen1.repaint();
@@ -151,13 +143,8 @@ public class FTypeBBar
         chartScreen2.setVisible(true);
         chartScreen3.setVisible(false);
 
-        chartScreen1.setBounds(new Rectangle(1, panelHeight,
-                chartScreen1.getSize().width,
-                cs1Height + cs2Height));
-        chartScreen2.setBounds(new Rectangle(1,
-                panelHeight + cs1Height + cs2Height,
-                chartScreen3.getSize().width,
-                cs3Height));
+        chartScreen1.setBounds(new Rectangle(1, panelHeight, chartScreen1.getSize().width, cs1Height + cs2Height));
+        chartScreen2.setBounds(new Rectangle(1, panelHeight + cs1Height + cs2Height, chartScreen3.getSize().width, cs3Height));
         chartScreen1.updateBaseScreen();
         chartScreen1.repaint();
         chartScreen2.updateBaseScreen();
@@ -173,9 +160,7 @@ public class FTypeBBar
         chartScreen1.setVisible(true);
         chartScreen2.setVisible(false);
         chartScreen3.setVisible(false);
-        chartScreen1.setBounds(new Rectangle(1, panelHeight,
-                chartScreen1.getSize().width,
-                cs1Height + cs2Height + cs3Height));
+        chartScreen1.setBounds(new Rectangle(1, panelHeight, chartScreen1.getSize().width, cs1Height + cs2Height + cs3Height));
         chartScreen1.updateBaseScreen();
         chartScreen1.repaint();
     }
