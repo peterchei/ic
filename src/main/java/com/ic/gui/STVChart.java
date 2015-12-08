@@ -9,26 +9,26 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class FMEChartA extends JPanel {
+public class STVChart extends JPanel {
 
     private static final long serialVersionUID = -280148111733446555L;
     public JPanel panelToolbar = new JPanel();
     public ChartScreen chartScreen1 = new ChartScreen(20, 20, 42, 25); //the first chartscreen
     public ChartScreen chartScreen2 = new ChartScreen(20, 5, 42, 25); //the second chartscreen
     public ChartScreen chartScreen3 = new ChartScreen(15, 5, 42, 25); //the third chartscreen
-    public FButtonBar fbuttonBar = new FButtonBar();   //the button bar
-    public FMenuBar fmenuBar = new FMenuBar();//the menu bar
-    public FCompareBar fCompareBar = new FCompareBar();
-    public FTAMenu fTAMenu1 = new FTAMenu();
-    public FImageButton btOpenClose = new FImageButton();
+    public FunctionBar fbuttonBar = new FunctionBar();   //the button bar
+    public MenuBar fmenuBar = new MenuBar();//the menu bar
+    public CompareBar fCompareBar = new CompareBar();
+    public TAMenu fTAMenu1 = new TAMenu();
+    public ImageButton btOpenClose = new ImageButton();
     public FMEChartWindow chartWindow = new FMEChartWindow();  // the popup window.
     // the printer object to print the graphic.....
     public BasicPrint basicPrinter;
-    public FImageButton btPrinter = new FImageButton();
+    public ImageButton btPrinter = new ImageButton();
     public ChartOptionBar chartOptionBar1 = new ChartOptionBar();
     private int language = FConfig.constEnglish;
 
-    public FMEChartA() {
+    public STVChart() {
         try {
             jbInit();
             //set the reference of chartscreen
@@ -58,24 +58,24 @@ public class FMEChartA extends JPanel {
     public void resizeChartScreen(int x, int y, int w, int h) {
 
 
-        //System.out.print("FMEChartA resized.");
+        //System.out.print("STVChart resized.");
         if (this.btOpenClose != null) {
-            btOpenClose.setBounds(w -  FConfig.BUTTON_SIZE, 0, FConfig.BUTTON_SIZE , FConfig.BUTTON_SIZE );
+            btOpenClose.setBounds(w - FConfig.BUTTON_SIZE, 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE);
         }
 
         if (this.btPrinter != null) {
             if (btOpenClose.isVisible()) {
-                btPrinter.setBounds(w - (FConfig.BUTTON_SIZE +2)*2, 0, FConfig.BUTTON_SIZE , FConfig.BUTTON_SIZE );
+                btPrinter.setBounds(w - (FConfig.BUTTON_SIZE + 2) * 2, 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE);
             } else {
-                btPrinter.setBounds(w - (FConfig.BUTTON_SIZE +2), 0, FConfig.BUTTON_SIZE , FConfig.BUTTON_SIZE );
+                btPrinter.setBounds(w - (FConfig.BUTTON_SIZE + 2), 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE);
             }
         }
 
-        int xx = h - 52 - 50;
+        int xx = h - (FConfig.BUTTON_SIZE + 2) * 2;
         xx = xx / 4;
 
-        int x1 = (int) (xx * 1.5d + 50);
-        int x2 = (int) (xx * 1.5d);
+        int x1 = (int) (xx * 1.8);
+        int x2 = (int) (xx * 1.2);
         int x3 = xx;
 
 
@@ -119,10 +119,10 @@ public class FMEChartA extends JPanel {
 
         }
 
-        panelToolbar.setBounds(new Rectangle(0, 0, w, (FConfig.BUTTON_SIZE +2)* 2));
-        chartScreen1.setBounds(new Rectangle(1, (FConfig.BUTTON_SIZE +2)* 2, w, x1));
-        chartScreen2.setBounds(new Rectangle(1,(FConfig.BUTTON_SIZE +2)* 2 + x1, w, x2));
-        chartScreen3.setBounds(new Rectangle(1, (FConfig.BUTTON_SIZE +2)* 2 + x1 + x2, w, x3));
+        panelToolbar.setBounds(new Rectangle(0, 0, w, (FConfig.BUTTON_SIZE + 2) * 2));
+        chartScreen1.setBounds(new Rectangle(1, (FConfig.BUTTON_SIZE + 2) * 2, w, x1));
+        chartScreen2.setBounds(new Rectangle(1, (FConfig.BUTTON_SIZE + 2) * 2 + x1, w, x2));
+        chartScreen3.setBounds(new Rectangle(1, (FConfig.BUTTON_SIZE + 2) * 2 + x1 + x2, w, x3));
 
         chartScreen1.getFaction().lineRecords.removeAllElements();
         chartScreen2.getFaction().lineRecords.removeAllElements();
@@ -169,24 +169,23 @@ public class FMEChartA extends JPanel {
             x3 = 0;
         }
 
-
-        panelToolbar.setBounds(new Rectangle(0, 0, 1024, (FConfig.BUTTON_SIZE +2)* 2));
-        chartScreen1.setBounds(new Rectangle(1, (FConfig.BUTTON_SIZE +2)* 2 , 600, x1));
-        chartScreen2.setBounds(new Rectangle(1, (FConfig.BUTTON_SIZE +2)* 2 + x1, 600, x2));
-        chartScreen3.setBounds(new Rectangle(1, (FConfig.BUTTON_SIZE +2)* 2 + x1 + x2, 600, x3));
+        panelToolbar.setBounds(new Rectangle(0, 0, 1024, (FConfig.BUTTON_SIZE + 2) * 2));
+        chartScreen1.setBounds(new Rectangle(1, (FConfig.BUTTON_SIZE + 2) * 2, 600, x1));
+        chartScreen2.setBounds(new Rectangle(1, (FConfig.BUTTON_SIZE + 2) * 2 + x1, 600, x2));
+        chartScreen3.setBounds(new Rectangle(1, (FConfig.BUTTON_SIZE + 2) * 2 + x1 + x2, 600, x3));
 
         fbuttonBar.setBackground(FConfig.ToolBarColor);
-        fbuttonBar.setBounds(new Rectangle(1, FConfig.BUTTON_SIZE +2, 9 + (FConfig.BUTTON_SIZE + 1) * 12, FConfig.BUTTON_SIZE +2));
+        fbuttonBar.setBounds(new Rectangle(1, FConfig.BUTTON_SIZE + 2, 9 + (FConfig.BUTTON_SIZE + 1) * 12, FConfig.BUTTON_SIZE + 2));
         fbuttonBar.setLayout(null);
         fmenuBar.setBackground(FConfig.ToolBarColor);
-        fmenuBar.setBounds(new Rectangle(1, 0, 295, FConfig.BUTTON_SIZE +2));
+        fmenuBar.setBounds(new Rectangle(1, 0, 295, FConfig.BUTTON_SIZE + 2));
 
-        fCompareBar.setBounds(new Rectangle(1, 0, 436, FConfig.BUTTON_SIZE +2));
+        fCompareBar.setBounds(new Rectangle(1, 0, 436, FConfig.BUTTON_SIZE + 2));
         fCompareBar.setVisible(false);
         fCompareBar.setBackground(FConfig.ToolBarColor);
         fTAMenu1.setBackground(FConfig.ToolBarColor);
-        fTAMenu1.setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 13, FConfig.BUTTON_SIZE +2, FConfig.BUTTON_SIZE + 100, FConfig.BUTTON_SIZE +2));
-        btOpenClose.setBounds(new Rectangle(571, 0, FConfig.BUTTON_SIZE +2, FConfig.BUTTON_SIZE +2));
+        fTAMenu1.setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 12, FConfig.BUTTON_SIZE + 2, FConfig.BUTTON_SIZE + 100, FConfig.BUTTON_SIZE + 2));
+        btOpenClose.setBounds(new Rectangle(571, 0, FConfig.BUTTON_SIZE + 2, FConfig.BUTTON_SIZE + 2));
         btOpenClose.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -199,16 +198,23 @@ public class FMEChartA extends JPanel {
                 btOpenClose_actionPerformed(e);
             }
         });
-        btPrinter.setBounds(new Rectangle(548, 0,  FConfig.BUTTON_SIZE,  FConfig.BUTTON_SIZE));
+        btPrinter.setBounds(new Rectangle(548, 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         btPrinter.setLabel("fImageButton1");
         btPrinter.addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent e) {
-                btPrinter_actionPerformed(e);
+                try {
+                    //create printer object and connect to the printer
+                    basicPrinter = new BasicPrint();
+                    if (basicPrinter.initPrinter(chartScreen1, chartScreen2, chartScreen3) == true) {
+                        basicPrinter.startPrint();
+                    }
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
             }
         });
         chartOptionBar1.setPreferredSize(new Dimension(1, 10));
-        chartOptionBar1.setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 14 + 100, FConfig.BUTTON_SIZE +2, 2 + (FConfig.BUTTON_SIZE +2) * 3, FConfig.BUTTON_SIZE +2));
+        chartOptionBar1.setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 13 + 100, FConfig.BUTTON_SIZE + 2, 2 + (FConfig.BUTTON_SIZE + 2) * 3, FConfig.BUTTON_SIZE + 2));
         chartOptionBar1.setBackground(FConfig.ToolBarColor);
 
         //9 + (FConfig.BUTTON_SIZE + 1) * 13, FConfig.BUTTON_SIZE +2, 200, FConfig.BUTTON_SIZE +2)
@@ -240,7 +246,7 @@ public class FMEChartA extends JPanel {
     }
 
     //change the language
-    public void SetLanguage(int tlanguage) {
+    public void setLanguage(int tlanguage) {
         language = tlanguage;
         chartScreen1.setLanguage(language);
         chartScreen2.setLanguage(language);
@@ -251,15 +257,5 @@ public class FMEChartA extends JPanel {
         fbuttonBar.setLanguage(language);
     }
 
-    void btPrinter_actionPerformed(ActionEvent e) {
-        try {
-            //create printer object and connect to the printer
-            basicPrinter = new BasicPrint();
-            if (basicPrinter.initPrinter(chartScreen1, chartScreen2, chartScreen3) == true) {
-                basicPrinter.startPrint();
-            }
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
+
 }

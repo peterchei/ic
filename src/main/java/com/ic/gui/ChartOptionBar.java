@@ -3,13 +3,14 @@ package com.ic.gui;
 import com.ic.core.ChartScreen;
 import com.ic.core.FConfig;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class ChartOptionBar extends TabBar {
-    public FImageButton btStock = new FImageButton();
-    public FImageButton btTA = new FImageButton();
-    public FImageButton btVolume = new FImageButton();
+public class ChartOptionBar extends JPanel {
+    public ImageButton btStock = new ImageButton();
+    public ImageButton btTA = new ImageButton();
+    public ImageButton btVolume = new ImageButton();
     //the reference of chartscreens which this buttonbar can control it.
     private ChartScreen chartScreen1 = null;
     private ChartScreen chartScreen2 = null;

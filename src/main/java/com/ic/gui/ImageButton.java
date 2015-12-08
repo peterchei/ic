@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class FImageButton extends JButton implements MouseListener {
+public class ImageButton extends JButton implements MouseListener {
 
 
     private static final long serialVersionUID = -8202597524535553406L;
@@ -18,7 +18,7 @@ public class FImageButton extends JButton implements MouseListener {
     private boolean bState = true;
     private boolean action = false;
 
-    public FImageButton() {
+    public ImageButton() {
         this.addMouseListener(this);
     }
 
@@ -53,7 +53,7 @@ public class FImageButton extends JButton implements MouseListener {
 
         if (actionListener != null && action == true) {
             action = false;
-            actionListener.actionPerformed(new ActionEvent(this, 0, "FImageButton"));
+            actionListener.actionPerformed(new ActionEvent(this, 0, "ImageButton"));
         }
 
     }

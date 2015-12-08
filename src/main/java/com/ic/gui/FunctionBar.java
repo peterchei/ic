@@ -2,38 +2,39 @@ package com.ic.gui;
 
 import com.ic.core.*;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class FButtonBar extends TabBar implements ScreenActionListener {
+public class FunctionBar extends JPanel implements ScreenActionListener {
 
     private static final long serialVersionUID = -5791728889310760870L;
-    private FImageButton btNone = new FImageButton();
-    private FImageButton btWatch = new FImageButton();
-    private FImageButton btZoomIn = new FImageButton();
-    private FImageButton btZoomOut = new FImageButton();
-    private FImageButton btMove = new FImageButton();
-    private FImageButton btInsertLine = new FImageButton();
-    private FImageButton btInsertPLine = new FImageButton();
-    private FImageButton btGPartition = new FImageButton();
-    private FImageButton btRemoveLine = new FImageButton();
-    private FImageButton btClear = new FImageButton();
-    private FImageButton btCompare = new FImageButton();
-    private FImageButton btSetting = new FImageButton();
+    private ImageButton btNone = new ImageButton();
+    private ImageButton btWatch = new ImageButton();
+    private ImageButton btZoomIn = new ImageButton();
+    private ImageButton btZoomOut = new ImageButton();
+    private ImageButton btMove = new ImageButton();
+    private ImageButton btInsertLine = new ImageButton();
+    private ImageButton btInsertPLine = new ImageButton();
+    private ImageButton btGPartition = new ImageButton();
+    private ImageButton btRemoveLine = new ImageButton();
+    private ImageButton btClear = new ImageButton();
+    private ImageButton btCompare = new ImageButton();
+    private ImageButton btSetting = new ImageButton();
     // the reference of bars
-    private FMenuBar fMenuBar = null;
-    private FCompareBar fCompareBar = null;
+    private MenuBar fMenuBar = null;
+    private CompareBar fCompareBar = null;
     //the reference of chartscreens which this buttonbar can control it.
     private ChartScreen chartScreen1 = null;
     private ChartScreen chartScreen2 = null;
     private ChartScreen chartScreen3 = null;
     private ArrayList<ChartScreen> screens = new ArrayList<ChartScreen>();
     private int language = FConfig.constEnglish;
-    private FSettingDialog settingWindow1 = new FSettingDialog();
+    private SettingDialog settingWindow1 = new SettingDialog();
 
-    public FButtonBar() {
+    public FunctionBar() {
         try {
             jbInit();
         } catch (Exception e) {
@@ -41,7 +42,7 @@ public class FButtonBar extends TabBar implements ScreenActionListener {
         }
     }
 
-    public void setMenus(FCompareBar fc, FMenuBar fm) {
+    public void setMenus(CompareBar fc, MenuBar fm) {
         fCompareBar = fc;
         fMenuBar = fm;
     }
@@ -196,7 +197,7 @@ public class FButtonBar extends TabBar implements ScreenActionListener {
 
         for (ChartScreen screen : screens) {
             if (screen != null) {
-                screen.getAction().currentActionType = FAction.Type.NONEACTION;
+                screen.getAction().actionType = ActionCommand.Type.NONEACTION;
             }
         }
 
@@ -205,22 +206,22 @@ public class FButtonBar extends TabBar implements ScreenActionListener {
     void btWatch_actionPerformed(ActionEvent e) {
         for (ChartScreen screen : screens) {
             if (screen != null) {
-                screen.getAction().currentActionType = FAction.Type.WATCH;
+                screen.getAction().actionType = ActionCommand.Type.WATCH;
             }
         }
     }
 
     void btZoomIn_actionPerformed(ActionEvent e) {
         if (chartScreen1 != null) {
-            chartScreen1.getAction().currentActionType = FAction.Type.ZOOMIN;
+            chartScreen1.getAction().actionType = ActionCommand.Type.ZOOMIN;
         }
 
         if (chartScreen2 != null) {
-            chartScreen2.getAction().currentActionType = FAction.Type.NONEACTION;
+            chartScreen2.getAction().actionType = ActionCommand.Type.NONEACTION;
         }
 
         if (chartScreen3 != null) {
-            chartScreen3.getAction().currentActionType = FAction.Type.NONEACTION;
+            chartScreen3.getAction().actionType = ActionCommand.Type.NONEACTION;
         }
     }
 
@@ -241,7 +242,7 @@ public class FButtonBar extends TabBar implements ScreenActionListener {
 
         for (ChartScreen screen : screens) {
             if (screen != null) {
-                screen.getAction().currentActionType = FAction.Type.MOVECHART;
+                screen.getAction().actionType = ActionCommand.Type.MOVECHART;
             }
         }
 
@@ -251,7 +252,7 @@ public class FButtonBar extends TabBar implements ScreenActionListener {
 
         for (ChartScreen screen : screens) {
             if (screen != null) {
-                screen.getAction().currentActionType = FAction.Type.INSERTLINE;
+                screen.getAction().actionType = ActionCommand.Type.INSERTLINE;
             }
         }
 
@@ -261,7 +262,7 @@ public class FButtonBar extends TabBar implements ScreenActionListener {
 
         for (ChartScreen screen : screens) {
             if (screen != null) {
-                screen.getAction().currentActionType = FAction.Type.INSERTPARALLELLINE;
+                screen.getAction().actionType = ActionCommand.Type.INSERTPARALLELLINE;
             }
         }
 
@@ -271,7 +272,7 @@ public class FButtonBar extends TabBar implements ScreenActionListener {
 
         for (ChartScreen screen : screens) {
             if (screen != null) {
-                screen.getAction().currentActionType = FAction.Type.GOLDENPARTITION;
+                screen.getAction().actionType = ActionCommand.Type.GOLDENPARTITION;
             }
         }
 
@@ -324,7 +325,7 @@ public class FButtonBar extends TabBar implements ScreenActionListener {
         settingWindow1.show();
     }
 
-    public void OnZoomCompleted(ChartScreen actionChartScreen, int startIndex, int endIndex) {
+    public void OnZoomCompleted(Object actionChartScreen, int startIndex, int endIndex) {
 
         for (ChartScreen screen : screens) {
             if (screen != null) {
@@ -349,51 +350,51 @@ public class FButtonBar extends TabBar implements ScreenActionListener {
 
     }
 
-    public FImageButton getBtNone() {
+    public ImageButton getBtNone() {
         return btNone;
     }
 
-    public FImageButton getBtWatch() {
+    public ImageButton getBtWatch() {
         return btWatch;
     }
 
-    public FImageButton getBtZoomIn() {
+    public ImageButton getBtZoomIn() {
         return btZoomIn;
     }
 
-    public FImageButton getBtZoomOut() {
+    public ImageButton getBtZoomOut() {
         return btZoomOut;
     }
 
-    public FImageButton getBtMove() {
+    public ImageButton getBtMove() {
         return btMove;
     }
 
-    public FImageButton getBtInsertLine() {
+    public ImageButton getBtInsertLine() {
         return btInsertLine;
     }
 
-    public FImageButton getBtInsertPLine() {
+    public ImageButton getBtInsertPLine() {
         return btInsertPLine;
     }
 
-    public FImageButton getBtGPartition() {
+    public ImageButton getBtGPartition() {
         return btGPartition;
     }
 
-    public FImageButton getBtRemoveLine() {
+    public ImageButton getBtRemoveLine() {
         return btRemoveLine;
     }
 
-    public FImageButton getBtClear() {
+    public ImageButton getBtClear() {
         return btClear;
     }
 
-    public FImageButton getBtCompare() {
+    public ImageButton getBtCompare() {
         return btCompare;
     }
 
-    public FImageButton getBtSetting() {
+    public ImageButton getBtSetting() {
         return btSetting;
     }
 }

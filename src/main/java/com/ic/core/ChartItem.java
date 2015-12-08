@@ -9,7 +9,7 @@ public class ChartItem {
 
 
     //the key of the chart, it must be an unique ID in the screen.
-    public String idKey = "";
+    private String key = "";
     //the Y Axis
     private AxisType axisBar = AxisType.NONE;
     //the UI type of chart
@@ -27,7 +27,7 @@ public class ChartItem {
 
     public ChartItem(ChartData newChartData, String key) {
         setChartData(newChartData);
-        idKey = key;
+        this.setKey(key);
     }
 
     //public double upperBound=0.0f;
@@ -179,5 +179,11 @@ public class ChartItem {
 
     public void setChartBound(FBound chartBound) {
         this.chartBound = chartBound;
+    }
+
+    public String getKey() { return key; }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 }

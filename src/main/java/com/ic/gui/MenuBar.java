@@ -3,8 +3,8 @@ package com.ic.gui;
 import com.ic.core.*;
 import com.ic.data.ChartData;
 import com.ic.data.ChartDataService;
-import com.ic.data.ChartDataServiceListener;
-import com.ic.data.FCommand;
+import com.ic.data.ChartDataServiceCallback;
+import com.ic.data.RequestCommand;
 import com.ic.util.FormatUtil;
 
 import javax.swing.*;
@@ -12,7 +12,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
 
-public class FMenuBar extends TabBar implements KeyListener, ChartDataServiceListener {
+public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCallback {
 
     final String lbArray[][] = {
             {"None", "\u7121"} //0
@@ -47,9 +47,9 @@ public class FMenuBar extends TabBar implements KeyListener, ChartDataServiceLis
     private ChartScreen chartScreen1 = null;
     private ChartScreen chartScreen2 = null;
     private ChartScreen chartScreen3 = null;
-    private FTAMenu taMenu = null;
+    private TAMenu taMenu = null;
 
-    public FMenuBar() {
+    public MenuBar() {
         try {
             jbInit();
             updateMenu();
@@ -165,7 +165,7 @@ public class FMenuBar extends TabBar implements KeyListener, ChartDataServiceLis
             ChartItem lchart = chartScreen1.getLeftChart();
             if (chartScreen1.getLeftChart() != null) {
                 int Code = lchart.getChartData().getCode();
-                FCommand fc = new FCommand(Code, FCommand.TYPE_DOWNLOAD_LEFT_CHART, chDuration.getSelectedIndex(), "LMain1", 500, intervals, false, this);
+                RequestCommand fc = new RequestCommand(Code, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, chDuration.getSelectedIndex(), "LMain1", 500, intervals, false, this);
                 ChartDataService.getInstance().addCommand(fc);
                 chartScreen1.setScreenState(ChartScreen.LOADING);
                 chartScreen2.setScreenState(ChartScreen.LOADING);
@@ -180,7 +180,7 @@ public class FMenuBar extends TabBar implements KeyListener, ChartDataServiceLis
             ChartItem lchart = chartScreen1.getLeftChart();
             if (chartScreen1.getLeftChart() != null) {
                 int Code = lchart.getChartData().getCode();
-                FCommand fc = new FCommand(Code, FCommand.TYPE_DOWNLOAD_LEFT_CHART, chDuration.getSelectedIndex(), "LMain1", 500, intervals, false, this);
+                RequestCommand fc = new RequestCommand(Code, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, chDuration.getSelectedIndex(), "LMain1", 500, intervals, false, this);
                 ChartDataService.getInstance().addCommand(fc);
                 chartScreen1.setScreenState(ChartScreen.LOADING);
                 chartScreen2.setScreenState(ChartScreen.LOADING);
@@ -195,7 +195,7 @@ public class FMenuBar extends TabBar implements KeyListener, ChartDataServiceLis
             ChartItem lchart = chartScreen1.getLeftChart();
             if (chartScreen1.getLeftChart() != null) {
                 int Code = lchart.getChartData().getCode();
-                FCommand fc = new FCommand(Code, FCommand.TYPE_DOWNLOAD_LEFT_CHART, chDuration.getSelectedIndex(), "LMain1", 500, intervals, false, this);
+                RequestCommand fc = new RequestCommand(Code, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, chDuration.getSelectedIndex(), "LMain1", 500, intervals, false, this);
                 ChartDataService.getInstance().addCommand(fc);
                 chartScreen1.setScreenState(ChartScreen.LOADING);
                 chartScreen2.setScreenState(ChartScreen.LOADING);
@@ -211,7 +211,7 @@ public class FMenuBar extends TabBar implements KeyListener, ChartDataServiceLis
             if (chartScreen1.getLeftChart() != null) {
                 int Code = lchart.getChartData().getCode();
                 this.chChartType.setSelectedIndex(0);
-                FCommand fc = new FCommand(Code, FCommand.TYPE_DOWNLOAD_LEFT_CHART, chDuration.getSelectedIndex(), "LMain1", 500, intervals, false, this);
+                RequestCommand fc = new RequestCommand(Code, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, chDuration.getSelectedIndex(), "LMain1", 500, intervals, false, this);
                 ChartDataService.getInstance().addCommand(fc);
                 chartScreen1.setScreenState(ChartScreen.LOADING);
                 chartScreen2.setScreenState(ChartScreen.LOADING);
@@ -229,7 +229,7 @@ public class FMenuBar extends TabBar implements KeyListener, ChartDataServiceLis
 
         ChartItem lchart = chartScreen1.getLeftChart();
         if (chartScreen1.getLeftChart() != null) {
-            FCommand fc = new FCommand(lchart.getChartData().getCode(), FCommand.TYPE_DOWNLOAD_LEFT_CHART, chDuration.getSelectedIndex(), "LMain1", 500, intervals, false, this);
+            RequestCommand fc = new RequestCommand(lchart.getChartData().getCode(), RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, chDuration.getSelectedIndex(), "LMain1", 500, intervals, false, this);
             ChartDataService.getInstance().addCommand(fc);
             chartScreen1.setScreenState(ChartScreen.LOADING);
             chartScreen2.setScreenState(ChartScreen.LOADING);
@@ -420,7 +420,7 @@ public class FMenuBar extends TabBar implements KeyListener, ChartDataServiceLis
         chartScreen2.setScreenState(ChartScreen.LOADING);
         chartScreen3.setScreenState(ChartScreen.LOADING);
 
-        FCommand fc = new FCommand(Code, FCommand.TYPE_DOWNLOAD_LEFT_CHART, chDuration.getSelectedIndex(), "LMain1", 500, intervals, false, this);
+        RequestCommand fc = new RequestCommand(Code, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, chDuration.getSelectedIndex(), "LMain1", 500, intervals, false, this);
         ChartDataService.getInstance().addCommand(fc);
     }
 
@@ -432,7 +432,7 @@ public class FMenuBar extends TabBar implements KeyListener, ChartDataServiceLis
         this.chMinute.setEnabled(b);
     }
 
-    public void OnReceivedError(FCommand fc) {
+    public void OnReceivedError(RequestCommand fc) {
         chartScreen1.setScreenState(ChartScreen.STARTED);
         chartScreen2.setScreenState(ChartScreen.STARTED);
         chartScreen3.setScreenState(ChartScreen.STARTED);
@@ -442,12 +442,12 @@ public class FMenuBar extends TabBar implements KeyListener, ChartDataServiceLis
         this.setEnable(true);
     }
 
-    public void setTAMenu(FTAMenu ftam) {
+    public void setTAMenu(TAMenu ftam) {
         taMenu = ftam;
     }
 
-    // public void OnReceivedChartData(FCommand fc, ChartData chartData) {
-    public void OnReceivedChartData(FCommand fc, Object result) {
+    // public void OnReceivedChartData(RequestCommand fc, ChartData chartData) {
+    public void OnReceivedChartData(RequestCommand fc, Object result) {
 
         ChartData chartData = (ChartData) result;
         ChartItem cl = chartScreen1.getLeftChart();

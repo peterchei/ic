@@ -6,8 +6,8 @@ public class FConfig {
     public static final int constEnglish = 0;
     public static final int constChinese = 1;
 
-    public static final int BUTTON_SIZE = 30;
-    //the Color....
+    public static final int BUTTON_SIZE = 40;
+
     public static final Color ToolBarColor = new Color(0, 118, 215);
     public static final Color ScreenBackground = new Color(244, 244, 244);
     public static final Color ChatBackground = new Color(244, 244, 244);
@@ -29,8 +29,7 @@ public class FConfig {
     public static final Color RSIColor = new Color(20, 20, 100);
     public static final Color STCColorK = new Color(20, 20, 100);
     public static final Color STCColorD = Color.red;
-    public static final Color OBVColor = new Color(20, 20, 100);
-    ;
+    public static final Color OBVColor = new Color(20, 20, 100);   ;
 
     public static final Color MACDColor1 = Color.black;
     public static final Color MACDColor2 = new Color(20, 255, 20);

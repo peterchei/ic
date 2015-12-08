@@ -12,7 +12,7 @@ public class FMEChartWindow extends JFrame implements WindowListener {
      */
     private static final long serialVersionUID = -1383843787553240394L;
     BorderLayout borderLayout1 = new BorderLayout();
-    private FMEChartA chartPanel = null;
+    private STVChart chartPanel = null;
     private Container originalContainer = null;
 
     public FMEChartWindow() {
@@ -24,7 +24,7 @@ public class FMEChartWindow extends JFrame implements WindowListener {
         }
     }
 
-    public void setChartPanel(FMEChartA pnChart) {
+    public void setChartPanel(STVChart pnChart) {
         chartPanel = pnChart;
         originalContainer = pnChart.getParent();
         this.getContentPane().add(pnChart, borderLayout1.CENTER);

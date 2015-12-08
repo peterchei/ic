@@ -3,8 +3,8 @@ package com.ic.app;
 import com.ic.core.ChartScreen;
 import com.ic.core.FConfig;
 import com.ic.data.ChartDataService;
-import com.ic.data.FCommand;
-import com.ic.gui.FMEChartA;
+import com.ic.data.RequestCommand;
+import com.ic.gui.STVChart;
 import javafx.application.Application;
 import javafx.embed.swing.SwingNode;
 import javafx.scene.Scene;
@@ -12,7 +12,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class Main extends Application {
 
@@ -23,17 +22,22 @@ public class Main extends Application {
 //      primaryStage.setTitle("IC");
 //      primaryStage.setScene(new Scene(root, 300, 275));
 //
-//      FMEChartA panel = new FMEChartA();
+//      STVChart panel = new STVChart();
 //      boolean result = root.getChildren().add(panel);
 //      primaryStage.show();
 //  }
 
+    private Pane pane;
+
+    public static void main(String[] args) {
+        launch(args);
+    }
 
     @Override
     public void start(Stage stage) {
         final SwingNode swingNode = new SwingNode();
         createAndSetSwingContent(swingNode);
-        Pane pane = new Pane();
+        pane = new Pane();
         pane.getChildren().add(swingNode); // Adding swing node
         stage.setScene(new Scene(pane, 1000, 500));
         stage.show();
@@ -47,7 +51,7 @@ public class Main extends Application {
                 JPanel panel = new JPanel();
 
 
-                FMEChartA fMEChartA1 = new FMEChartA();
+                STVChart fMEChartA1 = new STVChart();
                 // load image from URL
                 fMEChartA1.fbuttonBar.getBtNone().setButtonImage(new ImageIcon(getClass().getResource("/cursor.png")).getImage());
                 fMEChartA1.fbuttonBar.getBtWatch().setButtonImage(new ImageIcon(getClass().getResource("/watch.png")).getImage());
@@ -73,30 +77,29 @@ public class Main extends Application {
                 fMEChartA1.chartScreen2.initScreen();
                 fMEChartA1.chartScreen3.initScreen();
 
-              //  fMEChartA1.setBackground(Color.blue);
+                //  fMEChartA1.setBackground(Color.blue);
                 ChartDataService.getInstance().enable();
                 //panel.setBackground(Color.yellow);
 
                 // add a chart data
-                FCommand fc = new FCommand(0001, FCommand.TYPE_DOWNLOAD_LEFT_CHART, fMEChartA1.fmenuBar.chDuration.getSelectedIndex(), "LMain1", 500, 1, false, fMEChartA1.fmenuBar);
+                RequestCommand fc = new RequestCommand(0001, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, fMEChartA1.fmenuBar.chDuration.getSelectedIndex(), "LMain1", 500, 1, false, fMEChartA1.fmenuBar);
                 ChartDataService.getInstance().addCommand(fc);
                 fMEChartA1.chartScreen1.setScreenState(ChartScreen.LOADING);
                 fMEChartA1.chartScreen2.setScreenState(ChartScreen.LOADING);
                 fMEChartA1.chartScreen3.setScreenState(ChartScreen.LOADING);
 
                 // change the language by calling set language function
-                fMEChartA1.SetLanguage(FConfig.constEnglish);
+                fMEChartA1.setLanguage(FConfig.constEnglish);
 
                 fMEChartA1.setSize(2000, 1000);
 
+                swingNode.setContent(fMEChartA1);
 
                 swingNode.setVisible(true);
-                swingNode.setContent(fMEChartA1);
+
+                swingNode.isResizable();
+                //pane.addEventHandler();
             }
         });
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }
