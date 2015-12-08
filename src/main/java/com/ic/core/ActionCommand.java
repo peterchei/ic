@@ -8,22 +8,18 @@ import java.util.Vector;
 // record the actions of insert lines, delete lines and so on.....
 public class ActionCommand {
 
-    public Cursor watchCursor;
-
-    ;
-    public Point pressMpoint = new Point();  //the point where the mouse click enter
+    public ActionCommand() {
+    }
+    public Point pressMpoint = new Point();    //the point where the mouse click enter
     public Point currentMpoint = new Point();  //the point of current mouse
     public Point releaseMpoint = new Point();  //the point where the mouse click release
     public boolean actionProcessing = false;
-    //Command record
+
     public Vector zoomRecords = new Vector();
     public Vector lineRecords = new Vector();
     public FLine goldenPartitionLine = null;
-    //public int currentActionType = INSERTLINE;
-    public Type currentActionType = Type.ZOOMIN;
-    public ActionCommand() {
-        //watchCursor = new Cursor(Cursor.CUSTOM_CURSOR);
-    }
+    public Type actionType = Type.ZOOMIN;
+
 
     public enum Type {
         NONEACTION,

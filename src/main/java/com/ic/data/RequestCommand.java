@@ -39,9 +39,9 @@ public class RequestCommand {
     private int numberOfPoint = 100;                    // Number of point to download
     private int intradayInterval = 1;                  // for intraday only
     private boolean isFillEmptyPoints = false;
-    private ChartDataServiceListener reference;              // the reference to the object that create this command.
+    private ChartDataServiceCallback reference;              // the reference to the object that create this command.
 
-    public RequestCommand(int sCode, int atype, int type, String key, int num, int intervals, boolean fillEmptyPoints, ChartDataServiceListener re) {
+    public RequestCommand(int sCode, int atype, int type, String key, int num, int intervals, boolean fillEmptyPoints, ChartDataServiceCallback re) {
         code = sCode;
         actionType = atype;
         dType = type;
@@ -52,7 +52,7 @@ public class RequestCommand {
         isFillEmptyPoints = fillEmptyPoints;
     }
 
-    public RequestCommand(int sCode, int type, ChartDataServiceListener re) {
+    public RequestCommand(int sCode, int type, ChartDataServiceCallback re) {
         code = sCode;
         dType = type;
         reference = re;
@@ -65,13 +65,13 @@ public class RequestCommand {
 
         newChartData.setCode(Code);
 
-        FPoint oldfpoint = new FPoint();
+        SPoint oldfpoint = new SPoint();
         newChartData.dataType = ChartData.WEEKLY;
         newChartData.setEName("ABC COMPANY");
         newChartData.setCName("Chinese Name");
 
         for (int i = 0; i < NumberOfPoints; i++) {
-            FPoint fpoint = new FPoint();
+            SPoint fpoint = new SPoint();
 
             fpoint.setCurrent((float) (oldfpoint.getCurrent() + (Math.random() - 0.5f) * 3));
             fpoint.setClose((float) (fpoint.getCurrent() + (Math.random() - 0.5f) * 3));
@@ -109,11 +109,11 @@ public class RequestCommand {
         return intradayInterval;
     }
 
-    public ChartDataServiceListener getListener() {
+    public ChartDataServiceCallback getListener() {
         return reference;
     }
 
-    public void setListener(ChartDataServiceListener ref) {
+    public void setListener(ChartDataServiceCallback ref) {
         reference = ref;
     }
 
@@ -236,7 +236,7 @@ public class RequestCommand {
                 String tempClose;
                 String tempVol;
 
-                FPoint fpoint = new FPoint();
+                SPoint fpoint = new SPoint();
                 RawData = DS.readLine();   //retrieve a point line
                 StringTokenizer tokens = new StringTokenizer(RawData);
                 tempDateTime = tokens.nextToken(";");
@@ -273,11 +273,11 @@ public class RequestCommand {
             int tempH, tempM;
             int i = rawPoints.size() - 1;
             while (i >= 0) {
-                FPoint fpoint = (FPoint) rawPoints.elementAt(i);
+                SPoint fpoint = (SPoint) rawPoints.elementAt(i);
                 int timeStamp = fpoint.getHour() * 60 + fpoint.getMinute();
                 int currentTimeStamp = currentHour * 60 + currentMinute;
                 if (timeStamp < currentTimeStamp) {
-                    FPoint pp = (FPoint) rawPoints.elementAt(i);
+                    SPoint pp = (SPoint) rawPoints.elementAt(i);
                     if (!fc.isFillEmptyPoints() || newChartData.getData().size() < NumberOfPoints) {
                         newChartData.getData().addElement(rawPoints.elementAt(i));
                     }
@@ -292,7 +292,7 @@ public class RequestCommand {
                     currentMinute = tempM;
                     i--;
                 } else if (timeStamp > currentTimeStamp) {
-                    FPoint newPoint = new FPoint();
+                    SPoint newPoint = new SPoint();
                     newPoint.setValid(false);
                     newPoint.setHour(currentHour);
                     newPoint.setMinute(currentMinute);
@@ -315,7 +315,7 @@ public class RequestCommand {
                 if (NumberOfPoints > newChartData.getData().size()) {
                     int addcount = NumberOfPoints - newChartData.getData().size();
                     for (int j = 0; j < addcount; j++) {
-                        FPoint fpoint = new FPoint();
+                        SPoint fpoint = new SPoint();
                         fpoint.setValid(false);
                         newChartData.getData().addElement(fpoint);
                     }
@@ -329,8 +329,8 @@ public class RequestCommand {
             }
 
             for (int k = 1; k < newChartData.getData().size(); k++) {
-                FPoint fpoint1 = (FPoint) newChartData.getData().elementAt(k - 1);
-                FPoint fpoint2 = (FPoint) newChartData.getData().elementAt(k);
+                SPoint fpoint1 = (SPoint) newChartData.getData().elementAt(k - 1);
+                SPoint fpoint2 = (SPoint) newChartData.getData().elementAt(k);
                 if (!fpoint2.isValid() && fpoint1.isValid()) {
                     fpoint2.setClose(fpoint1.getClose());
                     fpoint2.setMaximum(fpoint2.getClose());
@@ -343,8 +343,8 @@ public class RequestCommand {
             }
 
             for (int k = newChartData.getData().size() - 2; k >= 0; k--) {
-                FPoint fpoint1 = (FPoint) newChartData.getData().elementAt(k + 1);
-                FPoint fpoint2 = (FPoint) newChartData.getData().elementAt(k);
+                SPoint fpoint1 = (SPoint) newChartData.getData().elementAt(k + 1);
+                SPoint fpoint2 = (SPoint) newChartData.getData().elementAt(k);
                 if (!fpoint2.isValid() && fpoint1.isValid()) {
                     fpoint2.setClose(fpoint1.getClose());
                     fpoint2.setMaximum(fpoint2.getClose());
@@ -359,7 +359,7 @@ public class RequestCommand {
             }
 
             for (int k = 0; k < newChartData.getData().size(); k++) {
-                FPoint fpoint = (FPoint) newChartData.getData().elementAt(k);
+                SPoint fpoint = (SPoint) newChartData.getData().elementAt(k);
             }
 
         } catch (Exception exception) {
@@ -410,7 +410,7 @@ public class RequestCommand {
                 String tempClose;
                 String tempVol;
 
-                FPoint fpoint = new FPoint();
+                SPoint fpoint = new SPoint();
                 RawData = DS.readLine();   //retrieve a point line
                 StringTokenizer tokens = new StringTokenizer(RawData);
                 tempDate = tokens.nextToken(";");
@@ -443,7 +443,7 @@ public class RequestCommand {
             if (fc.isFillEmptyPoints()) {
                 if (NumberOfPoints > m_NumberOfPoints) {
                     for (int j = 0; j < NumberOfPoints - m_NumberOfPoints; j++) {
-                        FPoint fpoint = new FPoint();
+                        SPoint fpoint = new SPoint();
                         fpoint.setValid(false);
                         rawPoints.addElement(fpoint);
                     }
@@ -502,7 +502,7 @@ public class RequestCommand {
                 String tempClose;
                 String tempVol;
 
-                FPoint fpoint = new FPoint();
+                SPoint fpoint = new SPoint();
                 RawData = DS.readLine();   //retrieve a point line
 
                 StringTokenizer tokens = new StringTokenizer(RawData);
@@ -533,7 +533,7 @@ public class RequestCommand {
             if (fc.isFillEmptyPoints()) {
                 if (NumberOfPoints > m_NumberOfPoints) {
                     for (int j = 0; j < NumberOfPoints - m_NumberOfPoints; j++) {
-                        FPoint fpoint = new FPoint();
+                        SPoint fpoint = new SPoint();
                         fpoint.setValid(false);
                         rawPoints.addElement(fpoint);
                     }
@@ -592,7 +592,7 @@ public class RequestCommand {
                 String tempClose;
                 String tempVol;
 
-                FPoint fpoint = new FPoint();
+                SPoint fpoint = new SPoint();
                 RawData = DS.readLine();   //retrieve a point line
                 StringTokenizer tokens = new StringTokenizer(RawData);
                 tempfirstDate = tokens.nextToken(";");
@@ -623,7 +623,7 @@ public class RequestCommand {
             if (fc.isFillEmptyPoints()) {
                 if (NumberOfPoints > m_NumberOfPoints) {
                     for (int j = 0; j < NumberOfPoints - m_NumberOfPoints; j++) {
-                        FPoint fpoint = new FPoint();
+                        SPoint fpoint = new SPoint();
                         fpoint.setValid(false);
                         rawPoints.addElement(fpoint);
                     }
@@ -729,7 +729,7 @@ public class RequestCommand {
                 String tempClose;
                 String tempVol;
 
-                FPoint fpoint = new FPoint();
+                SPoint fpoint = new SPoint();
                 RawData = line;//DS.readLine();   //retrieve a point line
                 // System.out.println(line);
                 StringTokenizer tokens = new StringTokenizer(RawData);
@@ -763,7 +763,7 @@ public class RequestCommand {
             if (isFillEmptyPoints()) {
                 if (NumberOfPoints > m_NumberOfPoints) {
                     for (int j = 0; j < NumberOfPoints - m_NumberOfPoints; j++) {
-                        FPoint fpoint = new FPoint();
+                        SPoint fpoint = new SPoint();
                         fpoint.setValid(false);
                         rawPoints.addElement(fpoint);
                     }

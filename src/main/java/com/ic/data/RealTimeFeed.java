@@ -14,8 +14,8 @@ import java.util.logging.Logger;
 public class RealTimeFeed implements Runnable {
 
     private static RealTimeFeed rtf = new RealTimeFeed();
-    private ArrayList<FCommand> realTimeQuotesCommand = null;
-    private ArrayList<FCommand> currentCommands = null;
+    private ArrayList<RequestCommand> realTimeQuotesCommand = null;
+    private ArrayList<RequestCommand> currentCommands = null;
 
     private RealTimeFeed() {
         new Thread(this).start();
@@ -29,7 +29,7 @@ public class RealTimeFeed implements Runnable {
         currentCommands = null;
     }
 
-    public void startFeed(ArrayList<FCommand> commands) {
+    public void startFeed(ArrayList<RequestCommand> commands) {
         realTimeQuotesCommand = commands;
     }
 
@@ -38,7 +38,7 @@ public class RealTimeFeed implements Runnable {
         while (true) {
 
             if (currentCommands != null && currentCommands.size() > 0) {
-                for (FCommand fc : currentCommands) {
+                for (RequestCommand fc : currentCommands) {
                     fc.execute();
                 }
             }

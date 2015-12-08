@@ -3,8 +3,8 @@ package com.ic.gui;
 import com.ic.core.*;
 import com.ic.data.ChartData;
 import com.ic.data.ChartDataService;
-import com.ic.data.ChartDataServiceListener;
-import com.ic.data.FCommand;
+import com.ic.data.ChartDataServiceCallback;
+import com.ic.data.RequestCommand;
 import com.ic.util.FormatUtil;
 
 import javax.swing.*;
@@ -15,7 +15,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Vector;
 
-public class CompareBar extends JPanel implements KeyListener, ChartDataServiceListener {
+public class CompareBar extends JPanel implements KeyListener, ChartDataServiceCallback {
     /**
      *
      */
@@ -239,7 +239,7 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceL
         if (Code != chartScreen1.getLeftChart().getChartData().getCode()) {
             int intervals = chartScreen1.getLeftChart().getChartData().getIntradayInterval();
             int NumberOfPoints = chartScreen1.getLeftChart().getChartData().getData().size();
-            FCommand fc = new FCommand(Code, FCommand.TYPE_DOWNLOAD_LEFT_CHART, fMenuBar.chDuration.getSelectedIndex(), String.valueOf(Code), NumberOfPoints, intervals, true, this);
+            RequestCommand fc = new RequestCommand(Code, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, fMenuBar.chDuration.getSelectedIndex(), String.valueOf(Code), NumberOfPoints, intervals, true, this);
             ChartDataService.getInstance().addCommand(fc);
             chartScreen1.setScreenState(ChartScreen.LOADING);
         }
@@ -247,12 +247,12 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceL
 
     }
 
-    public void OnReceivedError(FCommand fc) {
+    public void OnReceivedError(RequestCommand fc) {
         System.out.println("Error");
         chartScreen1.setScreenState(ChartScreen.STARTED);
     }
 
-    public void OnReceivedChartData(FCommand fc, Object result) {
+    public void OnReceivedChartData(RequestCommand fc, Object result) {
 
         ChartData chartData = (ChartData) result;
         if (chartScreen1.getChart(String.valueOf(fc.getCode())) != null) {

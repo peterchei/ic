@@ -8,8 +8,8 @@ public class ChartDataService extends Thread {
     private STATE engineState = STATE.STOPPED;
 
     ;
-    private FCommand fCommand = null;
-    private java.util.LinkedList<FCommand> queue = new java.util.LinkedList<FCommand>();
+    private RequestCommand fCommand = null;
+    private java.util.LinkedList<RequestCommand> queue = new java.util.LinkedList<RequestCommand>();
     private ChartDataService() {
     }
 
@@ -38,8 +38,8 @@ public class ChartDataService extends Thread {
         while (true) {
             try {
                 if (fCommand != null) {
-                    //process the FCommand the fire result to the ChartDataService Listener
-                    FCommand currentCommand = fCommand;
+                    //process the RequestCommand the fire result to the ChartDataService Listener
+                    RequestCommand currentCommand = fCommand;
                     ChartData cdata = null;
                     fCommand = null;
                     if (isNewCommand) {
@@ -55,7 +55,7 @@ public class ChartDataService extends Thread {
                             wait(100);
                         }
                         if (queue.size() > 0) {
-                            FCommand realQuoteRequest = queue.pollFirst();
+                            RequestCommand realQuoteRequest = queue.pollFirst();
                             realQuoteRequest.execute();
                         }
                         if (isNewCommand) {
@@ -76,7 +76,7 @@ public class ChartDataService extends Thread {
         return (engineState == STATE.IDLE);
     }
 
-    public void addCommand(FCommand fC) {
+    public void addCommand(RequestCommand fC) {
 
         if (fC.getChartType() != fC.READQUOTE) {
             synchronized (this) {

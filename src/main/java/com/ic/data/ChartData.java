@@ -1,6 +1,6 @@
 package com.ic.data;
 
-import com.ic.core.FTAConfig;
+import com.ic.core.TAConfig;
 
 import java.util.Vector;
 
@@ -18,7 +18,7 @@ public class ChartData {
     private Vector data = new Vector();
     // the TA data............
     private Vector TAdata = new Vector();
-    private FTAConfig fTAconfig = new FTAConfig();
+    private TAConfig fTAconfig = new TAConfig();
 
     //Stock information
     private int Code = 0;
@@ -37,7 +37,7 @@ public class ChartData {
             endIndex = getData().size() - 1;
         }
         for (int i = startIndex; i <= endIndex; i++) {
-            FPoint fpoint = (FPoint) getData().elementAt(i);
+            SPoint fpoint = (SPoint) getData().elementAt(i);
             if (Maximum < fpoint.getVolume()) {
                 Maximum = fpoint.getVolume();
             }
@@ -55,7 +55,7 @@ public class ChartData {
             endIndex = getData().size() - 1;
         }
         for (int i = startIndex; i <= endIndex; i++) {
-            FPoint fpoint = (FPoint) getData().elementAt(i);
+            SPoint fpoint = (SPoint) getData().elementAt(i);
 
 
             if (!fpoint.isValid()) continue;
@@ -65,11 +65,11 @@ public class ChartData {
             } else if (cType == "PERCENTAGE") {
                 Mvalue = fpoint.getPercent();
             } else if (cType == "MACD") {
-                FTAPoint fTApoint = (FTAPoint) getTAdata().elementAt(i);
+                TAPoint fTApoint = (TAPoint) getTAdata().elementAt(i);
                 Mvalue = Math.max(fTApoint.getMACD1(), fTApoint.getMACD2());
                 Mvalue = Math.max(Mvalue, fTApoint.getMACDdiff());
             } else if (cType == "OBV") {
-                FTAPoint fTApoint = (FTAPoint) getTAdata().elementAt(i);
+                TAPoint fTApoint = (TAPoint) getTAdata().elementAt(i);
                 Mvalue = fTApoint.getOBV();
             }
 
@@ -89,7 +89,7 @@ public class ChartData {
         }
 
         for (int i = startIndex; i <= endIndex; i++) {
-            FPoint fpoint = (FPoint) getData().elementAt(i);
+            SPoint fpoint = (SPoint) getData().elementAt(i);
             if (!fpoint.isValid()) continue;
             double Mvalue = 0f;
             if (cType == "STOCK") {
@@ -97,11 +97,11 @@ public class ChartData {
             } else if (cType == "PERCENTAGE") {
                 Mvalue = fpoint.getPercent();
             } else if (cType == "MACD") {
-                FTAPoint fTApoint = (FTAPoint) getTAdata().elementAt(i);
+                TAPoint fTApoint = (TAPoint) getTAdata().elementAt(i);
                 Mvalue = Math.min(fTApoint.getMACD1(), fTApoint.getMACD2());
                 Mvalue = Math.min(Mvalue, fTApoint.getMACDdiff());
             } else if (cType == "OBV") {
-                FTAPoint fTApoint = (FTAPoint) getTAdata().elementAt(i);
+                TAPoint fTApoint = (TAPoint) getTAdata().elementAt(i);
                 Mvalue = fTApoint.getOBV();
             }
 
@@ -114,11 +114,11 @@ public class ChartData {
 
 
     public void calculatePercentage(int refIndex) {
-        FPoint refPoint = (FPoint) getData().elementAt(refIndex);
+        SPoint refPoint = (SPoint) getData().elementAt(refIndex);
         while (!refPoint.isValid()) {
             refIndex++;
             if (refIndex < this.getData().size()) {
-                refPoint = (FPoint) getData().elementAt(refIndex);
+                refPoint = (SPoint) getData().elementAt(refIndex);
             } else {
                 break;
             }
@@ -127,8 +127,8 @@ public class ChartData {
         //System.out.println("reference Point : " + refpoint.getClose());
 
         for (int i = 0; i < getData().size(); i++) {
-            FPoint fpoint = (FPoint) getData().elementAt(i);
-            // FPoint fpoint2 = (FPoint) data.elementAt(i-1);
+            SPoint fpoint = (SPoint) getData().elementAt(i);
+            // SPoint fpoint2 = (SPoint) data.elementAt(i-1);
             try {
                 fpoint.setPercent(fpoint.getClose() / refPoint.getClose() * 100f);
 
@@ -144,9 +144,9 @@ public class ChartData {
         getTAdata().removeAllElements();
         //create TAdata
         for (int i = 0; i < this.getData().size(); i++) {
-            FTAPoint fTApoint = new FTAPoint();
+            TAPoint fTApoint = new TAPoint();
             fTApoint.isValid = false;
-            getTAdata().addElement(new FTAPoint());
+            getTAdata().addElement(new TAPoint());
         }
 
         float smoothFactor1 = 2f / (n1 + 1f);
@@ -154,16 +154,16 @@ public class ChartData {
         float smoothFactor3 = 2f / (n3 + 1f);
 
 
-        FPoint fpoint = (FPoint) getData().elementAt(0);
-        FTAPoint fTApoint = (FTAPoint) getTAdata().elementAt(0);
+        SPoint fpoint = (SPoint) getData().elementAt(0);
+        TAPoint fTApoint = (TAPoint) getTAdata().elementAt(0);
         fTApoint.setMA1(fpoint.getClose());
         fTApoint.setMA2(fpoint.getClose());
         fTApoint.setMA3(fpoint.getClose());
 
         for (int k = 1; k < getData().size(); k++) {
-            fpoint = (FPoint) getData().elementAt(k);
-            FTAPoint fTApoint1 = (FTAPoint) getTAdata().elementAt(k - 1);
-            FTAPoint fTApoint2 = (FTAPoint) getTAdata().elementAt(k);
+            fpoint = (SPoint) getData().elementAt(k);
+            TAPoint fTApoint1 = (TAPoint) getTAdata().elementAt(k - 1);
+            TAPoint fTApoint2 = (TAPoint) getTAdata().elementAt(k);
             fTApoint2.setMA1((1 - smoothFactor1) * fTApoint1.getMA1() + smoothFactor1 * fpoint.getClose());
             fTApoint2.setMA2((1 - smoothFactor2) * fTApoint1.getMA2() + smoothFactor2 * fpoint.getClose());
             fTApoint2.setMA3((1 - smoothFactor3) * fTApoint1.getMA3() + smoothFactor3 * fpoint.getClose());
@@ -176,9 +176,9 @@ public class ChartData {
         getTAdata().removeAllElements();
         //create TAdata
         for (int i = 0; i < this.getData().size(); i++) {
-            FTAPoint fTApoint = new FTAPoint();
+            TAPoint fTApoint = new TAPoint();
             fTApoint.isValid = false;
-            getTAdata().addElement(new FTAPoint());
+            getTAdata().addElement(new TAPoint());
         }
 
         if (n1 > 0) {
@@ -186,14 +186,14 @@ public class ChartData {
                 for (int k = n1 - 1; k < getData().size(); k++) {
                     float sum = 0f;
                     for (int j = 0; j < n1; j++) {
-                        FPoint fpoint = (FPoint) getData().elementAt(k - j);
+                        SPoint fpoint = (SPoint) getData().elementAt(k - j);
                         sum = sum + (fpoint.getClose() * (n1 - j));
                     }
                     int W = 0;   //p.18 of TA book
                     for (int l = 1; l <= n1; l++) {
                         W = W + l;
                     }
-                    FTAPoint fTApoint = (FTAPoint) getTAdata().elementAt(k);
+                    TAPoint fTApoint = (TAPoint) getTAdata().elementAt(k);
                     fTApoint.setMA1(sum / W);
                     fTApoint.isValid = true;
                     //  System.out.println("Point " + fTApoint.MA1);
@@ -205,14 +205,14 @@ public class ChartData {
                 for (int k = n2 - 1; k < getData().size(); k++) {
                     float sum = 0f;
                     for (int j = 0; j < n2; j++) {
-                        FPoint fpoint = (FPoint) getData().elementAt(k - j);
+                        SPoint fpoint = (SPoint) getData().elementAt(k - j);
                         sum = sum + fpoint.getClose() * (n2 - j);
                     }
                     int W = 0;   //p.18 of TA book
                     for (int l = 1; l <= n2; l++) {
                         W = W + l;
                     }
-                    FTAPoint fTApoint = (FTAPoint) getTAdata().elementAt(k);
+                    TAPoint fTApoint = (TAPoint) getTAdata().elementAt(k);
                     fTApoint.setMA2(sum / W);
                     fTApoint.isValid = true;
                     // System.out.println("Point " + fTApoint.MA1);
@@ -224,14 +224,14 @@ public class ChartData {
                 for (int k = n3 - 1; k < getData().size(); k++) {
                     float sum = 0f;
                     for (int j = 0; j < n3; j++) {
-                        FPoint fpoint = (FPoint) getData().elementAt(k - j);
+                        SPoint fpoint = (SPoint) getData().elementAt(k - j);
                         sum = sum + fpoint.getClose() * (n3 - j);
                     }
                     int W = 0;   //p.18 of TA book
                     for (int l = 1; l <= n3; l++) {
                         W = W + l;
                     }
-                    FTAPoint fTApoint = (FTAPoint) getTAdata().elementAt(k);
+                    TAPoint fTApoint = (TAPoint) getTAdata().elementAt(k);
                     fTApoint.setMA3(sum / W);
                     fTApoint.isValid = true;
                     // System.out.println("Point " + fTApoint.MA1);
@@ -244,9 +244,9 @@ public class ChartData {
         getTAdata().removeAllElements();
         //create TAdata
         for (int i = 0; i < this.getData().size(); i++) {
-            FTAPoint fTApoint = new FTAPoint();
+            TAPoint fTApoint = new TAPoint();
             fTApoint.isValid = false;
-            getTAdata().addElement(new FTAPoint());
+            getTAdata().addElement(new TAPoint());
         }
 
         if (n1 > this.getData().size() || n2 > this.getData().size() || n3 > this.getData().size()) return;
@@ -256,10 +256,10 @@ public class ChartData {
                 for (int k = n1 - 1; k < getData().size(); k++) {
                     float sum = 0f;
                     for (int j = 0; j < n1; j++) {
-                        FPoint fpoint = (FPoint) getData().elementAt(k - j);
+                        SPoint fpoint = (SPoint) getData().elementAt(k - j);
                         sum = sum + fpoint.getClose();
                     }
-                    FTAPoint fTApoint = (FTAPoint) getTAdata().elementAt(k);
+                    TAPoint fTApoint = (TAPoint) getTAdata().elementAt(k);
                     fTApoint.setMA1(sum / n1);
                     fTApoint.isValid = true;
                     // System.out.println("Point " + fTApoint.MA1);
@@ -271,10 +271,10 @@ public class ChartData {
                 for (int k = n2 - 1; k < getData().size(); k++) {
                     float sum = 0f;
                     for (int j = 0; j < n2; j++) {
-                        FPoint fpoint = (FPoint) getData().elementAt(k - j);
+                        SPoint fpoint = (SPoint) getData().elementAt(k - j);
                         sum = sum + fpoint.getClose();
                     }
-                    FTAPoint fTApoint = (FTAPoint) getTAdata().elementAt(k);
+                    TAPoint fTApoint = (TAPoint) getTAdata().elementAt(k);
                     fTApoint.setMA2(sum / n2);
                     fTApoint.isValid = true;
                 }
@@ -285,10 +285,10 @@ public class ChartData {
                 for (int k = n3 - 1; k < getData().size(); k++) {
                     float sum = 0f;
                     for (int j = 0; j < n3; j++) {
-                        FPoint fpoint = (FPoint) getData().elementAt(k - j);
+                        SPoint fpoint = (SPoint) getData().elementAt(k - j);
                         sum = sum + fpoint.getClose();
                     }
-                    FTAPoint fTApoint = (FTAPoint) getTAdata().elementAt(k);
+                    TAPoint fTApoint = (TAPoint) getTAdata().elementAt(k);
                     fTApoint.setMA3(sum / n3);
                     fTApoint.isValid = true;
                 }
@@ -301,9 +301,9 @@ public class ChartData {
         //create TAdata
 
         for (int i = 0; i < this.getData().size(); i++) {
-            FTAPoint fTApoint = new FTAPoint();
+            TAPoint fTApoint = new TAPoint();
             fTApoint.isValid = false;
-            getTAdata().addElement(new FTAPoint());
+            getTAdata().addElement(new TAPoint());
         }
 
         if (RPeriod > getData().size()) return;
@@ -313,11 +313,11 @@ public class ChartData {
             float KMin = 1000000f; //the min value in K day's
             float KMax = 0f;       //the max value in Kday's
             float KValue = 0f;
-            FPoint fpoint = (FPoint) getData().elementAt(k);
+            SPoint fpoint = (SPoint) getData().elementAt(k);
             KValue = fpoint.getClose();
-            FTAPoint fTApoint = (FTAPoint) this.getTAdata().elementAt(k);
+            TAPoint fTApoint = (TAPoint) this.getTAdata().elementAt(k);
             for (int j = 0; j < RPeriod; j++) {
-                FPoint fcpoint = (FPoint) getData().elementAt(k - j);
+                SPoint fcpoint = (SPoint) getData().elementAt(k - j);
                 float tempMin = fcpoint.getMinimum();
                 float tempMax = fcpoint.getMaximum();
                 if (tempMin < KMin) KMin = tempMin;
@@ -343,9 +343,9 @@ public class ChartData {
         //create TAdata
 
         for (int i = 0; i < this.getData().size(); i++) {
-            FTAPoint fTApoint = new FTAPoint();
+            TAPoint fTApoint = new TAPoint();
             fTApoint.isValid = false;
-            getTAdata().addElement(new FTAPoint());
+            getTAdata().addElement(new TAPoint());
         }
 
         if (KPeriod > getData().size() && DPeriod >= (getData().size() - KPeriod)) return;
@@ -355,11 +355,11 @@ public class ChartData {
             float KMin = 1000000f; //the min value in K day's
             float KMax = 0f;       //the max value in Kday's
             float KValue = 0f;
-            FPoint fpoint = (FPoint) getData().elementAt(k);
+            SPoint fpoint = (SPoint) getData().elementAt(k);
             KValue = fpoint.getClose();
-            FTAPoint fTApoint = (FTAPoint) this.getTAdata().elementAt(k);
+            TAPoint fTApoint = (TAPoint) this.getTAdata().elementAt(k);
             for (int j = 0; j < KPeriod; j++) {
-                FPoint fcpoint = (FPoint) getData().elementAt(k - j);
+                SPoint fcpoint = (SPoint) getData().elementAt(k - j);
                 float tempMin = fcpoint.getMinimum();
                 float tempMax = fcpoint.getMaximum();
                 if (tempMin < KMin) KMin = tempMin;
@@ -371,10 +371,10 @@ public class ChartData {
 
         //calculate %D line
         for (int k = KPeriod + DPeriod - 1; k < getData().size(); k++) {
-            FTAPoint fTApoint = (FTAPoint) this.getTAdata().elementAt(k);
+            TAPoint fTApoint = (TAPoint) this.getTAdata().elementAt(k);
             float Sum = 0f;
             for (int j = 0; j < DPeriod; j++) {
-                FTAPoint cfTApoint = (FTAPoint) this.getTAdata().elementAt(k - j);
+                TAPoint cfTApoint = (TAPoint) this.getTAdata().elementAt(k - j);
                 Sum = Sum + cfTApoint.getK();
             }
             Sum = Sum / DPeriod;
@@ -391,21 +391,21 @@ public class ChartData {
         //create TAdata
         for (int i=0;i<this.data.size();i++)
         {
-          FTAPoint fTApoint = new FTAPoint();
+          TAPoint fTApoint = new TAPoint();
           fTApoint.isValid = false;
-          TAdata.addElement(new FTAPoint());
+          TAdata.addElement(new TAPoint());
         }
 
         for (int k = N-1+4; k< data.size(); k++)
         {
            float MU = 0f;
            float MD = 0f;
-           FTAPoint fTApoint = (FTAPoint) this.TAdata.elementAt(k);
+           TAPoint fTApoint = (TAPoint) this.TAdata.elementAt(k);
            for (int j=0;j<N;j++)
            {
               for (int z = 0;z<4;z++)
               {
-                FPoint fpoint = (FPoint) data.elementAt(k-j-z);
+                SPoint fpoint = (SPoint) data.elementAt(k-j-z);
                 float diff = fpoint.getClose() - fpoint.Open;
                 if (diff >0)
                 {
@@ -427,9 +427,9 @@ public class ChartData {
         getTAdata().removeAllElements();
         //create TAdata
         for (int i = 0; i < this.getData().size(); i++) {
-            FTAPoint fTApoint = new FTAPoint();
+            TAPoint fTApoint = new TAPoint();
             fTApoint.isValid = false;
-            getTAdata().addElement(new FTAPoint());
+            getTAdata().addElement(new TAPoint());
         }
         if (N > getData().size()) return;
 
@@ -437,10 +437,10 @@ public class ChartData {
         for (int k = N; k < getData().size(); k++) {
             float AU = 0f;
             float AD = 0f;
-            FTAPoint fTApoint = (FTAPoint) this.getTAdata().elementAt(k);
+            TAPoint fTApoint = (TAPoint) this.getTAdata().elementAt(k);
             for (int j = 0; j < N; j++) {
-                FPoint fpoint1 = (FPoint) getData().elementAt(k - j);
-                FPoint fpoint2 = (FPoint) getData().elementAt(k - j - 1);
+                SPoint fpoint1 = (SPoint) getData().elementAt(k - j);
+                SPoint fpoint2 = (SPoint) getData().elementAt(k - j - 1);
 //          float diff = fpoint1.Close - fpoint1.Open;
                 float diff = fpoint1.getClose() - fpoint2.getClose();
                 //float diff2 = fpoint1.Close - fpoint1.Open;
@@ -468,14 +468,14 @@ public class ChartData {
         if (LEMA > this.getData().size() || SEMA > this.getData().size() || MA > this.getData().size()) return;
 
         for (int k = 0; k < getData().size(); k++) {
-            FTAPoint fTApoint = (FTAPoint) this.getTAdata().elementAt(k);
+            TAPoint fTApoint = (TAPoint) this.getTAdata().elementAt(k);
             fTApoint.setMACD1(fTApoint.getMA2() - fTApoint.getMA1());
 
             float sum = 0f;
             //calculate Moving average of MACD1 using MA period.
             if ((k - MA) >= 0)
                 for (int j = 0; j < MA; j++) {
-                    FTAPoint fTApoint2 = (FTAPoint) this.getTAdata().elementAt(k - j);
+                    TAPoint fTApoint2 = (TAPoint) this.getTAdata().elementAt(k - j);
                     sum = sum + fTApoint2.getMACD1();
                 }
             sum = sum / MA;
@@ -497,9 +497,9 @@ public class ChartData {
         for (int k = N - 1; k < getData().size(); k++) {
             // calculate SD
             float SD = 0f;
-            FTAPoint fTApoint = (FTAPoint) this.getTAdata().elementAt(k);
+            TAPoint fTApoint = (TAPoint) this.getTAdata().elementAt(k);
             for (int j = 0; j < N; j++) {
-                FPoint fpoint = (FPoint) getData().elementAt(k - j);
+                SPoint fpoint = (SPoint) getData().elementAt(k - j);
                 SD = SD + (fpoint.getClose() - fTApoint.getMA1()) * (fpoint.getClose() - fTApoint.getMA1());
             }
             SD = (float) Math.sqrt(SD / N);
@@ -514,15 +514,15 @@ public class ChartData {
         getTAdata().removeAllElements();
         //create TAdata
         for (int i = 0; i < this.getData().size(); i++) {
-            FTAPoint fTApoint = new FTAPoint();
+            TAPoint fTApoint = new TAPoint();
             fTApoint.isValid = false;
-            getTAdata().addElement(new FTAPoint());
+            getTAdata().addElement(new TAPoint());
         }
         for (int k = startIndex + 1; k <= endIndex; k++) {
-            FTAPoint fTApoint1 = (FTAPoint) this.getTAdata().elementAt(k);
-            FTAPoint fTApoint2 = (FTAPoint) this.getTAdata().elementAt(k - 1);
-            FPoint fpoint1 = (FPoint) this.getData().elementAt(k);
-            FPoint fpoint2 = (FPoint) this.getData().elementAt(k - 1);
+            TAPoint fTApoint1 = (TAPoint) this.getTAdata().elementAt(k);
+            TAPoint fTApoint2 = (TAPoint) this.getTAdata().elementAt(k - 1);
+            SPoint fpoint1 = (SPoint) this.getData().elementAt(k);
+            SPoint fpoint2 = (SPoint) this.getData().elementAt(k - 1);
 
             if (fpoint1.getClose() > fpoint2.getClose()) {
                 fTApoint1.setOBV(fTApoint2.getOBV() + (fpoint1.getVolume() / 1000));
@@ -556,11 +556,11 @@ public class ChartData {
         this.TAdata = TAdata;
     }
 
-    public FTAConfig getfTAconfig() {
+    public TAConfig getfTAconfig() {
         return fTAconfig;
     }
 
-    public void setfTAconfig(FTAConfig fTAconfig) {
+    public void setfTAconfig(TAConfig fTAconfig) {
         this.fTAconfig = fTAconfig;
     }
 
