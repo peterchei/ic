@@ -6,7 +6,7 @@ import java.awt.*;
 import java.util.Vector;
 
 // record the actions of insert lines, delete lines and so on.....
-public class FAction {
+public class ActionCommand {
 
     public Cursor watchCursor;
 
@@ -21,7 +21,7 @@ public class FAction {
     public FLine goldenPartitionLine = null;
     //public int currentActionType = INSERTLINE;
     public Type currentActionType = Type.ZOOMIN;
-    public FAction() {
+    public ActionCommand() {
         //watchCursor = new Cursor(Cursor.CUSTOM_CURSOR);
     }
 

@@ -16,7 +16,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class FCommand {
+public class RequestCommand {
 
     // Static attributes.
     public static final int DAILY = 0;
@@ -32,7 +32,7 @@ public class FCommand {
     private final String weeklyInterface = "newchart/getWeekly.php";
     private final String monthlyInterface = "newchart/getMonthly.php";
     private final String intradayInterface = "newchart/getIntra.php";
-    private int actionType = TYPE_DOWNLOAD_RIGHT_CHART; // the action of the FCommand
+    private int actionType = TYPE_DOWNLOAD_RIGHT_CHART; // the action of the RequestCommand
     private int dType = DAILY;                          // the type of the chart
     private String sKey = "RMain1";                     // the key of the chart used to id the chart.
     private int code;                                   // the code to download
@@ -41,7 +41,7 @@ public class FCommand {
     private boolean isFillEmptyPoints = false;
     private ChartDataServiceListener reference;              // the reference to the object that create this command.
 
-    public FCommand(int sCode, int atype, int type, String key, int num, int intervals, boolean fillEmptyPoints, ChartDataServiceListener re) {
+    public RequestCommand(int sCode, int atype, int type, String key, int num, int intervals, boolean fillEmptyPoints, ChartDataServiceListener re) {
         code = sCode;
         actionType = atype;
         dType = type;
@@ -52,7 +52,7 @@ public class FCommand {
         isFillEmptyPoints = fillEmptyPoints;
     }
 
-    public FCommand(int sCode, int type, ChartDataServiceListener re) {
+    public RequestCommand(int sCode, int type, ChartDataServiceListener re) {
         code = sCode;
         dType = type;
         reference = re;
@@ -139,10 +139,10 @@ public class FCommand {
 
     public void execute() {
 
-        FCommand currentCommand = this;
+        RequestCommand currentCommand = this;
         ChartData cdata = null;
         switch (getChartType()) {
-            case FCommand.DAILY:
+            case RequestCommand.DAILY:
                 //cdata = getTestData(1,100);
                 cdata = getYahooDailyData();
                 if (cdata != null) {
@@ -151,7 +151,7 @@ public class FCommand {
                     getListener().OnReceivedError(currentCommand);
                 }
                 break;
-            case FCommand.WEEKLY:
+            case RequestCommand.WEEKLY:
                 cdata = getWeeklyData(currentCommand);
                 if (cdata != null) {
                     getListener().OnReceivedChartData(currentCommand, cdata);
@@ -160,7 +160,7 @@ public class FCommand {
                     getListener().OnReceivedError(currentCommand);
                 }
                 break;
-            case FCommand.MONTHLY:
+            case RequestCommand.MONTHLY:
                 cdata = getMonthlyData(currentCommand);
                 if (cdata != null) {
                     getListener().OnReceivedChartData(currentCommand, cdata);
@@ -173,7 +173,7 @@ public class FCommand {
                     getListener().OnReceivedError(currentCommand);
                 }
                 break;
-            case FCommand.INTRADAILY:
+            case RequestCommand.INTRADAILY:
                 cdata = getIntradayData(currentCommand);
                 if (cdata != null) {
                     getListener().OnReceivedChartData(currentCommand, cdata);
@@ -181,14 +181,14 @@ public class FCommand {
                     getListener().OnReceivedError(currentCommand);
                 }
                 break;
-            case FCommand.READQUOTE:
+            case RequestCommand.READQUOTE:
                 String price = getReadTimeQuote(currentCommand.getCode());
                 getListener().OnReceivedChartData(currentCommand, price);
                 break;
         }
     }
 
-    public ChartData getIntradayData(FCommand fc) {
+    public ChartData getIntradayData(RequestCommand fc) {
 
         int Code = fc.getCode();
         int NumberOfPoints = fc.getNumberOfPoint();
@@ -370,7 +370,7 @@ public class FCommand {
         return newChartData;
     }
 
-    public ChartData getDailyData(FCommand fc) {
+    public ChartData getDailyData(RequestCommand fc) {
 
         int Code = fc.getCode();
         int NumberOfPoints = fc.getNumberOfPoint();
@@ -462,7 +462,7 @@ public class FCommand {
         return newChartData;
     }
 
-    public ChartData getWeeklyData(FCommand fc) {
+    public ChartData getWeeklyData(RequestCommand fc) {
         int Code = fc.getCode();
         int NumberOfPoints = fc.getNumberOfPoint();
 
@@ -553,7 +553,7 @@ public class FCommand {
         return newChartData;
     }
 
-    public ChartData getMonthlyData(FCommand fc) {
+    public ChartData getMonthlyData(RequestCommand fc) {
 
         int Code = fc.getCode();
         int NumberOfPoints = fc.getNumberOfPoint();
@@ -674,7 +674,7 @@ public class FCommand {
             }
             return strPrice;
         } catch (IOException ex) {
-            Logger.getLogger(FCommand.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(RequestCommand.class.getName()).log(Level.SEVERE, null, ex);
             return "N/A";
         }
 

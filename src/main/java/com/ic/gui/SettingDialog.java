@@ -15,7 +15,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-public class FSettingDialog
+public class SettingDialog
         extends Frame
         implements WindowListener {
     JLabel JLabel1 = new JLabel();
@@ -87,7 +87,7 @@ public class FSettingDialog
             "Bollinger Bands", "\u4fdd\u6b77\u52a0\u901a\u9053"} //7
     };
 
-    public FSettingDialog() {
+    public SettingDialog() {
         try {
             jbInit();
             addWindowListener(this);

@@ -1,7 +1,7 @@
 package com.ic.data;
 
 
-public class FTAPoint {
+public class TAPoint {
 
 
     public boolean isValid = false;

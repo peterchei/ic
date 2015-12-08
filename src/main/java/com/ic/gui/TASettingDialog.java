@@ -14,7 +14,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-public class FTASettingDialog extends JFrame implements WindowListener {
+public class TASettingDialog extends JFrame implements WindowListener {
 
     private static final long serialVersionUID = -9185399744031564931L;
     JLabel JLabel1 = new JLabel();
@@ -80,7 +80,7 @@ public class FTASettingDialog extends JFrame implements WindowListener {
 
     };
 
-    public FTASettingDialog() {
+    public TASettingDialog() {
         try {
             jbInit();
             addWindowListener(this);
