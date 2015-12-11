@@ -408,7 +408,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     public boolean zoom(int startIndex, int endIndex) {
         //first, determine the new resolution.....
         int numberOfpoints = endIndex - startIndex + 1;
-        float fpixelsperpoint = (float) (getXAxisWidth() - 2) / numberOfpoints ;
+        float fpixelsperpoint = (float) (getXAxisWidth() - 2) / numberOfpoints;
         resolution = (int) (fpixelsperpoint + 0.01d);
 
         startDisplayIndex = startIndex;
@@ -420,8 +420,8 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         // remove lines because of when using percentage..........
         ChartItem ccchart = getLeftChart();
         if (ccchart != null && ccchart.getChartType() == ChartType.PERCENTAGE) {
-            faction.lineRecords.removeAllElements();
-            faction.goldenPartitionLine = null;
+            faction.getLineRecords().removeAllElements();
+            faction.setGoldenPartitionLine(null);
         }
         this.repaint();
         if (screenActionListener != null) {
@@ -451,8 +451,8 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         Graphics g = getAllscreenImage().getGraphics();
         g.drawImage(getScreenImage(), 0, 0, getSize().width, getSize().height, this);
         g.setColor(Color.black);
-        for (int i = 0; i < faction.lineRecords.size(); i++) {
-            FLine fline = (FLine) faction.lineRecords.elementAt(i);
+        for (int i = 0; i < faction.getLineRecords().size(); i++) {
+            FLine fline = (FLine) faction.getLineRecords().elementAt(i);
             if (fline.isFixedLine()) {
                 g.setColor(Color.black);
                 g.drawLine(fline.getPoint1().x, fline.getPoint1().y, fline.getPoint2().x, fline.getPoint2().y);
@@ -473,27 +473,27 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         }
 
         // if we are not process GOLDENPAERTITION and we have one need to draw
-        if (faction.actionType != ActionCommand.Type.GOLDENPARTITION || faction.actionProcessing == false) {
-            if (faction.goldenPartitionLine != null) {
+        if (faction.getActionType() != ActionCommand.Type.GOLDENPARTITION || faction.isProcessing() == false) {
+            if (faction.getGoldenPartitionLine() != null) {
                 int MaxY = 0, MinY = 0;
                 int x1, x2;
-                if (faction.goldenPartitionLine.isFixedLine()) {
-                    MaxY = Math.max(faction.goldenPartitionLine.getPoint1().y, faction.goldenPartitionLine.getPoint2().y);
-                    MinY = Math.min(faction.goldenPartitionLine.getPoint1().y, faction.goldenPartitionLine.getPoint2().y);
-                    x1 = faction.goldenPartitionLine.getPoint1().x;
-                    x2 = faction.goldenPartitionLine.getPoint2().x;
+                if (faction.getGoldenPartitionLine().isFixedLine()) {
+                    MaxY = Math.max(faction.getGoldenPartitionLine().getPoint1().y, faction.getGoldenPartitionLine().getPoint2().y);
+                    MinY = Math.min(faction.getGoldenPartitionLine().getPoint1().y, faction.getGoldenPartitionLine().getPoint2().y);
+                    x1 = faction.getGoldenPartitionLine().getPoint1().x;
+                    x2 = faction.getGoldenPartitionLine().getPoint2().x;
 
                 } else {
                     //      g.setColor(Color.black);
-                    x1 = getScreenXPositionFromPoint(faction.goldenPartitionLine.getIndex1());
-                    x2 = getScreenXPositionFromPoint(faction.goldenPartitionLine.getIndex2());
+                    x1 = getScreenXPositionFromPoint(faction.getGoldenPartitionLine().getIndex1());
+                    x2 = getScreenXPositionFromPoint(faction.getGoldenPartitionLine().getIndex2());
                     int y1, y2;
                     ChartItem cchart = getLeftChart();
                     if (cchart != null) {
                         double Max = cchart.getUpperBound();
                         double Min = cchart.getLowerBound();
-                        y1 = getScreenYPosition(faction.goldenPartitionLine.getValue1(), Max, Min);
-                        y2 = getScreenYPosition(faction.goldenPartitionLine.getValue2(), Max, Min);
+                        y1 = getScreenYPosition(faction.getGoldenPartitionLine().getValue1(), Max, Min);
+                        y2 = getScreenYPosition(faction.getGoldenPartitionLine().getValue2(), Max, Min);
                         MaxY = Math.max(y1, y2);
                         MinY = Math.min(y1, y2);
                     }
@@ -563,16 +563,16 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
 /// process current action ..................................
         if (this.screenState != LOADING)
-            switch (faction.actionType) {
+            switch (faction.getActionType()) {
 ////----------------------Response to Zoom Action ------------------------------------------////////
                 case ZOOMIN:
-                    if (faction.actionProcessing == true) {
+                    if (faction.isProcessing() == true) {
                         Point opoint = new Point();
                         Point epoint = new Point();
-                        opoint.x = Math.min(faction.pressMpoint.x, faction.currentMpoint.x);
-                        opoint.y = Math.min(faction.pressMpoint.y, faction.currentMpoint.y);
-                        epoint.x = Math.max(faction.pressMpoint.x, faction.currentMpoint.x);
-                        epoint.y = Math.max(faction.pressMpoint.y, faction.currentMpoint.y);
+                        opoint.x = Math.min(faction.getStartMousePoint().x, faction.getCurrentMousePoint().x);
+                        opoint.y = Math.min(faction.getStartMousePoint().y, faction.getCurrentMousePoint().y);
+                        epoint.x = Math.max(faction.getStartMousePoint().x, faction.getCurrentMousePoint().x);
+                        epoint.y = Math.max(faction.getStartMousePoint().y, faction.getCurrentMousePoint().y);
 
                         if (opoint.y < topSpace) {
                             opoint.y = topSpace + 1;
@@ -592,7 +592,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
 ////----------------------Response to Watch Action -----------------------------------------///////
                 case WATCH:
-                    if (faction.actionProcessing == true && isWithinChartRegion(faction.currentMpoint.x, faction.currentMpoint.y)) {
+                    if (faction.isProcessing() == true && isWithinChartRegion(faction.getCurrentMousePoint().x, faction.getCurrentMousePoint().y)) {
                         ChartItem cchart = (ChartItem) getLeftChart();
                         if (cchart != null) {
                             drawWatchAction();
@@ -606,16 +606,16 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                     break;
 ////----------------------Response to INSERTLINE Action ------------------------------------------////////
                 case INSERTLINE:
-                    //System.out.println(faction.actionProcessing);
-                    if (faction.actionProcessing == true) {
-                        g.drawLine(faction.currentMpoint.x, faction.currentMpoint.y, faction.pressMpoint.x, faction.pressMpoint.y);
+                    //System.out.println(faction.isProcessing);
+                    if (faction.isProcessing() == true) {
+                        g.drawLine(faction.getCurrentMousePoint().x, faction.getCurrentMousePoint().y, faction.getStartMousePoint().x, faction.getStartMousePoint().y);
                     }
                     break;
 ////----------------------Response to Insert Parallel Line Action ------------------------------------------////////
                 case INSERTPARALLELLINE:
-//          if (faction.actionProcessing == true &&  isWithinChartRegion(faction.currentMpoint.x,faction.currentMpoint.y))
-                    if (faction.actionProcessing == true) {
-                        FLine fline = (FLine) faction.lineRecords.lastElement();
+//          if (faction.isProcessing == true &&  isWithinChartRegion(faction.currentMousePoint.x,faction.currentMousePoint.y))
+                    if (faction.isProcessing() == true) {
+                        FLine fline = (FLine) faction.getLineRecords().lastElement();
                         Point rpoint = new Point(0, 0);
                         if (fline.getPoint1().x < fline.getPoint2().x) {
                             rpoint.x = fline.getPoint1().x;
@@ -624,8 +624,8 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                             rpoint.x = fline.getPoint2().x;
                             rpoint.y = fline.getPoint2().y;
                         }
-                        int dx = +faction.currentMpoint.x - rpoint.x;
-                        int dy = +faction.currentMpoint.y - rpoint.y;
+                        int dx = +faction.getCurrentMousePoint().x - rpoint.x;
+                        int dy = +faction.getCurrentMousePoint().y - rpoint.y;
 
                         g.drawLine(fline.getPoint1().x + dx, fline.getPoint1().y + dy, fline.getPoint2().x + dx, fline.getPoint2().y + dy);
                     }
@@ -633,26 +633,26 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
 ////----------------------Response to Golden partition Action ------------------------------------------////////
                 case GOLDENPARTITION:
-                    //if (faction.actionProcessing == true &&  isWithinChartRegion(faction.currentMpoint.x,faction.currentMpoint.y))
-                    if (faction.actionProcessing == true) {
-                        int MaxY = Math.max(faction.pressMpoint.y, faction.currentMpoint.y);
-                        int MinY = Math.min(faction.pressMpoint.y, faction.currentMpoint.y);
+                    //if (faction.isProcessing == true &&  isWithinChartRegion(faction.currentMousePoint.x,faction.currentMousePoint.y))
+                    if (faction.isProcessing() == true) {
+                        int MaxY = Math.max(faction.getStartMousePoint().y, faction.getCurrentMousePoint().y);
+                        int MinY = Math.min(faction.getStartMousePoint().y, faction.getCurrentMousePoint().y);
 
                         int Y618 = (int) (MaxY - (MaxY - MinY) * 0.618f);
                         int Y50 = (int) (MaxY - (MaxY - MinY) * 0.50f);
                         int Y382 = (int) (MaxY - (MaxY - MinY) * 0.382);
-                        g.drawString("100%", faction.pressMpoint.x + 2, MinY - 1);
-                        g.drawLine(faction.pressMpoint.x, MaxY, leftSpace + getXAxisWidth(), MaxY);
-                        g.drawString("0%", faction.pressMpoint.x + 2, MaxY - 1);
-                        g.drawLine(faction.pressMpoint.x, MinY, leftSpace + getXAxisWidth(), MinY);
+                        g.drawString("100%", faction.getStartMousePoint().x + 2, MinY - 1);
+                        g.drawLine(faction.getStartMousePoint().x, MaxY, leftSpace + getXAxisWidth(), MaxY);
+                        g.drawString("0%", faction.getStartMousePoint().x + 2, MaxY - 1);
+                        g.drawLine(faction.getStartMousePoint().x, MinY, leftSpace + getXAxisWidth(), MinY);
                         g.setColor(Color.red);
-                        drawDotLine(g, faction.pressMpoint.x, Y618, leftSpace + getXAxisWidth(), Y618);
-                        drawDotLine(g, faction.pressMpoint.x, Y50, leftSpace + getXAxisWidth(), Y50);
-                        drawDotLine(g, faction.pressMpoint.x, Y382, leftSpace + getXAxisWidth(), Y382);
+                        drawDotLine(g, faction.getStartMousePoint().x, Y618, leftSpace + getXAxisWidth(), Y618);
+                        drawDotLine(g, faction.getStartMousePoint().x, Y50, leftSpace + getXAxisWidth(), Y50);
+                        drawDotLine(g, faction.getStartMousePoint().x, Y382, leftSpace + getXAxisWidth(), Y382);
                         g.setColor(Color.darkGray);
-                        g.drawString("38.2%", faction.pressMpoint.x + 2, Y382 - 1);
-                        g.drawString("50%", faction.pressMpoint.x + 2, Y50 - 1);
-                        g.drawString("61.8%", faction.pressMpoint.x + 2, Y618 - 1);
+                        g.drawString("38.2%", faction.getStartMousePoint().x + 2, Y382 - 1);
+                        g.drawString("50%", faction.getStartMousePoint().x + 2, Y50 - 1);
+                        g.drawString("61.8%", faction.getStartMousePoint().x + 2, Y618 - 1);
 
                         ChartItem cchart = (ChartItem) getLeftChart();
                         if (cchart != null) {
@@ -665,17 +665,17 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                             float v000 = (float) getYValueFromScreen(MaxY, UpperBound, LowerBound);
                             g.setColor(cchart.getFirstColor());
                             if (cchart.getChartType() == ChartType.PERCENTAGE) {
-                                g.drawString(FormatUtil.formatData2(v100) + "%", faction.pressMpoint.x + 40, MinY - 1);
-                                g.drawString(FormatUtil.formatData2(v618) + "%", faction.pressMpoint.x + 40, Y618 - 1);
-                                g.drawString(FormatUtil.formatData2(v500) + "%", faction.pressMpoint.x + 40, Y50 - 1);
-                                g.drawString(FormatUtil.formatData2(v382) + "%", faction.pressMpoint.x + 40, Y382 - 1);
-                                g.drawString(FormatUtil.formatData2(v000) + "%", faction.pressMpoint.x + 40, MaxY - 1);
+                                g.drawString(FormatUtil.formatData2(v100) + "%", faction.getStartMousePoint().x + 40, MinY - 1);
+                                g.drawString(FormatUtil.formatData2(v618) + "%", faction.getStartMousePoint().x + 40, Y618 - 1);
+                                g.drawString(FormatUtil.formatData2(v500) + "%", faction.getStartMousePoint().x + 40, Y50 - 1);
+                                g.drawString(FormatUtil.formatData2(v382) + "%", faction.getStartMousePoint().x + 40, Y382 - 1);
+                                g.drawString(FormatUtil.formatData2(v000) + "%", faction.getStartMousePoint().x + 40, MaxY - 1);
                             } else {
-                                g.drawString(FormatUtil.formatData2(v100), faction.pressMpoint.x + 40, MinY - 1);
-                                g.drawString(FormatUtil.formatData2(v618), faction.pressMpoint.x + 40, Y618 - 1);
-                                g.drawString(FormatUtil.formatData2(v500), faction.pressMpoint.x + 40, Y50 - 1);
-                                g.drawString(FormatUtil.formatData2(v382), faction.pressMpoint.x + 40, Y382 - 1);
-                                g.drawString(FormatUtil.formatData2(v000), faction.pressMpoint.x + 40, MaxY - 1);
+                                g.drawString(FormatUtil.formatData2(v100), faction.getStartMousePoint().x + 40, MinY - 1);
+                                g.drawString(FormatUtil.formatData2(v618), faction.getStartMousePoint().x + 40, Y618 - 1);
+                                g.drawString(FormatUtil.formatData2(v500), faction.getStartMousePoint().x + 40, Y50 - 1);
+                                g.drawString(FormatUtil.formatData2(v382), faction.getStartMousePoint().x + 40, Y382 - 1);
+                                g.drawString(FormatUtil.formatData2(v000), faction.getStartMousePoint().x + 40, MaxY - 1);
                             }
                         }
 
@@ -690,17 +690,17 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                             float v000 = (float) getYValueFromScreen(MaxY, UpperBound, LowerBound);
                             g.setColor(cchart.getFirstColor());
                             if (cchart.getChartType() == ChartType.PERCENTAGE) {
-                                g.drawString(FormatUtil.formatData2(v100) + "%", faction.pressMpoint.x + 80, MinY - 1);
-                                g.drawString(FormatUtil.formatData2(v618) + "%", faction.pressMpoint.x + 80, Y618 - 1);
-                                g.drawString(FormatUtil.formatData2(v500) + "%", faction.pressMpoint.x + 80, Y50 - 1);
-                                g.drawString(FormatUtil.formatData2(v382) + "%", faction.pressMpoint.x + 80, Y382 - 1);
-                                g.drawString(FormatUtil.formatData2(v000) + "%", faction.pressMpoint.x + 80, MaxY - 1);
+                                g.drawString(FormatUtil.formatData2(v100) + "%", faction.getStartMousePoint().x + 80, MinY - 1);
+                                g.drawString(FormatUtil.formatData2(v618) + "%", faction.getStartMousePoint().x + 80, Y618 - 1);
+                                g.drawString(FormatUtil.formatData2(v500) + "%", faction.getStartMousePoint().x + 80, Y50 - 1);
+                                g.drawString(FormatUtil.formatData2(v382) + "%", faction.getStartMousePoint().x + 80, Y382 - 1);
+                                g.drawString(FormatUtil.formatData2(v000) + "%", faction.getStartMousePoint().x + 80, MaxY - 1);
                             } else {
-                                g.drawString(FormatUtil.formatData2(v100), faction.pressMpoint.x + 80, MinY - 1);
-                                g.drawString(FormatUtil.formatData2(v618), faction.pressMpoint.x + 80, Y618 - 1);
-                                g.drawString(FormatUtil.formatData2(v500), faction.pressMpoint.x + 80, Y50 - 1);
-                                g.drawString(FormatUtil.formatData2(v382), faction.pressMpoint.x + 80, Y382 - 1);
-                                g.drawString(FormatUtil.formatData2(v000), faction.pressMpoint.x + 80, MaxY - 1);
+                                g.drawString(FormatUtil.formatData2(v100), faction.getStartMousePoint().x + 80, MinY - 1);
+                                g.drawString(FormatUtil.formatData2(v618), faction.getStartMousePoint().x + 80, Y618 - 1);
+                                g.drawString(FormatUtil.formatData2(v500), faction.getStartMousePoint().x + 80, Y50 - 1);
+                                g.drawString(FormatUtil.formatData2(v382), faction.getStartMousePoint().x + 80, Y382 - 1);
+                                g.drawString(FormatUtil.formatData2(v000), faction.getStartMousePoint().x + 80, MaxY - 1);
                             }
                         }
                     }
@@ -734,7 +734,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     private void plotWatchTable(ChartItem cchart, int x, int y) {
         Graphics g = getAllscreenImage().getGraphics();
         if (cchart != null) {
-            int index = getPointIndexFromScreen(faction.currentMpoint.x);
+            int index = getPointIndexFromScreen(faction.getCurrentMousePoint().x);
             SPoint fpoint = (SPoint) cchart.getChartData().getData().elementAt(index);
             TAPoint fTApoint = null;
             if (cchart.getChartData().getTAdata().size() > index) {
@@ -836,7 +836,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
     private void drawWatchAction() {
 
-        int indexPoint = getPointIndexFromScreen(faction.currentMpoint.x);
+        int indexPoint = getPointIndexFromScreen(faction.getCurrentMousePoint().x);
         if (indexPoint < startDisplayIndex || indexPoint > endDisplayIndex) {
             return;
         }
@@ -845,30 +845,30 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         ChartItem rightChart = getRightChart();
 
         // draw the value where the mouse pointed.
-        double pointedValue = this.getYValueFromScreen(faction.currentMpoint.y, leftChart.getUpperBound(), leftChart.getLowerBound());
+        double pointedValue = this.getYValueFromScreen(faction.getCurrentMousePoint().y, leftChart.getUpperBound(), leftChart.getLowerBound());
         Graphics g = getAllscreenImage().getGraphics();
         g.setColor(FConfig.WatchLabelColor);
         g.setFont(new Font("default", 1, 12));
         if (leftChart.getChartType() == ChartType.VOLUME) {
-            g.drawString(String.valueOf((int) (pointedValue)), faction.currentMpoint.x, faction.currentMpoint.y);
+            g.drawString(String.valueOf((int) (pointedValue)), faction.getCurrentMousePoint().x, faction.getCurrentMousePoint().y);
         } else if (leftChart.getChartType() == ChartType.OBV) {
-            //g.drawString(FormatUtil.formatInteger(pointedValue),faction.currentMpoint.x,faction.currentMpoint.y);
+            //g.drawString(FormatUtil.formatInteger(pointedValue),faction.currentMousePoint.x,faction.currentMousePoint.y);
         } else if (leftChart.getChartType() == ChartType.PERCENTAGE) {
-            g.drawString(FormatUtil.formatData3(pointedValue) + "%", faction.currentMpoint.x, faction.currentMpoint.y);
+            g.drawString(FormatUtil.formatData3(pointedValue) + "%", faction.getCurrentMousePoint().x, faction.getCurrentMousePoint().y);
         } else {
-            g.drawString(FormatUtil.formatData3(pointedValue), faction.currentMpoint.x, faction.currentMpoint.y);
+            g.drawString(FormatUtil.formatData3(pointedValue), faction.getCurrentMousePoint().x, faction.getCurrentMousePoint().y);
         }
 
         // draw the watch table
         if (leftChart != null && leftChart.isVisable()) {
-            if (faction.currentMpoint.x > getSize().width / 2) {
+            if (faction.getCurrentMousePoint().x > getSize().width / 2) {
                 plotWatchTable(leftChart, leftSpace + 5, topSpace);
             } else {
                 plotWatchTable(leftChart, getSize().width - rightSpace - 170, topSpace);
             }
         }
         if (rightChart != null && rightChart.isVisable()) {
-            if (faction.currentMpoint.x > getSize().width / 2) {
+            if (faction.getCurrentMousePoint().x > getSize().width / 2) {
                 plotWatchTable(rightChart, leftSpace + 5, topSpace + 60);
             } else {
                 plotWatchTable(rightChart, getSize().width - rightSpace - 180, topSpace + 60);
@@ -1063,10 +1063,8 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         } else if (resolution >= 9 && resolution <= 10) {
             BarWidth = 4;
         } else if (resolution >= 11) {
-            BarWidth = 5;
+            BarWidth = (int) (resolution/2d);
         }
-
-
         for (int i = startDisplayIndex; i <= endDisplayIndex; i++) {
             SPoint fpoint = (SPoint) currentChart.getChartData().getData().elementAt(i);
             if (!fpoint.isIntraDayMarked()) {
@@ -1076,7 +1074,6 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                     g.drawLine(this.getScreenXPositionFromPoint(i), this.getScreenYPosition(fpoint.getClose(), Max, Min), getScreenXPositionFromPoint(i) + BarWidth, getScreenYPosition(fpoint.getClose(), Max, Min));
                 }
             }
-
         }
     }
 
@@ -1447,8 +1444,8 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                     int y1 = this.getScreenYPosition(fpoint1.getClose(), Max, Min);
                     int y2 = getScreenYPosition(fpoint2.getClose(), Max, Min);
                     g.drawLine(x1, y1, x2, y2);
-                    g.drawLine(x1, y1-1, x2, y2-1);
-                    g.drawLine(x1, y1-2, x2, y2-2);
+                    g.drawLine(x1, y1 - 1, x2, y2 - 1);
+                    g.drawLine(x1, y1 - 2, x2, y2 - 2);
                     lastValidPoint = i;
                 } catch (Exception ee) {
                     ee.printStackTrace();
@@ -1599,7 +1596,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
             int y1 = topSpace + 5;
             int ww = 145;
             int hh = 14 * count + 6;
-            if (faction.currentMpoint.x > x1 && faction.currentMpoint.x < (x1 + ww) && faction.currentMpoint.y > y1 && faction.currentMpoint.y < (y1 + hh)) {
+            if (faction.getCurrentMousePoint().x > x1 && faction.getCurrentMousePoint().x < (x1 + ww) && faction.getCurrentMousePoint().y > y1 && faction.getCurrentMousePoint().y < (y1 + hh)) {
                 return;
             }
             Graphics gg = getAllscreenImage().getGraphics();
@@ -1871,10 +1868,10 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         switch (currentChart.getChartType()) {
             case LINE:
                 plotLineChart(currentChart);
-                 break;
+                break;
             case BAR:
                 plotBarChart(currentChart);
-          break;
+                break;
 
             case CANDLE:
                 plotCandleChart(currentChart);
@@ -1952,12 +1949,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         screenG.drawLine(leftSpace, topSpace, leftSpace, topSpace + getYAxisWidth());
         screenG.drawLine(leftSpace, topSpace + getYAxisWidth(), leftSpace + getXAxisWidth(), topSpace + getYAxisWidth());
         screenG.drawLine(leftSpace + getXAxisWidth(), topSpace, leftSpace + getXAxisWidth(), topSpace + getYAxisWidth());
-
         screenG.setColor(FConfig.ScreenBackground);
-        screenG.fillRect(0, 0, leftSpace - 1, getSize().height);
-        screenG.fillRect(0, 0, getSize().width, topSpace - 1);
-        screenG.fillRect(getSize().width - rightSpace + 1, 0, rightSpace - 1, getSize().height);
-        screenG.fillRect(0, getSize().height - bottomSpace + 1, getSize().width, bottomSpace);
 
         try {
             for (int i = 0; i < chartObjects.size(); i++) {
@@ -2018,41 +2010,41 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     }
 
     public void mouseDragged(MouseEvent e) {
-        if (faction.actionType == ActionCommand.Type.WATCH || faction.actionType == ActionCommand.Type.MOVECHART) {
+        if (faction.getActionType() == ActionCommand.Type.WATCH || faction.getActionType() == ActionCommand.Type.MOVECHART) {
             if (!isWithinChartRegion(e.getX(), e.getY())) {
-                faction.actionProcessing = false;
+                faction.setProcessing(false);
                 repaint();
                 return;
             }
         }
-        switch (faction.actionType) {
+        switch (faction.getActionType()) {
             case ZOOMIN:
-                faction.currentMpoint.x = e.getPoint().x;
-                faction.currentMpoint.y = e.getPoint().y;
+                faction.getCurrentMousePoint().x = e.getPoint().x;
+                faction.getCurrentMousePoint().y = e.getPoint().y;
                 repaint();
                 break;
 
             case INSERTLINE:
-                faction.currentMpoint.x = e.getPoint().x;
-                faction.currentMpoint.y = e.getPoint().y;
+                faction.getCurrentMousePoint().x = e.getPoint().x;
+                faction.getCurrentMousePoint().y = e.getPoint().y;
                 repaint();
                 break;
 
             case GOLDENPARTITION:
-                faction.currentMpoint.x = e.getPoint().x;
-                faction.currentMpoint.y = e.getPoint().y;
+                faction.getCurrentMousePoint().x = e.getPoint().x;
+                faction.getCurrentMousePoint().y = e.getPoint().y;
                 repaint();
                 break;
 
             case MOVECHART:
-                if (e.getPoint().x > faction.currentMpoint.x + 5) {
+                if (e.getPoint().x > faction.getCurrentMousePoint().x + 5) {
                     this.moveLeft();
-                    faction.currentMpoint.x = e.getPoint().x;
-                    faction.currentMpoint.y = e.getPoint().y;
-                } else if (e.getPoint().x < faction.currentMpoint.x - 5) {
+                    faction.getCurrentMousePoint().x = e.getPoint().x;
+                    faction.getCurrentMousePoint().y = e.getPoint().y;
+                } else if (e.getPoint().x < faction.getCurrentMousePoint().x - 5) {
                     this.moveRight();
-                    faction.currentMpoint.x = e.getPoint().x;
-                    faction.currentMpoint.y = e.getPoint().y;
+                    faction.getCurrentMousePoint().x = e.getPoint().x;
+                    faction.getCurrentMousePoint().y = e.getPoint().y;
                 }
                 break;
         }
@@ -2061,33 +2053,33 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
     public void mouseMoved(MouseEvent e) {
         if (!isWithinChartRegion(e.getX(), e.getY())) {
-            faction.actionProcessing = false;
+            faction.setProcessing(false);
 
         }
-        faction.currentMpoint.x = e.getX();
-        faction.currentMpoint.y = e.getY();
-        switch (faction.actionType) {
+        faction.getCurrentMousePoint().x = e.getX();
+        faction.getCurrentMousePoint().y = e.getY();
+        switch (faction.getActionType()) {
             case INSERTPARALLELLINE:
-                if (faction.lineRecords.size() == 0) {
-                    faction.actionProcessing = false;
+                if (faction.getLineRecords().size() == 0) {
+                    faction.setProcessing(false);
                 } else {
-                    faction.actionProcessing = true;
+                    faction.setProcessing(true);
                     repaint();
                 }
                 break;
 
             case WATCH:
-                faction.actionProcessing = true;
+                faction.setProcessing(true);
                 repaint();
                 break;
 
             case NONEACTION:
-                faction.actionProcessing = false;
+                faction.setProcessing(false);
                 repaint();
                 break;
 
             default:
-                faction.actionProcessing = false;
+                faction.setProcessing(false);
                 break;
         }
 
@@ -2096,35 +2088,35 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     public void mousePressed(MouseEvent e) {
 
         if (!isWithinChartRegion(e.getX(), e.getY())) {
-            faction.actionProcessing = false;
+            faction.setProcessing(false);
             return;
         }
 
-        switch (faction.actionType) {
+        switch (faction.getActionType()) {
             case ZOOMIN:
-                faction.actionProcessing = true;
-                faction.pressMpoint.x = e.getPoint().x;
-                faction.pressMpoint.y = e.getPoint().y;
+                faction.setProcessing(true);
+                faction.getStartMousePoint().x = e.getPoint().x;
+                faction.getStartMousePoint().y = e.getPoint().y;
                 break;
 
             case INSERTLINE:
-                faction.actionProcessing = true;
-                faction.pressMpoint.x = e.getPoint().x;
-                faction.pressMpoint.y = e.getPoint().y;
+                faction.setProcessing(true);
+                faction.getStartMousePoint().x = e.getPoint().x;
+                faction.getStartMousePoint().y = e.getPoint().y;
                 break;
 
             case GOLDENPARTITION:
-                faction.actionProcessing = true;
-                faction.pressMpoint.x = e.getPoint().x;
-                faction.pressMpoint.y = e.getPoint().y;
+                faction.setProcessing(true);
+                faction.getStartMousePoint().x = e.getPoint().x;
+                faction.getStartMousePoint().y = e.getPoint().y;
                 break;
 
             case MOVECHART:
-                faction.actionProcessing = true;
-                faction.pressMpoint.x = e.getPoint().x;
-                faction.pressMpoint.y = e.getPoint().y;
-                faction.currentMpoint.x = e.getPoint().x;
-                faction.currentMpoint.y = e.getPoint().y;
+                faction.setProcessing(true);
+                faction.getStartMousePoint().x = e.getPoint().x;
+                faction.getStartMousePoint().y = e.getPoint().y;
+                faction.getCurrentMousePoint().x = e.getPoint().x;
+                faction.getCurrentMousePoint().y = e.getPoint().y;
                 break;
 
 
@@ -2133,23 +2125,23 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     }
 
     public void mouseReleased(MouseEvent e) {
-        if (faction.actionType == ActionCommand.Type.WATCH || faction.actionType == ActionCommand.Type.MOVECHART) {
+        if (faction.getActionType() == ActionCommand.Type.WATCH || faction.getActionType() == ActionCommand.Type.MOVECHART) {
             if (!isWithinChartRegion(e.getX(), e.getY())) {
-                faction.actionProcessing = false;
+                faction.setProcessing(false);
                 return;
             }
         }
         FLine fline;
-        switch (faction.actionType) {
+        switch (faction.getActionType()) {
 
 ///// Handle Zoom in action ///////////////////////////////////////////////////////////////////
             case ZOOMIN:
                 //faction.mouseFlag = false;
-                faction.actionProcessing = false;
-                faction.releaseMpoint.x = e.getPoint().x;
-                faction.releaseMpoint.y = e.getPoint().y;
-                int index1 = getPointIndexFromScreen(faction.releaseMpoint.x);
-                int index2 = getPointIndexFromScreen(faction.pressMpoint.x);
+                faction.setProcessing(false);
+                faction.getReleaseMousePoint().x = e.getPoint().x;
+                faction.getReleaseMousePoint().y = e.getPoint().y;
+                int index1 = getPointIndexFromScreen(faction.getReleaseMousePoint().x);
+                int index2 = getPointIndexFromScreen(faction.getStartMousePoint().x);
 
                 if (Math.abs(index1 - index2) > 5) {
                     int startIndex = Math.min(index1, index2);
@@ -2161,7 +2153,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                         startIndex = startDisplayIndex;
                     }
                     //record the previous position;
-                    faction.zoomRecords.addElement(new Point(startDisplayIndex, endDisplayIndex));
+                    faction.getZoomRecords().addElement(new Point(startDisplayIndex, endDisplayIndex));
                     //change the zoom
                     zoom(startIndex, endIndex);
                 } else {
@@ -2171,62 +2163,62 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
 ///// Handle insert line action //////////////////////////////////////////////////////////////////
             case INSERTLINE:
-                faction.actionProcessing = false;
-                faction.releaseMpoint.x = e.getPoint().x;
-                faction.releaseMpoint.y = e.getPoint().y;
+                faction.setProcessing(false);
+                faction.getReleaseMousePoint().x = e.getPoint().x;
+                faction.getReleaseMousePoint().y = e.getPoint().y;
                 if (FLine.isFixedLine()) {
-                    fline = new FLine(faction.pressMpoint.x, faction.pressMpoint.y, faction.releaseMpoint.x, faction.releaseMpoint.y);
-                    faction.lineRecords.addElement(fline);
+                    fline = new FLine(faction.getStartMousePoint().x, faction.getStartMousePoint().y, faction.getReleaseMousePoint().x, faction.getReleaseMousePoint().y);
+                    faction.getLineRecords().addElement(fline);
                 } else {
-                    int x1 = getPointIndexFromScreen(faction.pressMpoint.x);
-                    int x2 = getPointIndexFromScreen(faction.releaseMpoint.x);
+                    int x1 = getPointIndexFromScreen(faction.getStartMousePoint().x);
+                    int x2 = getPointIndexFromScreen(faction.getReleaseMousePoint().x);
                     float y1, y2;
                     ChartItem cchart = this.getLeftChart();
                     if (cchart != null) {
                         float Min = (float) cchart.getLowerBound();
                         float Max = (float) cchart.getUpperBound();
-                        y1 = (float) getYValueFromScreen(faction.pressMpoint.y, Max, Min);
-                        y2 = (float) getYValueFromScreen(faction.releaseMpoint.y, Max, Min);
+                        y1 = (float) getYValueFromScreen(faction.getStartMousePoint().y, Max, Min);
+                        y2 = (float) getYValueFromScreen(faction.getReleaseMousePoint().y, Max, Min);
                         fline = new FLine(x1, y1, x2, y2);
-                        fline.getPoint1().x = faction.pressMpoint.x;
-                        fline.getPoint1().y = faction.pressMpoint.y;
-                        fline.getPoint2().x = faction.releaseMpoint.x;
-                        fline.getPoint2().y = faction.releaseMpoint.y;
-                        faction.lineRecords.addElement(fline);
+                        fline.getPoint1().x = faction.getStartMousePoint().x;
+                        fline.getPoint1().y = faction.getStartMousePoint().y;
+                        fline.getPoint2().x = faction.getReleaseMousePoint().x;
+                        fline.getPoint2().y = faction.getReleaseMousePoint().y;
+                        faction.getLineRecords().addElement(fline);
                     }
                 }
                 repaint();
                 break;
 
             case GOLDENPARTITION:
-                faction.actionProcessing = false;
-                faction.releaseMpoint.x = e.getPoint().x;
-                faction.releaseMpoint.y = e.getPoint().y;
+                faction.setProcessing(false);
+                faction.getReleaseMousePoint().x = e.getPoint().x;
+                faction.getReleaseMousePoint().y = e.getPoint().y;
 
                 if (FLine.isFixedLine()) {
-                    fline = new FLine(faction.pressMpoint.x, faction.pressMpoint.y, faction.releaseMpoint.x, faction.releaseMpoint.y);
-                    faction.goldenPartitionLine = fline;
+                    fline = new FLine(faction.getStartMousePoint().x, faction.getStartMousePoint().y, faction.getReleaseMousePoint().x, faction.getReleaseMousePoint().y);
+                    faction.setGoldenPartitionLine(fline);
                 } else {
-                    int x1 = getPointIndexFromScreen(faction.pressMpoint.x);
-                    int x2 = getPointIndexFromScreen(faction.releaseMpoint.x);
+                    int x1 = getPointIndexFromScreen(faction.getStartMousePoint().x);
+                    int x2 = getPointIndexFromScreen(faction.getReleaseMousePoint().x);
                     float y1, y2;
                     ChartItem cchart = this.getLeftChart();
                     if (cchart != null) {
                         float Min = (float) cchart.getLowerBound();
                         float Max = (float) cchart.getUpperBound();
-                        y1 = (float) getYValueFromScreen(faction.pressMpoint.y, Max, Min);
-                        y2 = (float) getYValueFromScreen(faction.releaseMpoint.y, Max, Min);
+                        y1 = (float) getYValueFromScreen(faction.getStartMousePoint().y, Max, Min);
+                        y2 = (float) getYValueFromScreen(faction.getReleaseMousePoint().y, Max, Min);
                         fline = new FLine(x1, y1, x2, y2);
-                        fline.getPoint1().x = faction.pressMpoint.x;
-                        fline.getPoint1().y = faction.pressMpoint.y;
-                        fline.getPoint2().x = faction.releaseMpoint.x;
-                        fline.getPoint2().y = faction.releaseMpoint.y;
-                        faction.goldenPartitionLine = fline;
+                        fline.getPoint1().x = faction.getStartMousePoint().x;
+                        fline.getPoint1().y = faction.getStartMousePoint().y;
+                        fline.getPoint2().x = faction.getReleaseMousePoint().x;
+                        fline.getPoint2().y = faction.getReleaseMousePoint().y;
+                        faction.setGoldenPartitionLine(fline);
                     }
                 }
 
-                if (Math.abs(faction.pressMpoint.y - faction.releaseMpoint.y) < 5) {
-                    faction.goldenPartitionLine = null;
+                if (Math.abs(faction.getStartMousePoint().y - faction.getReleaseMousePoint().y) < 5) {
+                    faction.setGoldenPartitionLine(null);
                 }
 
                 repaint();
@@ -2234,7 +2226,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
             // handle move chart action -- disable it when release the button .//////////////////////////////
             case MOVECHART:
-                faction.actionProcessing = false;
+                faction.setProcessing(false);
                 break;
 
         }
@@ -2245,7 +2237,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     }
 
     public void mouseExited(MouseEvent e) {
-        switch (faction.actionType) {
+        switch (faction.getActionType()) {
             // still perform the action.
             case GOLDENPARTITION:
             case INSERTPARALLELLINE:
@@ -2255,14 +2247,13 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
             // cancel the action.
             default:
-                faction.actionProcessing = false;
+                faction.setProcessing(false);
                 repaint();
                 break;
         }
     }
 
     protected boolean isWithinCloseButton(int x, int y) {
-
 
         System.out.println(x + " : " + y);
         if (x >= (getWidth() - 17) && x <= getWidth() && y >= 0 && y <= 15) {
@@ -2280,10 +2271,10 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         }
 
         if (!isWithinChartRegion(e.getX(), e.getY())) {
-            faction.actionProcessing = false;
+            faction.setProcessing(false);
             return;
         }
-        switch (faction.actionType) {
+        switch (faction.getActionType()) {
             case ZOOMIN:
                 String mparamString = e.paramString();
                 //if right click mouse
@@ -2298,7 +2289,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                     return;
                 }
 
-                FLine fline = (FLine) faction.lineRecords.lastElement();
+                FLine fline = (FLine) faction.getLineRecords().lastElement();
                 Point rpoint = new Point(0, 0);
                 if (fline.getPoint1().x < fline.getPoint2().x) {
                     rpoint.x = fline.getPoint1().x;
@@ -2307,11 +2298,11 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                     rpoint.x = fline.getPoint2().x;
                     rpoint.y = fline.getPoint2().y;
                 }
-                int dx = +faction.currentMpoint.x - rpoint.x;
-                int dy = +faction.currentMpoint.y - rpoint.y;
+                int dx = +faction.getCurrentMousePoint().x - rpoint.x;
+                int dy = +faction.getCurrentMousePoint().y - rpoint.y;
                 if (FLine.isFixedLine()) {
                     FLine newFline = new FLine(fline.getPoint1().x + dx, fline.getPoint1().y + dy, fline.getPoint2().x + dx, fline.getPoint2().y + dy);
-                    faction.lineRecords.addElement(newFline);
+                    faction.getLineRecords().addElement(newFline);
                 } else {
 
                     int x1 = getPointIndexFromScreen(fline.getPoint1().x + dx);
@@ -2328,7 +2319,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                         newfline.getPoint1().y = fline.getPoint1().y + dy;
                         newfline.getPoint2().x = fline.getPoint2().x + dx;
                         newfline.getPoint2().y = fline.getPoint2().y + dy;
-                        faction.lineRecords.addElement(newfline);
+                        faction.getLineRecords().addElement(newfline);
                     }
 
                 }
@@ -2381,9 +2372,9 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     }
 
     public void undoInsertLine() {
-        if (faction.lineRecords.size() > 0) {
-            FLine fline = (FLine) faction.lineRecords.lastElement();
-            faction.lineRecords.removeElement(fline);
+        if (faction.getLineRecords().size() > 0) {
+            FLine fline = (FLine) faction.getLineRecords().lastElement();
+            faction.getLineRecords().removeElement(fline);
         }
         repaint();
 
@@ -2394,12 +2385,12 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         int endIndex = maxNumberOfChartPoint - 1;
         int startIndex = Math.max(0, endIndex - getMaxNumberOfDisplayPoint());
         Point ozoom = new Point(startIndex, endIndex);
-        if (faction.zoomRecords.size() > 0) {
-            ozoom = (Point) faction.zoomRecords.lastElement();
-            faction.zoomRecords.removeElement(ozoom);
+        if (faction.getZoomRecords().size() > 0) {
+            ozoom = (Point) faction.getZoomRecords().lastElement();
+            faction.getZoomRecords().removeElement(ozoom);
             zoom(ozoom.x, ozoom.y);
             return ozoom;
-        } else if (faction.zoomRecords.size() == 0) {
+        } else if (faction.getZoomRecords().size() == 0) {
             zoom(ozoom.x, ozoom.y);
             return ozoom;
         }
@@ -2411,7 +2402,6 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     }
 
     public void flipLoading() {
-
         repaint();
     }
 

@@ -7,40 +7,33 @@ group = 'teletext'
 
 sourceCompatibility = 1.8
 
-
 repositories {
     jcenter()
-        maven {
+    maven {
         url "http://repo.marketcetera.org/maven";
     }
-    
     mavenCentral()
-    
-
 }
-
-
 
 sourceSets {
     main {
-       output.resourcesDir = "build/classes/main"
+        output.resourcesDir = "build/classes/main"
+    }
+}
 
-      }
-  }
 
-  
 dependencies {
     compile 'org.slf4j:slf4j-api:1.7.5',
             'org.apache.mina:mina-core:1.1.7'
 
     runtime 'org.slf4j:slf4j-api:1.7.5',
             //'com.google.inject:guice:3.0',
-			'org.apache.derby:derbyclient:10.11.1.1'
+            'org.apache.derby:derbyclient:10.11.1.1'
 
     testCompile 'junit:junit:4.11',
             'org.mockito:mockito-core:1.9.5',
             'org.assertj:assertj-core:1.6.1',
             'org.slf4j:slf4j-api:1.7.5',
-			'org.apache.derby:derbyclient:10.11.1.1'
+            'org.apache.derby:derbyclient:10.11.1.1'
 }
 

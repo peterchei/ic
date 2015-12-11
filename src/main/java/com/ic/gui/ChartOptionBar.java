@@ -6,12 +6,13 @@ import com.ic.core.FConfig;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ChartOptionBar extends JPanel {
-    public ImageButton btStock = new ImageButton();
+
     public ImageButton btTA = new ImageButton();
     public ImageButton btVolume = new ImageButton();
-    //the reference of chartscreens which this buttonbar can control it.
+
     private ChartScreen chartScreen1 = null;
     private ChartScreen chartScreen2 = null;
     private ChartScreen chartScreen3 = null;
@@ -25,26 +26,25 @@ public class ChartOptionBar extends JPanel {
     }
 
     private void jbInit() throws Exception {
-        int start = 9;
-        btStock.setLabel("fImageButton1");
-        btStock.setBounds(new Rectangle(9, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
-        btStock.addActionListener(new ChartOptionBar_btStock_actionAdapter(this));
         this.setLayout(null);
-        btTA.setLabel("fImageButton2");
-        btTA.setBounds(new Rectangle(9 + FConfig.BUTTON_SIZE + 1, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
-        btTA.addActionListener(new ChartOptionBar_btTA_actionAdapter(this));
-        btVolume.setLabel("fImageButton3");
-        btVolume.setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 2, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
-        btVolume.addActionListener(new ChartOptionBar_btVolume_actionAdapter(this));
-        this.add(btStock, null);
+        btTA.setBounds(new Rectangle(FConfig.BUTTON_SIZE + 1, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
+        btTA.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btTA_actionPerformed(e);
+            }
+        });
+        btVolume.setBounds(new Rectangle((FConfig.BUTTON_SIZE + 1) * 2, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
+        btVolume.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                btVolume_actionPerformed(e);
+            }
+        });
         this.add(btTA, null);
         this.add(btVolume, null);
     }
 
-    void btStock_actionPerformed(ActionEvent e) {
-        chartScreen1.setVisible(!chartScreen1.isVisible());
-
-    }
 
     void btTA_actionPerformed(ActionEvent e) {
         chartScreen2.setVisible(!chartScreen2.isVisible());
@@ -63,40 +63,4 @@ public class ChartOptionBar extends JPanel {
     }
 
 
-}
-
-class ChartOptionBar_btStock_actionAdapter implements java.awt.event.ActionListener {
-    ChartOptionBar adaptee;
-
-    ChartOptionBar_btStock_actionAdapter(ChartOptionBar adaptee) {
-        this.adaptee = adaptee;
-    }
-
-    public void actionPerformed(ActionEvent e) {
-        adaptee.btStock_actionPerformed(e);
-    }
-}
-
-class ChartOptionBar_btTA_actionAdapter implements java.awt.event.ActionListener {
-    ChartOptionBar adaptee;
-
-    ChartOptionBar_btTA_actionAdapter(ChartOptionBar adaptee) {
-        this.adaptee = adaptee;
-    }
-
-    public void actionPerformed(ActionEvent e) {
-        adaptee.btTA_actionPerformed(e);
-    }
-}
-
-class ChartOptionBar_btVolume_actionAdapter implements java.awt.event.ActionListener {
-    ChartOptionBar adaptee;
-
-    ChartOptionBar_btVolume_actionAdapter(ChartOptionBar adaptee) {
-        this.adaptee = adaptee;
-    }
-
-    public void actionPerformed(ActionEvent e) {
-        adaptee.btVolume_actionPerformed(e);
-    }
 }

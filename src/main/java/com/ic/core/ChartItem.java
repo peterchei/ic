@@ -5,8 +5,6 @@ import com.ic.data.ChartData;
 import java.awt.*;
 
 public class ChartItem {
-//constant to specify the type of chart
-
 
     //the key of the chart, it must be an unique ID in the screen.
     private String key = "";
@@ -30,8 +28,6 @@ public class ChartItem {
         this.setKey(key);
     }
 
-    //public double upperBound=0.0f;
-    //public double lowerBound=10000.0f;
     public double getLowerBound() {
         if (getChartBound() != null)
             switch (getChartType()) {

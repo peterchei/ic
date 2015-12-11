@@ -16,24 +16,30 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static com.ic.data.RequestCommand.CommandType.*;
+
 public class RequestCommand {
 
+    public enum CommandType {
+        DAILY, WEEKLY, MONTHLY, INTRADAY, REALTIMEQUOTE
+    }
     // Static attributes.
-    public static final int DAILY = 0;
-    public static final int WEEKLY = 1;
-    public static final int MONTHLY = 2;
-    public static final int INTRADAILY = 3;
-    public static final int READQUOTE = 4;
+    //public static final int DAILY = 0;
+    //public static final int WEEKLY = 1;
+    //public static final int MONTHLY = 2;
+    //public static final int INTRADAY = 3;
+    //public static final int REALTIMEQUOTE = 4;
 
     public static final int TYPE_DOWNLOAD_RIGHT_CHART = 0;
     public static final int TYPE_DOWNLOAD_LEFT_CHART = 2;
-    public static final int TYPE_DOWNLOAD_TA_CHART = 3;
+
+
     private final String dailyInterface = "newchart/getDaily.php";
     private final String weeklyInterface = "newchart/getWeekly.php";
     private final String monthlyInterface = "newchart/getMonthly.php";
     private final String intradayInterface = "newchart/getIntra.php";
     private int actionType = TYPE_DOWNLOAD_RIGHT_CHART; // the action of the RequestCommand
-    private int dType = DAILY;                          // the type of the chart
+    private CommandType dType = DAILY;                          // the type of the chart
     private String sKey = "RMain1";                     // the key of the chart used to id the chart.
     private int code;                                   // the code to download
     private int numberOfPoint = 100;                    // Number of point to download
@@ -41,7 +47,7 @@ public class RequestCommand {
     private boolean isFillEmptyPoints = false;
     private ChartDataServiceCallback reference;              // the reference to the object that create this command.
 
-    public RequestCommand(int sCode, int atype, int type, String key, int num, int intervals, boolean fillEmptyPoints, ChartDataServiceCallback re) {
+    public RequestCommand(int sCode, int atype, CommandType type, String key, int num, int intervals, boolean fillEmptyPoints, ChartDataServiceCallback re) {
         code = sCode;
         actionType = atype;
         dType = type;
@@ -52,7 +58,7 @@ public class RequestCommand {
         isFillEmptyPoints = fillEmptyPoints;
     }
 
-    public RequestCommand(int sCode, int type, ChartDataServiceCallback re) {
+    public RequestCommand(int sCode, CommandType type, ChartDataServiceCallback re) {
         code = sCode;
         dType = type;
         reference = re;
@@ -117,7 +123,7 @@ public class RequestCommand {
         reference = ref;
     }
 
-    public int getChartType() {
+    public RequestCommand.CommandType getChartType() {
         return dType;
     }
 
@@ -142,7 +148,7 @@ public class RequestCommand {
         RequestCommand currentCommand = this;
         ChartData cdata = null;
         switch (getChartType()) {
-            case RequestCommand.DAILY:
+            case DAILY:
                 //cdata = getTestData(1,100);
                 cdata = getYahooDailyData();
                 if (cdata != null) {
@@ -151,7 +157,7 @@ public class RequestCommand {
                     getListener().OnReceivedError(currentCommand);
                 }
                 break;
-            case RequestCommand.WEEKLY:
+            case WEEKLY:
                 cdata = getWeeklyData(currentCommand);
                 if (cdata != null) {
                     getListener().OnReceivedChartData(currentCommand, cdata);
@@ -160,7 +166,7 @@ public class RequestCommand {
                     getListener().OnReceivedError(currentCommand);
                 }
                 break;
-            case RequestCommand.MONTHLY:
+            case MONTHLY:
                 cdata = getMonthlyData(currentCommand);
                 if (cdata != null) {
                     getListener().OnReceivedChartData(currentCommand, cdata);
@@ -173,7 +179,7 @@ public class RequestCommand {
                     getListener().OnReceivedError(currentCommand);
                 }
                 break;
-            case RequestCommand.INTRADAILY:
+            case INTRADAY:
                 cdata = getIntradayData(currentCommand);
                 if (cdata != null) {
                     getListener().OnReceivedChartData(currentCommand, cdata);
@@ -181,7 +187,7 @@ public class RequestCommand {
                     getListener().OnReceivedError(currentCommand);
                 }
                 break;
-            case RequestCommand.READQUOTE:
+            case REALTIMEQUOTE:
                 String price = getReadTimeQuote(currentCommand.getCode());
                 getListener().OnReceivedChartData(currentCommand, price);
                 break;

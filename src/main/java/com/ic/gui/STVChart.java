@@ -57,17 +57,15 @@ public class STVChart extends JPanel {
 
     public void resizeChartScreen(int x, int y, int w, int h) {
 
-
-        //System.out.print("STVChart resized.");
         if (this.btOpenClose != null) {
             btOpenClose.setBounds(w - FConfig.BUTTON_SIZE, 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE);
         }
 
         if (this.btPrinter != null) {
             if (btOpenClose.isVisible()) {
-                btPrinter.setBounds(w - (FConfig.BUTTON_SIZE + 2) * 2, 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE);
+                btPrinter.setBounds(w - (FConfig.BUTTON_SIZE ) * 2, 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE);
             } else {
-                btPrinter.setBounds(w - (FConfig.BUTTON_SIZE + 2), 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE);
+                btPrinter.setBounds(w - (FConfig.BUTTON_SIZE ), 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE);
             }
         }
 
@@ -124,12 +122,12 @@ public class STVChart extends JPanel {
         chartScreen2.setBounds(new Rectangle(1, (FConfig.BUTTON_SIZE + 2) * 2 + x1, w, x2));
         chartScreen3.setBounds(new Rectangle(1, (FConfig.BUTTON_SIZE + 2) * 2 + x1 + x2, w, x3));
 
-        chartScreen1.getFaction().lineRecords.removeAllElements();
-        chartScreen2.getFaction().lineRecords.removeAllElements();
-        chartScreen3.getFaction().lineRecords.removeAllElements();
-        chartScreen1.getFaction().zoomRecords.removeAllElements();
-        chartScreen2.getFaction().zoomRecords.removeAllElements();
-        chartScreen3.getFaction().zoomRecords.removeAllElements();
+        chartScreen1.getFaction().getLineRecords().removeAllElements();
+        chartScreen2.getFaction().getLineRecords().removeAllElements();
+        chartScreen3.getFaction().getLineRecords().removeAllElements();
+        chartScreen1.getFaction().getZoomRecords().removeAllElements();
+        chartScreen2.getFaction().getZoomRecords().removeAllElements();
+        chartScreen3.getFaction().getZoomRecords().removeAllElements();
         chartScreen1.undoZoom();
         chartScreen2.undoZoom();
         chartScreen3.undoZoom();
@@ -216,8 +214,6 @@ public class STVChart extends JPanel {
         chartOptionBar1.setPreferredSize(new Dimension(1, 10));
         chartOptionBar1.setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 13 + 100, FConfig.BUTTON_SIZE + 2, 2 + (FConfig.BUTTON_SIZE + 2) * 3, FConfig.BUTTON_SIZE + 2));
         chartOptionBar1.setBackground(FConfig.ToolBarColor);
-
-        //9 + (FConfig.BUTTON_SIZE + 1) * 13, FConfig.BUTTON_SIZE +2, 200, FConfig.BUTTON_SIZE +2)
 
         this.add(chartScreen1, null);
         this.add(panelToolbar, null);

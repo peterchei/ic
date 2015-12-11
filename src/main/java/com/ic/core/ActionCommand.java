@@ -8,19 +8,6 @@ import java.util.Vector;
 // record the actions of insert lines, delete lines and so on.....
 public class ActionCommand {
 
-    public ActionCommand() {
-    }
-    public Point pressMpoint = new Point();    //the point where the mouse click enter
-    public Point currentMpoint = new Point();  //the point of current mouse
-    public Point releaseMpoint = new Point();  //the point where the mouse click release
-    public boolean actionProcessing = false;
-
-    public Vector zoomRecords = new Vector();
-    public Vector lineRecords = new Vector();
-    public FLine goldenPartitionLine = null;
-    public Type actionType = Type.ZOOMIN;
-
-
     public enum Type {
         NONEACTION,
         WATCH,
@@ -30,4 +17,81 @@ public class ActionCommand {
         ZOOMIN,
         MOVECHART
     }
+
+    private Point startMousePoint = new Point();    //the point where the mouse click enter
+    private Point currentMousePoint = new Point();  //the point of current mouse
+    private Point releaseMousePoint = new Point();  //the point where the mouse click release
+    private boolean isProcessing = false;
+
+    private Vector zoomRecords = new Vector();
+    private Vector lineRecords = new Vector();
+    private FLine goldenPartitionLine = null;
+
+    private Type actionType = Type.ZOOMIN;
+
+    public Point getStartMousePoint() {
+        return startMousePoint;
+    }
+
+    public void setStartMousePoint(Point startMousePoint) {
+        this.startMousePoint = startMousePoint;
+    }
+
+    public Point getCurrentMousePoint() {
+        return currentMousePoint;
+    }
+
+    public void setCurrentMousePoint(Point currentMousePoint) {
+        this.currentMousePoint = currentMousePoint;
+    }
+
+    public Point getReleaseMousePoint() {
+        return releaseMousePoint;
+    }
+
+    public void setReleaseMousePoint(Point releaseMousePoint) {
+        this.releaseMousePoint = releaseMousePoint;
+    }
+
+    public boolean isProcessing() {
+        return isProcessing;
+    }
+
+    public void setProcessing(boolean processing) {
+        isProcessing = processing;
+    }
+
+    public Vector getZoomRecords() {
+        return zoomRecords;
+    }
+
+    public void setZoomRecords(Vector zoomRecords) {
+        this.zoomRecords = zoomRecords;
+    }
+
+    public Vector getLineRecords() {
+        return lineRecords;
+    }
+
+    public void setLineRecords(Vector lineRecords) {
+        this.lineRecords = lineRecords;
+    }
+
+    public FLine getGoldenPartitionLine() {
+        return goldenPartitionLine;
+    }
+
+    public void setGoldenPartitionLine(FLine goldenPartitionLine) {
+        this.goldenPartitionLine = goldenPartitionLine;
+    }
+
+    public Type getActionType() {
+        return actionType;
+    }
+
+    public void setActionType(Type actionType) {
+        this.actionType = actionType;
+    }
+
+
 }

@@ -1,3 +1,7 @@
 package com.ic.core;
 
-public enum AxisType {NONE, LEFTAXIS, RIGHTAXIS}
+public enum AxisType {
+    NONE,
+    LEFTAXIS,
+    RIGHTAXIS
+}

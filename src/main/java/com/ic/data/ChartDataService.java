@@ -78,7 +78,7 @@ public class ChartDataService extends Thread {
 
     public void addCommand(RequestCommand fC) {
 
-        if (fC.getChartType() != fC.READQUOTE) {
+        if (fC.getChartType() != RequestCommand.CommandType.REALTIMEQUOTE) {
             synchronized (this) {
                 isNewCommand = true;
                 fCommand = fC;

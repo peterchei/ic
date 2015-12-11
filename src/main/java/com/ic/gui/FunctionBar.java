@@ -197,7 +197,7 @@ public class FunctionBar extends JPanel implements ScreenActionListener {
 
         for (ChartScreen screen : screens) {
             if (screen != null) {
-                screen.getAction().actionType = ActionCommand.Type.NONEACTION;
+                screen.getAction().setActionType(ActionCommand.Type.NONEACTION);
             }
         }
 
@@ -206,22 +206,22 @@ public class FunctionBar extends JPanel implements ScreenActionListener {
     void btWatch_actionPerformed(ActionEvent e) {
         for (ChartScreen screen : screens) {
             if (screen != null) {
-                screen.getAction().actionType = ActionCommand.Type.WATCH;
+                screen.getAction().setActionType(ActionCommand.Type.WATCH);
             }
         }
     }
 
     void btZoomIn_actionPerformed(ActionEvent e) {
         if (chartScreen1 != null) {
-            chartScreen1.getAction().actionType = ActionCommand.Type.ZOOMIN;
+            chartScreen1.getAction().setActionType(ActionCommand.Type.ZOOMIN);
         }
 
         if (chartScreen2 != null) {
-            chartScreen2.getAction().actionType = ActionCommand.Type.NONEACTION;
+            chartScreen2.getAction().setActionType(ActionCommand.Type.NONEACTION);
         }
 
         if (chartScreen3 != null) {
-            chartScreen3.getAction().actionType = ActionCommand.Type.NONEACTION;
+            chartScreen3.getAction().setActionType(ActionCommand.Type.NONEACTION);
         }
     }
 
@@ -242,51 +242,42 @@ public class FunctionBar extends JPanel implements ScreenActionListener {
 
         for (ChartScreen screen : screens) {
             if (screen != null) {
-                screen.getAction().actionType = ActionCommand.Type.MOVECHART;
+                screen.getAction().setActionType(ActionCommand.Type.MOVECHART);
             }
         }
 
     }
 
     void btInsertLine_actionPerformed(ActionEvent e) {
-
         for (ChartScreen screen : screens) {
             if (screen != null) {
-                screen.getAction().actionType = ActionCommand.Type.INSERTLINE;
+                screen.getAction().setActionType(ActionCommand.Type.INSERTLINE);
             }
         }
-
     }
 
     void btInsertPLine_actionPerformed(ActionEvent e) {
-
         for (ChartScreen screen : screens) {
             if (screen != null) {
-                screen.getAction().actionType = ActionCommand.Type.INSERTPARALLELLINE;
+                screen.getAction().setActionType(ActionCommand.Type.INSERTPARALLELLINE);
             }
         }
-
     }
 
     void btGPartition_actionPerformed(ActionEvent e) {
-
         for (ChartScreen screen : screens) {
             if (screen != null) {
-                screen.getAction().actionType = ActionCommand.Type.GOLDENPARTITION;
+                screen.getAction().setActionType(ActionCommand.Type.GOLDENPARTITION);
             }
         }
-
-
     }
 
     void btRemoveLine_actionPerformed(ActionEvent e) {
-
         for (ChartScreen screen : screens) {
             if (screen != null) {
                 screen.undoInsertLine();
             }
         }
-
     }
 
     void btCompare_actionPerformed(ActionEvent e) {
@@ -304,12 +295,11 @@ public class FunctionBar extends JPanel implements ScreenActionListener {
                 ChartItem lcchart = chartScreen1.getLeftChart();
                 if (lcchart != null) {
                     lcchart.setChartType(ChartType.PERCENTAGE);
-                    chartScreen1.getAction().lineRecords.removeAllElements();
-                    chartScreen1.getAction().goldenPartitionLine = null;
+                    chartScreen1.getAction().getLineRecords().removeAllElements();
+                    chartScreen1.getAction().setGoldenPartitionLine(null);
                     chartScreen1.updateBaseScreen();
                     chartScreen1.repaint();
                 }
-
             }
         }
     }
@@ -326,7 +316,6 @@ public class FunctionBar extends JPanel implements ScreenActionListener {
     }
 
     public void OnZoomCompleted(Object actionChartScreen, int startIndex, int endIndex) {
-
         for (ChartScreen screen : screens) {
             if (screen != null) {
                 if (startIndex != screen.getStartDisplayIndex() || endIndex != screen.getEndDisplayIndex()) {
@@ -334,20 +323,17 @@ public class FunctionBar extends JPanel implements ScreenActionListener {
                 }
             }
         }
-
     }
 
     void btClear_actionPerformed(ActionEvent e) {
 
         for (ChartScreen screen : screens) {
             if (screen != null) {
-                screen.getAction().lineRecords.removeAllElements();
-                screen.getAction().goldenPartitionLine = null;
+                screen.getAction().getLineRecords().removeAllElements();
+                screen.getAction().setGoldenPartitionLine(null);
                 screen.repaint();
             }
         }
-
-
     }
 
     public ImageButton getBtNone() {

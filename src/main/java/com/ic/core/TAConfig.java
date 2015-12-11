@@ -22,7 +22,6 @@ public class TAConfig {
     public int bbN = 20;
     public float bbDevation = 2.0f;
 
-
     // for RSI
     public int RSIPeriod = 14;
 

@@ -14,12 +14,7 @@ import java.awt.event.*;
 
 public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCallback {
 
-    final String lbArray[][] = {
-            {"None", "\u7121"} //0
-            , {"Bar", "\u68d2\u5f62"} //1
-            , {"Candle", "\u9670\u967d"} //2
-            , {"Line", "\u7dda\u5f62"}, {"Go", "\u7e6a\u5716"}
-    };
+
     final String lbDurationArray[][] = {//3
             {"Daily", "\u65e5\u7dda"} //0
             , {"Weekly", "\u661f\u671f\u7dda"} //1
@@ -36,9 +31,9 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
             , {"Exponential Moving Average", "\u6307\u6578\u79fb\u52d5\u5e73\u5747\u7dda"} //3
             , {"Bollinger Bands", "\u4fdd\u6b77\u52a0\u901a\u9053"}
     };
-    public JComboBox chDuration = new JComboBox();
+    public JComboBox<RequestCommand.CommandType> chDuration = new JComboBox<RequestCommand.CommandType>();
     JTextField tfCode = new JTextField();
-    JComboBox chChartType = new JComboBox();
+    JComboBox<ChartType> chChartType = new JComboBox<ChartType>();
     JComboBox chMA1 = new JComboBox();
     JComboBox chMinute = new JComboBox();
     Border border1;
@@ -54,14 +49,12 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
             jbInit();
             updateMenu();
             chDuration.addItemListener(new ItemListener() {
-
                 public void itemStateChanged(ItemEvent e) {
                     chDuration_itemStateChanged(e);
                 }
             });
 
             chChartType.addItemListener(new ItemListener() {
-
                 public void itemStateChanged(ItemEvent e) {
                     chChartType_itemStateChanged(e);
                 }
@@ -69,14 +62,12 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
 
 
             this.chMinute.addItemListener(new ItemListener() {
-
                 public void itemStateChanged(ItemEvent e) {
                     chMinute_itemStateChanged(e);
                 }
             });
 
             this.chMA1.addItemListener(new ItemListener() {
-
                 public void itemStateChanged(ItemEvent e) {
                     chMA1_itemStateChanged(e);
                 }
@@ -94,15 +85,10 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
 
         int selectedIndex;
 
-        // btPlot.setLabel(lbArray[4][language]);
-
         selectedIndex = chDuration.getSelectedIndex();
         chDuration.removeAllItems();
         System.out.println("added -- chDuration");
-        chDuration.addItem(lbDurationArray[0][language]);
-        //chDuration.addItem(lbDurationArray[1][language]);
-        //chDuration.addItem(lbDurationArray[2][language]);
-        //chDuration.addItem(lbDurationArray[3][language]);
+        chDuration.addItem(RequestCommand.CommandType.DAILY);
         System.out.println("completed added -- chDuration");
         if (selectedIndex >= 0) {
             chDuration.setSelectedIndex(selectedIndex);
@@ -110,9 +96,9 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
 
         selectedIndex = chChartType.getSelectedIndex();
         chChartType.removeAllItems();
-        chChartType.addItem(lbArray[1][language]);
-        chChartType.addItem(lbArray[2][language]);
-        chChartType.addItem(lbArray[3][language]);
+        chChartType.addItem(ChartType.LINE);
+        chChartType.addItem(ChartType.CANDLE);
+        chChartType.addItem(ChartType.BAR);
         if (selectedIndex >= 0) {
             chChartType.setSelectedIndex(selectedIndex);
         }
@@ -154,18 +140,18 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
 
     private void chDuration_itemStateChanged(ItemEvent e) {
 
-        String dtype = (String) chDuration.getSelectedItem();
+        RequestCommand.CommandType dtype = (RequestCommand.CommandType) chDuration.getSelectedItem();
         int selectedIndex = chMinute.getSelectedIndex();                  //get the selected Index
         int intervals = Integer.parseInt(lbMinuteArray[selectedIndex][0]); // get the intervals
 
         // if it is daily chart.
-        if (dtype == lbDurationArray[0][0] || dtype == lbDurationArray[0][1]) {
+        if (dtype == RequestCommand.CommandType.DAILY) {
             this.chMinute.setVisible(false);
             this.chMA1.setVisible(true);
             ChartItem lchart = chartScreen1.getLeftChart();
             if (chartScreen1.getLeftChart() != null) {
                 int Code = lchart.getChartData().getCode();
-                RequestCommand fc = new RequestCommand(Code, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, chDuration.getSelectedIndex(), "LMain1", 500, intervals, false, this);
+                RequestCommand fc = new RequestCommand(Code, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, (RequestCommand.CommandType) chDuration.getSelectedItem(), "LMain1", 500, intervals, false, this);
                 ChartDataService.getInstance().addCommand(fc);
                 chartScreen1.setScreenState(ChartScreen.LOADING);
                 chartScreen2.setScreenState(ChartScreen.LOADING);
@@ -174,13 +160,13 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
         }
 
         // if it is weekly chart.
-        if (dtype == lbDurationArray[1][0] || dtype == lbDurationArray[1][1]) {
+        if (dtype == RequestCommand.CommandType.WEEKLY) {
             this.chMA1.setVisible(true);
             this.chMinute.setVisible(false);
             ChartItem lchart = chartScreen1.getLeftChart();
             if (chartScreen1.getLeftChart() != null) {
                 int Code = lchart.getChartData().getCode();
-                RequestCommand fc = new RequestCommand(Code, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, chDuration.getSelectedIndex(), "LMain1", 500, intervals, false, this);
+                RequestCommand fc = new RequestCommand(Code, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, (RequestCommand.CommandType)chDuration.getSelectedItem(), "LMain1", 500, intervals, false, this);
                 ChartDataService.getInstance().addCommand(fc);
                 chartScreen1.setScreenState(ChartScreen.LOADING);
                 chartScreen2.setScreenState(ChartScreen.LOADING);
@@ -189,13 +175,13 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
         }
 
         // if it is monthly chart
-        if (dtype == lbDurationArray[2][0] || dtype == lbDurationArray[2][1]) {
+        if (dtype == RequestCommand.CommandType.MONTHLY) {
             this.chMA1.setVisible(true);
             this.chMinute.setVisible(false);
             ChartItem lchart = chartScreen1.getLeftChart();
             if (chartScreen1.getLeftChart() != null) {
                 int Code = lchart.getChartData().getCode();
-                RequestCommand fc = new RequestCommand(Code, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, chDuration.getSelectedIndex(), "LMain1", 500, intervals, false, this);
+                RequestCommand fc = new RequestCommand(Code, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, (RequestCommand.CommandType)chDuration.getSelectedItem(), "LMain1", 500, intervals, false, this);
                 ChartDataService.getInstance().addCommand(fc);
                 chartScreen1.setScreenState(ChartScreen.LOADING);
                 chartScreen2.setScreenState(ChartScreen.LOADING);
@@ -204,14 +190,14 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
         }
 
         // if it is intraday chart
-        if (dtype == lbDurationArray[3][0] || dtype == lbDurationArray[3][1]) {
+        if (dtype == RequestCommand.CommandType.INTRADAY) {
             this.chMA1.setVisible(false);
             this.chMinute.setVisible(true);
             ChartItem lchart = chartScreen1.getLeftChart();
             if (chartScreen1.getLeftChart() != null) {
                 int Code = lchart.getChartData().getCode();
                 this.chChartType.setSelectedIndex(0);
-                RequestCommand fc = new RequestCommand(Code, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, chDuration.getSelectedIndex(), "LMain1", 500, intervals, false, this);
+                RequestCommand fc = new RequestCommand(Code, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, (RequestCommand.CommandType) chDuration.getSelectedItem(), "LMain1", 500, intervals, false, this);
                 ChartDataService.getInstance().addCommand(fc);
                 chartScreen1.setScreenState(ChartScreen.LOADING);
                 chartScreen2.setScreenState(ChartScreen.LOADING);
@@ -229,7 +215,7 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
 
         ChartItem lchart = chartScreen1.getLeftChart();
         if (chartScreen1.getLeftChart() != null) {
-            RequestCommand fc = new RequestCommand(lchart.getChartData().getCode(), RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, chDuration.getSelectedIndex(), "LMain1", 500, intervals, false, this);
+            RequestCommand fc = new RequestCommand(lchart.getChartData().getCode(), RequestCommand.TYPE_DOWNLOAD_LEFT_CHART,(RequestCommand.CommandType) chDuration.getSelectedItem(), "LMain1", 500, intervals, false, this);
             ChartDataService.getInstance().addCommand(fc);
             chartScreen1.setScreenState(ChartScreen.LOADING);
             chartScreen2.setScreenState(ChartScreen.LOADING);
@@ -311,8 +297,8 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
     }
 
     private void chChartType_itemStateChanged(ItemEvent e) {
-        String ctype = (String) chChartType.getSelectedItem();
-        if (ctype == lbArray[1][0] || ctype == lbArray[1][1]) {
+        ChartType ctype = (ChartType) chChartType.getSelectedItem();
+        if (ctype == ChartType.BAR) {
             ChartItem cchart = (ChartItem) chartScreen1.getChart("LMain1");
             if (cchart != null) {
                 cchart.setChartType(ChartType.BAR);
@@ -322,7 +308,7 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
             if (cRchart != null) {
                 cRchart.setChartType(ChartType.BAR);
             }
-        } else if (ctype == lbArray[2][0] || ctype == lbArray[2][1]) {
+        } else if (ctype == ChartType.CANDLE) {
             ChartItem cchart = (ChartItem) chartScreen1.getChart("LMain1");
             if (cchart != null) {
                 cchart.setChartType(ChartType.CANDLE);
@@ -333,7 +319,7 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
                 cRchart.setChartType(ChartType.CANDLE);
             }
 
-        } else if (ctype == lbArray[3][0] || ctype == lbArray[3][1]) {
+        } else if (ctype == ChartType.LINE) {
             ChartItem cchart = (ChartItem) chartScreen1.getChart("LMain1");
             if (cchart != null) {
                 cchart.setChartType(ChartType.LINE);
@@ -420,7 +406,7 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
         chartScreen2.setScreenState(ChartScreen.LOADING);
         chartScreen3.setScreenState(ChartScreen.LOADING);
 
-        RequestCommand fc = new RequestCommand(Code, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, chDuration.getSelectedIndex(), "LMain1", 500, intervals, false, this);
+        RequestCommand fc = new RequestCommand(Code, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, (RequestCommand.CommandType) chDuration.getSelectedItem(), "LMain1", 500, intervals, false, this);
         ChartDataService.getInstance().addCommand(fc);
     }
 
@@ -470,23 +456,8 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
         ChartItem mychart3 = new ChartItem(mydata, "LMain3");
         ChartItem mychart4 = new ChartItem(mydata, "TA1Chart");
 
-        // mychart1.chartType = chChartType.getSelectedIndex();
+        mychart1.setChartType((ChartType)chChartType.getSelectedItem());
 
-        switch (chChartType.getSelectedIndex()) {
-
-            case 0:
-                mychart1.setChartType(ChartType.BAR);
-                break;
-            case 1:
-                mychart1.setChartType(ChartType.CANDLE);
-                break;
-            case 2:
-                mychart1.setChartType(ChartType.LINE);
-                break;
-            case 3:
-                mychart1.setChartType(ChartType.BAR);
-                break;
-        }
 
         mychart1.setAxisBar(AxisType.LEFTAXIS);
         mychart2.setAxisBar(AxisType.LEFTAXIS);
@@ -509,13 +480,13 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
         chartScreen3.addChart(mychart3);
         chartScreen1.addChart(mychart4);
 
-        chartScreen1.getAction().zoomRecords.removeAllElements();
-        chartScreen2.getAction().zoomRecords.removeAllElements();
-        chartScreen3.getAction().zoomRecords.removeAllElements();
+        chartScreen1.getAction().getZoomRecords().removeAllElements();
+        chartScreen2.getAction().getZoomRecords().removeAllElements();
+        chartScreen3.getAction().getZoomRecords().removeAllElements();
 
-        chartScreen1.getAction().lineRecords.removeAllElements();
-        chartScreen2.getAction().lineRecords.removeAllElements();
-        chartScreen3.getAction().lineRecords.removeAllElements();
+        chartScreen1.getAction().getLineRecords().removeAllElements();
+        chartScreen2.getAction().getLineRecords().removeAllElements();
+        chartScreen3.getAction().getLineRecords().removeAllElements();
 
         // update tachart and calculate.........
         chartScreen1.undoZoom();
@@ -534,11 +505,8 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
     }
 
     public void OnProgress(int percent) {
-        //throw new UnsupportedOperationException("Not supported yet.");
         chartScreen1.flipLoading();
         chartScreen2.flipLoading();
         chartScreen3.flipLoading();
-
-
     }
 }

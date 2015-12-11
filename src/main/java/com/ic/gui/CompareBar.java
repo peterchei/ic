@@ -16,9 +16,7 @@ import java.awt.event.KeyListener;
 import java.util.Vector;
 
 public class CompareBar extends JPanel implements KeyListener, ChartDataServiceCallback {
-    /**
-     *
-     */
+
     private static final long serialVersionUID = -5350551016952212042L;
     final String lbCodeArray[][] = {
             {"0001", "Please Select", "Please Select"},
@@ -53,12 +51,15 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
             {"Close", "\u95dc\u9589"}
     };
     JTextField tfCode = new JTextField();
-    JButton btAddChart = new JButton();
-    JButton btRemove = new JButton();
+
     JComboBox<String> chACode = new JComboBox<String>();
-    JButton btClose = new JButton();
+
+    private ImageButton addButton = new ImageButton();
+    private ImageButton removeButton = new ImageButton();
+    private ImageButton closeButton = new ImageButton();
     private Vector<ChartItem> pcCharts = new Vector<ChartItem>();
-    //the reference of chartscreens which this buttonbar can control it.
+
+
     private ChartScreen chartScreen1 = null;
     private ChartScreen chartScreen2 = null;
     private ChartScreen chartScreen3 = null;
@@ -84,9 +85,9 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
 
     public void setLanguage(int tlanguage) {
         language = tlanguage;
-        btAddChart.setLabel(lbArray[0][language]);
-        btRemove.setLabel(lbArray[1][language]);
-        btClose.setLabel(lbArray[2][language]);
+        //   addButton.setLabel(lbArray[0][language]);
+        //   removeButton.setLabel(lbArray[1][language]);
+        // getCloseButton().setLabel(lbArray[2][language]);
 
     }
 
@@ -100,53 +101,39 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
     private void jbInit() throws Exception {
         tfCode.setBackground(Color.white);
         tfCode.setBorder(BorderFactory.createLineBorder(Color.black));
-        tfCode.setBounds(new Rectangle(10, 3, 56, FConfig.BUTTON_SIZE));
+        tfCode.setBounds(new Rectangle(0, 3, FConfig.BUTTON_SIZE * 2, FConfig.BUTTON_SIZE));
         this.setLayout(null);
-        btAddChart.setFont(new Font("Dialog", 0, 10));
-        btAddChart.setAlignmentX((float) 0.0);
-        btAddChart.setAlignmentY((float) 0.0);
-        btAddChart.setBorder(BorderFactory.createLineBorder(Color.black));
-        btAddChart.setLabel("Add");
-        btAddChart.setBounds(new Rectangle(69, 3, 55, FConfig.BUTTON_SIZE));
-        btAddChart.addActionListener(new ActionListener() {
+        getAddButton().setBounds(new Rectangle(FConfig.BUTTON_SIZE * 2 + 1, 3, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
+        getAddButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 btAddChart_actionPerformed(e);
             }
         });
-        btRemove.setFont(new Font("Dialog", 0, 10));
-        btRemove.setAlignmentX((float) 0.0);
-        btRemove.setAlignmentY((float) 0.0);
-        btRemove.setBorder(BorderFactory.createLineBorder(Color.black));
-        btRemove.setLabel("Remove");
-        btRemove.setBounds(new Rectangle(125, 3, 66, FConfig.BUTTON_SIZE));
-        btRemove.addActionListener(new ActionListener() {
+
+
+        chACode.setFont(new Font("Dialog", 0, 10));
+        chACode.setBorder(BorderFactory.createLineBorder(Color.black));
+        chACode.setBounds(new Rectangle(FConfig.BUTTON_SIZE * 4 + 1, 3, FConfig.BUTTON_SIZE*2, FConfig.BUTTON_SIZE));
+        getRemoveButton().setBounds(new Rectangle(FConfig.BUTTON_SIZE * 6 + 1, 3, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
+        getRemoveButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 btRemove_actionPerformed(e);
             }
         });
-        chACode.setFont(new Font("Dialog", 0, 10));
-        chACode.setBorder(BorderFactory.createLineBorder(Color.black));
-        chACode.setBounds(new Rectangle(192, 3, 76, FConfig.BUTTON_SIZE));
-        btClose.setFont(new Font("Dialog", 0, 10));
-        btClose.setAlignmentY((float) 0.0);
-        btClose.setBorder(BorderFactory.createLineBorder(Color.black));
-        btClose.setLabel("Close");
-        btClose.setBounds(new Rectangle(270, 3, 55, FConfig.BUTTON_SIZE));
-        btClose.addActionListener(new ActionListener() {
+
+
+        getCloseButton().setBounds(new Rectangle(FConfig.BUTTON_SIZE * 8 + 1, 3, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
+        getCloseButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 btClose_actionPerformed(e);
             }
         });
         this.add(tfCode, null);
-        this.add(btAddChart, null);
-        this.add(btRemove, null);
+        this.add(getAddButton(), null);
+        this.add(getRemoveButton(), null);
         this.add(chACode, null);
-        this.add(btClose, null);
+        this.add(getCloseButton(), null);
         tfCode.addKeyListener(this);
-        //chACode.setVisible(false);
-        //chSpChart.setVisible(false);
-
-
     }
 
     void btClose_actionPerformed(ActionEvent e) {
@@ -186,8 +173,8 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
                 //fMenuBar.chChartType.getSelectedIndex();
             }
             pcCharts.removeAllElements();
-            chartScreen1.getAction().lineRecords.removeAllElements();
-            chartScreen1.getAction().goldenPartitionLine = null;
+            chartScreen1.getAction().getLineRecords().removeAllElements();
+            chartScreen1.getAction().setGoldenPartitionLine(null);
 
             chartScreen1.removeChartsByType(ChartType.PERCENTAGE);
             chartScreen1.updateBaseScreen();
@@ -201,16 +188,10 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
      * Invoked when a key has been pressed.
      */
     public void keyPressed(KeyEvent e) {
-        //System.out.println("keyevent" + e);
-        //System.out.println("keytyped");
-        // System.out.println(e.getKeyCode());
-
-        //e.setKeyChar('a');
         if (e.getKeyCode() == 10) {
             //   System.out.println("Enter");
             btAddChart_actionPerformed(null);
         }
-
     }
 
     /***
@@ -223,10 +204,8 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
     }
 
     void btAddChart_actionPerformed(ActionEvent e) {
-        System.out.println("add action");
 
         if (fMenuBar == null || chartScreen1.getLeftChart() == null) return;
-
         String cc = tfCode.getText();
 
         if (!FormatUtil.isNumerical(cc)) {
@@ -239,7 +218,7 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
         if (Code != chartScreen1.getLeftChart().getChartData().getCode()) {
             int intervals = chartScreen1.getLeftChart().getChartData().getIntradayInterval();
             int NumberOfPoints = chartScreen1.getLeftChart().getChartData().getData().size();
-            RequestCommand fc = new RequestCommand(Code, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, fMenuBar.chDuration.getSelectedIndex(), String.valueOf(Code), NumberOfPoints, intervals, true, this);
+            RequestCommand fc = new RequestCommand(Code, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, (RequestCommand.CommandType) fMenuBar.chDuration.getSelectedItem(), String.valueOf(Code), NumberOfPoints, intervals, true, this);
             ChartDataService.getInstance().addCommand(fc);
             chartScreen1.setScreenState(ChartScreen.LOADING);
         }
@@ -262,7 +241,6 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
 
         ChartData mydata = chartData;
 
-
         ChartItem mychart1 = new ChartItem(mydata, String.valueOf(fc.getCode()));
         mychart1.setAxisBar(AxisType.NONE);
         mychart1.setChartType(ChartType.PERCENTAGE);
@@ -271,8 +249,8 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
 
 
         chartScreen1.addChart(mychart1);
-        chartScreen1.getAction().zoomRecords.removeAllElements();
-        chartScreen1.getAction().lineRecords.removeAllElements();
+        chartScreen1.getAction().getZoomRecords().removeAllElements();
+        chartScreen1.getAction().getLineRecords().removeAllElements();
         chartScreen1.updateBaseScreen();
         chartScreen1.setScreenState(ChartScreen.STARTED);
         pcCharts.addElement(mychart1);
@@ -296,12 +274,33 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
         }
         chartScreen1.updateBaseScreen();
         chartScreen1.repaint();
-
     }
-
 
     public void OnProgress(int percent) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        // throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    public ImageButton getCloseButton() {
+        return closeButton;
+    }
+
+    public void setCloseButton(ImageButton closeButton) {
+        this.closeButton = closeButton;
+    }
+
+    public ImageButton getAddButton() {
+        return addButton;
+    }
+
+    public void setAddButton(ImageButton addButton) {
+        this.addButton = addButton;
+    }
+
+    public ImageButton getRemoveButton() {
+        return removeButton;
+    }
+
+    public void setRemoveButton(ImageButton removeButton) {
+        this.removeButton = removeButton;
+    }
 }
