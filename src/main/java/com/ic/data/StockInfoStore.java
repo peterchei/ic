@@ -18,7 +18,7 @@ public class StockInfoStore {
     private static StockInfoStore stockInfo = null;
     private HashMap<String, String> stockMap;
     private StockInfoStore() {
-        this.stockMap = new HashMap<>();
+        this.stockMap = new HashMap<String, String>();
 
         BufferedReader reader = new BufferedReader(new java.io.InputStreamReader(StockInfoStore.class.getResourceAsStream("/stocks.csv")));
         String line;

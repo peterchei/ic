@@ -51,11 +51,10 @@ public class TAMenu extends JPanel {
 
     private void jbInit() throws Exception {
         this.setLayout(null);
-        chChartType.setFont(new Font("Dialog", 0, 10));
+        chChartType.setFont(new Font("Dialog", 0, 18));
         chChartType.setBorder(BorderFactory.createLineBorder(Color.black));
-        chChartType.setBounds(new Rectangle(8, 3, 82, FConfig.BUTTON_SIZE));
-        btSetting.setBounds(new Rectangle(91, 1, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
-        btSetting.setLabel("fImageButton1");
+        chChartType.setBounds(new Rectangle(0, 0, 100, FConfig.BUTTON_SIZE));
+        btSetting.setBounds(new Rectangle(100, 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         btSetting.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 btSetting_actionPerformed(e);

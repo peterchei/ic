@@ -5,6 +5,7 @@ import com.ic.data.FLine;
 import com.ic.data.SPoint;
 import com.ic.data.TAPoint;
 import com.ic.util.FormatUtil;
+import javafx.embed.swing.JFXPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -927,7 +928,6 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     private void plotLoading() {
         Graphics gg = getAllscreenImage().getGraphics();
         int currentIndex = (loadingBarIndex++) % 4;
-
         gg.drawImage(loadingBarImage[currentIndex], getSize().width / 2 - loadingBarImage[currentIndex].getWidth(null) / 2, getSize().height / 2, this);
     }
 
@@ -1063,7 +1063,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         } else if (resolution >= 9 && resolution <= 10) {
             BarWidth = 4;
         } else if (resolution >= 11) {
-            BarWidth = (int) (resolution/2d);
+            BarWidth = (int) (resolution / 2d);
         }
         for (int i = startDisplayIndex; i <= endDisplayIndex; i++) {
             SPoint fpoint = (SPoint) currentChart.getChartData().getData().elementAt(i);
@@ -1627,6 +1627,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     private void drawLabel(ChartItem currentChart) {
 
         Graphics g = getAllscreenImage().getGraphics();
+        g.setFont(new Font("default", 0, FConfig.SCREEN_FONT_SIZE));
         if (currentChart.getAxisBar() == AxisType.LEFTAXIS) {
             if (currentChart.getChartType() == ChartType.BAR || currentChart.getChartType() == ChartType.LINE || currentChart.getChartType() == ChartType.CANDLE) {
                 g.setColor(currentChart.getFirstColor());
@@ -1636,7 +1637,8 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                 } else if (language == FConfig.constChinese) {
                     cname = currentChart.getChartData().getCName();
                 }
-                g.drawString(FormatUtil.getCode(currentChart.getChartData().getCode()) + " " + cname, leftSpace, 18);
+
+                g.drawString(FormatUtil.getCode(currentChart.getChartData().getCode()) + " " + cname, leftSpace + 5, FConfig.SCREEN_FONT_SIZE + 10);
             }
 
             if (currentChart.getChartType() == ChartType.PERCENTAGE) {
@@ -1648,92 +1650,87 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                 } else {
                     sdate = lbArray[23][language] + " : " + fpoint.getDay() + "-" + fpoint.getMonth() + "-" + fpoint.getYear();
                 }
-                g.drawString(sdate, leftSpace, 18);
+                g.drawString(sdate, leftSpace + 5, FConfig.SCREEN_FONT_SIZE + 10);
             }
 
         }
-
-
         if (currentChart.getChartType() == ChartType.VOLUME) {
-            g.drawString(FormatUtil.getCode(currentChart.getChartData().getCode()) + " " + lbArray[9][language], leftSpace, 18);
+            g.drawString(FormatUtil.getCode(currentChart.getChartData().getCode()) + " " + lbArray[9][language], leftSpace + 5, FConfig.SCREEN_FONT_SIZE + 10);
         } else if (currentChart.getChartType() == ChartType.MACD) {
             String tempString;
             tempString = FormatUtil.getCode(currentChart.getChartData().getCode()) + " " + lbArray[20][language];
             tempString = tempString + "(" + currentChart.getChartData().getfTAconfig().MACDLEMA + "-" + currentChart.getChartData().getfTAconfig().MACDSEMA + ")";
             g.setColor(FConfig.MACDColor1);
-            g.drawString(tempString, leftSpace, 18);
+            g.drawString(tempString, leftSpace + 5, FConfig.SCREEN_FONT_SIZE + 10);
             tempString = "EMA(" + currentChart.getChartData().getfTAconfig().MACDAEMA + ")";
             g.setColor(FConfig.MACDColor2);
-            g.drawString(tempString, leftSpace + 300, 18);
+            g.drawString(tempString, leftSpace + 300, FConfig.SCREEN_FONT_SIZE + 10);
             tempString = "DIFF";
             g.setColor(FConfig.MACDColor3);
-            g.drawString(tempString, leftSpace + 350, 18);
+            g.drawString(tempString, leftSpace + 350, FConfig.SCREEN_FONT_SIZE + 10);
         } else if (currentChart.getChartType() == ChartType.EXPONENTIAL_MOVING_AVERAGE) {
             String tempString;
             g.setColor(FConfig.MAColor1);
             tempString = "EMA(" + currentChart.getChartData().getfTAconfig().EMA1 + ")";
-            g.drawString(tempString, leftSpace + 160, 18);
+            g.drawString(tempString, leftSpace + 160, FConfig.SCREEN_FONT_SIZE + 10);
             tempString = "EMA(" + currentChart.getChartData().getfTAconfig().EMA2 + ")";
             g.setColor(FConfig.MAColor2);
-            g.drawString(tempString, leftSpace + 210, 18);
+            g.drawString(tempString, leftSpace + 210, FConfig.SCREEN_FONT_SIZE + 10);
             tempString = "EMA(" + currentChart.getChartData().getfTAconfig().EMA3 + ")";
             g.setColor(FConfig.MAColor3);
-            g.drawString(tempString, leftSpace + 260, 18);
+            g.drawString(tempString, leftSpace + 260, FConfig.SCREEN_FONT_SIZE + 10);
         } else if (currentChart.getChartType() == ChartType.SIMPLE_MOVING_AVERAGE) {
             String tempString;
             g.setColor(FConfig.MAColor1);
             tempString = "SMA(" + currentChart.getChartData().getfTAconfig().SMAN1 + ")";
-            g.drawString(tempString, leftSpace + 160, 18);
+            g.drawString(tempString, leftSpace + 160, FConfig.SCREEN_FONT_SIZE + 10);
             tempString = "SMA(" + currentChart.getChartData().getfTAconfig().SMAN2 + ")";
             g.setColor(FConfig.MAColor2);
             g.drawString(tempString, leftSpace + 210, 18);
             tempString = "SMA(" + currentChart.getChartData().getfTAconfig().SMAN3 + ")";
             g.setColor(FConfig.MAColor3);
-            g.drawString(tempString, leftSpace + 260, 18);
+            g.drawString(tempString, leftSpace + 260, FConfig.SCREEN_FONT_SIZE + 10);
         } else if (currentChart.getChartType() == ChartType.WEIGHTED_MOVING_AVERAGE) {
             String tempString;
             g.setColor(FConfig.MAColor1);
             tempString = "WMA(" + currentChart.getChartData().getfTAconfig().WMAN1 + ")";
-            g.drawString(tempString, leftSpace + 160, 18);
+            g.drawString(tempString, leftSpace + 160, FConfig.SCREEN_FONT_SIZE + 10);
             tempString = "WMA(" + currentChart.getChartData().getfTAconfig().WMAN2 + ")";
             g.setColor(FConfig.MAColor2);
-            g.drawString(tempString, leftSpace + 210, 18);
+            g.drawString(tempString, leftSpace + 210, FConfig.SCREEN_FONT_SIZE + 10);
             tempString = "WMA(" + currentChart.getChartData().getfTAconfig().WMAN3 + ")";
             g.setColor(FConfig.MAColor3);
-            g.drawString(tempString, leftSpace + 260, 18);
+            g.drawString(tempString, leftSpace + 260, FConfig.SCREEN_FONT_SIZE + 10);
         } else if (currentChart.getChartType() == ChartType.BOLLINGERBAND) {
             String tempString;
             g.setColor(FConfig.BollingerBandColor);
             tempString = "SMA(" + currentChart.getChartData().getfTAconfig().bbN + ")";
             tempString = tempString + "  " + lbArray[22][language] + "(" + currentChart.getChartData().getfTAconfig().bbDevation + ")";
-            g.drawString(tempString, leftSpace + 160, 18);
+            g.drawString(tempString, leftSpace + 160, FConfig.SCREEN_FONT_SIZE + 10);
         } else if (currentChart.getChartType() == ChartType.RSI) {
-            g.drawString(FormatUtil.getCode(currentChart.getChartData().getCode()) + " " + lbArray[17][language], leftSpace, 18);
+            g.drawString(FormatUtil.getCode(currentChart.getChartData().getCode()) + " " + lbArray[17][language], leftSpace + 10, FConfig.SCREEN_FONT_SIZE + 10);
             String tempString;
             tempString = "RSI(" + currentChart.getChartData().getfTAconfig().RSIPeriod + ")";
             g.setColor(FConfig.RSIColor);
-            g.drawString(tempString, leftSpace + 160, 18);
-
+            g.drawString(tempString, leftSpace + 350, FConfig.SCREEN_FONT_SIZE + 10);
 
         } else if (currentChart.getChartType() == ChartType.OBV) {
-            g.drawString(FormatUtil.getCode(currentChart.getChartData().getCode()) + " " + lbArray[19][language], leftSpace, 18);
+            g.drawString(FormatUtil.getCode(currentChart.getChartData().getCode()) + " " + lbArray[19][language], leftSpace + 10, FConfig.SCREEN_FONT_SIZE + 10);
         } else if (currentChart.getChartType() == ChartType.STC) {
-            g.drawString(FormatUtil.getCode(currentChart.getChartData().getCode()) + " " + lbArray[18][language], leftSpace, 18);
+            g.drawString(FormatUtil.getCode(currentChart.getChartData().getCode()) + " " + lbArray[18][language], leftSpace + 10, FConfig.SCREEN_FONT_SIZE + 10);
             String tempString;
             tempString = "%K(" + currentChart.getChartData().getfTAconfig().STCKPeriod + ")";
             g.setColor(FConfig.STCColorK);
-            g.drawString(tempString, leftSpace + 100, 18);
+            g.drawString(tempString, leftSpace + 100, FConfig.SCREEN_FONT_SIZE + 10);
             tempString = "%D(" + currentChart.getChartData().getfTAconfig().STCDPeriod + ")";
             g.setColor(FConfig.STCColorD);
-            g.drawString(tempString, leftSpace + 150, 18);
+            g.drawString(tempString, leftSpace + 150, FConfig.SCREEN_FONT_SIZE + 10);
         } else if (currentChart.getChartType() == ChartType.WILLIAM_R) {
             String tempString = FormatUtil.getCode(currentChart.getChartData().getCode()) + " " + lbArray[21][language];
             tempString = tempString + "(" + currentChart.getChartData().getfTAconfig().WilliamPeriod + ")";
             g.setColor(FConfig.WilliamRColor);
-            g.drawString(tempString, leftSpace, 18);
+            g.drawString(tempString, leftSpace + 10, FConfig.SCREEN_FONT_SIZE + 10);
         }
-
-
     }
 
     //plot the Left YAxis

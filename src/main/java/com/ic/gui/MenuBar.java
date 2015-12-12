@@ -53,27 +53,21 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
                     chDuration_itemStateChanged(e);
                 }
             });
-
             chChartType.addItemListener(new ItemListener() {
                 public void itemStateChanged(ItemEvent e) {
                     chChartType_itemStateChanged(e);
                 }
             });
-
-
             this.chMinute.addItemListener(new ItemListener() {
                 public void itemStateChanged(ItemEvent e) {
                     chMinute_itemStateChanged(e);
                 }
             });
-
             this.chMA1.addItemListener(new ItemListener() {
                 public void itemStateChanged(ItemEvent e) {
                     chMA1_itemStateChanged(e);
                 }
             });
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -166,7 +160,7 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
             ChartItem lchart = chartScreen1.getLeftChart();
             if (chartScreen1.getLeftChart() != null) {
                 int Code = lchart.getChartData().getCode();
-                RequestCommand fc = new RequestCommand(Code, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, (RequestCommand.CommandType)chDuration.getSelectedItem(), "LMain1", 500, intervals, false, this);
+                RequestCommand fc = new RequestCommand(Code, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, (RequestCommand.CommandType) chDuration.getSelectedItem(), "LMain1", 500, intervals, false, this);
                 ChartDataService.getInstance().addCommand(fc);
                 chartScreen1.setScreenState(ChartScreen.LOADING);
                 chartScreen2.setScreenState(ChartScreen.LOADING);
@@ -181,7 +175,7 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
             ChartItem lchart = chartScreen1.getLeftChart();
             if (chartScreen1.getLeftChart() != null) {
                 int Code = lchart.getChartData().getCode();
-                RequestCommand fc = new RequestCommand(Code, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, (RequestCommand.CommandType)chDuration.getSelectedItem(), "LMain1", 500, intervals, false, this);
+                RequestCommand fc = new RequestCommand(Code, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, (RequestCommand.CommandType) chDuration.getSelectedItem(), "LMain1", 500, intervals, false, this);
                 ChartDataService.getInstance().addCommand(fc);
                 chartScreen1.setScreenState(ChartScreen.LOADING);
                 chartScreen2.setScreenState(ChartScreen.LOADING);
@@ -215,7 +209,7 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
 
         ChartItem lchart = chartScreen1.getLeftChart();
         if (chartScreen1.getLeftChart() != null) {
-            RequestCommand fc = new RequestCommand(lchart.getChartData().getCode(), RequestCommand.TYPE_DOWNLOAD_LEFT_CHART,(RequestCommand.CommandType) chDuration.getSelectedItem(), "LMain1", 500, intervals, false, this);
+            RequestCommand fc = new RequestCommand(lchart.getChartData().getCode(), RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, (RequestCommand.CommandType) chDuration.getSelectedItem(), "LMain1", 500, intervals, false, this);
             ChartDataService.getInstance().addCommand(fc);
             chartScreen1.setScreenState(ChartScreen.LOADING);
             chartScreen2.setScreenState(ChartScreen.LOADING);
@@ -337,32 +331,40 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
 
     private void jbInit() throws Exception {
         border1 = BorderFactory.createEtchedBorder(Color.white, Color.black);
-        tfCode.setFont(new Font("Dialog", 0, 14));
+        tfCode.setFont(new Font("Dialog", 0, 18));
         tfCode.setBorder(BorderFactory.createLineBorder(Color.black));
         tfCode.setCaretPosition(0);
         tfCode.setColumns(4);
-        tfCode.setBounds(new Rectangle(9, 4, 50, FConfig.BUTTON_SIZE));
+
         tfCode.setBackground(Color.white);
         tfCode.addKeyListener(this);   //add a key listener
         this.setLayout(null);
         chDuration.setBackground(Color.white);
-        chDuration.setFont(new Font("Dialog", 0, 10));
+        chDuration.setFont(new Font("Dialog", 0, 18));
         chDuration.setAutoscrolls(true);
         chDuration.setBorder(BorderFactory.createLineBorder(Color.black));
-        chDuration.setBounds(new Rectangle(62, 4, 54, FConfig.BUTTON_SIZE));
+
         chChartType.setBackground(Color.white);
-        chChartType.setFont(new Font("Dialog", 0, 10));
+        chChartType.setFont(new Font("Dialog", 0, 18));
         chChartType.setAutoscrolls(true);
         chChartType.setBorder(BorderFactory.createLineBorder(Color.black));
-        chChartType.setBounds(new Rectangle(225, 4, 63, FConfig.BUTTON_SIZE));
-        chMA1.setFont(new Font("Dialog", 0, 10));
+
+        chMA1.setFont(new Font("Dialog", 0, 18));
         chMA1.setAutoscrolls(true);
         chMA1.setBackground(Color.white);
         chMA1.setBorder(BorderFactory.createLineBorder(Color.black));
-        chMA1.setBounds(new Rectangle(120, 4, 101, FConfig.BUTTON_SIZE));
+
         chMinute.setVisible(false);
-        chMinute.setBounds(new Rectangle(415, 0, 83, 26));
-        this.setFont(new Font("Dialog", 0, 10));
+
+        tfCode.setBounds(new Rectangle(0, 0, 60, FConfig.BUTTON_SIZE));
+        chDuration.setBounds(new Rectangle(60, 0, 100, FConfig.BUTTON_SIZE));
+        chMA1.setBounds(new Rectangle(160, 0, 200, FConfig.BUTTON_SIZE));
+
+        //chMinute.setBounds(new Rectangle(415, 0, 83, 26));
+        chChartType.setBounds(new Rectangle(360, 0, 80, FConfig.BUTTON_SIZE));
+
+
+        this.setFont(new Font("Dialog", 0, 18));
         this.setDebugGraphicsOptions(0);
         this.add(chMinute, null);
         this.add(tfCode, null);
@@ -456,7 +458,7 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
         ChartItem mychart3 = new ChartItem(mydata, "LMain3");
         ChartItem mychart4 = new ChartItem(mydata, "TA1Chart");
 
-        mychart1.setChartType((ChartType)chChartType.getSelectedItem());
+        mychart1.setChartType((ChartType) chChartType.getSelectedItem());
 
 
         mychart1.setAxisBar(AxisType.LEFTAXIS);

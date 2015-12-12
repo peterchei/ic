@@ -6,6 +6,7 @@ import com.ic.data.ChartDataService;
 import com.ic.data.RequestCommand;
 import com.ic.gui.STVChart;
 import javafx.application.Application;
+import javafx.embed.swing.JFXPanel;
 import javafx.embed.swing.SwingNode;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
@@ -48,11 +49,25 @@ public class Main extends Application {
             @Override
             public void run() {
 
-                JPanel panel = new JPanel();
+                JFXPanel panel = new JFXPanel();
 
 
                 STVChart coreChart = new STVChart();
                 // load image from URL
+
+                coreChart.functionPanel.getBtNone().setButtonImage(new ImageIcon(getClass().getResource("/cursor.png")).getImage());
+                coreChart.functionPanel.getBtWatch().setButtonImage(new ImageIcon(getClass().getResource("/watch.png")).getImage());
+                coreChart.functionPanel.getBtZoomIn().setButtonImage(new ImageIcon(getClass().getResource("/zoomin.png")).getImage());
+                coreChart.functionPanel.getBtZoomOut().setButtonImage(new ImageIcon(getClass().getResource("/zoomout.png")).getImage());
+                coreChart.functionPanel.getBtMove().setButtonImage(new ImageIcon(getClass().getResource("/move.png")).getImage());
+                coreChart.functionPanel.getBtInsertLine().setButtonImage(new ImageIcon(getClass().getResource("/line.png")).getImage());
+                coreChart.functionPanel.getBtInsertPLine().setButtonImage(new ImageIcon(getClass().getResource("/parallelline.png")).getImage());
+                coreChart.functionPanel.getBtGPartition().setButtonImage(new ImageIcon(getClass().getResource("/goldenline.png")).getImage());
+                coreChart.functionPanel.getBtRemoveLine().setButtonImage(new ImageIcon(getClass().getResource("/undo.png")).getImage());
+                coreChart.functionPanel.getBtClear().setButtonImage(new ImageIcon(getClass().getResource("/clean.png")).getImage());
+                coreChart.functionPanel.getBtCompare().setButtonImage(new ImageIcon(getClass().getResource("/percentage.png")).getImage());
+                coreChart.functionPanel.getBtSetting().setButtonImage(new ImageIcon(getClass().getResource("/setting.png")).getImage());
+
                 coreChart.fbuttonBar.getBtNone().setButtonImage(new ImageIcon(getClass().getResource("/cursor.png")).getImage());
                 coreChart.fbuttonBar.getBtWatch().setButtonImage(new ImageIcon(getClass().getResource("/watch.png")).getImage());
                 coreChart.fbuttonBar.getBtZoomIn().setButtonImage(new ImageIcon(getClass().getResource("/zoomin.png")).getImage());

@@ -99,20 +99,14 @@ public class SettingDialog
     private void jbInit() throws Exception {
 
         border1 = BorderFactory.createLineBorder(Color.white, 1);
-        titledBorder1 = new TitledBorder(BorderFactory.createLineBorder(Color.
-                black, 1), "Simple Moving Average");
-        border2 = BorderFactory.createCompoundBorder(BorderFactory.
-                        createEtchedBorder(Color.yellow, new Color(178, 140, 0)),
-                BorderFactory.createEmptyBorder(0, 5, 0, 5));
+        titledBorder1 = new TitledBorder(BorderFactory.createLineBorder(Color.black, 1), "Simple Moving Average");
+        border2 = BorderFactory.createCompoundBorder(BorderFactory.createEtchedBorder(Color.yellow, new Color(178, 140, 0)), BorderFactory.createEmptyBorder(0, 5, 0, 5));
         border3 = BorderFactory.createLineBorder(Color.red, 1);
-        titledBorder2 = new TitledBorder(BorderFactory.createLineBorder(Color.
-                black, 1), "Bollinger's Band");
+        titledBorder2 = new TitledBorder(BorderFactory.createLineBorder(Color.black, 1), "Bollinger's Band");
         border4 = BorderFactory.createLineBorder(SystemColor.controlText, 1);
-        titledBorder3 = new TitledBorder(border4,
-                "Exponential Moving Average, EMA");
+        titledBorder3 = new TitledBorder(border4, "Exponential Moving Average, EMA");
         border5 = BorderFactory.createEmptyBorder();
-        titledBorder4 = new TitledBorder(BorderFactory.createLineBorder(Color.
-                black, 1), "Weight Moving Average, WMA");
+        titledBorder4 = new TitledBorder(BorderFactory.createLineBorder(Color.black, 1), "Weight Moving Average, WMA");
         border6 = BorderFactory.createLineBorder(SystemColor.controlText, 1);
         JLabel1.setFont(new java.awt.Font("Arial", 0, 11));
         JLabel1.setText("MA1");
@@ -165,7 +159,6 @@ public class SettingDialog
         btSMAApply.setBackground(Color.orange);
         btSMAApply.setFont(new java.awt.Font("Arial", 0, 11));
         btSMAApply.setBorder(border2);
-        btSMAApply.setLabel("Apply");
         btSMAApply.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 btSMAApply_actionPerformed(e);
@@ -175,7 +168,6 @@ public class SettingDialog
         btWMAApply.setFont(new java.awt.Font("Arial", 0, 11));
         btWMAApply.setBorder(border2);
         btWMAApply.setBorderPainted(true);
-        btWMAApply.setLabel("Apply");
         btWMAApply.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 btWMAApply_actionPerformed(e);
@@ -202,7 +194,6 @@ public class SettingDialog
         btEMAApply.setBackground(Color.orange);
         btEMAApply.setFont(new java.awt.Font("Arial", 0, 11));
         btEMAApply.setBorder(border2);
-        btEMAApply.setLabel("Apply");
         btEMAApply.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 btEMAApply_actionPerformed(e);
@@ -228,7 +219,6 @@ public class SettingDialog
         btBollingerApply.setBackground(Color.orange);
         btBollingerApply.setFont(new java.awt.Font("Arial", 0, 11));
         btBollingerApply.setBorder(border2);
-        btBollingerApply.setLabel("Apply");
         btBollingerApply.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 btBollingerApply_actionPerformed(e);
@@ -237,7 +227,6 @@ public class SettingDialog
         btCancel.setBackground(Color.orange);
         btCancel.setFont(new java.awt.Font("Arial", 0, 11));
         btCancel.setBorder(border2);
-        btCancel.setLabel("Cancel");
         btCancel.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 btCancel_actionPerformed(e);
@@ -246,7 +235,6 @@ public class SettingDialog
         btOK.setBackground(Color.orange);
         btOK.setFont(new java.awt.Font("Arial", 0, 11));
         btOK.setBorder(border2);
-        btOK.setLabel("OK");
         btOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 btOK_actionPerformed(e);
@@ -482,27 +470,17 @@ public class SettingDialog
             return;
         }
 
-        this.tfSMA1.setText(String.valueOf(currentChart.getChartData().getfTAconfig().
-                SMAN1));
-        this.tfSMA2.setText(String.valueOf(currentChart.getChartData().getfTAconfig().
-                SMAN2));
-        this.tfSMA3.setText(String.valueOf(currentChart.getChartData().getfTAconfig().
-                SMAN3));
-        this.tfWMA1.setText(String.valueOf(currentChart.getChartData().getfTAconfig().
-                WMAN1));
-        this.tfWMA2.setText(String.valueOf(currentChart.getChartData().getfTAconfig().
-                WMAN2));
-        this.tfWMA3.setText(String.valueOf(currentChart.getChartData().getfTAconfig().
-                WMAN3));
-        this.tfEMA1.setText(String.valueOf(currentChart.getChartData().getfTAconfig().
-                EMA1));
-        this.tfEMA2.setText(String.valueOf(currentChart.getChartData().getfTAconfig().
-                EMA2));
-        this.tfEMA3.setText(String.valueOf(currentChart.getChartData().getfTAconfig().
-                EMA3));
+        this.tfSMA1.setText(String.valueOf(currentChart.getChartData().getfTAconfig().SMAN1));
+        this.tfSMA2.setText(String.valueOf(currentChart.getChartData().getfTAconfig().SMAN2));
+        this.tfSMA3.setText(String.valueOf(currentChart.getChartData().getfTAconfig().SMAN3));
+        this.tfWMA1.setText(String.valueOf(currentChart.getChartData().getfTAconfig().WMAN1));
+        this.tfWMA2.setText(String.valueOf(currentChart.getChartData().getfTAconfig().WMAN2));
+        this.tfWMA3.setText(String.valueOf(currentChart.getChartData().getfTAconfig().WMAN3));
+        this.tfEMA1.setText(String.valueOf(currentChart.getChartData().getfTAconfig().EMA1));
+        this.tfEMA2.setText(String.valueOf(currentChart.getChartData().getfTAconfig().EMA2));
+        this.tfEMA3.setText(String.valueOf(currentChart.getChartData().getfTAconfig().EMA3));
         this.tfBB.setText(String.valueOf(currentChart.getChartData().getfTAconfig().bbN));
-        this.tfDevation.setText(String.valueOf(currentChart.getChartData().getfTAconfig().
-                bbDevation));
+        this.tfDevation.setText(String.valueOf(currentChart.getChartData().getfTAconfig().bbDevation));
     }
 
     void setChartScreen(ChartScreen cs) {
@@ -516,13 +494,6 @@ public class SettingDialog
         this.btWMAApply.setLabel(lbArray[1][language]);
         this.btEMAApply.setLabel(lbArray[1][language]);
         this.btBollingerApply.setLabel(lbArray[1][language]);
-        this.btCancel.setLabel(lbArray[2][language]);
-        //  this.btHelp.setLabel(lbArray[3][language]);
-
-//        this.lbSMA.setText(lbArray[4][language] + "(SMA)");
-//        this.lbWMA.setText(lbArray[5][language] + "(WMA)");
-//        this.lbEMA.setText(lbArray[6][language] + "(EMA)");
-//        this.lbBollinger.setText(lbArray[7][language]);
     }
 
     public void setTAChartName(String tachartName) {
