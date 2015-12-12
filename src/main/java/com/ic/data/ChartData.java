@@ -22,8 +22,8 @@ public class ChartData {
 
     //Stock information
     private int Code = 0;
-    private String EName = "";
-    private String CName = "";
+    private String EName = "Unkonwn";
+    private String CName = "Unkonwn";
     private int intradayInterval = 1;//5, or 10;
 
     public ChartData() {

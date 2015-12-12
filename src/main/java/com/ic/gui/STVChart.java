@@ -31,18 +31,14 @@ public class STVChart extends JPanel {
     public STVChart() {
         try {
             jbInit();
-            //set the reference of chartscreen
             fbuttonBar.setChartScreen(chartScreen1, chartScreen2, chartScreen3);
             fbuttonBar.setMenus(fCompareBar, fmenuBar);
             chartOptionBar1.setChartScreen(chartScreen1, chartScreen2, chartScreen3);
-            //add ScreenActionListen to the buttonbar;
 
             fmenuBar.setChartScreen(chartScreen1, chartScreen2, chartScreen3);
-            //fmenuBar.setChartSource(chartSource);
             fmenuBar.setTAMenu(fTAMenu1);
             fCompareBar.setMenus(fbuttonBar, fmenuBar);
             fCompareBar.setChartScreen(chartScreen1, chartScreen2, chartScreen3);
-            // fCompareBar.setChartSource(chartSource);
             fTAMenu1.setChartScreen(chartScreen2);
 
 
@@ -63,9 +59,11 @@ public class STVChart extends JPanel {
 
         if (this.btPrinter != null) {
             if (btOpenClose.isVisible()) {
-                btPrinter.setBounds(w - (FConfig.BUTTON_SIZE ) * 2, 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE);
+                btPrinter.setBounds(w - (FConfig.BUTTON_SIZE) * 2, 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE);
+                chartOptionBar1.setBounds(w - (FConfig.BUTTON_SIZE) * 4, 0, FConfig.BUTTON_SIZE * 2, FConfig.BUTTON_SIZE);
             } else {
-                btPrinter.setBounds(w - (FConfig.BUTTON_SIZE ), 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE);
+                btPrinter.setBounds(w - (FConfig.BUTTON_SIZE), 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE);
+                chartOptionBar1.setBounds(w - (FConfig.BUTTON_SIZE) * 3, 0, FConfig.BUTTON_SIZE * 2, FConfig.BUTTON_SIZE);
             }
         }
 
@@ -211,9 +209,9 @@ public class STVChart extends JPanel {
                 }
             }
         });
-        chartOptionBar1.setPreferredSize(new Dimension(1, 10));
-        chartOptionBar1.setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 13 + 100, FConfig.BUTTON_SIZE + 2, 2 + (FConfig.BUTTON_SIZE + 2) * 3, FConfig.BUTTON_SIZE + 2));
-        chartOptionBar1.setBackground(FConfig.ToolBarColor);
+
+
+        chartOptionBar1.setBounds(571 - (FConfig.BUTTON_SIZE) * 4, 0, FConfig.BUTTON_SIZE * 2, FConfig.BUTTON_SIZE);
 
         this.add(chartScreen1, null);
         this.add(panelToolbar, null);

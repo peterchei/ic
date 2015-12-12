@@ -27,14 +27,14 @@ public class ChartOptionBar extends JPanel {
 
     private void jbInit() throws Exception {
         this.setLayout(null);
-        btTA.setBounds(new Rectangle(FConfig.BUTTON_SIZE + 1, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
+        btTA.setBounds(new Rectangle(FConfig.BUTTON_SIZE,0,   FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         btTA.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 btTA_actionPerformed(e);
             }
         });
-        btVolume.setBounds(new Rectangle((FConfig.BUTTON_SIZE + 1) * 2, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
+        btVolume.setBounds(new Rectangle(0, 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         btVolume.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

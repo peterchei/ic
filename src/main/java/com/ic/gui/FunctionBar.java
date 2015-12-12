@@ -64,82 +64,65 @@ public class FunctionBar extends JPanel implements ScreenActionListener {
 
     private void jbInit() throws Exception {
 
-        //getBtNone().setBackground(Color.gray);
-        getBtNone().setBounds(new Rectangle(9, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
+        getBtNone().setBounds(new Rectangle(0, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtNone().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
                 btNone_actionPerformed(e);
             }
         });
-        getBtNone().setLabel("FImageButton1");
         this.setLayout(null);
         //getBtWatch().setBackground(Color.gray);
-        getBtWatch().setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 1, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
+        getBtWatch().setBounds(new Rectangle((FConfig.BUTTON_SIZE + 1) * 1, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtWatch().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
                 btWatch_actionPerformed(e);
             }
         });
-        getBtWatch().setLabel("FImageButton2");
-        //getBtZoomIn().setBackground(Color.gray);
-        getBtZoomIn().setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 2, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
+        getBtZoomIn().setBounds(new Rectangle((FConfig.BUTTON_SIZE + 1) * 2, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtZoomIn().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
                 btZoomIn_actionPerformed(e);
             }
         });
-        getBtZoomIn().setLabel("FImageButton3");
-        //getBtZoomOut().setBackground(Color.gray);
-        getBtZoomOut().setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 3, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
+        getBtZoomOut().setBounds(new Rectangle((FConfig.BUTTON_SIZE + 1) * 3, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtZoomOut().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
                 btZoomOut_actionPerformed(e);
             }
         });
-        getBtZoomOut().setLabel("FImageButton4");
-        //getBtMove().setBackground(Color.gray);
-        getBtMove().setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 4, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
+        getBtMove().setBounds(new Rectangle((FConfig.BUTTON_SIZE + 1) * 4, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtMove().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
                 btMove_actionPerformed(e);
             }
         });
-        getBtMove().setLabel("FImageButton5");
-        getBtInsertLine().setLabel("FImageButton5");
-        //getBtInsertLine().setBackground(Color.gray);
-        getBtInsertLine().setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 5, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
+        getBtInsertLine().setBounds(new Rectangle((FConfig.BUTTON_SIZE + 1) * 5, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtInsertLine().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
                 btInsertLine_actionPerformed(e);
             }
         });
-        getBtInsertPLine().setLabel("FImageButton5");
-        //getBtInsertPLine().setBackground(Color.gray);
-        getBtInsertPLine().setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 6, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
+        getBtInsertPLine().setBounds(new Rectangle((FConfig.BUTTON_SIZE + 1) * 6, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtInsertPLine().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
                 btInsertPLine_actionPerformed(e);
             }
         });
-        getBtGPartition().setLabel("FImageButton5");
-        //getBtGPartition().setBackground(Color.gray);
-        getBtGPartition().setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 7, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
+        getBtGPartition().setBounds(new Rectangle((FConfig.BUTTON_SIZE + 1) * 7, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtGPartition().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
                 btGPartition_actionPerformed(e);
             }
         });
-        getBtRemoveLine().setLabel("FImageButton5");
-        //getBtRemoveLine().setBackground(Color.gray);
-        getBtRemoveLine().setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 8, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
+        getBtRemoveLine().setBounds(new Rectangle((FConfig.BUTTON_SIZE + 1) * 8, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtRemoveLine().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
@@ -147,9 +130,7 @@ public class FunctionBar extends JPanel implements ScreenActionListener {
             }
         });
 
-        getBtClear().setLabel("FImageButton5");
-        //getBtClear().setBackground(Color.gray);
-        getBtClear().setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 9, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
+        getBtClear().setBounds(new Rectangle((FConfig.BUTTON_SIZE + 1) * 9, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtClear().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
@@ -157,9 +138,7 @@ public class FunctionBar extends JPanel implements ScreenActionListener {
             }
         });
 
-        getBtCompare().setLabel("Compare Button");
-        //getBtCompare().setBackground(Color.gray);
-        getBtCompare().setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 10, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
+        getBtCompare().setBounds(new Rectangle((FConfig.BUTTON_SIZE + 1) * 10, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtCompare().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
@@ -167,12 +146,8 @@ public class FunctionBar extends JPanel implements ScreenActionListener {
             }
         });
 
-
-        getBtSetting().setLabel("FImageButton5");
-        //getBtSetting().setBackground(Color.gray);
-        getBtSetting().setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 11, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
+        getBtSetting().setBounds(new Rectangle((FConfig.BUTTON_SIZE + 1) * 11, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtSetting().addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent e) {
                 btSetting_actionPerformed(e);
             }
