@@ -74,8 +74,7 @@ public class TASettingDialog extends JFrame implements WindowListener {
             ,
             {"Stochastics", "\u96a8\u6a5f\u6307\u6578"} // 5
             ,
-            {"Moving Average Convergence Divergence",
-                    "\u79fb\u52d5\u5e73\u5747\u7dda\u532f\u805a\u80cc\u99b3\u6307\u6a19"} // 6
+            {"Moving Average Convergence Divergence", "\u79fb\u52d5\u5e73\u5747\u7dda\u532f\u805a\u80cc\u99b3\u6307\u6a19"} // 6
             , {"William %R", "\u5a01\u5ec9\u6307\u6a19"} // 7
 
     };

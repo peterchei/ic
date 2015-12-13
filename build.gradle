@@ -42,6 +42,6 @@ jar {
     manifest {
         attributes("Implementation-Title": "IC",
                 "Implementation-Version": "1.0",
-                "Main-Class": "com.ic.app.Main")
+                "Main-Class": "com.ic.app.Main2")
     }
 }

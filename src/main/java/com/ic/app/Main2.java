@@ -23,7 +23,7 @@ public class Main2 extends JFrame implements WindowListener {
     public static void main(String args[]) {
         Main2 chartWindow = new Main2();
         chartWindow.setVisible(true);
-        chartWindow.setBounds(0, 0, 800, 600);
+        chartWindow.setBounds(0, 0, 1960, 960);
         chartWindow.setResizable(true);
         chartWindow.setTitle("IC");
     }
@@ -63,6 +63,7 @@ public class Main2 extends JFrame implements WindowListener {
             coreChart.chartOptionBar1.btTA.setButtonImage(new ImageIcon(getClass().getResource("/chartTypeA.png")).getImage());
             coreChart.chartOptionBar1.btVolume.setButtonImage(new ImageIcon(getClass().getResource("/chartTypeC.png")).getImage());
             coreChart.btOpenClose.setButtonImage(new ImageIcon(getClass().getResource("/close.png")).getImage());
+            coreChart.btOpenClose.setVisible(false);
             coreChart.btPrinter.setButtonImage(new ImageIcon(getClass().getResource("/print.png")).getImage());
             coreChart.fCompareBar.getCloseButton().setButtonImage(new ImageIcon(getClass().getResource("/close.png")).getImage());
             coreChart.fCompareBar.getAddButton().setButtonImage(new ImageIcon(getClass().getResource("/add.png")).getImage());
@@ -73,9 +74,9 @@ public class Main2 extends JFrame implements WindowListener {
             coreChart.chartScreen2.initScreen();
             coreChart.chartScreen3.initScreen();
 
-            //  fMEChartA1.setBackground(Color.blue);
+
             ChartDataService.getInstance().enable();
-            //panel.setBackground(Color.yellow);
+            this.setIconImage(new ImageIcon(getClass().getResource("/ICChart.png")).getImage());
 
             // add a chart data
             RequestCommand fc = new RequestCommand(0001, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, (RequestCommand.CommandType) coreChart.fmenuBar.chDuration.getSelectedItem(), "LMain1", 500, 1, false, coreChart.fmenuBar);
@@ -83,6 +84,7 @@ public class Main2 extends JFrame implements WindowListener {
             coreChart.chartScreen1.setScreenState(ChartScreen.LOADING);
             coreChart.chartScreen2.setScreenState(ChartScreen.LOADING);
             coreChart.chartScreen3.setScreenState(ChartScreen.LOADING);
+
 
             // change the language by calling set language function
             coreChart.setLanguage(FConfig.constEnglish);
@@ -100,17 +102,12 @@ public class Main2 extends JFrame implements WindowListener {
     }
 
     private void jbInit() throws Exception {
-        // button1.setLabel("button1");
         this.getContentPane().setLayout(borderLayout1);
-
     }
 
     public void windowClosing(WindowEvent e) {
         this.dispose();
-        chartPanel.btOpenClose.setVisible(true);
-        this.originalContainer.add("Chart", chartPanel);
-        chartPanel.setBounds(0, 0, originalContainer.getSize().width, originalContainer.getSize().height);
-        originalContainer.repaint();
+        System.exit(0);
     }
 
     public void windowOpened(WindowEvent e) {

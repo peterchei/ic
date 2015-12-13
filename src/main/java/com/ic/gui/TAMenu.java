@@ -132,14 +132,15 @@ public class TAMenu extends JPanel {
     }
 
     void btSetting_actionPerformed(ActionEvent e) {
+
         TASetting.setChartScreen(chartScreen);
         TASetting.setTAChartName("TA1Chart");  // tell the setting window that which chart he can control
         TASetting.updateSetting();
         TASetting.setTitle("FME TA Chart Setting Window");
         TASetting.setResizable(false);
-        TASetting.setBounds(0, 0, 320, 320);
-        TASetting.show();
-        //TASetting.pack();
+        TASetting.setBounds(0, 0, 320, 500);
+        TASetting.setVisible(true);
+        ///TASetting.pack();
     }
 }
 

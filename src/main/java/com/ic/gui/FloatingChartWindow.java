@@ -6,7 +6,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 
-public class FMEChartWindow extends JFrame implements WindowListener {
+public class FloatingChartWindow extends JFrame implements WindowListener {
     /**
      *
      */
@@ -15,7 +15,7 @@ public class FMEChartWindow extends JFrame implements WindowListener {
     private STVChart chartPanel = null;
     private Container originalContainer = null;
 
-    public FMEChartWindow() {
+    public FloatingChartWindow() {
         try {
             jbInit();
             this.addWindowListener(this);

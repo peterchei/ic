@@ -596,10 +596,6 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                         if (cchart != null) {
                             drawWatchAction();
                         }
-//          if (cchart.chartType == ChartType.LINE ||  cchart.chartType == ChartType.CANDLE || cchart.chartType == ChartType.BAR  || cchart.chartType == ChartType.VOLUME || cchart.chartType == ChartType.MACD)
-//          {
-                        //      drawWatchAction();
-//          }
                     }
 
                     break;
@@ -1332,8 +1328,8 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         int x2 = getScreenXPositionFromPoint(endDisplayIndex);
         int y1 = this.getScreenYPosition(70, Max, Min);
         int y2 = getScreenYPosition(30, Max, Min);
-        g.drawLine(x1, y1, x2, y1);
-        g.drawLine(x1, y2, x2, y2);
+        drawDotLine(g,x1, y1, x2, y1);
+        drawDotLine(g,x1, y2, x2, y2);
 
     }
 
@@ -1651,16 +1647,16 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
             g.drawString(lbArray[9][language], leftSpace + 5, FConfig.SCREEN_FONT_SIZE + 10);
         } else if (currentChart.getChartType() == ChartType.MACD) {
             String tempString;
-            tempString = FormatUtil.getCode(currentChart.getChartData().getCode()) + " " + lbArray[20][language];
-            tempString = tempString + "(" + currentChart.getChartData().getfTAconfig().MACDLEMA + "-" + currentChart.getChartData().getfTAconfig().MACDSEMA + ")";
+            tempString = lbArray[20][language];
+            tempString = tempString + " (" + currentChart.getChartData().getfTAconfig().MACDLEMA + "-" + currentChart.getChartData().getfTAconfig().MACDSEMA + ")";
             g.setColor(FConfig.MACDColor1);
             g.drawString(tempString, leftSpace + 5, FConfig.SCREEN_FONT_SIZE + 10);
             tempString = "EMA(" + currentChart.getChartData().getfTAconfig().MACDAEMA + ")";
             g.setColor(FConfig.MACDColor2);
-            g.drawString(tempString, leftSpace + 300, FConfig.SCREEN_FONT_SIZE + 10);
+            g.drawString(tempString, leftSpace + 5, (FConfig.SCREEN_FONT_SIZE + 10) *2);
             tempString = "DIFF";
             g.setColor(FConfig.MACDColor3);
-            g.drawString(tempString, leftSpace + 350, FConfig.SCREEN_FONT_SIZE + 10);
+            g.drawString(tempString, leftSpace + 100, (FConfig.SCREEN_FONT_SIZE + 10) *2);
         } else if (currentChart.getChartType() == ChartType.EXPONENTIAL_MOVING_AVERAGE) {
             String tempString;
             g.setColor(FConfig.MAColor1);
@@ -1709,14 +1705,14 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         } else if (currentChart.getChartType() == ChartType.OBV) {
             g.drawString(FormatUtil.getCode(currentChart.getChartData().getCode()) + " " + lbArray[19][language], leftSpace + 10, FConfig.SCREEN_FONT_SIZE + 10);
         } else if (currentChart.getChartType() == ChartType.STC) {
-            g.drawString(FormatUtil.getCode(currentChart.getChartData().getCode()) + " " + lbArray[18][language], leftSpace + 10, FConfig.SCREEN_FONT_SIZE + 10);
+            g.drawString(lbArray[18][language], leftSpace + 10, FConfig.SCREEN_FONT_SIZE + 10);
             String tempString;
             tempString = "%K(" + currentChart.getChartData().getfTAconfig().STCKPeriod + ")";
             g.setColor(FConfig.STCColorK);
-            g.drawString(tempString, leftSpace + 100, FConfig.SCREEN_FONT_SIZE + 10);
+            g.drawString(tempString, leftSpace + 150, FConfig.SCREEN_FONT_SIZE + 10);
             tempString = "%D(" + currentChart.getChartData().getfTAconfig().STCDPeriod + ")";
             g.setColor(FConfig.STCColorD);
-            g.drawString(tempString, leftSpace + 150, FConfig.SCREEN_FONT_SIZE + 10);
+            g.drawString(tempString, leftSpace + 250, FConfig.SCREEN_FONT_SIZE + 10);
         } else if (currentChart.getChartType() == ChartType.WILLIAM_R) {
             String tempString = FormatUtil.getCode(currentChart.getChartData().getCode()) + " " + lbArray[21][language];
             tempString = tempString + "(" + currentChart.getChartData().getfTAconfig().WilliamPeriod + ")";
@@ -1743,8 +1739,6 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         Max = currentChart.getUpperBound();
         Min = currentChart.getLowerBound();
 
-
-        //System.out.println("DD : " + (Max-Min) + " : " + ((int)(Max-Min)*10)/10f);
         float div = (float) (Max - Min) / 3f;
         float ddiv = div;
         if (div < 1 && div >= 0.1) {

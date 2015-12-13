@@ -22,7 +22,7 @@ public class STVChart extends JPanel {
     public CompareBar fCompareBar = new CompareBar();
     public TAMenu fTAMenu1 = new TAMenu();
     public ImageButton btOpenClose = new ImageButton();
-    public FMEChartWindow chartWindow = new FMEChartWindow();  // the popup window.
+    public FloatingChartWindow chartWindow = new FloatingChartWindow();  // the popup window.
     // the printer object to print the graphic.....
     public BasicPrint basicPrinter;
     public ImageButton btPrinter = new ImageButton();
