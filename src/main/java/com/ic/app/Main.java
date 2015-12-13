@@ -10,6 +10,7 @@ import javafx.embed.swing.JFXPanel;
 import javafx.embed.swing.SwingNode;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
 
 import javax.swing.*;
@@ -40,7 +41,10 @@ public class Main extends Application {
         createAndSetSwingContent(swingNode);
         pane = new Pane();
         pane.getChildren().add(swingNode); // Adding swing node
+
+        //stage.setVgrow(swingNode, Priority.ALWAYS);
         stage.setScene(new Scene(pane, 1000, 500));
+
         stage.show();
     }
 
@@ -49,7 +53,7 @@ public class Main extends Application {
             @Override
             public void run() {
 
-                JFXPanel panel = new JFXPanel();
+               // JFXPanel panel = new JFXPanel();
 
 
                 STVChart coreChart = new STVChart();

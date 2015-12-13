@@ -162,7 +162,7 @@ public class RequestCommand {
                 if (cdata != null) {
                     getListener().OnReceivedChartData(currentCommand, cdata);
                 } else {
-                    System.out.println("error");
+                    //System.out.println("error");
                     getListener().OnReceivedError(currentCommand);
                 }
                 break;
@@ -460,7 +460,6 @@ public class RequestCommand {
             }
 
         } catch (Exception exception) {
-            System.out.println("Error when download profile");
             exception.printStackTrace();
             return null;
         }
@@ -472,7 +471,6 @@ public class RequestCommand {
         int Code = fc.getCode();
         int NumberOfPoints = fc.getNumberOfPoint();
 
-        //String srcAddr = "http://218.252.190.136/FMEQuoteBase/" + weeklyInterface + "?code=" + Code + "&data_num=" + NumberOfPoints;// + "&startdate=2000-11-1";
         String srcAddr = "http://203.161.232.72/FMEQuoteBase/" + weeklyInterface + "?code=" + Code + "&data_num=" + NumberOfPoints;// + "&startdate=2000-11-1";
 
         ChartData newChartData = new ChartData();
