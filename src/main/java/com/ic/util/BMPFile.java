@@ -1,8 +1,14 @@
 package com.ic.util;
 
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.awt.image.PixelGrabber;
+import java.awt.image.RenderedImage;
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class BMPFile extends Component {
 

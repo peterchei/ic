@@ -23,7 +23,7 @@ public class Main2 extends JFrame implements WindowListener {
     public static void main(String args[]) {
         Main2 chartWindow = new Main2();
         chartWindow.setVisible(true);
-        chartWindow.setBounds(0, 0, 1960, 960);
+        chartWindow.setBounds(0, 0, 1280, 960);
         chartWindow.setResizable(true);
         chartWindow.setTitle("IC");
     }
