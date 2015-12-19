@@ -79,7 +79,7 @@ public class Main2 extends JFrame implements WindowListener {
             this.setIconImage(new ImageIcon(getClass().getResource("/ICChart.png")).getImage());
 
             // add a chart data
-            RequestCommand fc = new RequestCommand(0001, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, (RequestCommand.CommandType) coreChart.fmenuBar.chDuration.getSelectedItem(), "LMain1", 500, 1, false, coreChart.fmenuBar);
+            RequestCommand fc = new RequestCommand(2800, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, (RequestCommand.CommandType) coreChart.fmenuBar.chDuration.getSelectedItem(), "LMain1", 500, 1, false, coreChart.fmenuBar);
             ChartDataService.getInstance().addCommand(fc);
             coreChart.chartScreen1.setScreenState(ChartScreen.LOADING);
             coreChart.chartScreen2.setScreenState(ChartScreen.LOADING);

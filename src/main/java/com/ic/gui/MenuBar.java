@@ -81,9 +81,9 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
 
         selectedIndex = chDuration.getSelectedIndex();
         chDuration.removeAllItems();
-        System.out.println("added -- chDuration");
+        //System.out.println("added -- chDuration");
         chDuration.addItem(RequestCommand.CommandType.DAILY);
-        System.out.println("completed added -- chDuration");
+        //System.out.println("completed added -- chDuration");
         if (selectedIndex >= 0) {
             chDuration.setSelectedIndex(selectedIndex);
         }

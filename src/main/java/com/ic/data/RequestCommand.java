@@ -207,7 +207,6 @@ public class RequestCommand {
         //String srcAddr = "http://203.161.232.72/FMEQuoteBase/" + intradayInterface + "?code=" + Code + "&min=" + intervals;
         String srcAddr = "http://2103.161.232.72/FMEQuoteBase/" + intradayInterface + "?code=" + Code + "&min=" + intervals;
 
-        System.out.println(srcAddr);
         ChartData newChartData = new ChartData();
         newChartData.setCode(Code);
         newChartData.dataType = ChartData.INTRADAY;
@@ -226,7 +225,7 @@ public class RequestCommand {
             int m_NumberOfPoints = Integer.parseInt(htokens.nextToken(";"));
             newChartData.setEName(htokens.nextToken(";"));
             newChartData.setCName(htokens.nextToken(";"));
-            System.out.println("NumberOfPoints: " + m_NumberOfPoints + " Ename " + newChartData.getEName() + " CName " + newChartData.getCName());
+           // System.out.println("NumberOfPoints: " + m_NumberOfPoints + " Ename " + newChartData.getEName() + " CName " + newChartData.getCName());
 
             if (m_NumberOfPoints == 0) {
                 return null;
@@ -369,7 +368,7 @@ public class RequestCommand {
             }
 
         } catch (Exception exception) {
-            System.out.println("Error when download profile");
+            //System.out.println("Error when download profile");
             exception.printStackTrace();
             return null;
         }
@@ -549,7 +548,7 @@ public class RequestCommand {
             }
 
         } catch (Exception exception) {
-            System.out.println("Error when download profile" + exception.toString());
+            //System.out.println("Error when download profile" + exception.toString());
             exception.printStackTrace();
             return null;
         }
@@ -639,7 +638,7 @@ public class RequestCommand {
             }
 
         } catch (Exception exception) {
-            System.out.println("Error when download profile" + exception.toString());
+            //System.out.println("Error when download profile" + exception.toString());
             exception.printStackTrace();
             return null;
         }
@@ -778,7 +777,7 @@ public class RequestCommand {
             }
 
         } catch (Exception exception) {
-            System.out.println("Error when download profile");
+           // System.out.println("Error when download profile");
             exception.printStackTrace();
             return null;
         }

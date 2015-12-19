@@ -1110,6 +1110,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                     }
 
                 } catch (Exception ee) {
+                    ee.printStackTrace();
                 }
             }
 
@@ -1149,6 +1150,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                     g.drawLine(x1, y1, x2, y2);
 
                 } catch (Exception ee) {
+                    ee.printStackTrace();
                 }
             }
         }

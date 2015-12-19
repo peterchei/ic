@@ -393,7 +393,7 @@ public class SettingDialog
         if (!(FormatUtil.isFloat(tfEMA1.getText()) &&
                 FormatUtil.isFloat(tfEMA2.getText()) &&
                 FormatUtil.isFloat(tfEMA3.getText()))) {
-            System.out.println("SMAAPPLy ERROR");
+
             this.updateSetting();
             return;
         }
@@ -417,7 +417,7 @@ public class SettingDialog
 ///////
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
-        System.out.println("OK EMA");
+
         taChart.getChartData().getfTAconfig().EMA1 = N1;
         taChart.getChartData().getfTAconfig().EMA2 = N2;
         taChart.getChartData().getfTAconfig().EMA3 = N3;
