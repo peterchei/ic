@@ -15,7 +15,8 @@ public class ActionCommand {
         INSERTPARALLELLINE,
         GOLDENPARTITION,
         ZOOMIN,
-        MOVECHART
+        MOVECHART,
+        EDITTEXT
     }
 
     private Point startMousePoint = new Point();    //the point where the mouse click enter

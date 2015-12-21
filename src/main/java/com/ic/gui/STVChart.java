@@ -16,7 +16,7 @@ public class STVChart extends JPanel {
     public ChartScreen chartScreen1 = new ChartScreen(20, 20, 42, 25); //the first chartscreen
     public ChartScreen chartScreen2 = new ChartScreen(20, 5, 42, 25); //the second chartscreen
     public ChartScreen chartScreen3 = new ChartScreen(15, 5, 42, 25); //the third chartscreen
-    public FunctionBar fbuttonBar = new FunctionBar();   //the button bar
+    //public FunctionBar fbuttonBar = new FunctionBar();   //the button bar
     public FunctionPanel functionPanel = new FunctionPanel();
     public MenuBar fmenuBar = new MenuBar();//the menu bar
     public CompareBar fCompareBar = new CompareBar();
@@ -32,23 +32,19 @@ public class STVChart extends JPanel {
     public STVChart() {
         try {
             jbInit();
-            fbuttonBar.setChartScreen(chartScreen1, chartScreen2, chartScreen3);
-            fbuttonBar.setMenus(fCompareBar, fmenuBar);
+            //fbuttonBar.setChartScreen(chartScreen1, chartScreen2, chartScreen3);
+            //fbuttonBar.setMenus(fCompareBar, fmenuBar);
             chartOptionBar1.setChartScreen(chartScreen1, chartScreen2, chartScreen3);
 
             fmenuBar.setChartScreen(chartScreen1, chartScreen2, chartScreen3);
             fmenuBar.setTAMenu(fTAMenu1);
-            fCompareBar.setMenus(fbuttonBar, fmenuBar);
+            fCompareBar.setMenus(functionPanel, fmenuBar);
             fCompareBar.setChartScreen(chartScreen1, chartScreen2, chartScreen3);
             fTAMenu1.setChartScreen(chartScreen2);
 
 
             functionPanel.setChartScreen(chartScreen1, chartScreen2, chartScreen3);
             functionPanel.setMenus(fCompareBar, fmenuBar);
-
-            chartScreen1.addScreenActionListen(fbuttonBar);
-            chartScreen2.addScreenActionListen(fbuttonBar);
-            chartScreen3.addScreenActionListen(fbuttonBar);
 
             chartScreen1.addScreenActionListen(functionPanel);
             chartScreen2.addScreenActionListen(functionPanel);
@@ -76,7 +72,7 @@ public class STVChart extends JPanel {
             }
         }
 
-        int xx = h - (FConfig.BUTTON_SIZE + 2) ;
+        int xx = h - (FConfig.BUTTON_SIZE + 2);
         xx = xx / 4;
 
         int x1 = (int) (xx * 1.8);
@@ -126,10 +122,10 @@ public class STVChart extends JPanel {
 
         fmenuBar.setBounds(new Rectangle(0, 0, 500, FConfig.BUTTON_SIZE));
 
-        panelToolbar.setBounds(new Rectangle(0, 0, w, (FConfig.BUTTON_SIZE + 2) ));
-        chartScreen1.setBounds(new Rectangle(FConfig.BUTTON_SIZE, (FConfig.BUTTON_SIZE + 2) ,           w - FConfig.BUTTON_SIZE, x1));
-        chartScreen2.setBounds(new Rectangle(FConfig.BUTTON_SIZE, (FConfig.BUTTON_SIZE + 2)  + x1,      w - FConfig.BUTTON_SIZE, x2));
-        chartScreen3.setBounds(new Rectangle(FConfig.BUTTON_SIZE, (FConfig.BUTTON_SIZE + 2)  + x1 + x2, w - FConfig.BUTTON_SIZE, x3));
+        panelToolbar.setBounds(new Rectangle(0, 0, w, (FConfig.BUTTON_SIZE + 2)));
+        chartScreen1.setBounds(new Rectangle(FConfig.BUTTON_SIZE, (FConfig.BUTTON_SIZE + 2), w - FConfig.BUTTON_SIZE, x1));
+        chartScreen2.setBounds(new Rectangle(FConfig.BUTTON_SIZE, (FConfig.BUTTON_SIZE + 2) + x1, w - FConfig.BUTTON_SIZE, x2));
+        chartScreen3.setBounds(new Rectangle(FConfig.BUTTON_SIZE, (FConfig.BUTTON_SIZE + 2) + x1 + x2, w - FConfig.BUTTON_SIZE, x3));
 
         chartScreen1.getFaction().getLineRecords().removeAllElements();
         chartScreen2.getFaction().getLineRecords().removeAllElements();
@@ -176,15 +172,15 @@ public class STVChart extends JPanel {
             x3 = 0;
         }
 
-        panelToolbar.setBounds(new Rectangle(0, 0, 1024, (FConfig.BUTTON_SIZE ) * 2));
-        chartScreen1.setBounds(new Rectangle(1, (FConfig.BUTTON_SIZE + 2) , 600, x1));
+        panelToolbar.setBounds(new Rectangle(0, 0, 1024, (FConfig.BUTTON_SIZE) * 2));
+        chartScreen1.setBounds(new Rectangle(1, (FConfig.BUTTON_SIZE + 2), 600, x1));
         chartScreen2.setBounds(new Rectangle(1, (FConfig.BUTTON_SIZE + 2) + x1, 600, x2));
         chartScreen3.setBounds(new Rectangle(1, (FConfig.BUTTON_SIZE + 2) + x1 + x2, 600, x3));
 
         fmenuBar.setBackground(FConfig.ToolBarColor);
         fmenuBar.setBounds(new Rectangle(0, 0, 400, FConfig.BUTTON_SIZE));
         functionPanel.setLayout(null);
-        functionPanel.setBounds(new Rectangle(0, FConfig.BUTTON_SIZE ,  FConfig.BUTTON_SIZE ,9 + (FConfig.BUTTON_SIZE + 1) * 12));
+        functionPanel.setBounds(new Rectangle(0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE, 9 + (FConfig.BUTTON_SIZE + 1) * 16));
 
         fCompareBar.setBounds(new Rectangle(1, 0, 436, FConfig.BUTTON_SIZE + 2));
         fCompareBar.setVisible(false);
@@ -204,7 +200,7 @@ public class STVChart extends JPanel {
             }
         });
         btPrinter.setBounds(new Rectangle(548, 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
-             btPrinter.addActionListener(new ActionListener() {
+        btPrinter.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
                     //create printer object and connect to the printer
@@ -224,7 +220,6 @@ public class STVChart extends JPanel {
         this.add(chartScreen1, null);
         this.add(panelToolbar, null);
         panelToolbar.add(fmenuBar, null);
-       // panelToolbar.add(fbuttonBar, null);
         panelToolbar.add(fCompareBar, null);
         panelToolbar.add(btOpenClose, null);
         panelToolbar.add(btPrinter, null);
@@ -233,7 +228,6 @@ public class STVChart extends JPanel {
         this.add(functionPanel, null);
         this.add(chartScreen2, null);
         this.add(chartScreen3, null);
-
     }
 
     void btOpenClose_actionPerformed(ActionEvent e) {
@@ -256,7 +250,6 @@ public class STVChart extends JPanel {
         fmenuBar.setLanguage(language);
         fCompareBar.setLanguage(language);
         fTAMenu1.setLanguage(language);
-        fbuttonBar.setLanguage(language);
     }
 
 

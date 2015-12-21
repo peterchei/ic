@@ -72,20 +72,8 @@ public class Main extends Application {
                 coreChart.functionPanel.getBtCompare().setButtonImage(new ImageIcon(getClass().getResource("/percentage.png")).getImage());
                 coreChart.functionPanel.getBtSetting().setButtonImage(new ImageIcon(getClass().getResource("/setting.png")).getImage());
 
-                coreChart.fbuttonBar.getBtNone().setButtonImage(new ImageIcon(getClass().getResource("/cursor.png")).getImage());
-                coreChart.fbuttonBar.getBtWatch().setButtonImage(new ImageIcon(getClass().getResource("/watch.png")).getImage());
-                coreChart.fbuttonBar.getBtZoomIn().setButtonImage(new ImageIcon(getClass().getResource("/zoomin.png")).getImage());
-                coreChart.fbuttonBar.getBtZoomOut().setButtonImage(new ImageIcon(getClass().getResource("/zoomout.png")).getImage());
-                coreChart.fbuttonBar.getBtMove().setButtonImage(new ImageIcon(getClass().getResource("/move.png")).getImage());
-                coreChart.fbuttonBar.getBtInsertLine().setButtonImage(new ImageIcon(getClass().getResource("/line.png")).getImage());
-                coreChart.fbuttonBar.getBtInsertPLine().setButtonImage(new ImageIcon(getClass().getResource("/parallelline.png")).getImage());
-                coreChart.fbuttonBar.getBtGPartition().setButtonImage(new ImageIcon(getClass().getResource("/goldenline.png")).getImage());
-                coreChart.fbuttonBar.getBtRemoveLine().setButtonImage(new ImageIcon(getClass().getResource("/undo.png")).getImage());
-                coreChart.fbuttonBar.getBtClear().setButtonImage(new ImageIcon(getClass().getResource("/clean.png")).getImage());
-                coreChart.fbuttonBar.getBtCompare().setButtonImage(new ImageIcon(getClass().getResource("/percentage.png")).getImage());
-                coreChart.fbuttonBar.getBtSetting().setButtonImage(new ImageIcon(getClass().getResource("/setting.png")).getImage());
+
                 coreChart.fTAMenu1.btSetting.setButtonImage(new ImageIcon(getClass().getResource("/setting.png")).getImage());
-                //coreChart.chartOptionBar1.btStock.setButtonImage(new ImageIcon(getClass().getResource("/chartTypeA.png")).getImage());
                 coreChart.chartOptionBar1.btTA.setButtonImage(new ImageIcon(getClass().getResource("/chartTypeA.png")).getImage());
                 coreChart.chartOptionBar1.btVolume.setButtonImage(new ImageIcon(getClass().getResource("/chartTypeC.png")).getImage());
                 coreChart.btOpenClose.setButtonImage(new ImageIcon(getClass().getResource("/close.png")).getImage());

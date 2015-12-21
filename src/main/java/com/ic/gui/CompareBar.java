@@ -63,7 +63,7 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
     private ChartScreen chartScreen1 = null;
     private ChartScreen chartScreen2 = null;
     private ChartScreen chartScreen3 = null;
-    private FunctionBar fButtonBar = null;
+    private FunctionPanel fButtonBar = null;
     private MenuBar fMenuBar = null;
 
     private int language = FConfig.constEnglish;
@@ -78,7 +78,7 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
         }
     }
 
-    public void setMenus(FunctionBar fb, MenuBar fm) {
+    public void setMenus(FunctionPanel fb, MenuBar fm) {
         fButtonBar = fb;
         fMenuBar = fm;
     }

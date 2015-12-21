@@ -1,7 +1,7 @@
 package com.ic.gui;
 
 import com.ic.core.*;
-import javafx.embed.swing.JFXPanel;
+import com.ic.util.CopyImageToClipBoard;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,6 +26,10 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
     private ImageButton btClear = new ImageButton();
     private ImageButton btCompare = new ImageButton();
     private ImageButton btSetting = new ImageButton();
+    private ImageButton btCapture = new ImageButton();
+    private ImageButton btEdit = new ImageButton();
+
+    private int numberOfButtons =0;
     // the reference of bars
     private MenuBar fMenuBar = null;
     private CompareBar fCompareBar = null;
@@ -39,7 +43,7 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
 
     public FunctionPanel() {
         try {
-            jbInit();
+            initComponents();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -60,127 +64,150 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
         screens.add(cs3);
     }
 
-    public void setLanguage(int tlanguage) {
-        language = tlanguage;
-        settingWindow1.setLanguage(language);
+    private void addButton(Component component) {
+
+        component.setBounds(0, (FConfig.BUTTON_SIZE + 1) * numberOfButtons, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE);
+        this.add(component, null);
+        numberOfButtons ++;
     }
 
-    private void jbInit() throws Exception {
+    private void initComponents() throws Exception {
 
-        getBtNone().setBounds(new Rectangle(0, 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
+        getBtNone().setButtonImage(new ImageIcon(getClass().getResource("/cursor.png")).getImage());
+        getBtWatch().setButtonImage(new ImageIcon(getClass().getResource("/watch.png")).getImage());
+        getBtZoomIn().setButtonImage(new ImageIcon(getClass().getResource("/zoomin.png")).getImage());
+        getBtZoomOut().setButtonImage(new ImageIcon(getClass().getResource("/zoomout.png")).getImage());
+        getBtMove().setButtonImage(new ImageIcon(getClass().getResource("/move.png")).getImage());
+        getBtInsertLine().setButtonImage(new ImageIcon(getClass().getResource("/line.png")).getImage());
+        getBtInsertPLine().setButtonImage(new ImageIcon(getClass().getResource("/parallelline.png")).getImage());
+        getBtGPartition().setButtonImage(new ImageIcon(getClass().getResource("/goldenline.png")).getImage());
+        getBtRemoveLine().setButtonImage(new ImageIcon(getClass().getResource("/undo.png")).getImage());
+        getBtClear().setButtonImage(new ImageIcon(getClass().getResource("/clean.png")).getImage());
+        getBtSetting().setButtonImage(new ImageIcon(getClass().getResource("/setting.png")).getImage());
+        getBtCapture().setButtonImage(new ImageIcon(getClass().getResource("/capture.png")).getImage());
+        getBtCompare().setButtonImage(new ImageIcon(getClass().getResource("/percentage.png")).getImage());
+        getBtEdit().setButtonImage(new ImageIcon(getClass().getResource("/editText.png")).getImage());
+
+
         getBtNone().addActionListener(new ActionListener() {
-
             public void actionPerformed(ActionEvent e) {
                 btNone_actionPerformed(e);
             }
         });
-        this.setLayout(null);
-        getBtWatch().setBounds(new Rectangle(0, (FConfig.BUTTON_SIZE + 1) * 1, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtWatch().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
                 btWatch_actionPerformed(e);
             }
         });
-        getBtZoomIn().setBounds(new Rectangle(0, (FConfig.BUTTON_SIZE + 1) * 2, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtZoomIn().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
                 btZoomIn_actionPerformed(e);
             }
         });
-        getBtZoomOut().setBounds(new Rectangle(0, (FConfig.BUTTON_SIZE + 1) * 3, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtZoomOut().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
                 btZoomOut_actionPerformed(e);
             }
         });
-        getBtMove().setBounds(new Rectangle(0, (FConfig.BUTTON_SIZE + 1) * 4, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtMove().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
                 btMove_actionPerformed(e);
             }
         });
-        getBtInsertLine().setBounds(new Rectangle(0, (FConfig.BUTTON_SIZE + 1) * 5, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtInsertLine().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
                 btInsertLine_actionPerformed(e);
             }
         });
-        getBtInsertPLine().setBounds(new Rectangle(0, (FConfig.BUTTON_SIZE + 1) * 6, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtInsertPLine().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
                 btInsertPLine_actionPerformed(e);
             }
         });
-        getBtGPartition().setBounds(new Rectangle(0, (FConfig.BUTTON_SIZE + 1) * 7, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtGPartition().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
                 btGPartition_actionPerformed(e);
             }
         });
-        getBtRemoveLine().setBounds(new Rectangle(0, (FConfig.BUTTON_SIZE + 1) * 8, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtRemoveLine().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
                 btRemoveLine_actionPerformed(e);
             }
         });
-        getBtClear().setBounds(new Rectangle(0, (FConfig.BUTTON_SIZE + 1) * 9, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtClear().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
                 btClear_actionPerformed(e);
             }
         });
-        getBtCompare().setBounds(new Rectangle(0, (FConfig.BUTTON_SIZE + 1) * 10, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getBtCompare().addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent e) {
                 btCompare_actionPerformed(e);
             }
         });
-        getBtSetting().setBounds(new Rectangle(0, (FConfig.BUTTON_SIZE + 1) * 11, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
+        getBtCapture().addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                btCapture_actionPerformed(e);
+            }
+        });
         getBtSetting().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 btSetting_actionPerformed(e);
             }
         });
+        getBtEdit().addActionListener(new ActionListener() {
 
-        this.setBackground(SystemColor.control);
-        this.add(getBtNone(), null);
-        this.add(getBtWatch(), null);
-        this.add(getBtZoomIn(), null);
-        this.add(getBtZoomOut(), null);
-        this.add(getBtMove(), null);
-        this.add(getBtInsertLine(), null);
-        this.add(getBtInsertPLine(), null);
-        this.add(getBtGPartition(), null);
-        this.add(getBtRemoveLine(), null);
-        this.add(getBtClear(), null);
-        this.add(getBtCompare(), null);
-        this.add(getBtSetting(), null);
+            public void actionPerformed(ActionEvent e) {
+                btEdit_actionPerformed(e);
+            }
+        });
+
+        this.addButton(getBtNone());
+        this.addButton(getBtEdit());
+        this.addButton(getBtWatch());
+        this.addButton(getBtZoomIn());
+        this.addButton(getBtZoomOut());
+        this.addButton(getBtMove());
+        this.addButton(getBtInsertLine());
+        this.addButton(getBtInsertPLine());
+        this.addButton(getBtGPartition());
+        this.addButton(getBtRemoveLine());
+        this.addButton(getBtClear());
+        this.addButton(getBtCompare());
+        this.addButton(getBtCapture());
+        this.addButton(getBtSetting());
+
     }
 
     void btNone_actionPerformed(ActionEvent e) {
-
         for (ChartScreen screen : screens) {
             if (screen != null) {
                 screen.getAction().setActionType(ActionCommand.Type.NONEACTION);
             }
         }
-
     }
 
     void btWatch_actionPerformed(ActionEvent e) {
         for (ChartScreen screen : screens) {
             if (screen != null) {
                 screen.getAction().setActionType(ActionCommand.Type.WATCH);
+            }
+        }
+    }
+
+    void btEdit_actionPerformed(ActionEvent e) {
+        for (ChartScreen screen : screens) {
+            if (screen != null) {
+                screen.getAction().setActionType(ActionCommand.Type.EDITTEXT);
             }
         }
     }
@@ -200,8 +227,6 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
     }
 
     void btZoomOut_actionPerformed(ActionEvent e) {
-
-
         if (chartScreen1 != null) {
             chartScreen1.undoZoom();
             int startIndex = chartScreen1.getStartDisplayIndex();
@@ -213,13 +238,11 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
     }
 
     void btMove_actionPerformed(ActionEvent e) {
-
         for (ChartScreen screen : screens) {
             if (screen != null) {
                 screen.getAction().setActionType(ActionCommand.Type.MOVECHART);
             }
         }
-
     }
 
     void btInsertLine_actionPerformed(ActionEvent e) {
@@ -276,6 +299,36 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
                 }
             }
         }
+    }
+
+    void btCapture_actionPerformed(ActionEvent e) {
+
+        EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                int height = 0;
+                int width = screens.get(0).getWidth();
+
+                for (ChartScreen screen : screens) {
+                    if (screen.isVisible()) height = height + screen.getHeight();
+                }
+                Image image = createImage(width, height);
+                Graphics g = image.getGraphics();
+
+                int y = 0;
+                for (ChartScreen screen : screens) {
+
+                    if (screen.isVisible()) {
+                        g.drawImage(screen.getAllscreenImage(), 0, y, screen.getWidth(), screen.getHeight(), null);
+                        y = y + screen.getHeight();
+                    }
+                }
+                new CopyImageToClipBoard(image);
+
+            }
+        });
+
+
     }
 
     void btSetting_actionPerformed(ActionEvent e) {
@@ -356,5 +409,21 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
 
     public ImageButton getBtSetting() {
         return btSetting;
+    }
+
+    public ImageButton getBtCapture() {
+        return btCapture;
+    }
+
+    public void setBtCapture(ImageButton btCapture) {
+        this.btCapture = btCapture;
+    }
+
+    public ImageButton getBtEdit() {
+        return btEdit;
+    }
+
+    public void setBtEdit(ImageButton btEdit) {
+        this.btEdit = btEdit;
     }
 }
