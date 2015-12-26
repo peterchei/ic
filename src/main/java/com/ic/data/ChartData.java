@@ -4,22 +4,13 @@ import com.ic.core.TAConfig;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
-
 
 public class ChartData {
 
+    public DataInterval dataInterval = DataInterval.DAILY;
+    private List<StockData> data = new ArrayList<StockData>(1000);
+    private List<AnalyticalResult> analyticalResults = new ArrayList<AnalyticalResult>(1000);
 
-    public static final int INTRADAY = 0;
-    public static final int DAILY = 1;
-    public static final int WEEKLY = 2;
-    public static final int MONTHLY = 3;
-
-    public int dataType = DAILY;
-    // The stock data, price
-    private List data = new ArrayList();
-    // the TA data............
-    private Vector analyticalResults = new Vector();
     private TAConfig fTAconfig = new TAConfig();
 
     //Stock information
@@ -57,7 +48,7 @@ public class ChartData {
             endIndex = getData().size() - 1;
         }
         startIndex = 0;
-        endIndex = getData().size()-1;
+        endIndex = getData().size() - 1;
         for (int i = startIndex; i <= endIndex; i++) {
             StockData fpoint = (StockData) getData().get(i);
 
@@ -69,11 +60,11 @@ public class ChartData {
             } else if (cType == "PERCENTAGE") {
                 Mvalue = fpoint.getPercent();
             } else if (cType == "MACD") {
-                AnalyticalResult fTApoint = (AnalyticalResult) getAnalyticalResults().elementAt(i);
+                AnalyticalResult fTApoint = (AnalyticalResult) getAnalyticalResults().get(i);
                 Mvalue = Math.max(fTApoint.getMACD1(), fTApoint.getMACD2());
                 Mvalue = Math.max(Mvalue, fTApoint.getMACDdiff());
             } else if (cType == "OBV") {
-                AnalyticalResult fTApoint = (AnalyticalResult) getAnalyticalResults().elementAt(i);
+                AnalyticalResult fTApoint = (AnalyticalResult) getAnalyticalResults().get(i);
                 Mvalue = fTApoint.getOBV();
             }
 
@@ -92,7 +83,7 @@ public class ChartData {
             endIndex = getData().size() - 1;
         }
         startIndex = 0;
-        endIndex = getData().size()-1;
+        endIndex = getData().size() - 1;
         for (int i = startIndex; i <= endIndex; i++) {
             StockData fpoint = (StockData) getData().get(i);
             if (!fpoint.isValid()) continue;
@@ -102,11 +93,11 @@ public class ChartData {
             } else if (cType == "PERCENTAGE") {
                 Mvalue = fpoint.getPercent();
             } else if (cType == "MACD") {
-                AnalyticalResult fTApoint = (AnalyticalResult) getAnalyticalResults().elementAt(i);
+                AnalyticalResult fTApoint = (AnalyticalResult) getAnalyticalResults().get(i);
                 Mvalue = Math.min(fTApoint.getMACD1(), fTApoint.getMACD2());
                 Mvalue = Math.min(Mvalue, fTApoint.getMACDdiff());
             } else if (cType == "OBV") {
-                AnalyticalResult fTApoint = (AnalyticalResult) getAnalyticalResults().elementAt(i);
+                AnalyticalResult fTApoint = (AnalyticalResult) getAnalyticalResults().get(i);
                 Mvalue = fTApoint.getOBV();
             }
 
@@ -146,12 +137,12 @@ public class ChartData {
 
     //see. P.19 of the book
     public void calculateExponentialMovingAverage(int n1, int n2, int n3) {
-        getAnalyticalResults().removeAllElements();
+        getAnalyticalResults().clear();
         //create analyticalResults
         for (int i = 0; i < this.getData().size(); i++) {
             AnalyticalResult fTApoint = new AnalyticalResult();
             fTApoint.isValid = false;
-            getAnalyticalResults().addElement(new AnalyticalResult());
+            getAnalyticalResults().add(new AnalyticalResult());
         }
 
         float smoothFactor1 = 2f / (n1 + 1f);
@@ -160,15 +151,15 @@ public class ChartData {
 
 
         StockData fpoint = (StockData) getData().get(0);
-        AnalyticalResult fTApoint = (AnalyticalResult) getAnalyticalResults().elementAt(0);
+        AnalyticalResult fTApoint = (AnalyticalResult) getAnalyticalResults().get(0);
         fTApoint.setMA1(fpoint.getClose());
         fTApoint.setMA2(fpoint.getClose());
         fTApoint.setMA3(fpoint.getClose());
 
         for (int k = 1; k < getData().size(); k++) {
             fpoint = (StockData) getData().get(k);
-            AnalyticalResult fTApoint1 = (AnalyticalResult) getAnalyticalResults().elementAt(k - 1);
-            AnalyticalResult fTApoint2 = (AnalyticalResult) getAnalyticalResults().elementAt(k);
+            AnalyticalResult fTApoint1 = (AnalyticalResult) getAnalyticalResults().get(k - 1);
+            AnalyticalResult fTApoint2 = (AnalyticalResult) getAnalyticalResults().get(k);
             fTApoint2.setMA1((1 - smoothFactor1) * fTApoint1.getMA1() + smoothFactor1 * fpoint.getClose());
             fTApoint2.setMA2((1 - smoothFactor2) * fTApoint1.getMA2() + smoothFactor2 * fpoint.getClose());
             fTApoint2.setMA3((1 - smoothFactor3) * fTApoint1.getMA3() + smoothFactor3 * fpoint.getClose());
@@ -178,12 +169,12 @@ public class ChartData {
 
     // see p.18 of TA book.......
     public void calculateWeightedMovingAverage(int n1, int n2, int n3) {
-        getAnalyticalResults().removeAllElements();
+        getAnalyticalResults().clear();
         //create analyticalResults
         for (int i = 0; i < this.getData().size(); i++) {
             AnalyticalResult fTApoint = new AnalyticalResult();
             fTApoint.isValid = false;
-            getAnalyticalResults().addElement(new AnalyticalResult());
+            getAnalyticalResults().add(new AnalyticalResult());
         }
 
         if (n1 > 0) {
@@ -198,10 +189,9 @@ public class ChartData {
                     for (int l = 1; l <= n1; l++) {
                         W = W + l;
                     }
-                    AnalyticalResult fTApoint = (AnalyticalResult) getAnalyticalResults().elementAt(k);
+                    AnalyticalResult fTApoint = (AnalyticalResult) getAnalyticalResults().get(k);
                     fTApoint.setMA1(sum / W);
                     fTApoint.isValid = true;
-                    //  System.out.println("Point " + fTApoint.MA1);
                 }
         }
 
@@ -217,7 +207,7 @@ public class ChartData {
                     for (int l = 1; l <= n2; l++) {
                         W = W + l;
                     }
-                    AnalyticalResult fTApoint = (AnalyticalResult) getAnalyticalResults().elementAt(k);
+                    AnalyticalResult fTApoint = (AnalyticalResult) getAnalyticalResults().get(k);
                     fTApoint.setMA2(sum / W);
                     fTApoint.isValid = true;
                     // System.out.println("Point " + fTApoint.MA1);
@@ -236,7 +226,7 @@ public class ChartData {
                     for (int l = 1; l <= n3; l++) {
                         W = W + l;
                     }
-                    AnalyticalResult fTApoint = (AnalyticalResult) getAnalyticalResults().elementAt(k);
+                    AnalyticalResult fTApoint = (AnalyticalResult) getAnalyticalResults().get(k);
                     fTApoint.setMA3(sum / W);
                     fTApoint.isValid = true;
                     // System.out.println("Point " + fTApoint.MA1);
@@ -246,12 +236,12 @@ public class ChartData {
 
     //p.18
     public void calculateMovingAverage(int n1, int n2, int n3) {
-        getAnalyticalResults().removeAllElements();
+        getAnalyticalResults().clear();
         //create analyticalResults
         for (int i = 0; i < this.getData().size(); i++) {
             AnalyticalResult fTApoint = new AnalyticalResult();
             fTApoint.isValid = false;
-            getAnalyticalResults().addElement(new AnalyticalResult());
+            getAnalyticalResults().add(new AnalyticalResult());
         }
 
         if (n1 > this.getData().size() || n2 > this.getData().size() || n3 > this.getData().size()) return;
@@ -264,7 +254,7 @@ public class ChartData {
                         StockData fpoint = (StockData) getData().get(k - j);
                         sum = sum + fpoint.getClose();
                     }
-                    AnalyticalResult fTApoint = (AnalyticalResult) getAnalyticalResults().elementAt(k);
+                    AnalyticalResult fTApoint = (AnalyticalResult) getAnalyticalResults().get(k);
                     fTApoint.setMA1(sum / n1);
                     fTApoint.isValid = true;
                     // System.out.println("Point " + fTApoint.MA1);
@@ -279,7 +269,7 @@ public class ChartData {
                         StockData fpoint = (StockData) getData().get(k - j);
                         sum = sum + fpoint.getClose();
                     }
-                    AnalyticalResult fTApoint = (AnalyticalResult) getAnalyticalResults().elementAt(k);
+                    AnalyticalResult fTApoint = (AnalyticalResult) getAnalyticalResults().get(k);
                     fTApoint.setMA2(sum / n2);
                     fTApoint.isValid = true;
                 }
@@ -293,7 +283,7 @@ public class ChartData {
                         StockData fpoint = (StockData) getData().get(k - j);
                         sum = sum + fpoint.getClose();
                     }
-                    AnalyticalResult fTApoint = (AnalyticalResult) getAnalyticalResults().elementAt(k);
+                    AnalyticalResult fTApoint = (AnalyticalResult) getAnalyticalResults().get(k);
                     fTApoint.setMA3(sum / n3);
                     fTApoint.isValid = true;
                 }
@@ -302,13 +292,13 @@ public class ChartData {
 
     //  P.92
     public void calculateWilliamR(int RPeriod) {
-        getAnalyticalResults().removeAllElements();
+        getAnalyticalResults().clear();
         //create analyticalResults
 
         for (int i = 0; i < this.getData().size(); i++) {
             AnalyticalResult fTApoint = new AnalyticalResult();
             fTApoint.isValid = false;
-            getAnalyticalResults().addElement(new AnalyticalResult());
+            getAnalyticalResults().add(new AnalyticalResult());
         }
 
         if (RPeriod > getData().size()) return;
@@ -320,7 +310,7 @@ public class ChartData {
             float KValue = 0f;
             StockData fpoint = (StockData) getData().get(k);
             KValue = fpoint.getClose();
-            AnalyticalResult fTApoint = (AnalyticalResult) this.getAnalyticalResults().elementAt(k);
+            AnalyticalResult fTApoint = (AnalyticalResult) this.getAnalyticalResults().get(k);
             for (int j = 0; j < RPeriod; j++) {
                 StockData fcpoint = (StockData) getData().get(k - j);
                 float tempMin = fcpoint.getMinimum();
@@ -344,13 +334,13 @@ public class ChartData {
     public void calculateSTC(int KPeriod, int DPeriod) {
 
 
-        getAnalyticalResults().removeAllElements();
+        getAnalyticalResults().clear();
         //create analyticalResults
 
         for (int i = 0; i < this.getData().size(); i++) {
             AnalyticalResult fTApoint = new AnalyticalResult();
             fTApoint.isValid = false;
-            getAnalyticalResults().addElement(new AnalyticalResult());
+            getAnalyticalResults().add(new AnalyticalResult());
         }
 
         if (KPeriod > getData().size() && DPeriod >= (getData().size() - KPeriod)) return;
@@ -362,7 +352,7 @@ public class ChartData {
             float KValue = 0f;
             StockData fpoint = (StockData) getData().get(k);
             KValue = fpoint.getClose();
-            AnalyticalResult fTApoint = (AnalyticalResult) this.getAnalyticalResults().elementAt(k);
+            AnalyticalResult fTApoint = (AnalyticalResult) this.getAnalyticalResults().get(k);
             for (int j = 0; j < KPeriod; j++) {
                 StockData fcpoint = (StockData) getData().get(k - j);
                 float tempMin = fcpoint.getMinimum();
@@ -376,10 +366,10 @@ public class ChartData {
 
         //calculate %D line
         for (int k = KPeriod + DPeriod - 1; k < getData().size(); k++) {
-            AnalyticalResult fTApoint = (AnalyticalResult) this.getAnalyticalResults().elementAt(k);
+            AnalyticalResult fTApoint = (AnalyticalResult) this.getAnalyticalResults().get(k);
             float Sum = 0f;
             for (int j = 0; j < DPeriod; j++) {
-                AnalyticalResult cfTApoint = (AnalyticalResult) this.getAnalyticalResults().elementAt(k - j);
+                AnalyticalResult cfTApoint = (AnalyticalResult) this.getAnalyticalResults().get(k - j);
                 Sum = Sum + cfTApoint.getK();
             }
             Sum = Sum / DPeriod;
@@ -429,12 +419,12 @@ public class ChartData {
     */
     public void calculateRSI(int N) {
 
-        getAnalyticalResults().removeAllElements();
+        getAnalyticalResults().clear();
         //create analyticalResults
         for (int i = 0; i < this.getData().size(); i++) {
             AnalyticalResult fTApoint = new AnalyticalResult();
             fTApoint.isValid = false;
-            getAnalyticalResults().addElement(new AnalyticalResult());
+            getAnalyticalResults().add(new AnalyticalResult());
         }
         if (N > getData().size()) return;
 
@@ -442,7 +432,7 @@ public class ChartData {
         for (int k = N; k < getData().size(); k++) {
             float AU = 0f;
             float AD = 0f;
-            AnalyticalResult fTApoint = (AnalyticalResult) this.getAnalyticalResults().elementAt(k);
+            AnalyticalResult fTApoint = (AnalyticalResult) this.getAnalyticalResults().get(k);
             for (int j = 0; j < N; j++) {
                 StockData fpoint1 = (StockData) getData().get(k - j);
                 StockData fpoint2 = (StockData) getData().get(k - j - 1);
@@ -473,14 +463,14 @@ public class ChartData {
         if (LEMA > this.getData().size() || SEMA > this.getData().size() || MA > this.getData().size()) return;
 
         for (int k = 0; k < getData().size(); k++) {
-            AnalyticalResult fTApoint = (AnalyticalResult) this.getAnalyticalResults().elementAt(k);
+            AnalyticalResult fTApoint = (AnalyticalResult) this.getAnalyticalResults().get(k);
             fTApoint.setMACD1(fTApoint.getMA2() - fTApoint.getMA1());
 
             float sum = 0f;
             //calculate Moving average of MACD1 using MA period.
             if ((k - MA) >= 0)
                 for (int j = 0; j < MA; j++) {
-                    AnalyticalResult fTApoint2 = (AnalyticalResult) this.getAnalyticalResults().elementAt(k - j);
+                    AnalyticalResult fTApoint2 = (AnalyticalResult) this.getAnalyticalResults().get(k - j);
                     sum = sum + fTApoint2.getMACD1();
                 }
             sum = sum / MA;
@@ -502,7 +492,7 @@ public class ChartData {
         for (int k = N - 1; k < getData().size(); k++) {
             // calculate SD
             float SD = 0f;
-            AnalyticalResult fTApoint = (AnalyticalResult) this.getAnalyticalResults().elementAt(k);
+            AnalyticalResult fTApoint = (AnalyticalResult) this.getAnalyticalResults().get(k);
             for (int j = 0; j < N; j++) {
                 StockData fpoint = (StockData) getData().get(k - j);
                 SD = SD + (fpoint.getClose() - fTApoint.getMA1()) * (fpoint.getClose() - fTApoint.getMA1());
@@ -516,16 +506,16 @@ public class ChartData {
 
     //p.102 pls notice that OBV are down scaler to K unit.
     public void calculateOBV(int startIndex, int endIndex) {
-        getAnalyticalResults().removeAllElements();
+        getAnalyticalResults().clear();
         //create analyticalResults
         for (int i = 0; i < this.getData().size(); i++) {
             AnalyticalResult fTApoint = new AnalyticalResult();
             fTApoint.isValid = false;
-            getAnalyticalResults().addElement(new AnalyticalResult());
+            getAnalyticalResults().add(new AnalyticalResult());
         }
         for (int k = startIndex + 1; k <= endIndex; k++) {
-            AnalyticalResult fTApoint1 = (AnalyticalResult) this.getAnalyticalResults().elementAt(k);
-            AnalyticalResult fTApoint2 = (AnalyticalResult) this.getAnalyticalResults().elementAt(k - 1);
+            AnalyticalResult fTApoint1 = (AnalyticalResult) this.getAnalyticalResults().get(k);
+            AnalyticalResult fTApoint2 = (AnalyticalResult) this.getAnalyticalResults().get(k - 1);
             StockData fpoint1 = (StockData) this.getData().get(k);
             StockData fpoint2 = (StockData) this.getData().get(k - 1);
 
@@ -545,19 +535,19 @@ public class ChartData {
     }
 
 
-    public List getData() {
+    public List<StockData> getData() {
         return data;
     }
 
-    public void setData(List data) {
+    public void setData(List<StockData> data) {
         this.data = data;
     }
 
-    public Vector getAnalyticalResults() {
+    public List<AnalyticalResult> getAnalyticalResults() {
         return analyticalResults;
     }
 
-    public void setAnalyticalResults(Vector analyticalResults) {
+    public void setAnalyticalResults(List<AnalyticalResult> analyticalResults) {
         this.analyticalResults = analyticalResults;
     }
 

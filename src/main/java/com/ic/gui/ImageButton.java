@@ -11,7 +11,7 @@ import java.awt.event.MouseListener;
 public class ImageButton extends JButton implements MouseListener {
 
 
-    private static final long serialVersionUID = -8202597524535553406L;
+    //private static final long serialVersionUID = -8202597524535553406L;
     Border border1;
     private Image offImage = null;
     private boolean bState = true;

@@ -1,7 +1,5 @@
 package com.ic.data;
 
-import java.awt.*;
-
 public class FLine {
 
     private static final boolean isFixedLine = true;

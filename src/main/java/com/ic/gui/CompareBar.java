@@ -1,10 +1,7 @@
 package com.ic.gui;
 
 import com.ic.core.*;
-import com.ic.data.ChartData;
-import com.ic.data.ChartDataService;
-import com.ic.data.ChartDataServiceCallback;
-import com.ic.data.RequestCommand;
+import com.ic.data.*;
 import com.ic.util.FormatUtil;
 
 import javax.swing.*;
@@ -209,7 +206,7 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
         if (Code != chartScreen1.getLeftChart().getChartData().getCode()) {
             int intervals = chartScreen1.getLeftChart().getChartData().getIntradayInterval();
             int NumberOfPoints = chartScreen1.getLeftChart().getChartData().getData().size();
-            RequestCommand fc = new RequestCommand(Code, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, (RequestCommand.CommandType) fMenuBar.chDuration.getSelectedItem(), String.valueOf(Code), NumberOfPoints, intervals, true, this);
+            RequestCommand fc = new RequestCommand(Code, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, (CommandType) fMenuBar.chDuration.getSelectedItem(), String.valueOf(Code), NumberOfPoints, intervals, true, this);
             ChartDataService.getInstance().addCommand(fc);
             chartScreen1.setScreenState(ChartScreen.LOADING);
         }

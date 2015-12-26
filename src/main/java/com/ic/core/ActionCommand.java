@@ -1,8 +1,8 @@
 package com.ic.core;
 
 import com.ic.data.FLine;
+import com.ic.data.Point;
 
-import java.awt.*;
 import java.util.Vector;
 
 // record the actions of insert lines, delete lines and so on.....

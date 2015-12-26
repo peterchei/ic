@@ -1,8 +1,10 @@
 package com.ic.core;
 
 import com.ic.data.ChartData;
+import com.ic.data.FBound;
 
-import java.awt.*;
+import java.awt.Color;
+
 
 public class ChartItem {
 

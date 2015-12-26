@@ -10,26 +10,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.Date;
-import java.util.StringTokenizer;
-import java.util.Vector;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static com.ic.data.RequestCommand.CommandType.*;
+import static com.ic.data.CommandType.*;
 
 public class RequestCommand {
 
-    public enum CommandType {
-        DAILY, WEEKLY, MONTHLY, INTRADAY, REALTIMEQUOTE
-    }
     // Static attributes.
-    //public static final int DAILY = 0;
-    //public static final int WEEKLY = 1;
-    //public static final int MONTHLY = 2;
-    //public static final int INTRADAY = 3;
-    //public static final int REALTIMEQUOTE = 4;
-
     public static final int TYPE_DOWNLOAD_RIGHT_CHART = 0;
     public static final int TYPE_DOWNLOAD_LEFT_CHART = 2;
 
@@ -39,13 +28,13 @@ public class RequestCommand {
     private final String monthlyInterface = "newchart/getMonthly.php";
     private final String intradayInterface = "newchart/getIntra.php";
     private int actionType = TYPE_DOWNLOAD_RIGHT_CHART; // the action of the RequestCommand
-    private CommandType dType = DAILY;                          // the type of the chart
+    private CommandType dType = DAILY;                  // the type of the chart
     private String sKey = "RMain1";                     // the key of the chart used to id the chart.
     private int code;                                   // the code to download
     private int numberOfPoint = 100;                    // Number of point to download
-    private int intradayInterval = 1;                  // for intraday only
+    private int intradayInterval = 1;                   // for intraday only
     private boolean isFillEmptyPoints = false;
-    private ChartDataServiceCallback reference;              // the reference to the object that create this command.
+    private ChartDataServiceCallback reference;          // the reference to the object that create this command.
 
     public RequestCommand(int sCode, int atype, CommandType type, String key, int num, int intervals, boolean fillEmptyPoints, ChartDataServiceCallback re) {
         code = sCode;
@@ -72,7 +61,7 @@ public class RequestCommand {
         newChartData.setCode(Code);
 
         StockData oldfpoint = new StockData();
-        newChartData.dataType = ChartData.WEEKLY;
+        newChartData.dataInterval = DataInterval.WEEKLY;
         newChartData.setEName("ABC COMPANY");
         newChartData.setCName("Chinese Name");
 
@@ -123,7 +112,7 @@ public class RequestCommand {
         reference = ref;
     }
 
-    public RequestCommand.CommandType getChartType() {
+    public CommandType getChartType() {
         return dType;
     }
 
@@ -209,7 +198,7 @@ public class RequestCommand {
 
         ChartData newChartData = new ChartData();
         newChartData.setCode(Code);
-        newChartData.dataType = ChartData.INTRADAY;
+        newChartData.dataInterval = DataInterval.INTRADAY;
         newChartData.setIntradayInterval(intervals);  // record the intervals 1,5,or 10
 
         try {
@@ -232,7 +221,7 @@ public class RequestCommand {
             }
 
 
-            Vector rawPoints = new Vector();
+            List<StockData> rawPoints = new ArrayList<StockData>(1000);
             for (int i = 0; i < m_NumberOfPoints; i++) {
                 String tempDateTime;
                 String tempHigh;
@@ -266,7 +255,7 @@ public class RequestCommand {
                     fpoint.setClose(fpoint.getMaximum());
                 }
 
-                rawPoints.addElement(fpoint);
+                rawPoints.add(fpoint);
             }
 
 
@@ -278,18 +267,18 @@ public class RequestCommand {
             int tempH, tempM;
             int i = rawPoints.size() - 1;
             while (i >= 0) {
-                StockData fpoint = (StockData) rawPoints.elementAt(i);
+                StockData fpoint = (StockData) rawPoints.get(i);
                 int timeStamp = fpoint.getHour() * 60 + fpoint.getMinute();
                 int currentTimeStamp = currentHour * 60 + currentMinute;
                 if (timeStamp < currentTimeStamp) {
-                    StockData pp = (StockData) rawPoints.elementAt(i);
+                    StockData pp = (StockData) rawPoints.get(i);
                     if (!fc.isFillEmptyPoints() || newChartData.getData().size() < NumberOfPoints) {
-                        newChartData.getData().add(rawPoints.elementAt(i));
+                        newChartData.getData().add(rawPoints.get(i));
                     }
                     i--;
                 } else if (timeStamp == currentTimeStamp) {
                     if (!fc.isFillEmptyPoints() || newChartData.getData().size() < NumberOfPoints) {
-                        newChartData.getData().add(rawPoints.elementAt(i));
+                        newChartData.getData().add(rawPoints.get(i));
                     }
                     tempH = FormatUtil.getNextHour(currentHour, currentMinute, fc.getIntadayInterval());
                     tempM = FormatUtil.getNextMinute(currentHour, currentMinute, fc.getIntadayInterval());
@@ -385,7 +374,7 @@ public class RequestCommand {
 
         ChartData newChartData = new ChartData();
         newChartData.setCode(Code);
-        newChartData.dataType = ChartData.DAILY;
+        newChartData.dataInterval = DataInterval.DAILY;
 
         try {
             URL Finet;
@@ -406,7 +395,7 @@ public class RequestCommand {
             }
 
 
-            Vector rawPoints = new Vector();
+            List<StockData> rawPoints = new ArrayList<StockData>(1000);
             for (int i = 0; i < m_NumberOfPoints; i++) {
                 String tempDate;
                 String tempHigh;
@@ -441,7 +430,7 @@ public class RequestCommand {
 
                 }
 
-                rawPoints.addElement(fpoint);
+                rawPoints.add(fpoint);
             }
 
             // add "empty" point at the end..
@@ -450,7 +439,7 @@ public class RequestCommand {
                     for (int j = 0; j < NumberOfPoints - m_NumberOfPoints; j++) {
                         StockData fpoint = new StockData();
                         fpoint.setValid(false);
-                        rawPoints.addElement(fpoint);
+                        rawPoints.add(fpoint);
                     }
                 }
             }
@@ -474,7 +463,7 @@ public class RequestCommand {
 
         ChartData newChartData = new ChartData();
         newChartData.setCode(Code);
-        newChartData.dataType = ChartData.WEEKLY;
+        newChartData.dataInterval = DataInterval.WEEKLY;
 
         try {
             URL Finet;
@@ -495,7 +484,7 @@ public class RequestCommand {
             }
 
 
-            Vector rawPoints = new Vector();
+            List<StockData> rawPoints = new ArrayList<StockData>(1000);
             for (int i = 0; i < m_NumberOfPoints; i++) {
                 String tempfirstDate;
                 String templastDate;
@@ -530,7 +519,7 @@ public class RequestCommand {
                 fpoint.setlMonth(FormatUtil.getMonth(templastDate));
                 fpoint.setlDay(FormatUtil.getDay(templastDate));
 
-                rawPoints.addElement(fpoint);
+                rawPoints.add(fpoint);
 
             }
             if (fc.isFillEmptyPoints()) {
@@ -538,7 +527,7 @@ public class RequestCommand {
                     for (int j = 0; j < NumberOfPoints - m_NumberOfPoints; j++) {
                         StockData fpoint = new StockData();
                         fpoint.setValid(false);
-                        rawPoints.addElement(fpoint);
+                        rawPoints.add(fpoint);
                     }
                 }
             }
@@ -565,7 +554,7 @@ public class RequestCommand {
         String srcAddr = "http://203.161.232.72/FMEQuoteBase/" + monthlyInterface + "?code=" + Code + "&data_num=" + NumberOfPoints;// + "&startdate=2000-11-1";
         ChartData newChartData = new ChartData();
         newChartData.setCode(Code);
-        newChartData.dataType = ChartData.MONTHLY;
+        newChartData.dataInterval = DataInterval.MONTHLY;
 
         try {
             URL Finet;
@@ -585,7 +574,8 @@ public class RequestCommand {
                 return null;
             }
 
-            Vector rawPoints = new Vector();
+            List<StockData> rawPoints = new
+                    ArrayList<StockData>(1000);
             for (int i = 0; i < m_NumberOfPoints; i++) {
                 String tempfirstDate;
                 String templastDate;
@@ -618,7 +608,7 @@ public class RequestCommand {
                 fpoint.setlMonth(FormatUtil.getMonth(templastDate));
                 fpoint.setlDay(FormatUtil.getDay(templastDate));
 
-                rawPoints.addElement(fpoint);
+                rawPoints.add(fpoint);
 
             }
 
@@ -628,7 +618,7 @@ public class RequestCommand {
                     for (int j = 0; j < NumberOfPoints - m_NumberOfPoints; j++) {
                         StockData fpoint = new StockData();
                         fpoint.setValid(false);
-                        rawPoints.addElement(fpoint);
+                        rawPoints.add(fpoint);
                     }
                 }
             }
@@ -703,7 +693,7 @@ public class RequestCommand {
         System.out.println(srcAddr);
         ChartData newChartData = new ChartData();
         newChartData.setCode(Code);
-        newChartData.dataType = ChartData.DAILY;
+        newChartData.dataInterval = DataInterval.DAILY;
 
         try {
             URL Finet;
@@ -721,7 +711,7 @@ public class RequestCommand {
             newChartData.setEName(StockInfoStore.getInstance().getStockName(String.valueOf(code)));
             newChartData.setCName(StockInfoStore.getInstance().getStockName(String.valueOf(code)));
 
-            Vector rawPoints = new Vector();
+            List<StockData> rawPoints = new ArrayList<StockData>(1000);
             String line = DS.readLine();
             while (line != null && !line.startsWith("<!--")) {
                 m_NumberOfPoints++;
@@ -757,7 +747,7 @@ public class RequestCommand {
                     fpoint.setMinimum(fpoint.getClose());
 
                 }
-                rawPoints.addElement(fpoint);
+                rawPoints.add(fpoint);
                 line = DS.readLine();
                 getListener().OnProgress(0);
             }
@@ -768,7 +758,7 @@ public class RequestCommand {
                     for (int j = 0; j < NumberOfPoints - m_NumberOfPoints; j++) {
                         StockData fpoint = new StockData();
                         fpoint.setValid(false);
-                        rawPoints.addElement(fpoint);
+                        rawPoints.add(fpoint);
                     }
                 }
             }

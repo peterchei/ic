@@ -1,6 +1,7 @@
-package com.ic.core;
+package com.ic.data;
 
 public class FBound {
+
     //the bound of the Stock value
     private double LowerStockBound = 0f;
     private double UpperStockBound = 0f;
@@ -24,7 +25,6 @@ public class FBound {
     // for William's %R // it is fixed between 0 to 100
     private float LowerWilliamRBound = 0f;
     private float UpperWilliamRBound = 110f;
-
 
     //the bound of OBV
     private float LowerOBVBound = 0f;
