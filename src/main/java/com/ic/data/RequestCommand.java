@@ -71,13 +71,13 @@ public class RequestCommand {
 
         newChartData.setCode(Code);
 
-        SPoint oldfpoint = new SPoint();
+        StockData oldfpoint = new StockData();
         newChartData.dataType = ChartData.WEEKLY;
         newChartData.setEName("ABC COMPANY");
         newChartData.setCName("Chinese Name");
 
         for (int i = 0; i < NumberOfPoints; i++) {
-            SPoint fpoint = new SPoint();
+            StockData fpoint = new StockData();
 
             fpoint.setCurrent((float) (oldfpoint.getCurrent() + (Math.random() - 0.5f) * 3));
             fpoint.setClose((float) (fpoint.getCurrent() + (Math.random() - 0.5f) * 3));
@@ -105,7 +105,7 @@ public class RequestCommand {
             fpoint.setVolume((int) (fpoint.getCurrent() * fpoint.getCurrent()));
 
             oldfpoint = fpoint;
-            newChartData.getData().addElement(fpoint);
+            newChartData.getData().add(fpoint);
         }
 
         return newChartData;
@@ -241,7 +241,7 @@ public class RequestCommand {
                 String tempClose;
                 String tempVol;
 
-                SPoint fpoint = new SPoint();
+                StockData fpoint = new StockData();
                 RawData = DS.readLine();   //retrieve a point line
                 StringTokenizer tokens = new StringTokenizer(RawData);
                 tempDateTime = tokens.nextToken(";");
@@ -278,18 +278,18 @@ public class RequestCommand {
             int tempH, tempM;
             int i = rawPoints.size() - 1;
             while (i >= 0) {
-                SPoint fpoint = (SPoint) rawPoints.elementAt(i);
+                StockData fpoint = (StockData) rawPoints.elementAt(i);
                 int timeStamp = fpoint.getHour() * 60 + fpoint.getMinute();
                 int currentTimeStamp = currentHour * 60 + currentMinute;
                 if (timeStamp < currentTimeStamp) {
-                    SPoint pp = (SPoint) rawPoints.elementAt(i);
+                    StockData pp = (StockData) rawPoints.elementAt(i);
                     if (!fc.isFillEmptyPoints() || newChartData.getData().size() < NumberOfPoints) {
-                        newChartData.getData().addElement(rawPoints.elementAt(i));
+                        newChartData.getData().add(rawPoints.elementAt(i));
                     }
                     i--;
                 } else if (timeStamp == currentTimeStamp) {
                     if (!fc.isFillEmptyPoints() || newChartData.getData().size() < NumberOfPoints) {
-                        newChartData.getData().addElement(rawPoints.elementAt(i));
+                        newChartData.getData().add(rawPoints.elementAt(i));
                     }
                     tempH = FormatUtil.getNextHour(currentHour, currentMinute, fc.getIntadayInterval());
                     tempM = FormatUtil.getNextMinute(currentHour, currentMinute, fc.getIntadayInterval());
@@ -297,13 +297,13 @@ public class RequestCommand {
                     currentMinute = tempM;
                     i--;
                 } else if (timeStamp > currentTimeStamp) {
-                    SPoint newPoint = new SPoint();
+                    StockData newPoint = new StockData();
                     newPoint.setValid(false);
                     newPoint.setHour(currentHour);
                     newPoint.setMinute(currentMinute);
                     if (currentTimeStamp <= (12 * 60 + 30) || currentTimeStamp >= (14 * 60 + 30)) {
                         if (!fc.isFillEmptyPoints() || newChartData.getData().size() < NumberOfPoints) {
-                            newChartData.getData().addElement(newPoint);
+                            newChartData.getData().add(newPoint);
                         }
                     }
                     tempH = FormatUtil.getNextHour(currentHour, currentMinute, fc.getIntadayInterval());
@@ -320,22 +320,22 @@ public class RequestCommand {
                 if (NumberOfPoints > newChartData.getData().size()) {
                     int addcount = NumberOfPoints - newChartData.getData().size();
                     for (int j = 0; j < addcount; j++) {
-                        SPoint fpoint = new SPoint();
+                        StockData fpoint = new StockData();
                         fpoint.setValid(false);
-                        newChartData.getData().addElement(fpoint);
+                        newChartData.getData().add(fpoint);
                     }
                 } else if (NumberOfPoints < newChartData.getData().size()) {
                     int deletecount = NumberOfPoints - newChartData.getData().size();
                     for (int k = 0; k < deletecount; k++) {
-                        newChartData.getData().removeElementAt(newChartData.getData().size() - 1);
+                        newChartData.getData().remove(newChartData.getData().size() - 1);
                     }
                 }
 
             }
 
             for (int k = 1; k < newChartData.getData().size(); k++) {
-                SPoint fpoint1 = (SPoint) newChartData.getData().elementAt(k - 1);
-                SPoint fpoint2 = (SPoint) newChartData.getData().elementAt(k);
+                StockData fpoint1 = (StockData) newChartData.getData().get(k - 1);
+                StockData fpoint2 = (StockData) newChartData.getData().get(k);
                 if (!fpoint2.isValid() && fpoint1.isValid()) {
                     fpoint2.setClose(fpoint1.getClose());
                     fpoint2.setMaximum(fpoint2.getClose());
@@ -348,8 +348,8 @@ public class RequestCommand {
             }
 
             for (int k = newChartData.getData().size() - 2; k >= 0; k--) {
-                SPoint fpoint1 = (SPoint) newChartData.getData().elementAt(k + 1);
-                SPoint fpoint2 = (SPoint) newChartData.getData().elementAt(k);
+                StockData fpoint1 = (StockData) newChartData.getData().get(k + 1);
+                StockData fpoint2 = (StockData) newChartData.getData().get(k);
                 if (!fpoint2.isValid() && fpoint1.isValid()) {
                     fpoint2.setClose(fpoint1.getClose());
                     fpoint2.setMaximum(fpoint2.getClose());
@@ -364,7 +364,7 @@ public class RequestCommand {
             }
 
             for (int k = 0; k < newChartData.getData().size(); k++) {
-                SPoint fpoint = (SPoint) newChartData.getData().elementAt(k);
+                StockData fpoint = (StockData) newChartData.getData().get(k);
             }
 
         } catch (Exception exception) {
@@ -415,7 +415,7 @@ public class RequestCommand {
                 String tempClose;
                 String tempVol;
 
-                SPoint fpoint = new SPoint();
+                StockData fpoint = new StockData();
                 RawData = DS.readLine();   //retrieve a point line
                 StringTokenizer tokens = new StringTokenizer(RawData);
                 tempDate = tokens.nextToken(";");
@@ -448,14 +448,14 @@ public class RequestCommand {
             if (fc.isFillEmptyPoints()) {
                 if (NumberOfPoints > m_NumberOfPoints) {
                     for (int j = 0; j < NumberOfPoints - m_NumberOfPoints; j++) {
-                        SPoint fpoint = new SPoint();
+                        StockData fpoint = new StockData();
                         fpoint.setValid(false);
                         rawPoints.addElement(fpoint);
                     }
                 }
             }
             for (int i = rawPoints.size() - 1; i >= 0; i--) {
-                newChartData.getData().addElement(rawPoints.elementAt(i));
+                newChartData.getData().add(rawPoints.get(i));
             }
 
         } catch (Exception exception) {
@@ -505,7 +505,7 @@ public class RequestCommand {
                 String tempClose;
                 String tempVol;
 
-                SPoint fpoint = new SPoint();
+                StockData fpoint = new StockData();
                 RawData = DS.readLine();   //retrieve a point line
 
                 StringTokenizer tokens = new StringTokenizer(RawData);
@@ -536,7 +536,7 @@ public class RequestCommand {
             if (fc.isFillEmptyPoints()) {
                 if (NumberOfPoints > m_NumberOfPoints) {
                     for (int j = 0; j < NumberOfPoints - m_NumberOfPoints; j++) {
-                        SPoint fpoint = new SPoint();
+                        StockData fpoint = new StockData();
                         fpoint.setValid(false);
                         rawPoints.addElement(fpoint);
                     }
@@ -544,7 +544,7 @@ public class RequestCommand {
             }
 
             for (int i = rawPoints.size() - 1; i >= 0; i--) {
-                newChartData.getData().addElement(rawPoints.elementAt(i));
+                newChartData.getData().add(rawPoints.get(i));
             }
 
         } catch (Exception exception) {
@@ -595,7 +595,7 @@ public class RequestCommand {
                 String tempClose;
                 String tempVol;
 
-                SPoint fpoint = new SPoint();
+                StockData fpoint = new StockData();
                 RawData = DS.readLine();   //retrieve a point line
                 StringTokenizer tokens = new StringTokenizer(RawData);
                 tempfirstDate = tokens.nextToken(";");
@@ -626,7 +626,7 @@ public class RequestCommand {
             if (fc.isFillEmptyPoints()) {
                 if (NumberOfPoints > m_NumberOfPoints) {
                     for (int j = 0; j < NumberOfPoints - m_NumberOfPoints; j++) {
-                        SPoint fpoint = new SPoint();
+                        StockData fpoint = new StockData();
                         fpoint.setValid(false);
                         rawPoints.addElement(fpoint);
                     }
@@ -634,7 +634,7 @@ public class RequestCommand {
             }
 
             for (int i = rawPoints.size() - 1; i >= 0; i--) {
-                newChartData.getData().addElement(rawPoints.elementAt(i));
+                newChartData.getData().add(rawPoints.get(i));
             }
 
         } catch (Exception exception) {
@@ -732,7 +732,7 @@ public class RequestCommand {
                 String tempClose;
                 String tempVol;
 
-                SPoint fpoint = new SPoint();
+                StockData fpoint = new StockData();
                 RawData = line;//DS.readLine();   //retrieve a point line
                 // System.out.println(line);
                 StringTokenizer tokens = new StringTokenizer(RawData);
@@ -766,14 +766,14 @@ public class RequestCommand {
             if (isFillEmptyPoints()) {
                 if (NumberOfPoints > m_NumberOfPoints) {
                     for (int j = 0; j < NumberOfPoints - m_NumberOfPoints; j++) {
-                        SPoint fpoint = new SPoint();
+                        StockData fpoint = new StockData();
                         fpoint.setValid(false);
                         rawPoints.addElement(fpoint);
                     }
                 }
             }
             for (int i = rawPoints.size() - 1; i >= 0; i--) {
-                newChartData.getData().addElement(rawPoints.elementAt(i));
+                newChartData.getData().add(rawPoints.get(i));
             }
 
         } catch (Exception exception) {

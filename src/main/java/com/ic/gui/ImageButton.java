@@ -14,7 +14,6 @@ public class ImageButton extends JButton implements MouseListener {
     private static final long serialVersionUID = -8202597524535553406L;
     Border border1;
     private Image offImage = null;
-    private ActionListener actionListener = null;
     private boolean bState = true;
     private boolean action = false;
 

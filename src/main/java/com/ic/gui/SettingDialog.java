@@ -66,26 +66,6 @@ public class SettingDialog
     // the reference of chart and the chartscreen
     private String TAChartName = new String("TA1Chart"); // the chart Name (id) that this setting window can control
     private Object chartScreen = null;
-    private int language = FConfig.constEnglish;
-    private String lbArray[][] = {
-            {
-                    "OK", "\u78ba\u5b9a"} //0
-            , {
-            "Apply", "\u5957\u7528"} //1
-            , {
-            "Cancel", "\u95dc\u9589"} //2
-            , {
-            "Help", "\u6307\u5f15"} //3
-            , {
-            "Simple Moving Average", "\u7c21\u55ae\u79fb\u52d5\u5e73\u5747\u7dda"} //4
-            , {
-            "Weighted Moving Average", "\u52a0\u6b0a\u79fb\u52d5\u5e73\u5747\u7dda"} //5
-            , {
-            "Exponential Moving Average",
-            "\u6307\u6578\u79fb\u52d5\u5e73\u5747\u7dda"} //6
-            , {
-            "Bollinger Bands", "\u4fdd\u6b77\u52a0\u901a\u9053"} //7
-    };
 
     public SettingDialog() {
         try {
@@ -164,6 +144,7 @@ public class SettingDialog
                 btSMAApply_actionPerformed(e);
             }
         });
+        btSMAApply.setText("Apply");
         btWMAApply.setBackground(Color.orange);
         btWMAApply.setFont(new java.awt.Font("Arial", 0, 11));
         btWMAApply.setBorder(border2);
@@ -173,6 +154,7 @@ public class SettingDialog
                 btWMAApply_actionPerformed(e);
             }
         });
+        btWMAApply.setText("Apply");
 
         JLabel10.setFont(new java.awt.Font("Arial", 0, 11));
         JLabel10.setText("MA1");
@@ -194,6 +176,7 @@ public class SettingDialog
         btEMAApply.setBackground(Color.orange);
         btEMAApply.setFont(new java.awt.Font("Arial", 0, 11));
         btEMAApply.setBorder(border2);
+        btEMAApply.setText("Apply");
         btEMAApply.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 btEMAApply_actionPerformed(e);
@@ -208,7 +191,6 @@ public class SettingDialog
         JLabel14.setText("MA1");
         tfBB.setBackground(Color.white);
         tfBB.setBorder(BorderFactory.createLineBorder(Color.black));
-        tfBB.setText("");
         tfBB.setColumns(5);
 
         JLabel15.setFont(new java.awt.Font("Arial", 0, 11));
@@ -224,6 +206,7 @@ public class SettingDialog
                 btBollingerApply_actionPerformed(e);
             }
         });
+        btBollingerApply.setText("Apply");
         btCancel.setBackground(Color.orange);
         btCancel.setFont(new java.awt.Font("Arial", 0, 11));
         btCancel.setBorder(border2);
@@ -232,6 +215,7 @@ public class SettingDialog
                 btCancel_actionPerformed(e);
             }
         });
+        btCancel.setText("Cancel");
         btOK.setBackground(Color.orange);
         btOK.setFont(new java.awt.Font("Arial", 0, 11));
         btOK.setBorder(border2);
@@ -240,6 +224,7 @@ public class SettingDialog
                 btOK_actionPerformed(e);
             }
         });
+        btOK.setText("OK");
 
         jPanel1.setBackground(FConfig.ScreenBackground);
         jPanel1.setBorder(BorderFactory.createEtchedBorder());
@@ -407,16 +392,12 @@ public class SettingDialog
         N2 = Integer.parseInt(tfEMA2.getText());
         N3 = Integer.parseInt(tfEMA3.getText());
 
-// data vaildation.
         if (N1 <= 0 || N2 <= 0 || N3 <= 0 || N1 > taChart.getChartData().getData().size() ||
                 N2 > taChart.getChartData().getData().size() ||
                 N3 > taChart.getChartData().getData().size()) {
             this.updateSetting();
             return;
         }
-///////
-//////////////////////////////////////////////////////////////////////////////////////////////////
-
 
         taChart.getChartData().getfTAconfig().EMA1 = N1;
         taChart.getChartData().getfTAconfig().EMA2 = N2;
@@ -487,21 +468,12 @@ public class SettingDialog
         chartScreen = cs;
     }
 
-    public void setLanguage(int tlanguage) {
-        language = tlanguage;
-        this.btOK.setLabel(lbArray[0][language]);
-        this.btSMAApply.setLabel(lbArray[1][language]);
-        this.btWMAApply.setLabel(lbArray[1][language]);
-        this.btEMAApply.setLabel(lbArray[1][language]);
-        this.btBollingerApply.setLabel(lbArray[1][language]);
-    }
-
     public void setTAChartName(String tachartName) {
         TAChartName = tachartName;
     }
 
     public void windowOpened(WindowEvent e) {
-        System.out.println("WindowOpened");
+      //  System.out.println("WindowOpened");
     }
 
     public void windowClosing(WindowEvent e) {
@@ -509,23 +481,23 @@ public class SettingDialog
     }
 
     public void windowClosed(WindowEvent e) {
-        System.out.println("closed");
+       // System.out.println("closed");
     }
 
     public void windowIconified(WindowEvent e) {
-        System.out.println("iconified");
+       // System.out.println("iconified");
     }
 
     public void windowDeiconified(WindowEvent e) {
-        System.out.println("deiconified");
+        //System.out.println("deiconified");
     }
 
     public void windowActivated(WindowEvent e) {
-        System.out.println("activated");
+        //System.out.println("activated");
     }
 
     public void windowDeactivated(WindowEvent e) {
-        System.out.println("deactivated");
+        //System.out.println("deactivated");
     }
 
 }

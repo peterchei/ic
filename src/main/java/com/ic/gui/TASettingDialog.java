@@ -282,6 +282,8 @@ public class TASettingDialog extends JFrame implements WindowListener {
         jPanel6.add(jPanel1, null);
         jPanel5.setBackground(FConfig.ScreenBackground);
         jPanel6.setBackground(FConfig.ScreenBackground);
+
+        setLanguage(0);
     }
 
     void btOK_actionPerformed(ActionEvent e) {

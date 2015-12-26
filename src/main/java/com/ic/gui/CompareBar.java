@@ -72,7 +72,6 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
     public CompareBar() {
         try {
             jbInit();
-            setLanguage(language);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -81,14 +80,6 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
     public void setMenus(FunctionPanel fb, MenuBar fm) {
         fButtonBar = fb;
         fMenuBar = fm;
-    }
-
-    public void setLanguage(int tlanguage) {
-        language = tlanguage;
-        //   addButton.setLabel(lbArray[0][language]);
-        //   removeButton.setLabel(lbArray[1][language]);
-        // getCloseButton().setLabel(lbArray[2][language]);
-
     }
 
     //set the reference of the chartScrenn such that the button bar can control it.
@@ -256,7 +247,7 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
         pcCharts.addElement(mychart1);
         chACode.removeAllItems();
         for (int i = 0; i < pcCharts.size(); i++) {
-            ChartItem cchart = (ChartItem) pcCharts.elementAt(i);
+            ChartItem cchart = pcCharts.elementAt(i);
             chACode.addItem(String.valueOf(cchart.getChartData().getCode()));
         }
 
@@ -269,7 +260,7 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
         chartScreen1.removeChart(Integer.parseInt((String) chACode.getSelectedItem()));
         chACode.removeAllItems();
         for (int i = 0; i < pcCharts.size(); i++) {
-            ChartItem cchart = (ChartItem) pcCharts.elementAt(i);
+            ChartItem cchart = pcCharts.elementAt(i);
             chACode.addItem(String.valueOf(cchart.getChartData().getCode()));
         }
         chartScreen1.updateBaseScreen();

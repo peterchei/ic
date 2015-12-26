@@ -31,7 +31,6 @@ public class FConfig {
     public static final Color STCColorK = new Color(20, 20, 100);
     public static final Color STCColorD = Color.red;
     public static final Color OBVColor = new Color(20, 20, 100);
-    ;
 
     public static final Color MACDColor1 = Color.black;
     public static final Color MACDColor2 = new Color(20, 255, 20);

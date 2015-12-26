@@ -1,7 +1,7 @@
 package com.ic.data;
 
 
-public class TAPoint {
+public class AnalyticalResult {
 
 
     public boolean isValid = false;

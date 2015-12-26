@@ -3,7 +3,7 @@ package com.ic.data;
 import java.util.Date;
 
 // a unit of each chart point,
-public class SPoint {
+public class StockData {
 
     private float Open = 0f;
     private float Close = 0f;

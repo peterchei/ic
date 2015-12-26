@@ -1,11 +1,10 @@
 package com.ic.core;
 
+import com.ic.data.AnalyticalResult;
 import com.ic.data.ChartData;
 import com.ic.data.FLine;
-import com.ic.data.SPoint;
-import com.ic.data.TAPoint;
+import com.ic.data.StockData;
 import com.ic.util.FormatUtil;
-import javafx.embed.swing.JFXPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -270,11 +269,11 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         newBound.setLowerVolumeBound(0);
         newBound.setUpperVolumeBound(bVolumeMax + 5);
         ss = (bPercentageMax - bPercentageMin) * 0.1f;
-        newBound.setLowerPercentageBound((float) bPercentageMin - (float) ss);
-        newBound.setUpperPercentageBound((float) bPercentageMax + (float) ss);
+        newBound.setLowerPercentageBound(bPercentageMin - (float) ss);
+        newBound.setUpperPercentageBound(bPercentageMax + (float) ss);
         ss = (bMACDMax - bMACDMin) * 0.1f;
-        newBound.setLowerMACDBound((float) bMACDMin - (float) ss);
-        newBound.setUpperMACDBound((float) bMACDMax + (float) ss);
+        newBound.setLowerMACDBound(bMACDMin - (float) ss);
+        newBound.setUpperMACDBound(bMACDMax + (float) ss);
         newBound.setLowerOBVBound((int) bOBVMin);
         newBound.setUpperOBVBound((int) bOBVMax);
 
@@ -452,7 +451,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         g.setColor(Color.black);
         for (int i = 0; i < faction.getLineRecords().size(); i++) {
             FLine fline = (FLine) faction.getLineRecords().elementAt(i);
-            if (fline.isFixedLine()) {
+            if (FLine.isFixedLine()) {
                 g.setColor(Color.black);
                 g.drawLine(fline.getPoint1().x, fline.getPoint1().y, fline.getPoint2().x, fline.getPoint2().y);
             } else {
@@ -476,7 +475,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
             if (faction.getGoldenPartitionLine() != null) {
                 int MaxY = 0, MinY = 0;
                 int x1, x2;
-                if (faction.getGoldenPartitionLine().isFixedLine()) {
+                if (FLine.isFixedLine()) {
                     MaxY = Math.max(faction.getGoldenPartitionLine().getPoint1().y, faction.getGoldenPartitionLine().getPoint2().y);
                     MinY = Math.min(faction.getGoldenPartitionLine().getPoint1().y, faction.getGoldenPartitionLine().getPoint2().y);
                     x1 = faction.getGoldenPartitionLine().getPoint1().x;
@@ -515,7 +514,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                 g.drawString("50%", x1 + 2, Y50 - 1);
                 g.drawString("38.2%", x1 + 2, Y382 - 1);
 
-                ChartItem cchart = (ChartItem) getLeftChart();
+                ChartItem cchart = getLeftChart();
                 if (cchart != null) {
                     double UpperBound = cchart.getUpperBound();
                     double LowerBound = cchart.getLowerBound();
@@ -539,7 +538,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                         g.drawString(FormatUtil.formatData2(v000), x1 + 40, MaxY - 1);
                     }
                 }
-                cchart = (ChartItem) getRightChart();
+                cchart = getRightChart();
                 if (cchart != null) {
                     double UpperBound = cchart.getUpperBound();
                     double LowerBound = cchart.getLowerBound();
@@ -592,7 +591,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 ////----------------------Response to Watch Action -----------------------------------------///////
                 case WATCH:
                     if (faction.isProcessing() == true && isWithinChartRegion(faction.getCurrentMousePoint().x, faction.getCurrentMousePoint().y)) {
-                        ChartItem cchart = (ChartItem) getLeftChart();
+                        ChartItem cchart = getLeftChart();
                         if (cchart != null) {
                             drawWatchAction();
                         }
@@ -649,7 +648,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                         g.drawString("50%", faction.getStartMousePoint().x + 2, Y50 - 1);
                         g.drawString("61.8%", faction.getStartMousePoint().x + 2, Y618 - 1);
 
-                        ChartItem cchart = (ChartItem) getLeftChart();
+                        ChartItem cchart = getLeftChart();
                         if (cchart != null) {
                             double UpperBound = cchart.getUpperBound();
                             double LowerBound = cchart.getLowerBound();
@@ -674,7 +673,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                             }
                         }
 
-                        cchart = (ChartItem) getRightChart();
+                        cchart = getRightChart();
                         if (cchart != null) {
                             double UpperBound = cchart.getUpperBound();
                             double LowerBound = cchart.getLowerBound();
@@ -730,10 +729,10 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         Graphics g = getAllscreenImage().getGraphics();
         if (cchart != null) {
             int index = getPointIndexFromScreen(faction.getCurrentMousePoint().x);
-            SPoint fpoint = (SPoint) cchart.getChartData().getData().elementAt(index);
-            TAPoint fTApoint = null;
-            if (cchart.getChartData().getTAdata().size() > index) {
-                fTApoint = (TAPoint) cchart.getChartData().getTAdata().elementAt(index);
+            StockData fpoint = (StockData) cchart.getChartData().getData().get(index);
+            AnalyticalResult fTApoint = null;
+            if (cchart.getChartData().getAnalyticalResults().size() > index) {
+                fTApoint = (AnalyticalResult) cchart.getChartData().getAnalyticalResults().elementAt(index);
             }
 
             String sDate = "";
@@ -928,16 +927,16 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         Graphics g = getScreenImage().getGraphics();
         g.setColor(currentChart.getFirstColor());
 
-        SPoint fpoint1 = null;
-        SPoint fpoint2 = null;
+        StockData fpoint1 = null;
+        StockData fpoint2 = null;
         int lastValidPoint = 0;
         for (int i = startDisplayIndex + 1; i <= endDisplayIndex; i++) {
-            fpoint1 = (SPoint) currentChart.getChartData().getData().elementAt(i);
-            fpoint2 = (SPoint) currentChart.getChartData().getData().elementAt(i - 1);
+            fpoint1 = (StockData) currentChart.getChartData().getData().get(i);
+            fpoint2 = (StockData) currentChart.getChartData().getData().get(i - 1);
             if (fpoint2.isValid()) {
                 lastValidPoint = i - 1;
             } else {
-                fpoint2 = (SPoint) currentChart.getChartData().getData().elementAt(lastValidPoint);
+                fpoint2 = (StockData) currentChart.getChartData().getData().get(lastValidPoint);
             }
 
             if (fpoint1 != null && fpoint2 != null && fpoint1.isValid() && fpoint2.isValid()) {
@@ -980,7 +979,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         }
 
         for (int i = startDisplayIndex; i <= endDisplayIndex; i++) {
-            SPoint fpoint = (SPoint) currentChart.getChartData().getData().elementAt(i);
+            StockData fpoint = (StockData) currentChart.getChartData().getData().get(i);
             g.fill3DRect(getScreenXPositionFromPoint(i), getScreenYPosition(fpoint.getVolume(), Max, Min), hWidth, getScreenYPosition(0, Max, Min) - getScreenYPosition(fpoint.getVolume(), Max, Min), true);
         }
     }
@@ -1008,7 +1007,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         }
 
         for (int i = startDisplayIndex; i <= endDisplayIndex; i++) {
-            SPoint fpoint = (SPoint) currentChart.getChartData().getData().elementAt(i);
+            StockData fpoint = (StockData) currentChart.getChartData().getData().get(i);
             if (!fpoint.isIntraDayMarked()) {
                 if (fpoint.isValid()) {
                     if (fpoint.getOpen() > fpoint.getClose()) {
@@ -1055,7 +1054,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
             BarWidth = (int) (resolution / 2d);
         }
         for (int i = startDisplayIndex; i <= endDisplayIndex; i++) {
-            SPoint fpoint = (SPoint) currentChart.getChartData().getData().elementAt(i);
+            StockData fpoint = (StockData) currentChart.getChartData().getData().get(i);
             if (!fpoint.isIntraDayMarked()) {
                 if (fpoint.isValid()) {
                     g.drawLine(this.getScreenXPositionFromPoint(i), this.getScreenYPosition(fpoint.getMaximum(), Max, Min), getScreenXPositionFromPoint(i), getScreenYPosition(fpoint.getMinimum(), Max, Min));
@@ -1077,13 +1076,13 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         Graphics g = getScreenImage().getGraphics();
         g.setColor(currentChart.getFirstColor());
 
-        TAPoint fTApoint1 = null;
-        TAPoint fTApoint2 = null;
+        AnalyticalResult fTApoint1 = null;
+        AnalyticalResult fTApoint2 = null;
 
         for (int i = startDisplayIndex + 1; i <= endDisplayIndex; i++) {
             //System.out.println("pp: " + i);
-            fTApoint1 = (TAPoint) currentChart.getChartData().getTAdata().elementAt(i);
-            fTApoint2 = (TAPoint) currentChart.getChartData().getTAdata().elementAt(i - 1);
+            fTApoint1 = (AnalyticalResult) currentChart.getChartData().getAnalyticalResults().elementAt(i);
+            fTApoint2 = (AnalyticalResult) currentChart.getChartData().getAnalyticalResults().elementAt(i - 1);
 
             if (fTApoint1 != null && fTApoint2 != null && fTApoint1.isValid() && fTApoint2.isValid()) {
                 try {
@@ -1126,16 +1125,16 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         Graphics g = getScreenImage().getGraphics();
         g.setColor(currentChart.getFirstColor());
 
-        TAPoint fTApoint1 = null;
-        TAPoint fTApoint2 = null;
+        AnalyticalResult fTApoint1 = null;
+        AnalyticalResult fTApoint2 = null;
         int lastValidPoint = 0;
 
         g.setColor(FConfig.OBVColor);
         for (int i = startDisplayIndex + 1; i <= endDisplayIndex; i++) {
             //System.out.println("pp: " + i);
-            fTApoint1 = (TAPoint) currentChart.getChartData().getTAdata().elementAt(i);
+            fTApoint1 = (AnalyticalResult) currentChart.getChartData().getAnalyticalResults().elementAt(i);
             //System.out.println("fpoint1: " + fpoint1.isValid());
-            fTApoint2 = (TAPoint) currentChart.getChartData().getTAdata().elementAt(i - 1);
+            fTApoint2 = (AnalyticalResult) currentChart.getChartData().getAnalyticalResults().elementAt(i - 1);
 
             if (fTApoint1 != null && fTApoint2 != null && fTApoint1.isValid() && fTApoint2.isValid()) {
                 try {
@@ -1164,14 +1163,14 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         Graphics g = getScreenImage().getGraphics();
         g.setColor(currentChart.getFirstColor());
 
-        TAPoint fTApoint1 = null;
-        TAPoint fTApoint2 = null;
+        AnalyticalResult fTApoint1 = null;
+        AnalyticalResult fTApoint2 = null;
         int lastValidPoint = 0;
         for (int i = startDisplayIndex + 1; i <= endDisplayIndex; i++) {
             //System.out.println("pp: " + i);
-            fTApoint1 = (TAPoint) currentChart.getChartData().getTAdata().elementAt(i);
+            fTApoint1 = (AnalyticalResult) currentChart.getChartData().getAnalyticalResults().elementAt(i);
             //System.out.println("fpoint1: " + fpoint1.isValid());
-            fTApoint2 = (TAPoint) currentChart.getChartData().getTAdata().elementAt(i - 1);
+            fTApoint2 = (AnalyticalResult) currentChart.getChartData().getAnalyticalResults().elementAt(i - 1);
 
             if (fTApoint1 != null && fTApoint2 != null && fTApoint1.isValid() && fTApoint2.isValid()) {
                 try {
@@ -1212,12 +1211,12 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         Graphics g = getScreenImage().getGraphics();
         g.setColor(currentChart.getFirstColor());
 
-        TAPoint fTApoint1 = null;
-        TAPoint fTApoint2 = null;
+        AnalyticalResult fTApoint1 = null;
+        AnalyticalResult fTApoint2 = null;
         int lastValidPoint = 0;
         for (int i = startDisplayIndex + 1; i <= endDisplayIndex; i++) {
-            fTApoint1 = (TAPoint) currentChart.getChartData().getTAdata().elementAt(i);
-            fTApoint2 = (TAPoint) currentChart.getChartData().getTAdata().elementAt(i - 1);
+            fTApoint1 = (AnalyticalResult) currentChart.getChartData().getAnalyticalResults().elementAt(i);
+            fTApoint2 = (AnalyticalResult) currentChart.getChartData().getAnalyticalResults().elementAt(i - 1);
 
             if (fTApoint1 != null && fTApoint2 != null && fTApoint1.isValid() && fTApoint2.isValid()) {
                 try {
@@ -1253,12 +1252,12 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         Graphics g = getScreenImage().getGraphics();
         g.setColor(currentChart.getFirstColor());
 
-        TAPoint fTApoint1 = null;
-        TAPoint fTApoint2 = null;
+        AnalyticalResult fTApoint1 = null;
+        AnalyticalResult fTApoint2 = null;
         int lastValidPoint = 0;
         for (int i = startDisplayIndex + 1; i <= endDisplayIndex; i++) {
-            fTApoint1 = (TAPoint) currentChart.getChartData().getTAdata().elementAt(i);
-            fTApoint2 = (TAPoint) currentChart.getChartData().getTAdata().elementAt(i - 1);
+            fTApoint1 = (AnalyticalResult) currentChart.getChartData().getAnalyticalResults().elementAt(i);
+            fTApoint2 = (AnalyticalResult) currentChart.getChartData().getAnalyticalResults().elementAt(i - 1);
             if (fTApoint1 != null && fTApoint2 != null && fTApoint1.isValid() && fTApoint2.isValid()) {
                 try {
                     int x1 = this.getScreenXPositionFromPoint(i);
@@ -1299,16 +1298,16 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         Graphics g = getScreenImage().getGraphics();
         g.setColor(currentChart.getFirstColor());
 
-        TAPoint fTApoint1 = null;
-        TAPoint fTApoint2 = null;
+        AnalyticalResult fTApoint1 = null;
+        AnalyticalResult fTApoint2 = null;
         int lastValidPoint = 0;
         for (int i = startDisplayIndex + 1; i <= endDisplayIndex; i++) {
-            fTApoint1 = (TAPoint) currentChart.getChartData().getTAdata().elementAt(i);
-            fTApoint2 = (TAPoint) currentChart.getChartData().getTAdata().elementAt(i - 1);
+            fTApoint1 = (AnalyticalResult) currentChart.getChartData().getAnalyticalResults().elementAt(i);
+            fTApoint2 = (AnalyticalResult) currentChart.getChartData().getAnalyticalResults().elementAt(i - 1);
             if (fTApoint2.isValid()) {
                 lastValidPoint = i - 1;
             } else {
-                fTApoint2 = (TAPoint) currentChart.getChartData().getTAdata().elementAt(lastValidPoint);
+                fTApoint2 = (AnalyticalResult) currentChart.getChartData().getAnalyticalResults().elementAt(lastValidPoint);
             }
             // plot the RSI line
             if (fTApoint1 != null && fTApoint2 != null && fTApoint1.isValid() && fTApoint2.isValid()) {
@@ -1362,12 +1361,12 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         Graphics g = getScreenImage().getGraphics();
         g.setColor(currentChart.getFirstColor());
 
-        TAPoint fTApoint1 = null;
-        TAPoint fTApoint2 = null;
+        AnalyticalResult fTApoint1 = null;
+        AnalyticalResult fTApoint2 = null;
 
         for (int i = startDisplayIndex + 1; i <= endDisplayIndex; i++) {
-            fTApoint1 = (TAPoint) currentChart.getChartData().getTAdata().elementAt(i);
-            fTApoint2 = (TAPoint) currentChart.getChartData().getTAdata().elementAt(i - 1);
+            fTApoint1 = (AnalyticalResult) currentChart.getChartData().getAnalyticalResults().elementAt(i);
+            fTApoint2 = (AnalyticalResult) currentChart.getChartData().getAnalyticalResults().elementAt(i - 1);
 
 
             if (fTApoint1 != null && fTApoint2 != null && fTApoint1.isValid() && fTApoint2.isValid()) {
@@ -1417,16 +1416,16 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         Graphics g = getScreenImage().getGraphics();
         g.setColor(FConfig.LineColor);
 
-        SPoint fpoint1 = null;
-        SPoint fpoint2 = null;
+        StockData fpoint1 = null;
+        StockData fpoint2 = null;
         int lastValidPoint = 0;
         for (int i = startDisplayIndex + 1; i <= endDisplayIndex; i++) {
-            fpoint1 = (SPoint) currentChart.getChartData().getData().elementAt(i);
-            fpoint2 = (SPoint) currentChart.getChartData().getData().elementAt(i - 1);
+            fpoint1 = (StockData) currentChart.getChartData().getData().get(i);
+            fpoint2 = (StockData) currentChart.getChartData().getData().get(i - 1);
             if (fpoint2.isValid()) {
                 lastValidPoint = i - 1;
             } else {
-                fpoint2 = (SPoint) currentChart.getChartData().getData().elementAt(lastValidPoint);
+                fpoint2 = (StockData) currentChart.getChartData().getData().get(lastValidPoint);
             }
             if (fpoint1 != null && fpoint2 != null && fpoint1.isValid() && fpoint2.isValid()) {
                 try {
@@ -1488,8 +1487,8 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
             if (currentChart.getChartData().dataType == ChartData.DAILY) {
                 for (int i = startDisplayIndex; i < dpoint; i++) {
                     int j = Math.max(i - 1, startDisplayIndex);
-                    SPoint fpoint = (SPoint) currentChart.getChartData().getData().elementAt(i);
-                    SPoint fpoint2 = (SPoint) currentChart.getChartData().getData().elementAt(j);
+                    StockData fpoint = (StockData) currentChart.getChartData().getData().get(i);
+                    StockData fpoint2 = (StockData) currentChart.getChartData().getData().get(j);
                     if (fpoint.getMonth() != fpoint2.getMonth()) {
                         if (!isLabel) {
                             gg.setColor(gridColor);
@@ -1508,8 +1507,8 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
             } else if (currentChart.getChartData().dataType == ChartData.WEEKLY) {
                 for (int i = startDisplayIndex; i < dpoint; i++) {
                     int j = Math.max(i - 1, startDisplayIndex);
-                    SPoint fpoint = (SPoint) currentChart.getChartData().getData().elementAt(i);
-                    SPoint fpoint2 = (SPoint) currentChart.getChartData().getData().elementAt(j);
+                    StockData fpoint = (StockData) currentChart.getChartData().getData().get(i);
+                    StockData fpoint2 = (StockData) currentChart.getChartData().getData().get(j);
                     if (fpoint.getMonth() != fpoint2.getMonth() && fpoint.getMonth() % 3 == 1) {
                         if (!isLabel) {
                             gg.setColor(gridColor);
@@ -1529,8 +1528,8 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                 for (int i = startDisplayIndex; i < dpoint; i++) {
                     //System.out.println("ADFA");
                     int j = Math.max(i - 1, startDisplayIndex);
-                    SPoint fpoint = (SPoint) currentChart.getChartData().getData().elementAt(i);
-                    SPoint fpoint2 = (SPoint) currentChart.getChartData().getData().elementAt(j);
+                    StockData fpoint = (StockData) currentChart.getChartData().getData().get(i);
+                    StockData fpoint2 = (StockData) currentChart.getChartData().getData().get(j);
                     if (fpoint.getYear() != fpoint2.getYear()) {
                         if (!isLabel) {
                             gg.setColor(gridColor);
@@ -1549,7 +1548,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
             } else if (currentChart.getChartData().dataType == ChartData.INTRADAY) {
                 for (int i = startDisplayIndex; i < dpoint; i++) {
                     int j = Math.max(i - 1, startDisplayIndex);
-                    SPoint fpoint = (SPoint) currentChart.getChartData().getData().elementAt(i);
+                    StockData fpoint = (StockData) currentChart.getChartData().getData().get(i);
                     if (fpoint.getMinute() == 0 && fpoint.getHour() != 0) {
                         if (!isLabel) {
                             gg.setColor(gridColor);
@@ -1634,7 +1633,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
             if (currentChart.getChartType() == ChartType.PERCENTAGE) {
                 g.setColor(currentChart.getFirstColor());
-                SPoint fpoint = (SPoint) currentChart.getChartData().getData().elementAt(startDisplayIndex);
+                StockData fpoint = (StockData) currentChart.getChartData().getData().get(startDisplayIndex);
                 String sdate = "";
                 if (currentChart.getChartData().dataType == ChartData.INTRADAY) {
                     sdate = lbArray[24][language] + " : " + FormatUtil.formatTime(fpoint.getHour(), fpoint.getMinute());
@@ -1757,11 +1756,11 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
             ddiv = tempd;
         } else if (div < 1000 && div >= 100) {
             int tempd = (int) (div / 10);
-            tempd = (int) (tempd * 10);
+            tempd = tempd * 10;
             ddiv = tempd;
         } else if (div >= 1000) {
             int tempd = (int) (div / 1000);
-            tempd = (int) (tempd * 1000);
+            tempd = tempd * 1000;
             ddiv = tempd;
         }
 
@@ -1977,7 +1976,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     // retrieve the Abract Y position given the value and the range.....
     public int getScreenYPosition(double value, double MaxValue, double MinValue) {
         MinValue = MinValue - 0.0001f;
-        double dpos = (double) getYAxisWidth() - ((double) (value - MinValue) / ((double) MaxValue - MinValue) * getYAxisWidth()) + topSpace;
+        double dpos = (double) getYAxisWidth() - ((value - MinValue) / (MaxValue - MinValue) * getYAxisWidth()) + topSpace;
         int pos = (int) Math.round(dpos);
         return pos;
     }
@@ -2022,11 +2021,11 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                 break;
 
             case MOVECHART:
-                if (e.getPoint().x > faction.getCurrentMousePoint().x + 5) {
+                if (e.getPoint().x > faction.getCurrentMousePoint().x + 1) {
                     this.moveLeft();
                     faction.getCurrentMousePoint().x = e.getPoint().x;
                     faction.getCurrentMousePoint().y = e.getPoint().y;
-                } else if (e.getPoint().x < faction.getCurrentMousePoint().x - 5) {
+                } else if (e.getPoint().x < faction.getCurrentMousePoint().x - 1) {
                     this.moveRight();
                     faction.getCurrentMousePoint().x = e.getPoint().x;
                     faction.getCurrentMousePoint().y = e.getPoint().y;
@@ -2240,11 +2239,8 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
     protected boolean isWithinCloseButton(int x, int y) {
 
-        if (x >= (getWidth() - 17) && x <= getWidth() && y >= 0 && y <= 15) {
-            return true;
-        }
+        return x >= (getWidth() - 17) && x <= getWidth() && y >= 0 && y <= 15;
 
-        return false;
     }
 
     public void mouseClicked(MouseEvent e) {

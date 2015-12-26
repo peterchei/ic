@@ -247,9 +247,7 @@ public class STVChart extends JPanel {
         chartScreen1.setLanguage(language);
         chartScreen2.setLanguage(language);
         chartScreen3.setLanguage(language);
-        fmenuBar.setLanguage(language);
-        fCompareBar.setLanguage(language);
-        fTAMenu1.setLanguage(language);
+
     }
 
 

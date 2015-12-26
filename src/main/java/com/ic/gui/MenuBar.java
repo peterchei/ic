@@ -293,33 +293,33 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
     private void chChartType_itemStateChanged(ItemEvent e) {
         ChartType ctype = (ChartType) chChartType.getSelectedItem();
         if (ctype == ChartType.BAR) {
-            ChartItem cchart = (ChartItem) chartScreen1.getChart("LMain1");
+            ChartItem cchart = chartScreen1.getChart("LMain1");
             if (cchart != null) {
                 cchart.setChartType(ChartType.BAR);
             }
 
-            ChartItem cRchart = (ChartItem) chartScreen1.getChart("LMain1");
+            ChartItem cRchart = chartScreen1.getChart("LMain1");
             if (cRchart != null) {
                 cRchart.setChartType(ChartType.BAR);
             }
         } else if (ctype == ChartType.CANDLE) {
-            ChartItem cchart = (ChartItem) chartScreen1.getChart("LMain1");
+            ChartItem cchart = chartScreen1.getChart("LMain1");
             if (cchart != null) {
                 cchart.setChartType(ChartType.CANDLE);
             }
 
-            ChartItem cRchart = (ChartItem) chartScreen1.getChart("LMain1");
+            ChartItem cRchart = chartScreen1.getChart("LMain1");
             if (cRchart != null) {
                 cRchart.setChartType(ChartType.CANDLE);
             }
 
         } else if (ctype == ChartType.LINE) {
-            ChartItem cchart = (ChartItem) chartScreen1.getChart("LMain1");
+            ChartItem cchart = chartScreen1.getChart("LMain1");
             if (cchart != null) {
                 cchart.setChartType(ChartType.LINE);
             }
 
-            ChartItem cRchart = (ChartItem) chartScreen1.getChart("LMain1");
+            ChartItem cRchart = chartScreen1.getChart("LMain1");
             if (cRchart != null) {
                 cRchart.setChartType(ChartType.LINE);
             }

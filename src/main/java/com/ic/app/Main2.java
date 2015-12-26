@@ -74,7 +74,7 @@ public class Main2 extends JFrame implements WindowListener {
     public void setChartPanel(STVChart pnChart) {
         chartPanel = pnChart;
         originalContainer = pnChart.getParent();
-        this.getContentPane().add(pnChart, borderLayout1.CENTER);
+        this.getContentPane().add(pnChart, BorderLayout.CENTER);
     }
 
     private void configure() throws Exception {

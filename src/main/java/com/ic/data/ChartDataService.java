@@ -6,10 +6,9 @@ public class ChartDataService extends Thread {
     private final int refreshSecond = 100;//how long to be refresh for intraday chart.
     private boolean isNewCommand = false;
     private STATE engineState = STATE.STOPPED;
-
-    ;
     private RequestCommand fCommand = null;
     private java.util.LinkedList<RequestCommand> queue = new java.util.LinkedList<RequestCommand>();
+
     private ChartDataService() {
     }
 
@@ -77,7 +76,6 @@ public class ChartDataService extends Thread {
     }
 
     public void addCommand(RequestCommand fC) {
-
         if (fC.getChartType() != RequestCommand.CommandType.REALTIMEQUOTE) {
             synchronized (this) {
                 isNewCommand = true;
