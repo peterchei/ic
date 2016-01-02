@@ -15,8 +15,8 @@ public class ChartData {
 
     //Stock information
     private int Code = 0;
-    private String EName = "Unkonwn";
-    private String CName = "Unkonwn";
+    private String name = "Unkonwn";
+    //private String CName = "Unkonwn";
     private int intradayInterval = 1;//5, or 10;
 
     public ChartData() {
@@ -47,8 +47,8 @@ public class ChartData {
             startIndex = 0;
             endIndex = getData().size() - 1;
         }
-        startIndex = 0;
-        endIndex = getData().size() - 1;
+        //startIndex = 0;
+        //endIndex = getData().size() - 1;
         for (int i = startIndex; i <= endIndex; i++) {
             StockData fpoint = (StockData) getData().get(i);
 
@@ -82,8 +82,8 @@ public class ChartData {
             startIndex = 0;
             endIndex = getData().size() - 1;
         }
-        startIndex = 0;
-        endIndex = getData().size() - 1;
+       // startIndex = 0;
+       // endIndex = getData().size() - 1;
         for (int i = startIndex; i <= endIndex; i++) {
             StockData fpoint = (StockData) getData().get(i);
             if (!fpoint.isValid()) continue;
@@ -119,18 +119,12 @@ public class ChartData {
                 break;
             }
         }
-
-        //System.out.println("reference Point : " + refpoint.getClose());
-
         for (int i = 0; i < getData().size(); i++) {
             StockData fpoint = (StockData) getData().get(i);
-            // StockData fpoint2 = (StockData) data.elementAt(i-1);
             try {
                 fpoint.setPercent(fpoint.getClose() / refPoint.getClose() * 100f);
-
             } catch (Exception ce) {
                 fpoint.setValid(false);
-
             }
         }
     }
@@ -567,20 +561,12 @@ public class ChartData {
         Code = code;
     }
 
-    public String getEName() {
-        return EName;
+    public String getName() {
+        return name;
     }
 
-    public void setEName(String EName) {
-        this.EName = EName;
-    }
-
-    public String getCName() {
-        return CName;
-    }
-
-    public void setCName(String CName) {
-        this.CName = CName;
+    public void setName(String CName) {
+        this.name = CName;
     }
 
     public int getIntradayInterval() {

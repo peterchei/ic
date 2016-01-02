@@ -35,13 +35,13 @@ public class Main2 extends JFrame implements WindowListener {
             STVChart coreChart = new STVChart();
 
 
-            coreChart.fTAMenu1.btSetting.setButtonImage(new ImageIcon(getClass().getResource("/setting.png")).getImage());
+
             //coreChart.chartOptionBar1.btStock.setButtonImage(new ImageIcon(getClass().getResource("/chartTypeA.png")).getImage());
             coreChart.chartOptionBar1.btTA.setButtonImage(new ImageIcon(getClass().getResource("/chartTypeA.png")).getImage());
             coreChart.chartOptionBar1.btVolume.setButtonImage(new ImageIcon(getClass().getResource("/chartTypeC.png")).getImage());
-            coreChart.btOpenClose.setButtonImage(new ImageIcon(getClass().getResource("/close.png")).getImage());
-            coreChart.btOpenClose.setVisible(false);
-            coreChart.btPrinter.setButtonImage(new ImageIcon(getClass().getResource("/print.png")).getImage());
+            coreChart.btFacebookShare.setButtonImage(new ImageIcon(getClass().getResource("/facebook.png")).getImage());
+            coreChart.btFacebookShare.setVisible(true);
+            coreChart.getBtPrinter().setButtonImage(new ImageIcon(getClass().getResource("/print.png")).getImage());
             coreChart.fCompareBar.getCloseButton().setButtonImage(new ImageIcon(getClass().getResource("/close.png")).getImage());
             coreChart.fCompareBar.getAddButton().setButtonImage(new ImageIcon(getClass().getResource("/add.png")).getImage());
             coreChart.fCompareBar.getRemoveButton().setButtonImage(new ImageIcon(getClass().getResource("/minus.png")).getImage());

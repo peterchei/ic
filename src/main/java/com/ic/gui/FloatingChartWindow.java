@@ -38,7 +38,7 @@ public class FloatingChartWindow extends JFrame implements WindowListener {
 
     public void windowClosing(WindowEvent e) {
         this.dispose();
-        chartPanel.btOpenClose.setVisible(true);
+        //chartPanel.btOpenClose.setVisible(true);
         //originalContainer.setLayout(borderLayout);
         this.originalContainer.add("Chart", chartPanel);
 

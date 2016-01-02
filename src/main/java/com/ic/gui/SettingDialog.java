@@ -15,60 +15,108 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
-public class SettingDialog
-        extends Frame
-        implements WindowListener {
-    JLabel JLabel1 = new JLabel();
-    JTextField tfSMA1 = new JTextField();
-    JLabel JLabel3 = new JLabel();
-    JTextField tfSMA2 = new JTextField();
-    JLabel JLabel5 = new JLabel();
-    JTextField tfSMA3 = new JTextField();
-    JLabel JLabel6 = new JLabel();
-    JTextField tfWMA1 = new JTextField();
-    JLabel JLabel7 = new JLabel();
-    JTextField tfWMA2 = new JTextField();
-    JLabel JLabel8 = new JLabel();
-    JTextField tfWMA3 = new JTextField();
-    JButton btSMAApply = new JButton();
-    JButton btWMAApply = new JButton();
-    JLabel JLabel10 = new JLabel();
-    JTextField tfEMA1 = new JTextField();
-    JLabel JLabel11 = new JLabel();
-    JTextField tfEMA2 = new JTextField();
-    JTextField tfEMA3 = new JTextField();
-    JButton btEMAApply = new JButton();
-    JLabel JLabel12 = new JLabel();
-    JLabel JLabel14 = new JLabel();
-    JTextField tfBB = new JTextField();
-    JLabel JLabel15 = new JLabel();
-    JTextField tfDevation = new JTextField();
-    JButton btBollingerApply = new JButton();
-    JButton btCancel = new JButton();
-    JButton btOK = new JButton();
-    JPanel jPanel1 = new JPanel();
-    BorderLayout borderLayout1 = new BorderLayout();
-    JPanel jPanel3 = new JPanel();
-    Border border1;
-    TitledBorder titledBorder1;
-    Border border2;
-    JPanel jPanel4 = new JPanel();
-    Border border3;
-    TitledBorder titledBorder2;
-    JPanel jPanel5 = new JPanel();
-    Border border4;
-    TitledBorder titledBorder3;
-    JPanel jPanel6 = new JPanel();
-    Border border5;
-    TitledBorder titledBorder4;
-    Border border6;
-    JPanel jPanel2 = new JPanel();
+public class SettingDialog extends JDialog implements WindowListener {
+
+
+    private final JLabel JLabelx1 = new JLabel();
+    private final JTextField tfRSI = new JTextField();
+    private final JLabel jlabelx6 = new JLabel();
+    private final JTextField tfSTCK = new JTextField();
+    private final JLabel jlabelx7 = new JLabel();
+    private final JTextField tfSTCD = new JTextField();
+    private final JButton btRSIApply = new JButton();
+    private final JButton btSTCApply = new JButton();
+    private final JLabel jlabely1 = new JLabel();
+    private final JTextField tfELMA = new JTextField();
+    private final JLabel jlabel11y = new JLabel();
+    private final JTextField tfESMA = new JTextField();
+    private final JTextField tfEAMA = new JTextField();
+    private final JButton btMACDApply = new JButton();
+    private final JLabel jlabelx2 = new JLabel();
+    private final JLabel lbWilliam = new JLabel();
+    private final JLabel jlabelx4 = new JLabel();
+    private final JTextField tfWR = new JTextField();
+    private final JButton btWilliamApply = new JButton();
+    // JButton btCancel = new JButton();
+    // JButton btOK = new JButton();
+    private final JPanel jp1 = new JPanel();
+    private final JPanel jp2 = new JPanel();
+    private final JPanel jp3 = new JPanel();
+    private final JPanel jp4 = new JPanel();
+    private final JPanel jp5 = new JPanel();
+    private Border b1;
+    private TitledBorder tb1;
+    private Border b2;
+    private Border b3;
+    private TitledBorder tb2;
+    private Border b4;
+    private TitledBorder tb3;
+    private Border b5;
+    private TitledBorder tb4;
+    private final JPanel jp6 = new JPanel();
+    BorderLayout bl1 = new BorderLayout();
+    // the reference of chart and the chartscreen
+    //  private String TAChartName = new String("TA1Chart"); // the chart Name (id)
+    // that this setting
+    // window can
+    // control
+    private int language = FConfig.constEnglish;
+
+
+    private final JLabel JLabel1 = new JLabel();
+    private final JTextField tfSMA1 = new JTextField();
+    private final JLabel JLabel3 = new JLabel();
+    private final JTextField tfSMA2 = new JTextField();
+    private final JLabel JLabel5 = new JLabel();
+    private final JTextField tfSMA3 = new JTextField();
+    private final JLabel JLabel6 = new JLabel();
+    private final JTextField tfWMA1 = new JTextField();
+    private final JLabel JLabel7 = new JLabel();
+    private final JTextField tfWMA2 = new JTextField();
+    private final JLabel JLabel8 = new JLabel();
+    private final JTextField tfWMA3 = new JTextField();
+    private final JButton btSMAApply = new JButton();
+    private final JButton btWMAApply = new JButton();
+    private final JLabel JLabel10 = new JLabel();
+    private final JTextField tfEMA1 = new JTextField();
+    private final JLabel JLabel11 = new JLabel();
+    private final JTextField tfEMA2 = new JTextField();
+    private final JTextField tfEMA3 = new JTextField();
+    private final JButton btEMAApply = new JButton();
+    private final JLabel JLabel12 = new JLabel();
+    private final JLabel JLabel14 = new JLabel();
+    private final JTextField tfBB = new JTextField();
+    private final JLabel JLabel15 = new JLabel();
+    private final JTextField tfDevation = new JTextField();
+    private final JButton btBollingerApply = new JButton();
+    private final JButton btCancel = new JButton();
+    private final JButton btOK = new JButton();
+    private final JPanel jPanel1 = new JPanel();
+    private final BorderLayout borderLayout1 = new BorderLayout();
+    private final JPanel jPanel3 = new JPanel();
+    private Border border1;
+    private TitledBorder titledBorder1;
+    private Border border2;
+    private final JPanel jPanel4 = new JPanel();
+    private Border border3;
+    private TitledBorder titledBorder2;
+    private final JPanel jPanel5 = new JPanel();
+    private Border border4;
+    private TitledBorder titledBorder3;
+    private final JPanel jPanel6 = new JPanel();
+    private Border border5;
+    private TitledBorder titledBorder4;
+    private Border border6;
+    private final JPanel jPanel2 = new JPanel();
     // the reference of chart and the chartscreen
     private String TAChartName = new String("TA1Chart"); // the chart Name (id) that this setting window can control
-    private Object chartScreen = null;
+    private ChartScreen chartScreen = null;
+    private ChartScreen chartScreen2 = null;
 
-    public SettingDialog() {
+    public SettingDialog(Frame frame) {
+        super(frame);
         try {
+
             jbInit();
             addWindowListener(this);
         } catch (Exception e) {
@@ -233,19 +281,19 @@ public class SettingDialog
 
         jPanel3.setFont(new java.awt.Font("Arial", 0, 11));
         jPanel3.setBorder(titledBorder1);
-        jPanel3.setDebugGraphicsOptions(0);
-        jPanel3.setBounds(new Rectangle(12, 80, 353, 57));
+       
+        jPanel3.setBounds(new Rectangle(10, 80, 350, 56));
         jPanel4.setFont(new java.awt.Font("Arial", 0, 11));
         jPanel4.setBorder(titledBorder2);
-        jPanel4.setBounds(new Rectangle(13, 204, 352, 60));
+        jPanel4.setBounds(new Rectangle(10, 200, 350, 56));
 
         jPanel5.setFont(new java.awt.Font("Arial", 0, 11));
         jPanel5.setBorder(titledBorder3);
-        jPanel5.setBounds(new Rectangle(12, 141, 353, 56));
+        jPanel5.setBounds(new Rectangle(10, 140, 350, 56));
         jPanel6.setFont(new java.awt.Font("Arial", 0, 11));
         jPanel6.setBorder(titledBorder4);
-        jPanel6.setBounds(new Rectangle(12, 16, 354, 58));
-        jPanel2.setBounds(new Rectangle(74, 268, 235, 34));
+        jPanel6.setBounds(new Rectangle(10, 20, 350, 56));
+
         jPanel3.add(JLabel1, null);
         jPanel3.add(tfSMA1, null);
         jPanel3.add(JLabel3, null);
@@ -281,11 +329,296 @@ public class SettingDialog
         jPanel1.add(jPanel6, null);
         jPanel2.setBackground(FConfig.ScreenBackground);
 
+
+        b1 = BorderFactory.createLineBorder(SystemColor.controlText, 1);
+        tb1 = new TitledBorder(b1,
+                "Relative Strength Index (RSI)");
+
+        b2 = BorderFactory.createCompoundBorder(BorderFactory
+                        .createEtchedBorder(Color.yellow, new Color(178, 140, 0)),
+                BorderFactory.createEmptyBorder(0, 5, 0, 5));
+        b3 = BorderFactory.createLineBorder(SystemColor.controlText, 1);
+        tb2 = new TitledBorder(b3, "William's %R");
+        b4 = BorderFactory.createLineBorder(SystemColor.controlText, 1);
+        tb3 = new TitledBorder(b4, "Stochastic (STC)");
+        b5 = BorderFactory.createLineBorder(SystemColor.controlText, 1);
+        tb4 = new TitledBorder(BorderFactory.createLineBorder(
+                SystemColor.controlText, 1),
+                "Moving Average Convergence Divergence (MACD)");
+        JLabelx1.setText("MA1");
+        // this.setLayout(bl1);
+
+        jlabelx6.setText("%K");
+        tfRSI.setBackground(Color.white);
+        tfRSI.setFont(new java.awt.Font("Arial", 0, 11));
+        tfRSI.setBorder(BorderFactory.createLineBorder(Color.black));
+        tfRSI.setText("");
+        tfRSI.setColumns(5);
+        tfSTCK.setBackground(Color.white);
+        tfSTCK.setFont(new java.awt.Font("Arial", 0, 11));
+        tfSTCK.setBorder(BorderFactory.createLineBorder(Color.black));
+        tfSTCK.setText("");
+        tfSTCK.setColumns(5);
+
+        jlabelx7.setText("%D");
+        tfSTCD.setBackground(Color.white);
+        tfSTCD.setFont(new java.awt.Font("Arial", 0, 11));
+        tfSTCD.setBorder(BorderFactory.createLineBorder(Color.black));
+        tfSTCD.setText("");
+        tfSTCD.setColumns(5);
+        btRSIApply.setBackground(Color.orange);
+        btRSIApply.setFont(new java.awt.Font("Arial", 0, 11));
+        btRSIApply.setBorder(b2);
+        btRSIApply.setText("Apply");
+        btRSIApply.addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                btRSIApply_actionPerformed(e);
+            }
+        });
+        btRSIApply.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                btRSIApply_actionPerformed(e);
+            }
+        });
+        btSTCApply.setBackground(Color.orange);
+        btSTCApply.setFont(new java.awt.Font("Arial", 0, 11));
+        btSTCApply.setBorder(b2);
+        btSTCApply.setText("Apply");
+        btSTCApply.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                btSTCApply_actionPerformed(e);
+            }
+        });
+
+        jlabely1.setText("MA1");
+        tfELMA.setBackground(Color.white);
+        tfELMA.setFont(new java.awt.Font("Arial", 0, 11));
+        tfELMA.setBorder(BorderFactory.createLineBorder(Color.black));
+        tfELMA.setText("");
+        tfELMA.setColumns(5);
+
+        jlabel11y.setText("MA2");
+        tfESMA.setBackground(Color.white);
+        tfESMA.setFont(new java.awt.Font("Arial", 0, 11));
+        tfESMA.setBorder(BorderFactory.createLineBorder(Color.black));
+        tfESMA.setText("");
+        tfESMA.setColumns(5);
+        tfEAMA.setBackground(Color.white);
+        tfEAMA.setFont(new java.awt.Font("Arial", 0, 11));
+        tfEAMA.setBorder(BorderFactory.createLineBorder(Color.black));
+        tfEAMA.setToolTipText("");
+        tfEAMA.setText("");
+        tfEAMA.setColumns(5);
+        btMACDApply.setBackground(Color.orange);
+        btMACDApply.setFont(new java.awt.Font("Arial", 0, 11));
+        btMACDApply.setBorder(b2);
+        btMACDApply.setText("Apply");
+        btMACDApply.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                btMACDApply_actionPerformed(e);
+            }
+        });
+
+        jlabelx2.setText("MA3");
+        this.setBackground(FConfig.DialogColor);
+        lbWilliam.setText("William\'s %R");
+
+        jlabelx4.setText("%R");
+        tfWR.setBackground(Color.white);
+        tfWR.setFont(new java.awt.Font("Arial", 0, 11));
+        tfWR.setBorder(BorderFactory.createLineBorder(Color.black));
+        tfWR.setText("");
+        tfWR.setColumns(5);
+        btWilliamApply.setBackground(Color.orange);
+        btWilliamApply.setFont(new java.awt.Font("Arial", 0, 11));
+        btWilliamApply.setBorder(b2);
+        btWilliamApply.setText("Apply");
+        btWilliamApply.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                btWilliamApply_actionPerformed(e);
+            }
+        });
+        btCancel.setBackground(Color.orange);
+        btCancel.setFont(new java.awt.Font("Arial", 0, 11));
+        btCancel.setBorder(b2);
+        btCancel.setText("Cancel");
+        btCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                btCancel_actionPerformed(e);
+            }
+        });
+        btOK.setBackground(Color.orange);
+        btOK.setFont(new java.awt.Font("Arial", 0, 11));
+        btOK.setBorder(b2);
+        btOK.setText("OK");
+        btOK.addActionListener(new java.awt.event.ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+                btOK_actionPerformed(e);
+            }
+        });
+        btOK.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                btOK_actionPerformed(e);
+            }
+        });
+        jp1.setFont(new java.awt.Font("Arial", 0, 11));
+        jp1.setBorder(tb1);
+        jp1.setBounds(new Rectangle(10, 260, 350, 56));
+        jp2.setFont(new java.awt.Font("Arial", 0, 11));
+        jp2.setBorder(tb3);
+        jp2.setBounds(new Rectangle(10, 320, 350, 56));
+        jp3.setFont(new java.awt.Font("Arial", 0, 11));
+        jp3.setBorder(tb4);
+        jp3.setBounds(new Rectangle(10, 380, 350, 56));
+        jp4.setFont(new java.awt.Font("Arial", 0, 11));
+        jp4.setBorder(tb2);
+        jp4.setBounds(new Rectangle(10, 440, 350, 56));
+        jp6.setLayout(null);
+        jp5.setBounds(new Rectangle(10, 500, 350, 56));
+        jPanel1.setFont(new java.awt.Font("Arial", 0, 11));
+        jp1.add(JLabelx1, null);
+        jp1.add(tfRSI, null);
+        jp1.add(btRSIApply, null);
+        jPanel1.add(jp2, null);
+
+        // this.getContentPane().add(jp6, BorderLayout.CENTER);
+        jp2.add(jlabelx6, null);
+        jp2.add(tfSTCK, null);
+        jp2.add(jlabelx7, null);
+        jp2.add(tfSTCD, null);
+        jp2.add(btSTCApply, null);
+        jPanel1.add(jp4, null);
+        jp3.add(jlabely1, null);
+        jp3.add(tfELMA, null);
+        jp3.add(jlabel11y, null);
+        jp3.add(tfESMA, null);
+        jp3.add(jlabelx2, null);
+        jp3.add(tfEAMA, null);
+        jp3.add(btMACDApply, null);
+        jPanel1.add(jp5, null);
+        jp4.add(lbWilliam, null);
+        jp4.add(jlabelx4, null);
+        jp4.add(tfWR, null);
+        jp4.add(btWilliamApply, null);
+        jPanel1.add(jp3, null);
+        jp5.add(btOK, null);
+        jp5.add(btCancel, null);
+        jPanel1.add(jp1, null);
+
         this.add(jPanel1, BorderLayout.CENTER);
 
     }
 
-    void btWMAApply_actionPerformed(ActionEvent e) {
+
+    private void btOK_actionPerformed(ActionEvent e) {
+        this.btWilliamApply_actionPerformed(null);
+        this.btMACDApply_actionPerformed(null);
+        this.btRSIApply_actionPerformed(null);
+        this.btSTCApply_actionPerformed(null);
+
+        this.btBollingerApply_actionPerformed(null);
+        this.btEMAApply_actionPerformed(null);
+        this.btSMAApply_actionPerformed(null);
+        this.btWMAApply_actionPerformed(null);
+
+        this.dispose();
+    }
+
+
+    private void btRSIApply_actionPerformed(ActionEvent e) {
+        if (!FormatUtil.isNumerical(tfRSI.getText())) {
+            updateSetting();
+            return;
+        }
+        ChartItem taChart = chartScreen2.getChart(TAChartName);
+        if (taChart == null) {
+            return;
+        }
+
+        taChart.getChartData().getfTAconfig().RSIPeriod = Integer.parseInt(tfRSI.getText());
+        if (taChart.getChartType() == ChartType.RSI) {
+            taChart.getChartData()
+                    .calculateRSI(taChart.getChartData().getfTAconfig().RSIPeriod);
+            chartScreen2.updateBaseScreen();
+            chartScreen2.repaint();
+        }
+
+    }
+
+    private void btMACDApply_actionPerformed(ActionEvent e) {
+        if (!FormatUtil.isNumerical(tfEAMA.getText())
+                || !FormatUtil.isNumerical(this.tfESMA.getText())
+                || !FormatUtil.isNumerical(this.tfELMA.getText())) {
+            updateSetting();
+            return;
+        }
+        ChartItem taChart = chartScreen2.getChart(TAChartName);
+        if (taChart == null) {
+            return;
+        }
+
+        int LMA = Integer.parseInt(this.tfELMA.getText());
+        int SMA = Integer.parseInt(this.tfESMA.getText());
+        int AMA = Integer.parseInt(this.tfEAMA.getText());
+
+        taChart.getChartData().getfTAconfig().MACDAEMA = AMA;
+        taChart.getChartData().getfTAconfig().MACDLEMA = LMA;
+        taChart.getChartData().getfTAconfig().MACDSEMA = SMA;
+
+        if (taChart.getChartType() == ChartType.MACD) {
+            taChart.getChartData().calculateMACD(LMA, SMA, AMA);
+            chartScreen2.updateBaseScreen();
+            chartScreen2.repaint();
+        }
+
+    }
+
+    private void btSTCApply_actionPerformed(ActionEvent e) {
+        if (!FormatUtil.isNumerical(tfSTCK.getText())
+                || !FormatUtil.isNumerical(this.tfSTCD.getText())) {
+            updateSetting();
+            return;
+        }
+        ChartItem taChart = chartScreen2.getChart(TAChartName);
+        if (taChart == null) {
+            return;
+        }
+
+        int K = Integer.parseInt(this.tfSTCK.getText());
+        int D = Integer.parseInt(this.tfSTCD.getText());
+
+        taChart.getChartData().getfTAconfig().STCDPeriod = D;
+        taChart.getChartData().getfTAconfig().STCKPeriod = K;
+        if (taChart.getChartType() == ChartType.STC) {
+            taChart.getChartData().calculateSTC(K, D);
+            chartScreen2.updateBaseScreen();
+            chartScreen2.repaint();
+        }
+    }
+
+    private void btWilliamApply_actionPerformed(ActionEvent e) {
+        if (!FormatUtil.isNumerical(tfWR.getText())) {
+            updateSetting();
+            return;
+        }
+        ChartItem taChart = chartScreen2.getChart(TAChartName);
+        if (taChart == null) {
+            return;
+        }
+
+        int R = Integer.parseInt(tfWR.getText());
+
+        taChart.getChartData().getfTAconfig().WilliamPeriod = R;
+        if (taChart.getChartType() == ChartType.WILLIAM_R) {
+            taChart.getChartData().calculateWilliamR(R);
+            chartScreen2.updateBaseScreen();
+            chartScreen2.repaint();
+        }
+    }
+
+    private void btWMAApply_actionPerformed(ActionEvent e) {
 
         if (!(FormatUtil.isNumerical(tfWMA1.getText()) &&
                 FormatUtil.isNumerical(tfWMA2.getText()) &&
@@ -322,20 +655,13 @@ public class SettingDialog
         ((ChartScreen) chartScreen).repaint();
     }
 
-    void btOK_actionPerformed(ActionEvent e) {
-        this.btBollingerApply_actionPerformed(null);
-        this.btEMAApply_actionPerformed(null);
-        this.btSMAApply_actionPerformed(null);
-        this.btWMAApply_actionPerformed(null);
-        this.dispose();
-    }
 
-    void btCancel_actionPerformed(ActionEvent e) {
+    private void btCancel_actionPerformed(ActionEvent e) {
 
         this.dispose();
     }
 
-    void btSMAApply_actionPerformed(ActionEvent e) {
+    private void btSMAApply_actionPerformed(ActionEvent e) {
 
         if (!(FormatUtil.isNumerical(tfSMA1.getText()) &&
                 FormatUtil.isNumerical(tfSMA2.getText()) &&
@@ -373,7 +699,7 @@ public class SettingDialog
         ((ChartScreen) chartScreen).repaint();
     }
 
-    void btEMAApply_actionPerformed(ActionEvent e) {
+    private void btEMAApply_actionPerformed(ActionEvent e) {
 
         if (!(FormatUtil.isFloat(tfEMA1.getText()) &&
                 FormatUtil.isFloat(tfEMA2.getText()) &&
@@ -411,7 +737,7 @@ public class SettingDialog
 
     }
 
-    void btBollingerApply_actionPerformed(ActionEvent e) {
+    private void btBollingerApply_actionPerformed(ActionEvent e) {
         if (!(FormatUtil.isNumerical(tfBB.getText()) &&
                 FormatUtil.isFloat(this.tfDevation.getText()))) {
             this.updateSetting();
@@ -462,10 +788,27 @@ public class SettingDialog
         this.tfEMA3.setText(String.valueOf(currentChart.getChartData().getfTAconfig().EMA3));
         this.tfBB.setText(String.valueOf(currentChart.getChartData().getfTAconfig().bbN));
         this.tfDevation.setText(String.valueOf(currentChart.getChartData().getfTAconfig().bbDevation));
+
+
+        this.tfRSI.setText(String
+                .valueOf(currentChart.getChartData().getfTAconfig().RSIPeriod));
+        this.tfSTCK.setText(String
+                .valueOf(currentChart.getChartData().getfTAconfig().STCKPeriod));
+        this.tfSTCD.setText(String
+                .valueOf(currentChart.getChartData().getfTAconfig().STCDPeriod));
+        this.tfWR.setText(String
+                .valueOf(currentChart.getChartData().getfTAconfig().WilliamPeriod));
+        this.tfEAMA.setText(String
+                .valueOf(currentChart.getChartData().getfTAconfig().MACDAEMA));
+        this.tfELMA.setText(String
+                .valueOf(currentChart.getChartData().getfTAconfig().MACDLEMA));
+        this.tfESMA.setText(String
+                .valueOf(currentChart.getChartData().getfTAconfig().MACDSEMA));
     }
 
-    void setChartScreen(ChartScreen cs) {
+    void setChartScreen(ChartScreen cs, ChartScreen cs2) {
         chartScreen = cs;
+        chartScreen2=cs2;
     }
 
     public void setTAChartName(String tachartName) {
@@ -473,7 +816,7 @@ public class SettingDialog
     }
 
     public void windowOpened(WindowEvent e) {
-      //  System.out.println("WindowOpened");
+        //  System.out.println("WindowOpened");
     }
 
     public void windowClosing(WindowEvent e) {
@@ -481,11 +824,11 @@ public class SettingDialog
     }
 
     public void windowClosed(WindowEvent e) {
-       // System.out.println("closed");
+        // System.out.println("closed");
     }
 
     public void windowIconified(WindowEvent e) {
-       // System.out.println("iconified");
+        // System.out.println("iconified");
     }
 
     public void windowDeiconified(WindowEvent e) {

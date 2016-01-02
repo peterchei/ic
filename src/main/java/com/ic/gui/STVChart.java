@@ -13,29 +13,29 @@ public class STVChart extends JPanel {
 
     private static final long serialVersionUID = -280148111733446555L;
     public JPanel panelToolbar = new JPanel();
-    public ChartScreen chartScreen1 = new ChartScreen(20, 20, 42, 25); //the first chartscreen
-    public ChartScreen chartScreen2 = new ChartScreen(20, 5, 42, 25); //the second chartscreen
-    public ChartScreen chartScreen3 = new ChartScreen(15, 5, 42, 25); //the third chartscreen
+    public ChartScreen chartScreen1 = new ChartScreen(20, 35, 42, 15); //the first chartscreen
+    public ChartScreen chartScreen2 = new ChartScreen(15, 5, 42, 15); //the second chartscreen
+    public ChartScreen chartScreen3 = new ChartScreen(15, 5, 42, 15); //the third chartscreen
     //public FunctionBar fbuttonBar = new FunctionBar();   //the button bar
     public FunctionPanel functionPanel = new FunctionPanel();
     public MenuBar fmenuBar = new MenuBar();//the menu bar
     public CompareBar fCompareBar = new CompareBar();
     public TAMenu fTAMenu1 = new TAMenu();
-    public ImageButton btOpenClose = new ImageButton();
+   // public ImageButton btOpenClose = new ImageButton();
     public FloatingChartWindow chartWindow = new FloatingChartWindow();  // the popup window.
     // the printer object to print the graphic.....
-    public BasicPrint basicPrinter;
-    public ImageButton btPrinter = new ImageButton();
+    private BasicPrint basicPrinter;
+    private ImageButton btPrinter = new ImageButton();
+    public ImageButton btFacebookShare = new ImageButton();
+
     public ChartOptionBar chartOptionBar1 = new ChartOptionBar();
     private int language = FConfig.constEnglish;
 
     public STVChart() {
         try {
             jbInit();
-            //fbuttonBar.setChartScreen(chartScreen1, chartScreen2, chartScreen3);
-            //fbuttonBar.setMenus(fCompareBar, fmenuBar);
-            chartOptionBar1.setChartScreen(chartScreen1, chartScreen2, chartScreen3);
 
+            chartOptionBar1.setChartScreen(chartScreen1, chartScreen2, chartScreen3);
             fmenuBar.setChartScreen(chartScreen1, chartScreen2, chartScreen3);
             fmenuBar.setTAMenu(fTAMenu1);
             fCompareBar.setMenus(functionPanel, fmenuBar);
@@ -58,19 +58,11 @@ public class STVChart extends JPanel {
 
     public void resizeChartScreen(int x, int y, int w, int h) {
 
-        if (this.btOpenClose != null) {
-            btOpenClose.setBounds(w - FConfig.BUTTON_SIZE, 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE);
-        }
 
-        if (this.btPrinter != null) {
-            if (btOpenClose.isVisible()) {
-                btPrinter.setBounds(w - (FConfig.BUTTON_SIZE) * 2, 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE);
-                chartOptionBar1.setBounds(w - (FConfig.BUTTON_SIZE) * 4, 0, FConfig.BUTTON_SIZE * 2, FConfig.BUTTON_SIZE);
-            } else {
-                btPrinter.setBounds(w - (FConfig.BUTTON_SIZE), 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE);
-                chartOptionBar1.setBounds(w - (FConfig.BUTTON_SIZE) * 3, 0, FConfig.BUTTON_SIZE * 2, FConfig.BUTTON_SIZE);
-            }
-        }
+        btFacebookShare.setBounds(w - (FConfig.BUTTON_SIZE) * 1, 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE);
+        getBtPrinter().setBounds(w - (FConfig.BUTTON_SIZE) * 2, 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE);
+        chartOptionBar1.setBounds(w - (FConfig.BUTTON_SIZE) * 4, 0, FConfig.BUTTON_SIZE * 2, FConfig.BUTTON_SIZE);
+
 
         int xx = h - (FConfig.BUTTON_SIZE + 2);
         xx = xx / 4;
@@ -120,7 +112,7 @@ public class STVChart extends JPanel {
 
         }
 
-        fmenuBar.setBounds(new Rectangle(0, 0, 500, FConfig.BUTTON_SIZE));
+        fmenuBar.setBounds(new Rectangle(0, 0, 450, FConfig.BUTTON_SIZE));
 
         panelToolbar.setBounds(new Rectangle(0, 0, w, (FConfig.BUTTON_SIZE + 2)));
         chartScreen1.setBounds(new Rectangle(FConfig.BUTTON_SIZE, (FConfig.BUTTON_SIZE + 2), w - FConfig.BUTTON_SIZE, x1));
@@ -186,27 +178,23 @@ public class STVChart extends JPanel {
         fCompareBar.setVisible(false);
         fCompareBar.setBackground(FConfig.ToolBarColor);
         fTAMenu1.setBackground(FConfig.ToolBarColor);
-        fTAMenu1.setBounds(new Rectangle(9 + (FConfig.BUTTON_SIZE + 1) * 12, 0, FConfig.BUTTON_SIZE + 100, FConfig.BUTTON_SIZE + 2));
-        btOpenClose.setBounds(new Rectangle(571, 0, FConfig.BUTTON_SIZE + 2, FConfig.BUTTON_SIZE + 2));
-        btOpenClose.addActionListener(new ActionListener() {
+        fTAMenu1.setBounds(new Rectangle(450, 0, FConfig.BUTTON_SIZE + 100, FConfig.BUTTON_SIZE + 2));
+        btFacebookShare.setBounds(new Rectangle(571, 0, FConfig.BUTTON_SIZE + 2, FConfig.BUTTON_SIZE + 2));
+        btFacebookShare.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 btOpenClose_actionPerformed(e);
             }
         });
-        btOpenClose.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                btOpenClose_actionPerformed(e);
-            }
-        });
-        btPrinter.setBounds(new Rectangle(548, 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
-        btPrinter.addActionListener(new ActionListener() {
+
+        getBtPrinter().setBounds(new Rectangle(548, 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
+        getBtPrinter().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
                     //create printer object and connect to the printer
-                    basicPrinter = new BasicPrint();
-                    if (basicPrinter.initPrinter(chartScreen1, chartScreen2, chartScreen3) == true) {
-                        basicPrinter.startPrint();
+                    setBasicPrinter(new BasicPrint());
+                    if (getBasicPrinter().initPrinter(chartScreen1, chartScreen2, chartScreen3) == true) {
+                        getBasicPrinter().startPrint();
                     }
                 } catch (Exception ex) {
                     ex.printStackTrace();
@@ -221,8 +209,8 @@ public class STVChart extends JPanel {
         this.add(panelToolbar, null);
         panelToolbar.add(fmenuBar, null);
         panelToolbar.add(fCompareBar, null);
-        panelToolbar.add(btOpenClose, null);
-        panelToolbar.add(btPrinter, null);
+        panelToolbar.add(btFacebookShare, null);
+        panelToolbar.add(getBtPrinter(), null);
         panelToolbar.add(chartOptionBar1, null);
         panelToolbar.add(fTAMenu1, null);
         this.add(functionPanel, null);
@@ -232,7 +220,7 @@ public class STVChart extends JPanel {
 
     void btOpenClose_actionPerformed(ActionEvent e) {
 
-        btOpenClose.setVisible(false);
+        //btOpenClose.setVisible(false);
         chartWindow.setChartPanel(this);
         chartWindow.setBounds(0, 0, 800, 600);
         chartWindow.setResizable(true);
@@ -251,4 +239,27 @@ public class STVChart extends JPanel {
     }
 
 
+    public ImageButton getBtFacebookShare() {
+        return btFacebookShare;
+    }
+
+    public void setBtFacebookShare(ImageButton btFacebookShare) {
+        this.btFacebookShare = btFacebookShare;
+    }
+
+    public BasicPrint getBasicPrinter() {
+        return basicPrinter;
+    }
+
+    public void setBasicPrinter(BasicPrint basicPrinter) {
+        this.basicPrinter = basicPrinter;
+    }
+
+    public ImageButton getBtPrinter() {
+        return btPrinter;
+    }
+
+    public void setBtPrinter(ImageButton btPrinter) {
+        this.btPrinter = btPrinter;
+    }
 }

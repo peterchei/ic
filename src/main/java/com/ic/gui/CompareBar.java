@@ -144,7 +144,6 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
             ChartItem cchart = chartScreen1.getLeftChart();
             if (cchart != null) {
                 switch (fMenuBar.chChartType.getSelectedIndex()) {
-
                     case 0:
                         cchart.setChartType(ChartType.BAR);
                         break;
@@ -158,7 +157,6 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
                         cchart.setChartType(ChartType.BAR);
                         break;
                 }
-                //fMenuBar.chChartType.getSelectedIndex();
             }
             pcCharts.removeAllElements();
             chartScreen1.getAction().getLineRecords().removeAllElements();

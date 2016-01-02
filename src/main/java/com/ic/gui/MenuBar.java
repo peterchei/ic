@@ -28,6 +28,8 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
             , {"Exponential Moving Average", "\u6307\u6578\u79fb\u52d5\u5e73\u5747\u7dda"} //3
             , {"Bollinger Bands", "\u4fdd\u6b77\u52a0\u901a\u9053"}
     };
+
+
     public JComboBox<CommandType> chDuration = new JComboBox<CommandType>();
     JTextField tfCode = new JTextField();
     JComboBox<ChartType> chChartType = new JComboBox<ChartType>();
@@ -446,8 +448,7 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
         ChartData mydata2 = new ChartData();
         mydata2.setData(mydata.getData());
         mydata2.dataInterval = mydata.dataInterval;
-        mydata2.setEName(mydata.getEName());
-        mydata2.setCName(mydata.getCName());
+        mydata2.setName(mydata.getName());
         mydata2.setCode(mydata.getCode());
 
         ChartItem mychart1 = new ChartItem(mydata, "LMain1");

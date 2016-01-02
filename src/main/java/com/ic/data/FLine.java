@@ -2,7 +2,7 @@ package com.ic.data;
 
 public class FLine {
 
-    private static final boolean isFixedLine = true;
+    private static final boolean isFixedLine = false;
     private Point point1 = new Point();
     private Point point2 = new Point();
     private int index1 = 0;

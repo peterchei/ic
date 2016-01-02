@@ -63,7 +63,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     private int topSpace = 20;
     private int leftSpace = 40;
     private int rightSpace = 38;
-    private int bottomSpace = 15;
+    private int bottomSpace = 30;
     //The maximun number of point that the chart have....
     private int maxNumberOfChartPoint = 0;
     private int loadingBarIndex = 0;
@@ -1327,8 +1327,8 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         int x2 = getScreenXPositionFromPoint(endDisplayIndex);
         int y1 = this.getScreenYPosition(70, Max, Min);
         int y2 = getScreenYPosition(30, Max, Min);
-        drawDotLine(g,x1, y1, x2, y1);
-        drawDotLine(g,x1, y2, x2, y2);
+        drawDotLine(g, x1, y1, x2, y1);
+        drawDotLine(g, x1, y2, x2, y2);
 
     }
 
@@ -1481,8 +1481,8 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
         // when the resolution is small, set the font size to some.
         if (resolution <= 4) {
-            g.setFont(new Font("default", 0, 10));
-            gg.setFont(new Font("default", 0, 10));
+            g.setFont(new Font("default", 0, 12));
+            gg.setFont(new Font("default", 0, 12));
         }
 
         if (currentChart.isShowXaxis()) {
@@ -1502,7 +1502,12 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                         g.drawLine(getScreenXPositionFromPoint(i), topSpace + getYAxisWidth(), getScreenXPositionFromPoint(i), topSpace + getYAxisWidth() + 2);
                         String dateMY = FormatUtil.formatDate(fpoint.getDate());
                         if (bottomSpace > 8) {
-                            g.drawString(dateMY, getScreenXPositionFromPoint(i) - 10, topSpace + getYAxisWidth() + 12);
+                            g.drawString(dateMY, getScreenXPositionFromPoint(i) - 10, topSpace + getYAxisWidth() + 14);
+
+                            if (fpoint.getMonth() == 1)
+                            g.drawString(fpoint.getYear() + "", getScreenXPositionFromPoint(i) - 10, topSpace + getYAxisWidth() + 30);
+
+                            //if (fpoint.getMonth())
                         }
                     }
                 }
@@ -1600,10 +1605,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                 if (cchart.getChartType() == ChartType.PERCENTAGE) {
                     gg.setColor(cchart.getFirstColor());
                     gg.setFont(new Font("", 0, 10));
-                    String Name = cchart.getChartData().getEName();
-                    if (language == FConfig.constChinese) {
-                        Name = cchart.getChartData().getCName();
-                    }
+                    String Name = cchart.getChartData().getName();
                     String slabel = FormatUtil.getCode(cchart.getChartData().getCode()) + " " + Name;
                     gg.drawString(slabel, getSize().width - rightSpace - 150 + 5, topSpace + 5 + 3 + lcount * 14);
                     lcount++;
@@ -1624,11 +1626,9 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
             if (currentChart.getChartType() == ChartType.BAR || currentChart.getChartType() == ChartType.LINE || currentChart.getChartType() == ChartType.CANDLE) {
                 g.setColor(currentChart.getFirstColor());
                 String cname = "";
-                if (language == FConfig.constEnglish) {
-                    cname = currentChart.getChartData().getEName();
-                } else if (language == FConfig.constChinese) {
-                    cname = currentChart.getChartData().getCName();
-                }
+
+                cname = currentChart.getChartData().getName();
+
 
                 g.drawString(FormatUtil.getCode(currentChart.getChartData().getCode()) + " " + cname, leftSpace + 5, FConfig.SCREEN_FONT_SIZE + 10);
             }
@@ -1656,10 +1656,10 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
             g.drawString(tempString, leftSpace + 5, FConfig.SCREEN_FONT_SIZE + 10);
             tempString = "EMA(" + currentChart.getChartData().getfTAconfig().MACDAEMA + ")";
             g.setColor(FConfig.MACDColor2);
-            g.drawString(tempString, leftSpace + 5, (FConfig.SCREEN_FONT_SIZE + 10) *2);
+            g.drawString(tempString, leftSpace + 5, (FConfig.SCREEN_FONT_SIZE + 10) * 2);
             tempString = "DIFF";
             g.setColor(FConfig.MACDColor3);
-            g.drawString(tempString, leftSpace + 100, (FConfig.SCREEN_FONT_SIZE + 10) *2);
+            g.drawString(tempString, leftSpace + 100, (FConfig.SCREEN_FONT_SIZE + 10) * 2);
         } else if (currentChart.getChartType() == ChartType.EXPONENTIAL_MOVING_AVERAGE) {
             String tempString;
             g.setColor(FConfig.MAColor1);
@@ -1698,7 +1698,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
             g.setColor(FConfig.BollingerBandColor);
             tempString = "SMA(" + currentChart.getChartData().getfTAconfig().bbN + ")";
             tempString = tempString + "  " + lbArray[22][language] + "(" + currentChart.getChartData().getfTAconfig().bbDevation + ")";
-            g.drawString(tempString, leftSpace + 5, (FConfig.SCREEN_FONT_SIZE + 10)* 2 );
+            g.drawString(tempString, leftSpace + 5, (FConfig.SCREEN_FONT_SIZE + 10) * 2);
         } else if (currentChart.getChartType() == ChartType.RSI) {
             String tempString;
             tempString = lbArray[17][language] + " (" + currentChart.getChartData().getfTAconfig().RSIPeriod + ")";

@@ -25,11 +25,9 @@ public class TAMenu extends JPanel {
     };
     private static final long serialVersionUID = -4589991589319998628L;
     public JComboBox chChartType = new JComboBox();
-    public ImageButton btSetting = new ImageButton();
 
     private int language = FConfig.constEnglish;
     private ChartScreen chartScreen = null;
-    private TASettingDialog TASetting = new TASettingDialog();
 
     public TAMenu() {
         try {
@@ -54,27 +52,7 @@ public class TAMenu extends JPanel {
         chChartType.setFont(new Font("Dialog", 0, 18));
         chChartType.setBorder(BorderFactory.createLineBorder(Color.black));
         chChartType.setBounds(new Rectangle(0, 0, 100, FConfig.BUTTON_SIZE));
-        btSetting.setBounds(new Rectangle(100, 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
-        btSetting.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                btSetting_actionPerformed(e);
-            }
-        });
-        //  btSetting.addActionListener(new FTAMenu_btSetting_actionAdapter(this));
-        btSetting.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                btSetting_actionPerformed(e);
-            }
-        });
-        btSetting.addActionListener(new ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                btSetting_actionPerformed(e);
-            }
-        });
         this.add(chChartType, null);
-        this.add(btSetting, null);
         chChartType.setBackground(Color.white);
     }
 
@@ -95,7 +73,7 @@ public class TAMenu extends JPanel {
             chChartType.addItem(lbArray[i][language]);
 
         if (selectedIndex >= 0) chChartType.setSelectedIndex(selectedIndex);
-        TASetting.setLanguage(language);
+        //  TASetting.setLanguage(language);
 
     }
 
@@ -131,16 +109,6 @@ public class TAMenu extends JPanel {
 
     }
 
-    void btSetting_actionPerformed(ActionEvent e) {
 
-        TASetting.setChartScreen(chartScreen);
-        TASetting.setTAChartName("TA1Chart");  // tell the setting window that which chart he can control
-        TASetting.updateSetting();
-        TASetting.setTitle("FME TA Chart Setting Window");
-        TASetting.setResizable(false);
-        TASetting.setBounds(0, 0, 320, 500);
-        TASetting.setVisible(true);
-        ///TASetting.pack();
-    }
 }
 

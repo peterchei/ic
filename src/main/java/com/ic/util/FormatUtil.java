@@ -83,7 +83,7 @@ public class FormatUtil {
     }
 
     public static String formatDate(Date date) {
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM-yy");
+        SimpleDateFormat sdf = new SimpleDateFormat("MMM");
         return sdf.format(date);
     }
 

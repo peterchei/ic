@@ -39,7 +39,7 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
     private ChartScreen chartScreen3 = null;
     private ArrayList<ChartScreen> screens = new ArrayList<ChartScreen>();
     private int language = FConfig.constEnglish;
-    private SettingDialog settingWindow1 = new SettingDialog();
+    private SettingDialog settingWindow1 = null;
 
     public FunctionPanel() {
         try {
@@ -73,6 +73,7 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
 
     private void initComponents() throws Exception {
 
+        settingWindow1 = new SettingDialog(null);
         getBtNone().setButtonImage(new ImageIcon(getClass().getResource("/cursor.png")).getImage());
         getBtWatch().setButtonImage(new ImageIcon(getClass().getResource("/watch.png")).getImage());
         getBtZoomIn().setButtonImage(new ImageIcon(getClass().getResource("/zoomin.png")).getImage());
@@ -86,7 +87,7 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
         getBtSetting().setButtonImage(new ImageIcon(getClass().getResource("/setting.png")).getImage());
         getBtCapture().setButtonImage(new ImageIcon(getClass().getResource("/capture.png")).getImage());
         getBtCompare().setButtonImage(new ImageIcon(getClass().getResource("/percentage.png")).getImage());
-        getBtEdit().setButtonImage(new ImageIcon(getClass().getResource("/editText.png")).getImage());
+        getBtEdit().setButtonImage(new ImageIcon(getClass().getResource("/edittext.png")).getImage());
 
 
         getBtNone().addActionListener(new ActionListener() {
@@ -332,14 +333,17 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
     }
 
     void btSetting_actionPerformed(ActionEvent e) {
-        settingWindow1.setChartScreen(chartScreen1); // tell the setting window that which chartScreen he are using.
+        settingWindow1.setChartScreen(chartScreen1,chartScreen2); // tell the setting window that which chartScreen he are using.
         settingWindow1.setTAChartName("TA1Chart");  // tell the setting window that which chart he can control
         settingWindow1.updateSetting();
-        settingWindow1.setTitle("FME Main Chart Setting Window");
+        settingWindow1.setTitle("IC Technical Analysis Setting");
         settingWindow1.setResizable(false);
-        settingWindow1.setBounds(0, 0, 380, 335);
+
+
+        settingWindow1.setBounds(100, 100, 380, 580);
+        //settingWindow1.setContentPane(this);
         settingWindow1.setVisible(true);
-        settingWindow1.show();
+        //settingWindow1.show();
     }
 
     public void OnZoomCompleted(Object actionChartScreen, int startIndex, int endIndex) {

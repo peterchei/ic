@@ -7,7 +7,7 @@ public class FConfig {
     public static final int constChinese = 1;
 
     public static final int SCREEN_FONT_SIZE = 25;
-    public static final int BUTTON_SIZE = 50;
+    public static final int BUTTON_SIZE = 40;
 
     public static final Color ToolBarColor = new Color(0, 118, 215);
     public static final Color ScreenBackground = new Color(244, 244, 244);

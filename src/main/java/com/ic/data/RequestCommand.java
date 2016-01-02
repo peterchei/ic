@@ -62,8 +62,8 @@ public class RequestCommand {
 
         StockData oldfpoint = new StockData();
         newChartData.dataInterval = DataInterval.WEEKLY;
-        newChartData.setEName("ABC COMPANY");
-        newChartData.setCName("Chinese Name");
+        //newChartData.setName("ABC COMPANY");
+        newChartData.setName("Chinese Name");
 
         for (int i = 0; i < NumberOfPoints; i++) {
             StockData fpoint = new StockData();
@@ -212,8 +212,8 @@ public class RequestCommand {
             StringTokenizer htokens = new StringTokenizer(RawData);
 
             int m_NumberOfPoints = Integer.parseInt(htokens.nextToken(";"));
-            newChartData.setEName(htokens.nextToken(";"));
-            newChartData.setCName(htokens.nextToken(";"));
+            newChartData.setName(htokens.nextToken(";"));
+           // newChartData.setName(htokens.nextToken(";"));
            // System.out.println("NumberOfPoints: " + m_NumberOfPoints + " Ename " + newChartData.getEName() + " CName " + newChartData.getCName());
 
             if (m_NumberOfPoints == 0) {
@@ -387,8 +387,8 @@ public class RequestCommand {
             StringTokenizer htokens = new StringTokenizer(RawData);
 
             int m_NumberOfPoints = Integer.parseInt(htokens.nextToken(";"));
-            newChartData.setEName(htokens.nextToken(";"));
-            newChartData.setCName(htokens.nextToken(";"));
+            newChartData.setName(htokens.nextToken(";"));
+            newChartData.setName(htokens.nextToken(";"));
 
             if (m_NumberOfPoints < 10) {
                 return null;
@@ -476,8 +476,8 @@ public class RequestCommand {
             StringTokenizer htokens = new StringTokenizer(RawData);
 
             int m_NumberOfPoints = Integer.parseInt(htokens.nextToken(";"));
-            newChartData.setEName(htokens.nextToken(";"));
-            newChartData.setCName(htokens.nextToken(";"));
+            newChartData.setName(htokens.nextToken(";"));
+            newChartData.setName(htokens.nextToken(";"));
 
             if (m_NumberOfPoints < 10) {
                 return null;
@@ -567,8 +567,8 @@ public class RequestCommand {
             StringTokenizer htokens = new StringTokenizer(RawData);
 
             int m_NumberOfPoints = Integer.parseInt(htokens.nextToken(";"));
-            newChartData.setEName(htokens.nextToken(";"));
-            newChartData.setCName(htokens.nextToken(";"));
+            newChartData.setName(htokens.nextToken(";"));
+            newChartData.setName(htokens.nextToken(";"));
 
             if (m_NumberOfPoints < 10) {
                 return null;
@@ -708,8 +708,8 @@ public class RequestCommand {
 
             int m_NumberOfPoints = 0;
 
-            newChartData.setEName(StockInfoStore.getInstance().getStockName(String.valueOf(code)));
-            newChartData.setCName(StockInfoStore.getInstance().getStockName(String.valueOf(code)));
+            newChartData.setName(StockInfoStore.getInstance().getStockName(String.valueOf(code)));
+            newChartData.setName(StockInfoStore.getInstance().getStockName(String.valueOf(code)));
 
             List<StockData> rawPoints = new ArrayList<StockData>(1000);
             String line = DS.readLine();
