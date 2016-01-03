@@ -11,96 +11,79 @@ import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
 public class SettingDialog extends JDialog implements WindowListener {
 
 
+    private class SimpleTextField extends JTextField {
+        public SimpleTextField() {
+            setText("");
+            setColumns(5);
+            setBackground(Color.white);
+
+        }
+    }
+
     private final JLabel JLabelx1 = new JLabel();
-    private final JTextField tfRSI = new JTextField();
     private final JLabel jlabelx6 = new JLabel();
-    private final JTextField tfSTCK = new JTextField();
-    private final JLabel jlabelx7 = new JLabel();
-    private final JTextField tfSTCD = new JTextField();
-    private final JButton btRSIApply = new JButton();
-    private final JButton btSTCApply = new JButton();
     private final JLabel jlabely1 = new JLabel();
-    private final JTextField tfELMA = new JTextField();
     private final JLabel jlabel11y = new JLabel();
-    private final JTextField tfESMA = new JTextField();
-    private final JTextField tfEAMA = new JTextField();
-    private final JButton btMACDApply = new JButton();
     private final JLabel jlabelx2 = new JLabel();
     private final JLabel lbWilliam = new JLabel();
     private final JLabel jlabelx4 = new JLabel();
-    private final JTextField tfWR = new JTextField();
-    private final JButton btWilliamApply = new JButton();
+    private final JLabel jlabelx7 = new JLabel();
+    private final JLabel JLabel1 = new JLabel();
+    private final JLabel JLabel3 = new JLabel();
+    private final JLabel JLabel5 = new JLabel();
+    private final JLabel JLabel6 = new JLabel();
+    private final JLabel JLabel7 = new JLabel();
+    private final JLabel JLabel8 = new JLabel();
+    private final JLabel JLabel10 = new JLabel();
+    private final JLabel JLabel11 = new JLabel();
+    private final JLabel JLabel12 = new JLabel();
+    private final JLabel JLabel14 = new JLabel();
+    private final JLabel JLabel15 = new JLabel();
+
+
+    private final SimpleTextField tfSTCD = new SimpleTextField();
+    private final SimpleTextField tfSTCK = new SimpleTextField();
+    private final SimpleTextField tfELMA = new SimpleTextField();
+    private final SimpleTextField tfRSI = new SimpleTextField();
+    private final SimpleTextField tfESMA = new SimpleTextField();
+    private final SimpleTextField tfEAMA = new SimpleTextField();
+    private final SimpleTextField tfWR = new SimpleTextField();
+    private final SimpleTextField tfSMA1 = new SimpleTextField();
+    private final SimpleTextField tfSMA2 = new SimpleTextField();
+    private final SimpleTextField tfSMA3 = new SimpleTextField();
+    private final SimpleTextField tfWMA1 = new SimpleTextField();
+    private final SimpleTextField tfWMA2 = new SimpleTextField();
+    private final SimpleTextField tfWMA3 = new SimpleTextField();
+    private final SimpleTextField tfEMA1 = new SimpleTextField();
+    private final SimpleTextField tfEMA2 = new SimpleTextField();
+    private final SimpleTextField tfEMA3 = new SimpleTextField();
+    private final SimpleTextField tfBB = new SimpleTextField();
+    private final SimpleTextField tfDevation = new SimpleTextField();
+
     private final JPanel jp1 = new JPanel();
     private final JPanel jp2 = new JPanel();
     private final JPanel jp3 = new JPanel();
     private final JPanel jp4 = new JPanel();
     private final JPanel jp5 = new JPanel();
-    private Border b1;
-    private TitledBorder tb1;
-    private Border b2;
-    private Border b3;
-    private TitledBorder tb2;
-    private Border b4;
-    private TitledBorder tb3;
-    private Border b5;
-    private TitledBorder tb4;
     private final JPanel jp6 = new JPanel();
-    BorderLayout bl1 = new BorderLayout();
+    private final JPanel jPanel1 = new JPanel();
+    private final JPanel jPanel3 = new JPanel();
+    private final JPanel jPanel4 = new JPanel();
+    private final JPanel jPanel5 = new JPanel();
+    private final JPanel jPanel6 = new JPanel();
+    private final JPanel jPanel2 = new JPanel();
 
+    private final BorderLayout borderLayout1 = new BorderLayout();
 
-    private final JLabel JLabel1 = new JLabel();
-    private final JTextField tfSMA1 = new JTextField();
-    private final JLabel JLabel3 = new JLabel();
-    private final JTextField tfSMA2 = new JTextField();
-    private final JLabel JLabel5 = new JLabel();
-    private final JTextField tfSMA3 = new JTextField();
-    private final JLabel JLabel6 = new JLabel();
-    private final JTextField tfWMA1 = new JTextField();
-    private final JLabel JLabel7 = new JLabel();
-    private final JTextField tfWMA2 = new JTextField();
-    private final JLabel JLabel8 = new JLabel();
-    private final JTextField tfWMA3 = new JTextField();
-    private final JButton btSMAApply = new JButton();
-    private final JButton btWMAApply = new JButton();
-    private final JLabel JLabel10 = new JLabel();
-    private final JTextField tfEMA1 = new JTextField();
-    private final JLabel JLabel11 = new JLabel();
-    private final JTextField tfEMA2 = new JTextField();
-    private final JTextField tfEMA3 = new JTextField();
-    private final JButton btEMAApply = new JButton();
-    private final JLabel JLabel12 = new JLabel();
-    private final JLabel JLabel14 = new JLabel();
-    private final JTextField tfBB = new JTextField();
-    private final JLabel JLabel15 = new JLabel();
-    private final JTextField tfDevation = new JTextField();
-    private final JButton btBollingerApply = new JButton();
     private final JButton btCancel = new JButton();
     private final JButton btOK = new JButton();
-    private final JPanel jPanel1 = new JPanel();
-    private final BorderLayout borderLayout1 = new BorderLayout();
-    private final JPanel jPanel3 = new JPanel();
-    private Border border1;
-    private TitledBorder titledBorder1;
-    private Border border2;
-    private final JPanel jPanel4 = new JPanel();
-    private Border border3;
-    private TitledBorder titledBorder2;
-    private final JPanel jPanel5 = new JPanel();
-    private Border border4;
-    private TitledBorder titledBorder3;
-    private final JPanel jPanel6 = new JPanel();
-    private Border border5;
-    private TitledBorder titledBorder4;
-    private Border border6;
-    private final JPanel jPanel2 = new JPanel();
-    // the reference of chart and the chartscreen
+
     private String TAChartName = new String("TA1Chart"); // the chart Name (id) that this setting window can control
     private ChartScreen chartScreen = null;
     private ChartScreen chartScreen2 = null;
@@ -115,133 +98,63 @@ public class SettingDialog extends JDialog implements WindowListener {
         }
     }
 
-    private void jbInit() throws Exception {
+    private void jbInit() {
 
-        border1 = BorderFactory.createLineBorder(Color.white, 1);
-        titledBorder1 = new TitledBorder(BorderFactory.createLineBorder(Color.black, 1), "Simple Moving Average");
-        border2 = BorderFactory.createCompoundBorder(BorderFactory.createEtchedBorder(Color.yellow, new Color(178, 140, 0)), BorderFactory.createEmptyBorder(0, 5, 0, 5));
-        border3 = BorderFactory.createLineBorder(Color.red, 1);
-        titledBorder2 = new TitledBorder(BorderFactory.createLineBorder(Color.black, 1), "Bollinger's Band");
-        border4 = BorderFactory.createLineBorder(SystemColor.controlText, 1);
-        titledBorder3 = new TitledBorder(border4, "Exponential Moving Average, EMA");
-        border5 = BorderFactory.createEmptyBorder();
-        titledBorder4 = new TitledBorder(BorderFactory.createLineBorder(Color.black, 1), "Weight Moving Average, WMA");
-        border6 = BorderFactory.createLineBorder(SystemColor.controlText, 1);
+
+        setLayout(borderLayout1);
+
+        Border border = BorderFactory.createLineBorder(Color.black, 1);
+        TitledBorder tb1 = new TitledBorder(border, "Relative Strength Index (RSI)");
+        TitledBorder tb2 = new TitledBorder(border, "William's %R");
+        TitledBorder tb3 = new TitledBorder(border, "Stochastic (STC)");
+        TitledBorder tb4 = new TitledBorder(border, "Moving Average Convergence Divergence (MACD)");
+        TitledBorder tb5 = new TitledBorder(border, "Simple Moving Average");
+        TitledBorder tb6 = new TitledBorder(border, "Bollinger's Band");
+        TitledBorder tb7 = new TitledBorder(border, "Exponential Moving Average, EMA");
+        TitledBorder tb8 = new TitledBorder(border, "Weight Moving Average, WMA");
+
+
         JLabel1.setText("MA1");
-        this.setLayout(borderLayout1);
-
         JLabel3.setText("MA2");
-
         JLabel5.setText("MA3");
 
         JLabel6.setText("MA1");
-        tfSMA1.setBorder(BorderFactory.createLineBorder(Color.black));
-        tfSMA1.setText("");
-        tfSMA1.setColumns(5);
-        tfSMA2.setBorder(BorderFactory.createLineBorder(Color.black));
-        tfSMA2.setText("");
-        tfSMA2.setColumns(5);
-        tfSMA3.setBorder(BorderFactory.createLineBorder(Color.black));
-        tfSMA3.setText("");
-        tfSMA3.setColumns(5);
-        tfWMA1.setBorder(border6);
-        tfWMA1.setMinimumSize(new Dimension(2, 5));
-        tfWMA1.setOpaque(true);
-        tfWMA1.setCaretColor(Color.black);
-        tfWMA1.setCaretPosition(0);
-        tfWMA1.setSelectionStart(0);
-        tfWMA1.setText("");
-        tfWMA1.setColumns(5);
-
         JLabel7.setText("MA2");
-        tfWMA2.setBorder(BorderFactory.createLineBorder(Color.black));
-
-        tfWMA2.setText("");
-        tfWMA2.setColumns(5);
-
         JLabel8.setText("MA3");
-        tfWMA3.setBorder(BorderFactory.createLineBorder(Color.black));
-        tfWMA3.setSelectionStart(0);
-        tfWMA3.setText("");
-        tfWMA3.setColumns(5);
-        btSMAApply.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                btSMAApply_actionPerformed(e);
-            }
-        });
-        btSMAApply.setText("Apply");
-        btWMAApply.setBorderPainted(true);
-        btWMAApply.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                btWMAApply_actionPerformed(e);
-            }
-        });
-        btWMAApply.setText("Apply");
 
         JLabel10.setText("MA1");
-        tfEMA1.setBorder(BorderFactory.createLineBorder(Color.black));
-        tfEMA1.setText("");
-        tfEMA1.setColumns(5);
-
         JLabel11.setText("MA2");
-        tfEMA2.setBorder(BorderFactory.createLineBorder(Color.black));
-        tfEMA2.setText("");
-        tfEMA2.setColumns(5);
-        tfEMA3.setBorder(BorderFactory.createLineBorder(Color.black));
-        tfEMA3.setText("");
-        tfEMA3.setColumns(5);
-        btEMAApply.setText("Apply");
-        btEMAApply.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                btEMAApply_actionPerformed(e);
-            }
-        });
-
         JLabel12.setText("MA3");
-        this.setBackground(FConfig.DialogColor);
-        this.setDropTarget(null);
+
         JLabel14.setText("MA1");
-        tfBB.setBorder(BorderFactory.createLineBorder(Color.black));
-        tfBB.setColumns(5);
-
         JLabel15.setText("Deviation");
-        tfDevation.setBorder(BorderFactory.createLineBorder(Color.black));
-        tfDevation.setColumns(5);
-        btBollingerApply.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                btBollingerApply_actionPerformed(e);
-            }
-        });
-        btBollingerApply.setText("Apply");
-        btCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                btCancel_actionPerformed(e);
-            }
-        });
-        btCancel.setText("Cancel");
 
-        btOK.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                btOK_actionPerformed(e);
-            }
-        });
-        btOK.setText("OK");
+
+        this.setBackground(FConfig.DialogColor);
 
         jPanel1.setBackground(FConfig.ScreenBackground);
-        jPanel1.setBorder(BorderFactory.createEtchedBorder());
         jPanel1.setLayout(null);
 
+        //jPanel1.setBorder(BorderFactory.createEtchedBorder());
+        jPanel3.setBorder(tb5);
+        jPanel4.setBorder(tb6);
+        jPanel5.setBorder(tb7);
+        jPanel6.setBorder(tb8);
+        jp1.setBorder(tb1);
+        jp2.setBorder(tb3);
+        jp3.setBorder(tb4);
+        jp4.setBorder(tb2);
+        jp6.setLayout(null);
 
-        jPanel3.setBorder(titledBorder1);
-
-        jPanel3.setBounds(new Rectangle(10, 80, 380, 56));
-        jPanel4.setBorder(titledBorder2);
-        jPanel4.setBounds(new Rectangle(10, 200, 380, 56));
-
-        jPanel5.setBorder(titledBorder3);
-        jPanel5.setBounds(new Rectangle(10, 140, 380, 56));
-        jPanel6.setBorder(titledBorder4);
         jPanel6.setBounds(new Rectangle(10, 20, 380, 56));
+        jPanel3.setBounds(new Rectangle(10, 80, 380, 56));
+        jPanel4.setBounds(new Rectangle(10, 200, 380, 56));
+        jPanel5.setBounds(new Rectangle(10, 140, 380, 56));
+        jp1.setBounds(new Rectangle(10, 260, 380, 56));
+        jp2.setBounds(new Rectangle(10, 320, 380, 56));
+        jp3.setBounds(new Rectangle(10, 380, 380, 56));
+        jp4.setBounds(new Rectangle(10, 440, 380, 56));
+        jp5.setBounds(new Rectangle(10, 500, 380, 56));
 
         jPanel3.add(JLabel1, null);
         jPanel3.add(tfSMA1, null);
@@ -249,13 +162,13 @@ public class SettingDialog extends JDialog implements WindowListener {
         jPanel3.add(tfSMA2, null);
         jPanel3.add(JLabel5, null);
         jPanel3.add(tfSMA3, null);
-        jPanel3.add(btSMAApply, null);
+
         jPanel1.add(jPanel4, null);
         jPanel4.add(JLabel14, null);
         jPanel4.add(tfBB, null);
         jPanel4.add(JLabel15, null);
         jPanel4.add(tfDevation, null);
-        jPanel4.add(btBollingerApply, null);
+
         jPanel1.add(jPanel5, null);
         jPanel6.add(JLabel6, null);
         jPanel6.add(tfWMA1, null);
@@ -263,7 +176,7 @@ public class SettingDialog extends JDialog implements WindowListener {
         jPanel6.add(tfWMA2, null);
         jPanel6.add(JLabel8, null);
         jPanel6.add(tfWMA3, null);
-        jPanel6.add(btWMAApply, null);
+
         jPanel1.add(jPanel2, null);
         jPanel2.add(btOK, null);
         jPanel2.add(btCancel, null);
@@ -274,93 +187,51 @@ public class SettingDialog extends JDialog implements WindowListener {
         jPanel5.add(tfEMA2, null);
         jPanel5.add(JLabel12, null);
         jPanel5.add(tfEMA3, null);
-        jPanel5.add(btEMAApply, null);
+
         jPanel1.add(jPanel6, null);
-      //  jPanel2.setBackground(FConfig.ScreenBackground);
 
 
-        b1 = BorderFactory.createLineBorder(SystemColor.controlText, 1);
-        tb1 = new TitledBorder(b1,
-                "Relative Strength Index (RSI)");
-
-        b3 = BorderFactory.createLineBorder(SystemColor.controlText, 1);
-        tb2 = new TitledBorder(b3, "William's %R");
-        b4 = BorderFactory.createLineBorder(SystemColor.controlText, 1);
-        tb3 = new TitledBorder(b4, "Stochastic (STC)");
-        b5 = BorderFactory.createLineBorder(SystemColor.controlText, 1);
-        tb4 = new TitledBorder(BorderFactory.createLineBorder(
-                SystemColor.controlText, 1),
-                "Moving Average Convergence Divergence (MACD)");
         JLabelx1.setText("MA1");
-        // this.setLayout(bl1);
-
         jlabelx6.setText("%K");
-        tfRSI.setBackground(Color.white);
-        tfRSI.setBorder(BorderFactory.createLineBorder(Color.black));
-        tfRSI.setText("");
-        tfRSI.setColumns(5);
-        tfSTCK.setBackground(Color.white);
-        tfSTCK.setBorder(BorderFactory.createLineBorder(Color.black));
-        tfSTCK.setText("");
-        tfSTCK.setColumns(5);
-
         jlabelx7.setText("%D");
-        tfSTCD.setBackground(Color.white);
-        tfSTCD.setBorder(BorderFactory.createLineBorder(Color.black));
-        tfSTCD.setText("");
-        tfSTCD.setColumns(5);
-        btRSIApply.setText("Apply");
-        btRSIApply.addActionListener(new java.awt.event.ActionListener() {
-
-            public void actionPerformed(ActionEvent e) {
-                btRSIApply_actionPerformed(e);
-            }
-        });
-        btSTCApply.setText("Apply");
-        btSTCApply.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                btSTCApply_actionPerformed(e);
-            }
-        });
-
         jlabely1.setText("MA1");
-        tfELMA.setBackground(Color.white);
-        tfELMA.setBorder(BorderFactory.createLineBorder(Color.black));
-        tfELMA.setText("");
-        tfELMA.setColumns(5);
-
         jlabel11y.setText("MA2");
-        tfESMA.setBackground(Color.white);
-        tfESMA.setBorder(BorderFactory.createLineBorder(Color.black));
-        tfESMA.setText("");
-        tfESMA.setColumns(5);
-        tfEAMA.setBackground(Color.white);
-        tfEAMA.setBorder(BorderFactory.createLineBorder(Color.black));
-        tfEAMA.setToolTipText("");
-        tfEAMA.setText("");
-        tfEAMA.setColumns(5);
-        btMACDApply.setText("Apply");
-        btMACDApply.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                btMACDApply_actionPerformed(e);
-            }
-        });
-
         jlabelx2.setText("MA3");
-        this.setBackground(FConfig.DialogColor);
         lbWilliam.setText("William\'s %R");
-
         jlabelx4.setText("%R");
-        tfWR.setBackground(Color.white);
-        tfWR.setBorder(BorderFactory.createLineBorder(Color.black));
-        tfWR.setText("");
-        tfWR.setColumns(5);
-        btWilliamApply.setText("Apply");
-        btWilliamApply.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                btWilliamApply_actionPerformed(e);
-            }
-        });
+
+
+        jp1.add(JLabelx1, null);
+        jp1.add(tfRSI, null);
+
+        jPanel1.add(jp2, null);
+
+        jp2.add(jlabelx6, null);
+        jp2.add(tfSTCK, null);
+        jp2.add(jlabelx7, null);
+        jp2.add(tfSTCD, null);
+
+        jPanel1.add(jp4, null);
+        jp3.add(jlabely1, null);
+        jp3.add(tfELMA, null);
+        jp3.add(jlabel11y, null);
+        jp3.add(tfESMA, null);
+        jp3.add(jlabelx2, null);
+        jp3.add(tfEAMA, null);
+
+        jPanel1.add(jp5, null);
+        jp4.add(lbWilliam, null);
+        jp4.add(jlabelx4, null);
+        jp4.add(tfWR, null);
+
+        jPanel1.add(jp3, null);
+        jp5.add(btOK, null);
+        jp5.add(btCancel, null);
+        jPanel1.add(jp1, null);
+
+        this.add(jPanel1, BorderLayout.CENTER);
+
+
         btCancel.setText("Cancel");
         btCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -374,51 +245,6 @@ public class SettingDialog extends JDialog implements WindowListener {
                 btOK_actionPerformed(e);
             }
         });
-        btOK.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                btOK_actionPerformed(e);
-            }
-        });
-        jp1.setBorder(tb1);
-        jp1.setBounds(new Rectangle(10, 260, 380, 56));
-        jp2.setBorder(tb3);
-        jp2.setBounds(new Rectangle(10, 320, 380, 56));
-        jp3.setBorder(tb4);
-        jp3.setBounds(new Rectangle(10, 380, 380, 56));
-        jp4.setBorder(tb2);
-        jp4.setBounds(new Rectangle(10, 440, 380, 56));
-        jp6.setLayout(null);
-        jp5.setBounds(new Rectangle(10, 500, 380, 56));
-        jp1.add(JLabelx1, null);
-        jp1.add(tfRSI, null);
-        jp1.add(btRSIApply, null);
-        jPanel1.add(jp2, null);
-
-        // this.getContentPane().add(jp6, BorderLayout.CENTER);
-        jp2.add(jlabelx6, null);
-        jp2.add(tfSTCK, null);
-        jp2.add(jlabelx7, null);
-        jp2.add(tfSTCD, null);
-        jp2.add(btSTCApply, null);
-        jPanel1.add(jp4, null);
-        jp3.add(jlabely1, null);
-        jp3.add(tfELMA, null);
-        jp3.add(jlabel11y, null);
-        jp3.add(tfESMA, null);
-        jp3.add(jlabelx2, null);
-        jp3.add(tfEAMA, null);
-        jp3.add(btMACDApply, null);
-        jPanel1.add(jp5, null);
-        jp4.add(lbWilliam, null);
-        jp4.add(jlabelx4, null);
-        jp4.add(tfWR, null);
-        jp4.add(btWilliamApply, null);
-        jPanel1.add(jp3, null);
-        jp5.add(btOK, null);
-        jp5.add(btCancel, null);
-        jPanel1.add(jp1, null);
-
-        this.add(jPanel1, BorderLayout.CENTER);
 
     }
 
@@ -537,7 +363,7 @@ public class SettingDialog extends JDialog implements WindowListener {
             this.updateSetting();
             return;
         }
-        ChartItem taChart = ((ChartScreen) chartScreen).getChart(
+        ChartItem taChart = chartScreen.getChart(
                 TAChartName);
         if (taChart == null) {
             return;
@@ -562,8 +388,8 @@ public class SettingDialog extends JDialog implements WindowListener {
         if (taChart.getChartType() == ChartType.WEIGHTED_MOVING_AVERAGE) {
             taChart.getChartData().calculateWeightedMovingAverage(N1, N2, N3);
         }
-        ((ChartScreen) chartScreen).updateBaseScreen();
-        ((ChartScreen) chartScreen).repaint();
+        chartScreen.updateBaseScreen();
+        chartScreen.repaint();
     }
 
 
@@ -581,7 +407,7 @@ public class SettingDialog extends JDialog implements WindowListener {
             this.updateSetting();
             return;
         }
-        ChartItem taChart = ((ChartScreen) chartScreen).getChart(
+        ChartItem taChart = chartScreen.getChart(
                 TAChartName);
         if (taChart == null) {
             return;
@@ -606,8 +432,8 @@ public class SettingDialog extends JDialog implements WindowListener {
         if (taChart.getChartType() == ChartType.SIMPLE_MOVING_AVERAGE) {
             taChart.getChartData().calculateMovingAverage(N1, N2, N3);
         }
-        ((ChartScreen) chartScreen).updateBaseScreen();
-        ((ChartScreen) chartScreen).repaint();
+        chartScreen.updateBaseScreen();
+        chartScreen.repaint();
     }
 
     private void btEMAApply_actionPerformed(ActionEvent e) {
@@ -619,7 +445,7 @@ public class SettingDialog extends JDialog implements WindowListener {
             this.updateSetting();
             return;
         }
-        ChartItem taChart = ((ChartScreen) chartScreen).getChart(
+        ChartItem taChart = chartScreen.getChart(
                 TAChartName);
         if (taChart == null) {
             return;
@@ -643,8 +469,8 @@ public class SettingDialog extends JDialog implements WindowListener {
             taChart.getChartData().calculateExponentialMovingAverage(N1, N2, N3);
             //  taChart.setVisible(true);
         }
-        ((ChartScreen) chartScreen).updateBaseScreen();
-        ((ChartScreen) chartScreen).repaint();
+        chartScreen.updateBaseScreen();
+        chartScreen.repaint();
 
     }
 
@@ -654,7 +480,7 @@ public class SettingDialog extends JDialog implements WindowListener {
             this.updateSetting();
             return;
         }
-        ChartItem taChart = ((ChartScreen) chartScreen).getChart(
+        ChartItem taChart = chartScreen.getChart(
                 TAChartName);
         if (taChart == null) {
             return;
@@ -662,7 +488,7 @@ public class SettingDialog extends JDialog implements WindowListener {
         int bb;
         float dd;
         bb = Integer.parseInt(tfBB.getText());
-        dd = Float.valueOf(tfDevation.getText()).floatValue();
+        dd = Float.valueOf(tfDevation.getText());
 
         // data vaildation.
         if (bb <= 0 || bb > taChart.getChartData().getData().size() || dd <= 0 ||
@@ -676,12 +502,12 @@ public class SettingDialog extends JDialog implements WindowListener {
         if (taChart.getChartType() == ChartType.BOLLINGERBAND) {
             taChart.getChartData().calculateBollingerBand(bb, dd);
         }
-        ((ChartScreen) chartScreen).updateBaseScreen();
-        ((ChartScreen) chartScreen).repaint();
+        chartScreen.updateBaseScreen();
+        chartScreen.repaint();
     }
 
     void updateSetting() {
-        ChartItem currentChart = ((ChartScreen) chartScreen).getChart(
+        ChartItem currentChart = chartScreen.getChart(
                 TAChartName);
         if (currentChart == null) {
             System.out.println("NO chart found in setting");

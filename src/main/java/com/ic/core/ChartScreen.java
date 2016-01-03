@@ -2,6 +2,7 @@ package com.ic.core;
 
 import com.ic.data.*;
 import com.ic.util.FormatUtil;
+import com.sun.org.apache.bcel.internal.generic.FCONST;
 
 import javax.swing.*;
 import java.awt.*;
@@ -560,7 +561,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
 
 /// process current action ..................................
-        if (this.screenState != LOADING)
+        if (this.screenState != LOADING) {
             switch (faction.getActionType()) {
 ////----------------------Response to Zoom Action ------------------------------------------////////
                 case ZOOMIN:
@@ -593,10 +594,11 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                     if (faction.isProcessing() == true && isWithinChartRegion(faction.getCurrentMousePoint().x, faction.getCurrentMousePoint().y)) {
                         ChartItem cchart = getLeftChart();
                         if (cchart != null) {
+                            g.setColor(Color.red);
+                            g.drawLine(faction.getCurrentMousePoint().x - 1, topSpace, faction.getCurrentMousePoint().x - 1, getHeight() - topSpace - bottomSpace);
                             drawWatchAction();
                         }
                     }
-
                     break;
 ////----------------------Response to INSERTLINE Action ------------------------------------------////////
                 case INSERTLINE:
@@ -699,16 +701,14 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                         }
                     }
                     break;
-////////////////////////////////////////////////////////////////////////////////////////////
 
             }
+        }
 //////plot the Axis/////////////////////////////////////////////////////////////////////////
         plotAxis(true);
-
         drawCompareTable();
-        plotCloseButton();
+        //plotCloseButton();
         // draw the buffered image to the screen /////////////////////////////////////////////////
-
 
         if (this.screenState == LOADING) {
             plotLoading();
@@ -716,16 +716,8 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         gg.drawImage(getAllscreenImage(), 0, 0, getSize().width, getSize().height, this);
     }
 
-    private void plotCloseButton() {
-        Graphics g = getAllscreenImage().getGraphics();
-        g.setColor(FConfig.ChatBackground);
-        g.fillRoundRect(getWidth() - 17, 0, 15, 15, 3, 3);
-        g.setColor(Color.black);
-        g.drawRoundRect(getWidth() - 17, 0, 15, 15, 3, 3);
-        g.fillRect(getWidth() - 14, 7, 10, 2);
-    }
 
-    private void plotWatchTable(ChartItem cchart, int x, int y) {
+    private void plotWatchTable(ChartItem cchart) {
         Graphics g = getAllscreenImage().getGraphics();
         if (cchart != null) {
             int index = getPointIndexFromScreen(faction.getCurrentMousePoint().x);
@@ -735,92 +727,60 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                 fTApoint = (AnalyticalResult) cchart.getChartData().getAnalyticalResults().get(index);
             }
 
-            String sDate = "";
-
-            if (cchart.getChartData().dataInterval == DataInterval.DAILY) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy");
-                sDate = sdf.format(fpoint.getDate());
-                sDate = lbArray[15][language] + ": " + sDate;
-            } else if (cchart.getChartData().dataInterval == DataInterval.WEEKLY || cchart.getChartData().dataInterval == DataInterval.MONTHLY) {
-                sDate = fpoint.getDay() + "-" + fpoint.getMonth() + "-" + fpoint.getYear() + " to " + fpoint.getlDay() + "-" + fpoint.getlMonth() + "-" + fpoint.getlYear();
-                sDate = lbArray[15][language] + ": " + sDate;
-            } else if (cchart.getChartData().dataInterval == DataInterval.INTRADAY) {
-                sDate = FormatUtil.formatTime(fpoint.getHour(), fpoint.getMinute());
-                sDate = lbArray[16][language] + ": " + sDate;
-            }
-
+            String pDate = new SimpleDateFormat("MMM-dd").format(fpoint.getDate());
+            StringBuilder sb = new StringBuilder(200);
+            sb.append(pDate).append(" ");
+            int x = leftSpace + 5;
+            int y = this.getHeight() - bottomSpace - 3;
+            g.setColor(FConfig.ToolBarColor);
+            g.fill3DRect(x - 2, y - 16, getWidth() - 6 - rightSpace - leftSpace, 18, true);
+            g.setColor(Color.WHITE);
             switch (cchart.getChartType()) {
                 case PERCENTAGE:
                     break;
-
                 case MACD:
-                    g.setColor(new Color(240, 240, 240));
-                    g.fill3DRect(x, y, 170, 50, true);
-                    g.setColor(cchart.getFirstColor());
-                    g.drawString("MACD1: " + FormatUtil.formatData3(fTApoint.getMACD1()), x + 1, y + 12);
-                    g.drawString("MACD2: " + FormatUtil.formatData3(fTApoint.getMACD2()), x + 1, y + 24);
-                    g.drawString("Diff: " + FormatUtil.formatData3(fTApoint.getMACDdiff()), x + 1, y + 36);
-                    g.drawString(sDate, x + 1, y + 48);
+                    sb.append("MACD1:" + FormatUtil.formatData3(fTApoint.getMACD1()));
+                    sb.append(", MACD2: " + FormatUtil.formatData3(fTApoint.getMACD2()));
+                    sb.append(", Diff: " + FormatUtil.formatData3(fTApoint.getMACDdiff()));
+                    g.drawString(sb.toString(), x, y);
                     break;
 
                 case RSI:
-                    g.setColor(new Color(240, 240, 240));
-                    g.fill3DRect(x, y, 170, 28, true);
-                    g.setColor(cchart.getFirstColor());
-                    g.drawString("RSI: " + FormatUtil.formatData3(fTApoint.getRSI()), x + 1, y + 12);
-                    g.drawString(sDate, x + 1, y + 24);
+                    sb.append("RSI:").append(fTApoint.getRSI());
+                    g.drawString(sb.toString(), x, y);
                     break;
 
                 case STC:
-                    g.setColor(new Color(240, 240, 240));
-                    g.fill3DRect(x, y, 170, 38, true);
-                    g.setColor(cchart.getFirstColor());
-                    g.drawString("%K: " + FormatUtil.formatData3(fTApoint.getK()), x + 1, y + 12);
-                    g.drawString("%D: " + FormatUtil.formatData3(fTApoint.getD()), x + 1, y + 24);
-                    g.drawString(sDate, x + 1, y + 36);
+                    sb.append("%K:").append(FormatUtil.formatData3(fTApoint.getK()));
+                    sb.append(" %D:").append(FormatUtil.formatData3(fTApoint.getD()));
+                    g.drawString(sb.toString(), x, y);
                     break;
 
                 case OBV:
-                    g.setColor(new Color(240, 240, 240));
-                    g.fill3DRect(x, y, 170, 28, true);
-                    g.setColor(cchart.getFirstColor());
-                    g.drawString("OBV: " + FormatUtil.formatData3(fTApoint.getOBV()), x + 1, y + 12);
-                    g.drawString(sDate, x + 1, y + 24);
+                    sb.append("OBV:").append(fTApoint.getOBV());
+                    g.drawString(sb.toString(), x, y);
                     break;
 
                 case WILLIAM_R:
-                    g.setColor(new Color(240, 240, 240));
-                    g.fill3DRect(x, y, 170, 28, true);
-                    g.setColor(cchart.getFirstColor());
-                    g.drawString("William %R: " + FormatUtil.formatData3(fTApoint.getR()), x + 1, y + 12);
-                    g.drawString(sDate, x + 1, y + 24);
+                    sb.append("William %R:").append(fTApoint.getR());
+                    g.drawString(sb.toString(), x, y);
                     break;
 
                 case VOLUME:
-                    g.setColor(new Color(240, 240, 240));
-                    g.fill3DRect(x, y, 170, 28, true);
-                    g.setColor(cchart.getFirstColor());
-                    g.drawString(lbArray[9][language] + ": " + fpoint.getVolume(), x + 1, y + 12);
-                    g.drawString(sDate, x + 1, y + 24);
+                    sb.append("Volume:").append(fpoint.getVolume());
+                    g.drawString(sb.toString(), x, y);
                     break;
 
 
                 case CANDLE:
                 case LINE:
                 case BAR:
-                    g.setColor(new Color(240, 240, 240));
-                    g.fill3DRect(x, y, 170, 86, true);
-                    g.setColor(Color.blue);
-                    //.drawRect(x, y, 160, 86);
-
-                    //g.fill3DRect(x, y, 175, 50, true);
-                    g.setColor(cchart.getFirstColor());
-                    g.drawString(lbArray[5][language] + ": " + FormatUtil.formatData3(fpoint.getOpen()), x + 4, y + 12);
-                    g.drawString(lbArray[6][language] + ": " + FormatUtil.formatData3(fpoint.getClose()), x + 4, y + 24);
-                    g.drawString(lbArray[7][language] + ": " + FormatUtil.formatData3(fpoint.getMaximum()), x + 4, y + 36);
-                    g.drawString(lbArray[8][language] + ": " + FormatUtil.formatData3(fpoint.getMinimum()), x + 4, y + 48);
-                    g.drawString(lbArray[9][language] + ": " + fpoint.getVolume(), x + 4, y + 60);
-                    g.drawString(sDate, x + 2, y + 72);
+                    sb.append(lbArray[5][language]).append(":").append(FormatUtil.formatData3(fpoint.getOpen())).append(", ");
+                    sb.append(lbArray[6][language]).append(":").append(FormatUtil.formatData3(fpoint.getClose())).append(", ");
+                    sb.append(lbArray[7][language]).append(":").append(FormatUtil.formatData3(fpoint.getMaximum())).append(", ");
+                    sb.append(lbArray[8][language]).append(":").append(FormatUtil.formatData3(fpoint.getMinimum())).append(", ");
+                    sb.append(lbArray[9][language]).append(":").append(FormatUtil.formatInteger(fpoint.getVolume()));
+                    g.drawString(sb.toString(), x, y);
                     break;
             }
 
@@ -842,31 +802,23 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         double pointedValue = this.getYValueFromScreen(faction.getCurrentMousePoint().y, leftChart.getUpperBound(), leftChart.getLowerBound());
         Graphics g = getAllscreenImage().getGraphics();
         g.setColor(FConfig.WatchLabelColor);
-        g.setFont(new Font("default", 1, 12));
+        g.setFont(new Font("default", 1, 14));
         if (leftChart.getChartType() == ChartType.VOLUME) {
-            g.drawString(String.valueOf((int) (pointedValue)), faction.getCurrentMousePoint().x, faction.getCurrentMousePoint().y);
+            g.drawString(String.valueOf((int) (pointedValue)), faction.getCurrentMousePoint().x +1, faction.getCurrentMousePoint().y);
         } else if (leftChart.getChartType() == ChartType.OBV) {
             //g.drawString(FormatUtil.formatInteger(pointedValue),faction.currentMousePoint.x,faction.currentMousePoint.y);
         } else if (leftChart.getChartType() == ChartType.PERCENTAGE) {
             g.drawString(FormatUtil.formatData3(pointedValue) + "%", faction.getCurrentMousePoint().x, faction.getCurrentMousePoint().y);
         } else {
-            g.drawString(FormatUtil.formatData3(pointedValue), faction.getCurrentMousePoint().x, faction.getCurrentMousePoint().y);
+            g.drawString(FormatUtil.formatData3(pointedValue), faction.getCurrentMousePoint().x + 1, faction.getCurrentMousePoint().y);
         }
 
         // draw the watch table
         if (leftChart != null && leftChart.isVisible()) {
-            if (faction.getCurrentMousePoint().x > getSize().width / 2) {
-                plotWatchTable(leftChart, leftSpace + 5, topSpace);
-            } else {
-                plotWatchTable(leftChart, getSize().width - rightSpace - 170, topSpace);
-            }
+            plotWatchTable(leftChart);
         }
         if (rightChart != null && rightChart.isVisible()) {
-            if (faction.getCurrentMousePoint().x > getSize().width / 2) {
-                plotWatchTable(rightChart, leftSpace + 5, topSpace + 60);
-            } else {
-                plotWatchTable(rightChart, getSize().width - rightSpace - 180, topSpace + 60);
-            }
+            plotWatchTable(rightChart);
         }
     }
 
@@ -933,6 +885,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         int lastValidPoint = 0;
         for (int i = startDisplayIndex + 1; i <= endDisplayIndex; i++) {
 
+            if (i >= currentChart.getChartData().getData().size()) continue;
             fpoint1 = (StockData) currentChart.getChartData().getData().get(i);
             fpoint2 = (StockData) currentChart.getChartData().getData().get(i - 1);
 
@@ -1494,7 +1447,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
             if (currentChart.getChartData().dataInterval == DataInterval.DAILY) {
                 for (int i = startDisplayIndex; i < dpoint; i++) {
                     if (i >= currentChart.getChartData().getData().size()) {
-                       // log.warning("ChartData: " + currentChart.getChartData().getData().size() + " dpoint: " + dpoint);
+                        // log.warning("ChartData: " + currentChart.getChartData().getData().size() + " dpoint: " + dpoint);
                         continue;
                     }
                     int j = Math.max(i - 1, startDisplayIndex);

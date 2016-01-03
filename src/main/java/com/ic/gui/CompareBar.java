@@ -89,9 +89,9 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
     private void jbInit() throws Exception {
         tfCode.setBackground(Color.white);
         tfCode.setBorder(BorderFactory.createLineBorder(Color.black));
-        tfCode.setBounds(new Rectangle(0, 3, FConfig.BUTTON_SIZE * 2, FConfig.BUTTON_SIZE));
+        tfCode.setBounds(new Rectangle(0, 0, FConfig.BUTTON_SIZE * 2, FConfig.BUTTON_SIZE));
         this.setLayout(null);
-        getAddButton().setBounds(new Rectangle(FConfig.BUTTON_SIZE * 2 + 1, 3, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
+        getAddButton().setBounds(new Rectangle(FConfig.BUTTON_SIZE * 2 + 1, 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getAddButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 btAddChart_actionPerformed(e);
@@ -101,8 +101,8 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
 
         chACode.setFont(new Font("Dialog", 0, 10));
         chACode.setBorder(BorderFactory.createLineBorder(Color.black));
-        chACode.setBounds(new Rectangle(FConfig.BUTTON_SIZE * 4 + 1, 3, FConfig.BUTTON_SIZE*2, FConfig.BUTTON_SIZE));
-        getRemoveButton().setBounds(new Rectangle(FConfig.BUTTON_SIZE * 6 + 1, 3, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
+        chACode.setBounds(new Rectangle(FConfig.BUTTON_SIZE * 4 + 1, 0, FConfig.BUTTON_SIZE*2, FConfig.BUTTON_SIZE));
+        getRemoveButton().setBounds(new Rectangle(FConfig.BUTTON_SIZE * 6 + 1, 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getRemoveButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 btRemove_actionPerformed(e);
@@ -110,7 +110,7 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
         });
 
 
-        getCloseButton().setBounds(new Rectangle(FConfig.BUTTON_SIZE * 8 + 1, 3, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
+        getCloseButton().setBounds(new Rectangle(FConfig.BUTTON_SIZE * 8 + 1, 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getCloseButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 btClose_actionPerformed(e);
