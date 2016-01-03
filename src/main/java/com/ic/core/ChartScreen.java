@@ -11,9 +11,11 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.text.SimpleDateFormat;
 import java.util.Vector;
+import java.util.logging.Logger;
 
 public class ChartScreen extends JPanel implements MouseListener, MouseMotionListener {
 
+    private static final Logger log = Logger.getLogger(ChartScreen.class.getName());
     ///Here is some color variable
     //Color backgroundColor = FConfig.ScreenBackground;
     public static final int NONE = 0;
@@ -433,7 +435,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     }
 
     @Override
-    public synchronized void paint(Graphics gg) {
+    public void paint(Graphics gg) {
         if (isUpdatingBaseScreen) {
             return;
         }
@@ -852,14 +854,14 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         }
 
         // draw the watch table
-        if (leftChart != null && leftChart.isVisable()) {
+        if (leftChart != null && leftChart.isVisible()) {
             if (faction.getCurrentMousePoint().x > getSize().width / 2) {
                 plotWatchTable(leftChart, leftSpace + 5, topSpace);
             } else {
                 plotWatchTable(leftChart, getSize().width - rightSpace - 170, topSpace);
             }
         }
-        if (rightChart != null && rightChart.isVisable()) {
+        if (rightChart != null && rightChart.isVisible()) {
             if (faction.getCurrentMousePoint().x > getSize().width / 2) {
                 plotWatchTable(rightChart, leftSpace + 5, topSpace + 60);
             } else {
@@ -882,11 +884,11 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
         for (int i = 0; i < chartObjects.size(); i++) {
             ChartItem currentChart = (ChartItem) chartObjects.elementAt(i);
-            if (currentChart.isVisable() && currentChart.getChartType() == ChartType.PERCENTAGE) {
+            if (currentChart.isVisible() && currentChart.getChartType() == ChartType.PERCENTAGE) {
                 currentChart.getChartData().calculatePercentage(startDisplayIndex);
             }
 
-            if (currentChart.isVisable() && currentChart.getChartType() == ChartType.OBV) {
+            if (currentChart.isVisible() && currentChart.getChartType() == ChartType.OBV) {
                 currentChart.getChartData().calculateOBV(startDisplayIndex, endDisplayIndex);
             }
 
@@ -901,7 +903,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         //  System.out.println("end plotAxis");
         for (int i = 0; i < chartObjects.size(); i++) {
             ChartItem currentChart = (ChartItem) chartObjects.elementAt(i);
-            if (currentChart.isVisable()) {
+            if (currentChart.isVisible()) {
                 plotChart(currentChart);
             }
         }
@@ -918,19 +920,22 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     }
 
     private void plotPercentageChart(ChartItem currentChart) {
+
         double Max = currentChart.getChartBound().getUpperPercentageBound();
         double Min = currentChart.getChartBound().getLowerPercentageBound();
-
 
         Graphics g = getScreenImage().getGraphics();
         g.setColor(currentChart.getFirstColor());
 
         StockData fpoint1 = null;
         StockData fpoint2 = null;
+
         int lastValidPoint = 0;
         for (int i = startDisplayIndex + 1; i <= endDisplayIndex; i++) {
+
             fpoint1 = (StockData) currentChart.getChartData().getData().get(i);
             fpoint2 = (StockData) currentChart.getChartData().getData().get(i - 1);
+
             if (fpoint2.isValid()) {
                 lastValidPoint = i - 1;
             } else {
@@ -1488,6 +1493,10 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         if (currentChart.isShowXaxis()) {
             if (currentChart.getChartData().dataInterval == DataInterval.DAILY) {
                 for (int i = startDisplayIndex; i < dpoint; i++) {
+                    if (i >= currentChart.getChartData().getData().size()) {
+                       // log.warning("ChartData: " + currentChart.getChartData().getData().size() + " dpoint: " + dpoint);
+                        continue;
+                    }
                     int j = Math.max(i - 1, startDisplayIndex);
                     StockData fpoint = (StockData) currentChart.getChartData().getData().get(i);
                     StockData fpoint2 = (StockData) currentChart.getChartData().getData().get(j);
@@ -1505,7 +1514,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                             g.drawString(dateMY, getScreenXPositionFromPoint(i) - 10, topSpace + getYAxisWidth() + 14);
 
                             if (fpoint.getMonth() == 1)
-                            g.drawString(fpoint.getYear() + "", getScreenXPositionFromPoint(i) - 10, topSpace + getYAxisWidth() + 30);
+                                g.drawString(fpoint.getYear() + "", getScreenXPositionFromPoint(i) - 10, topSpace + getYAxisWidth() + 30);
 
                             //if (fpoint.getMonth())
                         }
@@ -1913,7 +1922,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     }
 
     // clear the Screen
-    private boolean clearScreen() {
+    private synchronized boolean clearScreen() {
         //System.out.println("Entering ClearScreen");
         Graphics screenG = getScreenImage().getGraphics();
         screenG.setColor(FConfig.ChatBackground);
@@ -1928,7 +1937,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     }
 
     // plot the Axis
-    private synchronized boolean plotAxis(boolean isLabel) {
+    private boolean plotAxis(boolean isLabel) {
         Graphics screenG = getAllscreenImage().getGraphics();
 
         screenG.setColor(Color.black);
@@ -1940,7 +1949,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         try {
             for (int i = 0; i < chartObjects.size(); i++) {
                 ChartItem currentChart = (ChartItem) chartObjects.elementAt(i);
-                if (currentChart.isVisable()) {
+                if (currentChart.isVisible()) {
                     plotXAxis(currentChart, isLabel);
                     plotYAxis(currentChart, isLabel);
                     drawLabel(currentChart);
@@ -2343,7 +2352,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         return null;
     }
 
-    public ChartItem getRightChart() {
+    public synchronized ChartItem getRightChart() {
         for (int i = 0; i < chartObjects.size(); i++) {
             ChartItem cchart = (ChartItem) chartObjects.elementAt(i);
             if (cchart.getAxisBar() == AxisType.RIGHTAXIS) {
@@ -2379,15 +2388,15 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         return ozoom;
     }
 
-    public void addScreenActionListen(ScreenActionListener ss) {
+    public synchronized void addScreenActionListen(ScreenActionListener ss) {
         screenActionListener = ss;
     }
 
-    public void flipLoading() {
+    public synchronized void flipLoading() {
         repaint();
     }
 
-    public Image getScreenImage() {
+    public synchronized Image getScreenImage() {
         return screenImage;
     }
 

@@ -3,12 +3,14 @@ package com.ic.data;
 import com.ic.core.TAConfig;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Vector;
 
 public class ChartData {
 
     public DataInterval dataInterval = DataInterval.DAILY;
-    private List<StockData> data = new ArrayList<StockData>(1000);
+    private List<StockData> data = new ArrayList<StockData>(3000);
     private List<AnalyticalResult> analyticalResults = new ArrayList<AnalyticalResult>(1000);
 
     private TAConfig fTAconfig = new TAConfig();
@@ -47,12 +49,9 @@ public class ChartData {
             startIndex = 0;
             endIndex = getData().size() - 1;
         }
-        //startIndex = 0;
-        //endIndex = getData().size() - 1;
+        endIndex = Math.min(endIndex, getData().size()-1);
         for (int i = startIndex; i <= endIndex; i++) {
             StockData fpoint = (StockData) getData().get(i);
-
-
             if (!fpoint.isValid()) continue;
             double Mvalue = 0;
             if (cType == "STOCK") {
@@ -84,6 +83,7 @@ public class ChartData {
         }
        // startIndex = 0;
        // endIndex = getData().size() - 1;
+        endIndex = Math.min(endIndex, getData().size()-1);
         for (int i = startIndex; i <= endIndex; i++) {
             StockData fpoint = (StockData) getData().get(i);
             if (!fpoint.isValid()) continue;
@@ -529,11 +529,11 @@ public class ChartData {
     }
 
 
-    public List<StockData> getData() {
+    public synchronized List<StockData> getData() {
         return data;
     }
 
-    public void setData(List<StockData> data) {
+    public synchronized void setData(List<StockData> data) {
         this.data = data;
     }
 

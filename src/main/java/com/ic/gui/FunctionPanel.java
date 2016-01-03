@@ -1,5 +1,6 @@
 package com.ic.gui;
 
+import com.ic.app.Controller;
 import com.ic.core.*;
 import com.ic.util.CopyImageToClipBoard;
 
@@ -10,22 +11,22 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 /**
- * Created by peter on 12/11/2015.
+ * Core function panel
  */
 public class FunctionPanel extends JPanel implements ScreenActionListener {
 
-    private ImageButton btNone = new ImageButton();
-    private ImageButton btWatch = new ImageButton();
-    private ImageButton btZoomIn = new ImageButton();
-    private ImageButton btZoomOut = new ImageButton();
-    private ImageButton btMove = new ImageButton();
-    private ImageButton btInsertLine = new ImageButton();
-    private ImageButton btInsertPLine = new ImageButton();
-    private ImageButton btGPartition = new ImageButton();
-    private ImageButton btRemoveLine = new ImageButton();
-    private ImageButton btClear = new ImageButton();
-    private ImageButton btCompare = new ImageButton();
-    private ImageButton btSetting = new ImageButton();
+    private final ImageButton btNone = new ImageButton();
+    private final ImageButton btWatch = new ImageButton();
+    private final ImageButton btZoomIn = new ImageButton();
+    private final ImageButton btZoomOut = new ImageButton();
+    private final ImageButton btMove = new ImageButton();
+    private final ImageButton btInsertLine = new ImageButton();
+    private final ImageButton btInsertPLine = new ImageButton();
+    private final ImageButton btGPartition = new ImageButton();
+    private final ImageButton btRemoveLine = new ImageButton();
+    private final ImageButton btClear = new ImageButton();
+    private final ImageButton btCompare = new ImageButton();
+    private final ImageButton btSetting = new ImageButton();
     private ImageButton btCapture = new ImageButton();
     private ImageButton btEdit = new ImageButton();
 
@@ -37,8 +38,7 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
     private ChartScreen chartScreen1 = null;
     private ChartScreen chartScreen2 = null;
     private ChartScreen chartScreen3 = null;
-    private ArrayList<ChartScreen> screens = new ArrayList<ChartScreen>();
-    private int language = FConfig.constEnglish;
+    private final ArrayList<ChartScreen> screens = new ArrayList<ChartScreen>();
     private SettingDialog settingWindow1 = null;
 
     public FunctionPanel() {
@@ -65,13 +65,12 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
     }
 
     private void addButton(Component component) {
-
         component.setBounds(0, (FConfig.BUTTON_SIZE + 1) * numberOfButtons, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE);
         this.add(component, null);
         numberOfButtons ++;
     }
 
-    private void initComponents() throws Exception {
+    private void initComponents()  {
 
         settingWindow1 = new SettingDialog(null);
         getBtNone().setButtonImage(new ImageIcon(getClass().getResource("/cursor.png")).getImage());
@@ -340,10 +339,13 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
         settingWindow1.setResizable(false);
 
 
-        settingWindow1.setBounds(100, 100, 380, 580);
-        //settingWindow1.setContentPane(this);
+        int x = Controller.getInstance().getBounds().x;
+        int y = Controller.getInstance().getBounds().y;
+        int width =  Controller.getInstance().getBounds().width;
+        int height  = Controller.getInstance().getBounds().height;
+
+        settingWindow1.setBounds(x + width/2 - 220, y + height /2 - 290, 400, 580);
         settingWindow1.setVisible(true);
-        //settingWindow1.show();
     }
 
     public void OnZoomCompleted(Object actionChartScreen, int startIndex, int endIndex) {

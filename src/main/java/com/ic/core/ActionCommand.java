@@ -5,7 +5,11 @@ import com.ic.data.Point;
 
 import java.util.Vector;
 
-// record the actions of insert lines, delete lines and so on.....
+/**
+ * Action Command what action is performing from GUI.
+ * record the actions of insert lines, delete lines and so on.....
+ *
+ */
 public class ActionCommand {
 
     public enum Type {

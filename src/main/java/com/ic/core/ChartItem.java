@@ -18,7 +18,7 @@ public class ChartItem {
     private Color firstColor = Color.blue;
     private Color secondColor = Color.red;
     private Color thirdColor = Color.green;
-    private boolean visable = true;
+    private boolean visible = true;
     private boolean showXaxis = true;
 
 
@@ -112,15 +112,11 @@ public class ChartItem {
     }
 
     public void setVisible(boolean isV) {
-        setVisable(isV);
+        visible = isV;
     }
 
-    public boolean isVisable() {
-        return visable;
-    }
-
-    public void setVisable(boolean visable) {
-        this.visable = visable;
+    public boolean isVisible() {
+        return visible;
     }
 
     public AxisType getAxisBar() {

@@ -22,7 +22,7 @@ public class STVChart extends JPanel {
     public CompareBar fCompareBar = new CompareBar();
     public TAMenu fTAMenu1 = new TAMenu();
    // public ImageButton btOpenClose = new ImageButton();
-    public FloatingChartWindow chartWindow = new FloatingChartWindow();  // the popup window.
+   // public FloatingChartWindow chartWindow = new FloatingChartWindow();  // the popup window.
     // the printer object to print the graphic.....
     private BasicPrint basicPrinter;
     private ImageButton btPrinter = new ImageButton();
@@ -220,12 +220,7 @@ public class STVChart extends JPanel {
 
     void btOpenClose_actionPerformed(ActionEvent e) {
 
-        //btOpenClose.setVisible(false);
-        chartWindow.setChartPanel(this);
-        chartWindow.setBounds(0, 0, 800, 600);
-        chartWindow.setResizable(true);
-        chartWindow.setTitle("IC");
-        chartWindow.setVisible(true);
+//TODO
 
     }
 
