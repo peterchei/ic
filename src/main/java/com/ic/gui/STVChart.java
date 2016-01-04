@@ -119,12 +119,12 @@ public class STVChart extends JPanel {
         chartScreen2.setBounds(new Rectangle(FConfig.BUTTON_SIZE, (FConfig.BUTTON_SIZE + 2) + x1, w - FConfig.BUTTON_SIZE, x2));
         chartScreen3.setBounds(new Rectangle(FConfig.BUTTON_SIZE, (FConfig.BUTTON_SIZE + 2) + x1 + x2, w - FConfig.BUTTON_SIZE, x3));
 
-        chartScreen1.getFaction().getLineRecords().removeAllElements();
-        chartScreen2.getFaction().getLineRecords().removeAllElements();
-        chartScreen3.getFaction().getLineRecords().removeAllElements();
-        chartScreen1.getFaction().getZoomRecords().removeAllElements();
-        chartScreen2.getFaction().getZoomRecords().removeAllElements();
-        chartScreen3.getFaction().getZoomRecords().removeAllElements();
+        chartScreen1.getActionCommand().getLineRecords().removeAllElements();
+        chartScreen2.getActionCommand().getLineRecords().removeAllElements();
+        chartScreen3.getActionCommand().getLineRecords().removeAllElements();
+        chartScreen1.getActionCommand().getZoomRecords().removeAllElements();
+        chartScreen2.getActionCommand().getZoomRecords().removeAllElements();
+        chartScreen3.getActionCommand().getZoomRecords().removeAllElements();
         chartScreen1.undoZoom();
         chartScreen2.undoZoom();
         chartScreen3.undoZoom();
@@ -227,9 +227,9 @@ public class STVChart extends JPanel {
     //change the language
     public void setLanguage(int tlanguage) {
         language = tlanguage;
-        chartScreen1.setLanguage(language);
-        chartScreen2.setLanguage(language);
-        chartScreen3.setLanguage(language);
+      //  chartScreen1.setLanguage(language);
+        //chartScreen2.setLanguage(language);
+       // chartScreen3.setLanguage(language);
 
     }
 

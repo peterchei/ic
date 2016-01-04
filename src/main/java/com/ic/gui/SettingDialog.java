@@ -22,7 +22,6 @@ public class SettingDialog extends JDialog implements WindowListener {
             setText("");
             setColumns(5);
             setBackground(Color.white);
-
         }
     }
 
@@ -66,17 +65,17 @@ public class SettingDialog extends JDialog implements WindowListener {
     private final SimpleTextField tfBB = new SimpleTextField();
     private final SimpleTextField tfDevation = new SimpleTextField();
 
-    private final JPanel jp1 = new JPanel();
-    private final JPanel jp2 = new JPanel();
-    private final JPanel jp3 = new JPanel();
-    private final JPanel jp4 = new JPanel();
-    private final JPanel jp5 = new JPanel();
+    private final JPanel jpRSI = new JPanel();
+    private final JPanel jpSTC = new JPanel();
+    private final JPanel jpMACD = new JPanel();
+    private final JPanel jpWilliamR = new JPanel();
+    private final JPanel jpButtons = new JPanel();
     private final JPanel jp6 = new JPanel();
-    private final JPanel jPanel1 = new JPanel();
-    private final JPanel jPanel3 = new JPanel();
-    private final JPanel jPanel4 = new JPanel();
-    private final JPanel jPanel5 = new JPanel();
-    private final JPanel jPanel6 = new JPanel();
+    private final JPanel jpMain = new JPanel();
+    private final JPanel jpSMA = new JPanel();
+    private final JPanel jpBollingerBand = new JPanel();
+    private final JPanel jpEMA = new JPanel();
+    private final JPanel jpWMA = new JPanel();
     private final JPanel jPanel2 = new JPanel();
 
     private final BorderLayout borderLayout1 = new BorderLayout();
@@ -90,19 +89,13 @@ public class SettingDialog extends JDialog implements WindowListener {
 
     public SettingDialog(Frame frame) {
         super(frame);
-        try {
-            jbInit();
-            addWindowListener(this);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        jbInit();
+        addWindowListener(this);
     }
 
     private void jbInit() {
 
-
         setLayout(borderLayout1);
-
         Border border = BorderFactory.createLineBorder(Color.black, 1);
         TitledBorder tb1 = new TitledBorder(border, "Relative Strength Index (RSI)");
         TitledBorder tb2 = new TitledBorder(border, "William's %R");
@@ -113,6 +106,15 @@ public class SettingDialog extends JDialog implements WindowListener {
         TitledBorder tb7 = new TitledBorder(border, "Exponential Moving Average, EMA");
         TitledBorder tb8 = new TitledBorder(border, "Weight Moving Average, WMA");
 
+
+        jpSMA.setBorder(tb5);
+        jpBollingerBand.setBorder(tb6);
+        jpEMA.setBorder(tb7);
+        jpWMA.setBorder(tb8);
+        jpRSI.setBorder(tb1);
+        jpSTC.setBorder(tb3);
+        jpMACD.setBorder(tb4);
+        jpWilliamR.setBorder(tb2);
 
         JLabel1.setText("MA1");
         JLabel3.setText("MA2");
@@ -130,65 +132,61 @@ public class SettingDialog extends JDialog implements WindowListener {
         JLabel15.setText("Deviation");
 
 
-        this.setBackground(FConfig.DialogColor);
 
-        jPanel1.setBackground(FConfig.ScreenBackground);
-        jPanel1.setLayout(null);
+        //jpMain.setBorder(BorderFactory.createEtchedBorder());
 
-        //jPanel1.setBorder(BorderFactory.createEtchedBorder());
-        jPanel3.setBorder(tb5);
-        jPanel4.setBorder(tb6);
-        jPanel5.setBorder(tb7);
-        jPanel6.setBorder(tb8);
-        jp1.setBorder(tb1);
-        jp2.setBorder(tb3);
-        jp3.setBorder(tb4);
-        jp4.setBorder(tb2);
         jp6.setLayout(null);
 
-        jPanel6.setBounds(new Rectangle(10, 20, 380, 56));
-        jPanel3.setBounds(new Rectangle(10, 80, 380, 56));
-        jPanel4.setBounds(new Rectangle(10, 200, 380, 56));
-        jPanel5.setBounds(new Rectangle(10, 140, 380, 56));
-        jp1.setBounds(new Rectangle(10, 260, 380, 56));
-        jp2.setBounds(new Rectangle(10, 320, 380, 56));
-        jp3.setBounds(new Rectangle(10, 380, 380, 56));
-        jp4.setBounds(new Rectangle(10, 440, 380, 56));
-        jp5.setBounds(new Rectangle(10, 500, 380, 56));
+        jpWMA.setBounds(new Rectangle(10, 20, 380, 56));
+        jpSMA.setBounds(new Rectangle(10, 80, 380, 56));
+        jpBollingerBand.setBounds(new Rectangle(10, 200, 380, 56));
+        jpEMA.setBounds(new Rectangle(10, 140, 380, 56));
+        jpRSI.setBounds(new Rectangle(10, 260, 380, 56));
+        jpSTC.setBounds(new Rectangle(10, 320, 380, 56));
+        jpMACD.setBounds(new Rectangle(10, 380, 380, 56));
+        jpWilliamR.setBounds(new Rectangle(10, 440, 380, 56));
+        jpButtons.setBounds(new Rectangle(10, 500, 380, 56));
 
-        jPanel3.add(JLabel1, null);
-        jPanel3.add(tfSMA1, null);
-        jPanel3.add(JLabel3, null);
-        jPanel3.add(tfSMA2, null);
-        jPanel3.add(JLabel5, null);
-        jPanel3.add(tfSMA3, null);
+        jpSMA.add(JLabel1, null);
+        jpSMA.add(tfSMA1, null);
+        jpSMA.add(JLabel3, null);
+        jpSMA.add(tfSMA2, null);
+        jpSMA.add(JLabel5, null);
+        jpSMA.add(tfSMA3, null);
 
-        jPanel1.add(jPanel4, null);
-        jPanel4.add(JLabel14, null);
-        jPanel4.add(tfBB, null);
-        jPanel4.add(JLabel15, null);
-        jPanel4.add(tfDevation, null);
 
-        jPanel1.add(jPanel5, null);
-        jPanel6.add(JLabel6, null);
-        jPanel6.add(tfWMA1, null);
-        jPanel6.add(JLabel7, null);
-        jPanel6.add(tfWMA2, null);
-        jPanel6.add(JLabel8, null);
-        jPanel6.add(tfWMA3, null);
+        jpBollingerBand.add(JLabel14, null);
+        jpBollingerBand.add(tfBB, null);
+        jpBollingerBand.add(JLabel15, null);
+        jpBollingerBand.add(tfDevation, null);
 
-        jPanel1.add(jPanel2, null);
-        jPanel2.add(btOK, null);
-        jPanel2.add(btCancel, null);
-        jPanel1.add(jPanel3, null);
-        jPanel5.add(JLabel10, null);
-        jPanel5.add(tfEMA1, null);
-        jPanel5.add(JLabel11, null);
-        jPanel5.add(tfEMA2, null);
-        jPanel5.add(JLabel12, null);
-        jPanel5.add(tfEMA3, null);
+        jpMain.setBackground(FConfig.ScreenBackground);
+        jpMain.setLayout(null);
+        jpMain.add(jpBollingerBand, null);
+        jpMain.add(jpEMA, null);
+        jpMain.add(jPanel2, null);
+        jpMain.add(jpSMA, null);
+        jpMain.add(jpWMA, null);
 
-        jPanel1.add(jPanel6, null);
+        jpWMA.add(JLabel6, null);
+        jpWMA.add(tfWMA1, null);
+        jpWMA.add(JLabel7, null);
+        jpWMA.add(tfWMA2, null);
+        jpWMA.add(JLabel8, null);
+        jpWMA.add(tfWMA3, null);
+
+
+      //  jPanel2.add(btOK, null);
+      //  jPanel2.add(btCancel, null);
+
+        jpEMA.add(JLabel10, null);
+        jpEMA.add(tfEMA1, null);
+        jpEMA.add(JLabel11, null);
+        jpEMA.add(tfEMA2, null);
+        jpEMA.add(JLabel12, null);
+        jpEMA.add(tfEMA3, null);
+
+
 
 
         JLabelx1.setText("MA1");
@@ -201,35 +199,35 @@ public class SettingDialog extends JDialog implements WindowListener {
         jlabelx4.setText("%R");
 
 
-        jp1.add(JLabelx1, null);
-        jp1.add(tfRSI, null);
+        jpRSI.add(JLabelx1, null);
+        jpRSI.add(tfRSI, null);
 
-        jPanel1.add(jp2, null);
+        jpMain.add(jpSTC, null);
 
-        jp2.add(jlabelx6, null);
-        jp2.add(tfSTCK, null);
-        jp2.add(jlabelx7, null);
-        jp2.add(tfSTCD, null);
+        jpSTC.add(jlabelx6, null);
+        jpSTC.add(tfSTCK, null);
+        jpSTC.add(jlabelx7, null);
+        jpSTC.add(tfSTCD, null);
 
-        jPanel1.add(jp4, null);
-        jp3.add(jlabely1, null);
-        jp3.add(tfELMA, null);
-        jp3.add(jlabel11y, null);
-        jp3.add(tfESMA, null);
-        jp3.add(jlabelx2, null);
-        jp3.add(tfEAMA, null);
+        jpMain.add(jpWilliamR, null);
+        jpMACD.add(jlabely1, null);
+        jpMACD.add(tfELMA, null);
+        jpMACD.add(jlabel11y, null);
+        jpMACD.add(tfESMA, null);
+        jpMACD.add(jlabelx2, null);
+        jpMACD.add(tfEAMA, null);
 
-        jPanel1.add(jp5, null);
-        jp4.add(lbWilliam, null);
-        jp4.add(jlabelx4, null);
-        jp4.add(tfWR, null);
+        jpMain.add(jpButtons, null);
+        jpWilliamR.add(lbWilliam, null);
+        jpWilliamR.add(jlabelx4, null);
+        jpWilliamR.add(tfWR, null);
 
-        jPanel1.add(jp3, null);
-        jp5.add(btOK, null);
-        jp5.add(btCancel, null);
-        jPanel1.add(jp1, null);
+        jpMain.add(jpMACD, null);
+        jpButtons.add(btOK, null);
+        jpButtons.add(btCancel, null);
+        jpMain.add(jpRSI, null);
 
-        this.add(jPanel1, BorderLayout.CENTER);
+        this.add(jpMain, BorderLayout.CENTER);
 
 
         btCancel.setText("Cancel");
@@ -265,7 +263,7 @@ public class SettingDialog extends JDialog implements WindowListener {
 
 
     private void btRSIApply_actionPerformed(ActionEvent e) {
-        if (!FormatUtil.isNumerical(tfRSI.getText())) {
+        if (!FormatUtil.isNumber(tfRSI.getText())) {
             updateSetting();
             return;
         }
@@ -285,9 +283,9 @@ public class SettingDialog extends JDialog implements WindowListener {
     }
 
     private void btMACDApply_actionPerformed(ActionEvent e) {
-        if (!FormatUtil.isNumerical(tfEAMA.getText())
-                || !FormatUtil.isNumerical(this.tfESMA.getText())
-                || !FormatUtil.isNumerical(this.tfELMA.getText())) {
+        if (!FormatUtil.isNumber(tfEAMA.getText())
+                || !FormatUtil.isNumber(this.tfESMA.getText())
+                || !FormatUtil.isNumber(this.tfELMA.getText())) {
             updateSetting();
             return;
         }
@@ -313,8 +311,8 @@ public class SettingDialog extends JDialog implements WindowListener {
     }
 
     private void btSTCApply_actionPerformed(ActionEvent e) {
-        if (!FormatUtil.isNumerical(tfSTCK.getText())
-                || !FormatUtil.isNumerical(this.tfSTCD.getText())) {
+        if (!FormatUtil.isNumber(tfSTCK.getText())
+                || !FormatUtil.isNumber(this.tfSTCD.getText())) {
             updateSetting();
             return;
         }
@@ -336,7 +334,7 @@ public class SettingDialog extends JDialog implements WindowListener {
     }
 
     private void btWilliamApply_actionPerformed(ActionEvent e) {
-        if (!FormatUtil.isNumerical(tfWR.getText())) {
+        if (!FormatUtil.isNumber(tfWR.getText())) {
             updateSetting();
             return;
         }
@@ -357,9 +355,9 @@ public class SettingDialog extends JDialog implements WindowListener {
 
     private void btWMAApply_actionPerformed(ActionEvent e) {
 
-        if (!(FormatUtil.isNumerical(tfWMA1.getText()) &&
-                FormatUtil.isNumerical(tfWMA2.getText()) &&
-                FormatUtil.isNumerical(tfWMA3.getText()))) {
+        if (!(FormatUtil.isNumber(tfWMA1.getText()) &&
+                FormatUtil.isNumber(tfWMA2.getText()) &&
+                FormatUtil.isNumber(tfWMA3.getText()))) {
             this.updateSetting();
             return;
         }
@@ -400,9 +398,9 @@ public class SettingDialog extends JDialog implements WindowListener {
 
     private void btSMAApply_actionPerformed(ActionEvent e) {
 
-        if (!(FormatUtil.isNumerical(tfSMA1.getText()) &&
-                FormatUtil.isNumerical(tfSMA2.getText()) &&
-                FormatUtil.isNumerical(tfSMA3.getText()))) {
+        if (!(FormatUtil.isNumber(tfSMA1.getText()) &&
+                FormatUtil.isNumber(tfSMA2.getText()) &&
+                FormatUtil.isNumber(tfSMA3.getText()))) {
             System.out.println("SMAAPPLy ERROR");
             this.updateSetting();
             return;
@@ -475,7 +473,7 @@ public class SettingDialog extends JDialog implements WindowListener {
     }
 
     private void btBollingerApply_actionPerformed(ActionEvent e) {
-        if (!(FormatUtil.isNumerical(tfBB.getText()) &&
+        if (!(FormatUtil.isNumber(tfBB.getText()) &&
                 FormatUtil.isFloat(this.tfDevation.getText()))) {
             this.updateSetting();
             return;

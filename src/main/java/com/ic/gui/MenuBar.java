@@ -21,6 +21,8 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
     final String lbMinuteArray[][] = {
             {"10", "10 Min", "10 Min"},
             {"1", "1 Min", "1 Min"},};
+
+
     final String lbTA1Array[][] = {
             {"None", "\u7121"} //0
             , {"Simple Moving Average", "\u7c21\u55ae\u79fb\u52d5\u5e73\u5747\u7dda"} //1
@@ -44,32 +46,30 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
     private TAMenu taMenu = null;
 
     public MenuBar() {
-        try {
-            jbInit();
-            updateMenu();
-            chDuration.addItemListener(new ItemListener() {
-                public void itemStateChanged(ItemEvent e) {
-                    chDuration_itemStateChanged(e);
-                }
-            });
-            chChartType.addItemListener(new ItemListener() {
-                public void itemStateChanged(ItemEvent e) {
-                    chChartType_itemStateChanged(e);
-                }
-            });
-            this.chMinute.addItemListener(new ItemListener() {
-                public void itemStateChanged(ItemEvent e) {
-                    chMinute_itemStateChanged(e);
-                }
-            });
-            this.chMA1.addItemListener(new ItemListener() {
-                public void itemStateChanged(ItemEvent e) {
-                    chMA1_itemStateChanged(e);
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        jbInit();
+        updateMenu();
+        chDuration.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                chDuration_itemStateChanged(e);
+            }
+        });
+        chChartType.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                chChartType_itemStateChanged(e);
+            }
+        });
+        this.chMinute.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                chMinute_itemStateChanged(e);
+            }
+        });
+        this.chMA1.addItemListener(new ItemListener() {
+            public void itemStateChanged(ItemEvent e) {
+                chMA1_itemStateChanged(e);
+            }
+        });
+
     }
 
     //change language
@@ -291,44 +291,21 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
 
     private void chChartType_itemStateChanged(ItemEvent e) {
         ChartType ctype = (ChartType) chChartType.getSelectedItem();
-        if (ctype == ChartType.BAR) {
+        if (ctype == ChartType.LINE || ctype == ChartType.BAR || ctype == ChartType.CANDLE) {
             ChartItem cchart = chartScreen1.getChart("LMain1");
             if (cchart != null) {
-                cchart.setChartType(ChartType.BAR);
+                cchart.setChartType(ctype);
             }
-
             ChartItem cRchart = chartScreen1.getChart("LMain1");
             if (cRchart != null) {
-                cRchart.setChartType(ChartType.BAR);
+                cRchart.setChartType(ctype);
             }
-        } else if (ctype == ChartType.CANDLE) {
-            ChartItem cchart = chartScreen1.getChart("LMain1");
-            if (cchart != null) {
-                cchart.setChartType(ChartType.CANDLE);
-            }
-
-            ChartItem cRchart = chartScreen1.getChart("LMain1");
-            if (cRchart != null) {
-                cRchart.setChartType(ChartType.CANDLE);
-            }
-
-        } else if (ctype == ChartType.LINE) {
-            ChartItem cchart = chartScreen1.getChart("LMain1");
-            if (cchart != null) {
-                cchart.setChartType(ChartType.LINE);
-            }
-
-            ChartItem cRchart = chartScreen1.getChart("LMain1");
-            if (cRchart != null) {
-                cRchart.setChartType(ChartType.LINE);
-            }
-
         }
         chartScreen1.updateBaseScreen();
         chartScreen1.repaint();
     }
 
-    private void jbInit() throws Exception {
+    private void jbInit() {
         border1 = BorderFactory.createEtchedBorder(Color.white, Color.black);
         tfCode.setFont(new Font("Dialog", 0, 18));
         tfCode.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -358,8 +335,6 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
         tfCode.setBounds(new Rectangle(0, 0, 60, FConfig.BUTTON_SIZE));
         chDuration.setBounds(new Rectangle(60, 0, 100, FConfig.BUTTON_SIZE));
         chMA1.setBounds(new Rectangle(160, 0, 200, FConfig.BUTTON_SIZE));
-
-        //chMinute.setBounds(new Rectangle(415, 0, 83, 26));
         chChartType.setBounds(new Rectangle(360, 0, 80, FConfig.BUTTON_SIZE));
 
 
@@ -381,9 +356,6 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
         }
     }
 
-    /***
-     * Invoked when a key has been released.
-     */
     public void keyReleased(KeyEvent e) {
     }
 
@@ -395,7 +367,7 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
         int intervals = Integer.parseInt(lbMinuteArray[selectedIndex][0]); // get the intervals
 
         String cc = tfCode.getText();
-        if (!FormatUtil.isNumerical(cc)) {
+        if (!FormatUtil.isNumber(cc)) {
             this.tfCode.setText("");
             return;
         }
@@ -429,20 +401,16 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
         this.setEnable(true);
     }
 
-    public void setTAMenu(TAMenu ftam) {
-        taMenu = ftam;
+    public void setTAMenu(TAMenu menu) {
+        taMenu = menu;
     }
 
-    // public void OnReceivedChartData(RequestCommand fc, ChartData chartData) {
     public void OnReceivedChartData(RequestCommand fc, Object result) {
 
         ChartData chartData = (ChartData) result;
         ChartItem cl = chartScreen1.getLeftChart();
-        if (cl != null) {
-            if (cl.getChartType() == ChartType.PERCENTAGE) {
-                return;
-            }
-        }
+
+        if (cl != null && ChartType.PERCENTAGE.equals(cl.getChartType())) return;
 
         ChartData mydata = chartData;
         ChartData mydata2 = new ChartData();
@@ -488,7 +456,6 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
         chartScreen2.getAction().getLineRecords().removeAllElements();
         chartScreen3.getAction().getLineRecords().removeAllElements();
 
-        // update tachart and calculate.........
         chartScreen1.undoZoom();
         chartScreen2.undoZoom();
         chartScreen3.undoZoom();

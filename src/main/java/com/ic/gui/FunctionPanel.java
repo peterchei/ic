@@ -30,7 +30,7 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
     private ImageButton btCapture = new ImageButton();
     private ImageButton btEdit = new ImageButton();
 
-    private int numberOfButtons =0;
+    private int numberOfButtons = 0;
     // the reference of bars
     private MenuBar fMenuBar = null;
     private CompareBar fCompareBar = null;
@@ -42,11 +42,7 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
     private SettingDialog settingWindow1 = null;
 
     public FunctionPanel() {
-        try {
-            initComponents();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        initComponents();
     }
 
     public void setMenus(CompareBar fc, MenuBar fm) {
@@ -67,10 +63,10 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
     private void addButton(Component component) {
         component.setBounds(0, (FConfig.BUTTON_SIZE + 1) * numberOfButtons, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE);
         this.add(component, null);
-        numberOfButtons ++;
+        numberOfButtons++;
     }
 
-    private void initComponents()  {
+    private void initComponents() {
 
         settingWindow1 = new SettingDialog(null);
         getBtNone().setButtonImage(new ImageIcon(getClass().getResource("/cursor.png")).getImage());
@@ -284,14 +280,11 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
                 taChart.setVisible(false);            // set TA chart to be invisible when in comparing state.
             }
             fCompareBar.setVisible(true);
-            // fCompareBar.chACode.setVisible(true);
-            //fCompareBar.chSpChart.setVisible(false);
-
             fMenuBar.setVisible(false);
             if (chartScreen1 != null) {
-                ChartItem lcchart = chartScreen1.getLeftChart();
-                if (lcchart != null) {
-                    lcchart.setChartType(ChartType.PERCENTAGE);
+                ChartItem leftChart = chartScreen1.getLeftChart();
+                if (leftChart != null) {
+                    leftChart.setChartType(ChartType.PERCENTAGE);
                     chartScreen1.getAction().getLineRecords().removeAllElements();
                     chartScreen1.getAction().setGoldenPartitionLine(null);
                     chartScreen1.updateBaseScreen();
@@ -332,7 +325,7 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
     }
 
     void btSetting_actionPerformed(ActionEvent e) {
-        settingWindow1.setChartScreen(chartScreen1,chartScreen2); // tell the setting window that which chartScreen he are using.
+        settingWindow1.setChartScreen(chartScreen1, chartScreen2); // tell the setting window that which chartScreen he are using.
         settingWindow1.setTAChartName("TA1Chart");  // tell the setting window that which chart he can control
         settingWindow1.updateSetting();
         settingWindow1.setTitle("IC Technical Analysis Setting");
@@ -341,10 +334,10 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
 
         int x = Controller.getInstance().getBounds().x;
         int y = Controller.getInstance().getBounds().y;
-        int width =  Controller.getInstance().getBounds().width;
-        int height  = Controller.getInstance().getBounds().height;
+        int width = Controller.getInstance().getBounds().width;
+        int height = Controller.getInstance().getBounds().height;
 
-        settingWindow1.setBounds(x + width/2 - 220, y + height /2 - 290, 400, 580);
+        settingWindow1.setBounds(x + width / 2 - 220, y + height / 2 - 290, 400, 580);
         settingWindow1.setVisible(true);
     }
 
@@ -354,6 +347,15 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
                 if (startIndex != screen.getStartDisplayIndex() || endIndex != screen.getEndDisplayIndex()) {
                     screen.zoom(startIndex, endIndex);
                 }
+            }
+        }
+    }
+
+    @Override
+    public void OnWatch(Object actionChartScreen, int watchPoint) {
+        for (ChartScreen screen : screens) {
+            if (screen != actionChartScreen) {
+                screen.watch(watchPoint);
             }
         }
     }

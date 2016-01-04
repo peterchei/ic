@@ -42,7 +42,6 @@ public class FormatUtil {
         try {
             return sdf.parse(date);
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return new Date();
@@ -176,11 +175,11 @@ public class FormatUtil {
         }
     }
 
-    public static boolean isNumerical(String ss) {
+    public static boolean isNumber(String ss) {
         try {
-            int ivalue = Integer.parseInt(ss);
+            Integer.parseInt(ss);
             return true;
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             return false;
         }
     }
