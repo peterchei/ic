@@ -369,8 +369,7 @@ public class RequestCommand {
         int Code = fc.getCode();
         int NumberOfPoints = fc.getNumberOfPoint();
 
-        //String srcAddr = "http://203.161.232.72/FMEQuoteBase/" + dailyInterface + "?code=" + Code + "&data_num=" + NumberOfPoints;// + "&startdate=2000-11-1";
-        String srcAddr = "http://218.252.190.136/FMEQuoteBase/" + dailyInterface + "?code=" + Code + "&data_num=" + NumberOfPoints;// + "&startdate=2000-11-1";
+        String srcAddr = "??/" + dailyInterface + "?code=" + Code + "&data_num=" + NumberOfPoints;// + "&startdate=2000-11-1";
 
         ChartData newChartData = new ChartData();
         newChartData.setCode(Code);
@@ -459,7 +458,7 @@ public class RequestCommand {
         int Code = fc.getCode();
         int NumberOfPoints = fc.getNumberOfPoint();
 
-        String srcAddr = "http://203.161.232.72/FMEQuoteBase/" + weeklyInterface + "?code=" + Code + "&data_num=" + NumberOfPoints;// + "&startdate=2000-11-1";
+        String srcAddr = "http://??/" + weeklyInterface + "?code=" + Code + "&data_num=" + NumberOfPoints;// + "&startdate=2000-11-1";
 
         ChartData newChartData = new ChartData();
         newChartData.setCode(Code);
@@ -550,8 +549,7 @@ public class RequestCommand {
         int Code = fc.getCode();
         int NumberOfPoints = fc.getNumberOfPoint();
 
-        //String srcAddr = "http://218.252.190.136/FMEQuoteBase/" + monthlyInterface + "?code=" + Code + "&data_num=" + NumberOfPoints;// + "&startdate=2000-11-1";
-        String srcAddr = "http://203.161.232.72/FMEQuoteBase/" + monthlyInterface + "?code=" + Code + "&data_num=" + NumberOfPoints;// + "&startdate=2000-11-1";
+        String srcAddr = "http://??/" + monthlyInterface + "?code=" + Code + "&data_num=" + NumberOfPoints;// + "&startdate=2000-11-1";
         ChartData newChartData = new ChartData();
         newChartData.setCode(Code);
         newChartData.dataInterval = DataInterval.MONTHLY;

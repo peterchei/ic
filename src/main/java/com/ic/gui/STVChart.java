@@ -35,6 +35,8 @@ public class STVChart extends JPanel {
         try {
             jbInit();
 
+
+
             chartOptionBar1.setChartScreen(chartScreen1, chartScreen2, chartScreen3);
             fmenuBar.setChartScreen(chartScreen1, chartScreen2, chartScreen3);
             fmenuBar.setTAMenu(fTAMenu1);

@@ -54,6 +54,8 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     //The screenImage for drawing....
     private Image screenImage = null; //the chart image
     private Image allscreenImage = null; //the full screen image
+    private Image moveCursorImage = null;
+
     public Image loadingBarImage[] = new Image[4];
     //Action Object to record and repersent all the action.
     private ActionCommand actionCommand = new ActionCommand();
@@ -84,6 +86,8 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         bottomSpace = BOTTOMSpace;
         leftSpace = LEFTSpace;
         rightSpace = RIGHTSpace;
+
+        moveCursorImage = new ImageIcon(getClass().getResource("/hand.png")).getImage();
         try {
             addMouseListener(this);
             addMouseMotionListener(this);
@@ -2013,6 +2017,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
             actionCommand.setProcessing(false);
 
         }
+
         actionCommand.getCurrentMousePoint().x = e.getX();
         actionCommand.getCurrentMousePoint().y = e.getY();
         switch (actionCommand.getActionType()) {
@@ -2055,6 +2060,10 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                 break;
 
             case MOVECHART:
+                Toolkit toolkit = Toolkit.getDefaultToolkit();
+                Cursor c = toolkit.createCustomCursor(moveCursorImage , new Point(getX(),getY()), "img");
+                setCursor (c);
+
                 actionCommand.setProcessing(true);
                 actionCommand.getStartMousePoint().x = e.getPoint().x;
                 actionCommand.getStartMousePoint().y = e.getPoint().y;
@@ -2074,6 +2083,10 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                 return;
             }
         }
+
+
+        setCursor (null);
+
         FLine fline;
         switch (actionCommand.getActionType()) {
 

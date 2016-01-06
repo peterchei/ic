@@ -9,13 +9,16 @@ import com.ic.gui.STVChart;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by peter on 12/13/2015.
+/*
+* Main entry point
+*
  */
 public class Main2 extends JFrame implements WindowListener {
 
@@ -49,6 +52,60 @@ public class Main2 extends JFrame implements WindowListener {
     public void setChartPanel(STVChart pnChart) {
         chartPanel = pnChart;
         originalContainer = pnChart.getParent();
+
+
+        JPanel glassPanel = new JPanel();
+        ImageIcon icon1 = new ImageIcon(getClass().getResource("/UpLeftArrow.png"));
+        ImageIcon icon2 = new ImageIcon(getClass().getResource("/UpRightArrow.png"));
+        ImageIcon icon3 = new ImageIcon(getClass().getResource("/DownLeftArrow.png"));
+        ImageIcon icon4 = new ImageIcon(getClass().getResource("/DownRightArrow.png"));
+
+
+        JLabel jLabel1 = new javax.swing.JLabel();
+        JLabel jLabel2 = new javax.swing.JLabel();
+        JLabel jLabel3 = new javax.swing.JLabel();
+        JLabel jLabel4 = new javax.swing.JLabel();
+
+
+
+        jLabel1.setIcon(icon1);
+        jLabel2.setIcon(icon2);
+        jLabel3.setIcon(icon3);
+        jLabel4.setIcon(icon4);
+
+        glassPanel.setLayout(new java.awt.GridLayout(2,2));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        glassPanel.add(jLabel1);
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        glassPanel.add(jLabel2);
+
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        jLabel3.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        glassPanel.add(jLabel3);
+
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel4.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
+        glassPanel.add(jLabel4);
+
+
+        setGlassPane(glassPanel);
+
+        addComponentListener(new ComponentAdapter() {
+            @Override
+            public void componentResized(ComponentEvent e) {
+                super.componentResized(e);
+                if (Main2.this.getBounds().width <= 400 || Main2.this.getBounds().height <=400) {
+                    getGlassPane().setVisible(true);
+                } else {
+                    getGlassPane().setVisible(false);
+                }
+            }
+        });
+        //jp.setVisible(true);
+
         this.getContentPane().add(pnChart, BorderLayout.CENTER);
     }
 
@@ -75,7 +132,9 @@ public class Main2 extends JFrame implements WindowListener {
         ChartDataService.getInstance().enable();
 
         // add a chart data
-        RequestCommand fc = new RequestCommand(2800, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, (CommandType) coreChart.fmenuBar.chDuration.getSelectedItem(), "LMain1", 500, 1, false, coreChart.fmenuBar);
+        RequestCommand fc = new RequestCommand(2800, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART,
+                (CommandType) coreChart.fmenuBar.chDuration.getSelectedItem(), "LMain1", 500, 1, false, coreChart.fmenuBar);
+
         ChartDataService.getInstance().addCommand(fc);
         coreChart.chartScreen1.setScreenState(ChartScreen.LOADING);
         coreChart.chartScreen2.setScreenState(ChartScreen.LOADING);
