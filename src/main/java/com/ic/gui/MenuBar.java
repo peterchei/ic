@@ -333,9 +333,9 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
         chMinute.setVisible(false);
 
         tfCode.setBounds(new Rectangle(0, 0, 60, FConfig.BUTTON_SIZE));
-        chDuration.setBounds(new Rectangle(60, 0, 100, FConfig.BUTTON_SIZE));
-        chMA1.setBounds(new Rectangle(160, 0, 200, FConfig.BUTTON_SIZE));
-        chChartType.setBounds(new Rectangle(360, 0, 80, FConfig.BUTTON_SIZE));
+       // chDuration.setBounds(new Rectangle(60, 0, 100, FConfig.BUTTON_SIZE));
+        chMA1.setBounds(new Rectangle(60, 0, 200, FConfig.BUTTON_SIZE));
+        chChartType.setBounds(new Rectangle(260, 0, 80, FConfig.BUTTON_SIZE));
 
 
         this.setFont(new Font("Dialog", 0, 18));

@@ -54,7 +54,10 @@ public class Main2 extends JFrame implements WindowListener {
         originalContainer = pnChart.getParent();
 
 
-        JPanel glassPanel = new JPanel();
+
+        JPanel glassPanel = new JPanel() { public void paint() {System.out.println("XXX");}};
+
+
         ImageIcon icon1 = new ImageIcon(getClass().getResource("/UpLeftArrow.png"));
         ImageIcon icon2 = new ImageIcon(getClass().getResource("/UpRightArrow.png"));
         ImageIcon icon3 = new ImageIcon(getClass().getResource("/DownLeftArrow.png"));
@@ -89,6 +92,7 @@ public class Main2 extends JFrame implements WindowListener {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel4.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         glassPanel.add(jLabel4);
+
 
 
         setGlassPane(glassPanel);

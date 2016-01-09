@@ -7,16 +7,11 @@ import java.io.IOException;
 public class CopyImageToClipBoard implements ClipboardOwner {
     public CopyImageToClipBoard(Image image) {
         try {
-            //Robot robot = new Robot();
-            //Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-            //Rectangle screen = new Rectangle(screenSize);
-            //BufferedImage i = robot.createScreenCapture(screen);
             TransferableImage trans = new TransferableImage(image);
             Clipboard c = Toolkit.getDefaultToolkit().getSystemClipboard();
             c.setContents(trans, this);
         } catch (Exception ex) {
             ex.printStackTrace();
-            //System.exit(1);
         }
     }
 

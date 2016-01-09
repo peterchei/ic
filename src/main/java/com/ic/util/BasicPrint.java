@@ -2,18 +2,21 @@ package com.ic.util;
 
 import com.ic.core.ChartScreen;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.util.Date;
 
 
 public class BasicPrint extends Component//  implements FilenameFilter
 {
     private PrintJob pjob = null;
-    //private PageFormat pf = null;
     private ChartScreen chartScreen1;
     private ChartScreen chartScreen2;
     private ChartScreen chartScreen3;
 
-    private Image offimage = null;
+    private BufferedImage offimage = null;
     private int ww, hh; //the width and height of offimage
 
     public int pprint() {
@@ -34,7 +37,7 @@ public class BasicPrint extends Component//  implements FilenameFilter
         if (chartScreen3.isVisible()) hh = hh + chartScreen3.getSize().height;
 
 
-        offimage = chartScreen1.createImage(ww, hh);
+        offimage = new BufferedImage(ww, hh, BufferedImage.TYPE_INT_RGB);// chartScreen1.createImage(ww, hh);
 
         if (offimage == null) {
             System.out.println("NO Memory to print " + ww + " : " + hh);
@@ -64,17 +67,21 @@ public class BasicPrint extends Component//  implements FilenameFilter
 
     private void SaveToFile() {
         try {
-            BMPFile bmp = new BMPFile();
+            //BMPFile bmp = new BMPFile();
             FileDialog fd = new FileDialog(new Frame(), "Save Charts to file ", FileDialog.SAVE);
-            fd.setFile("*.bmp");
+            fd.setFile("IC_" + new Date().getTime() + ".png");
             fd.show();
             if (fd.getDirectory() == null || fd.getFile() == null) return;
             System.out.println(fd.getDirectory());
             System.out.println(fd.getFile());
             String fullFileName = fd.getDirectory() + fd.getFile();
+            File outputfile = new File(fullFileName);
             createFullImage();
-            //save the bm.
-            bmp.saveBitmap(fullFileName, offimage, ww, hh);
+            // construct the buffered image
+            //BufferedImage bImage = new BufferedImage(offimage.getWidth(null), offimage.getHeight(null), BufferedImage.TYPE_INT_RGB);
+            // retrieve image
+            ImageIO.write(offimage, "png", outputfile);
+
         } catch (Exception ee) {
             ee.printStackTrace();
         }

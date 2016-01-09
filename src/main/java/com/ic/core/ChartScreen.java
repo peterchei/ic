@@ -16,8 +16,6 @@ import java.util.logging.Logger;
 public class ChartScreen extends JPanel implements MouseListener, MouseMotionListener {
 
     private static final Logger log = Logger.getLogger(ChartScreen.class.getName());
-    ///Here is some color variable
-    //Color backgroundColor = FConfig.ScreenBackground;
     public static final int NONE = 0;
     public static final int LOADING = 1;
     public static final int STARTED = 2;
@@ -117,9 +115,6 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         this.repaint();
     }
 
-    //public void setLanguage(int tlanguage) {
-    //    language = tlanguage;
-    //}
 
     public ActionCommand getActionCommand() {
         return actionCommand;
