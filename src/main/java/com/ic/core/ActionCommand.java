@@ -1,6 +1,7 @@
 package com.ic.core;
 
 import com.ic.data.FLine;
+import com.ic.data.FRecord;
 import com.ic.data.Point;
 
 import java.util.Vector;
@@ -19,8 +20,8 @@ public class ActionCommand {
     private boolean isProcessing = false;
 
     private Vector zoomRecords = new Vector();
-    private Vector lineRecords = new Vector();
-    private Vector textRecords = new Vector();
+    private Vector<FRecord>  lineRecords = new Vector<FRecord> ();
+    private Vector<FRecord>  textRecords = new Vector<FRecord> ();
     private FLine goldenPartitionLine = null;
 
     private ActionType actionType = ActionType.ZOOMIN;

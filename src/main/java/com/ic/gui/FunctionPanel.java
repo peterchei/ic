@@ -70,7 +70,7 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
     private void initComponents() {
 
         this.setBackground(FConfig.ScreenBackground);
-        settingWindow1 = new SettingDialog(null);
+        settingWindow1 = new SettingDialog();
         getBtNone().setButtonImage(new ImageIcon(getClass().getResource("/cursor.png")).getImage());
         getBtWatch().setButtonImage(new ImageIcon(getClass().getResource("/watch.png")).getImage());
         getBtZoomIn().setButtonImage(new ImageIcon(getClass().getResource("/zoomin.png")).getImage());
@@ -366,7 +366,10 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
         int width = Controller.getInstance().getBounds().width;
         int height = Controller.getInstance().getBounds().height;
 
-        settingWindow1.setBounds(x + width / 2 - 220, y + height / 2 - 290, 400, 580);
+        settingWindow1.setBounds(x + width / 2 - 220, y + height / 2 - 290, 400, 600);
+//        settingWindow1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Already there
+       // settingWindow1.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        //settingWindow1.setUndecorated(true);
         settingWindow1.setVisible(true);
     }
 

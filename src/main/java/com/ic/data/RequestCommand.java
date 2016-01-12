@@ -62,7 +62,6 @@ public class RequestCommand {
 
         StockData oldfpoint = new StockData();
         newChartData.dataInterval = DataInterval.WEEKLY;
-        //newChartData.setName("ABC COMPANY");
         newChartData.setName("Chinese Name");
 
         for (int i = 0; i < NumberOfPoints; i++) {
@@ -192,8 +191,6 @@ public class RequestCommand {
             intervals = 10;
         }
 
-        //String srcAddr = "http://218.252.190.136/FMEQuoteBase/" + intradayInterface + "?code=" + Code + "&min=" + intervals;
-        //String srcAddr = "http://203.161.232.72/FMEQuoteBase/" + intradayInterface + "?code=" + Code + "&min=" + intervals;
         String srcAddr = "http://2103.161.232.72/FMEQuoteBase/" + intradayInterface + "?code=" + Code + "&min=" + intervals;
 
         ChartData newChartData = new ChartData();
@@ -509,9 +506,6 @@ public class RequestCommand {
                 fpoint.setMaximum(Float.valueOf(tempHigh).floatValue());
                 fpoint.setMinimum(Float.valueOf(tempLow).floatValue());
                 fpoint.setVolume(Integer.parseInt(tempVol));
-                //fpoint.Year = FormatUtil.getYear(tempfirstDate);
-                //fpoint.Month = FormatUtil.getMonth(tempfirstDate);
-                //fpoint.Day = FormatUtil.getDay(tempfirstDate);
 
                 fpoint.setDate(FormatUtil.getDateFrom(tempfirstDate));
                 fpoint.setlYear(FormatUtil.getYear(templastDate));
@@ -680,12 +674,6 @@ public class RequestCommand {
         strCode = strCode.substring(strCode.length() - 7);
 
         Date now = new Date();
-        //int cday = 31;
-        //int cmonth = now.getMonth()+1;
-        //int cyear = now.getYear() +2010;
-        //String srcAddr = "http://table.finance.yahoo.com/table.csv?a=1&b=2&c=2003&d=" + cday + "&e=" + cmonth + "&f=2004&s=" + strCode + "&y=0&g=d&ignore=.csv";
-        //String srcAddr = "http://ichart.yahoo.com/table.csv?a=0&b=2&c=1980&d=" + cday + "&e=" + cmonth + "&f=" + cyear + "&s=" + strCode + "&y=0&g=d&ignore=.csv";
-
         String srcAddr = "http://ichart.yahoo.com/table.csv?a=5&b=5&c=2010&s=" + strCode;
 
         System.out.println(srcAddr);

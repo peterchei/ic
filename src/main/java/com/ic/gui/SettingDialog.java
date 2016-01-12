@@ -87,8 +87,8 @@ public class SettingDialog extends JDialog implements WindowListener {
     private ChartScreen chartScreen = null;
     private ChartScreen chartScreen2 = null;
 
-    public SettingDialog(Frame frame) {
-        super(frame);
+    public SettingDialog() {
+        super();
         jbInit();
         addWindowListener(this);
     }

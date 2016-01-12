@@ -32,15 +32,16 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
             {"2800", "TRACKER FUND", "嚙調富嚙踝蕭"}
     };
     private final Color lineColor[] = {
-            new Color(1, 255, 255),
-            new Color(1, 255, 37),
-            new Color(228, 225, 1),
-            new Color(225, 132, 1),
-            new Color(225, 132, 1),
-            new Color(255, 1, 67),
-            new Color(255, 1, 228),
-            new Color(191, 1, 255),
-            new Color(1, 49, 255),
+            FConfig.LINE_COLOR_0,
+            FConfig.LINE_COLOR_1,
+            FConfig.LINE_COLOR_2,
+            FConfig.LINE_COLOR_3,
+            FConfig.LINE_COLOR_4,
+            FConfig.LINE_COLOR_5,
+            FConfig.LINE_COLOR_6,
+            FConfig.LINE_COLOR_7,
+            FConfig.LINE_COLOR_8,
+            FConfig.LINE_COLOR_9
     };
     private final String lbArray[][] = {
             {"Add", "\u52a0\u5165"},
@@ -217,6 +218,7 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
         mychart1.setAxisBar(AxisType.NONE);
         mychart1.setChartType(ChartType.PERCENTAGE);
         mychart1.setShowXaxis(false);
+       // System.out.println("XXXX:" + (pcCharts.size() ) % lineColor.length);
         mychart1.setFirstColor(lineColor[pcCharts.size() % lineColor.length]);
 
         chartScreen1.addChart(mychart1);
