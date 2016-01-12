@@ -39,7 +39,7 @@ public class FConfig {
 
     public static final Color WilliamRColor = new Color(20, 20, 100);
 
-    public static final Font DEFAULT_FONT = new Font("default", 0, 16);
+    public static final Font DEFAULT_FONT = new Font("default", 0, 14);
 
     //Line Color
     public static final Color LINE_COLOR_0 = new Color(170, 70, 67);
