@@ -14,7 +14,7 @@ public class ImageButton extends JButton implements MouseListener {
     //private static final long serialVersionUID = -8202597524535553406L;
     Border border1;
     private Image offImage = null;
-    private boolean bState = true;
+    private boolean bState = false;
     private boolean action = false;
 
     public ImageButton() {
@@ -34,9 +34,9 @@ public class ImageButton extends JButton implements MouseListener {
     public void paint(Graphics g) {
         super.paint(g);
         if (!bState) {
-            g.setColor(Color.black);
-        } else {
             g.setColor(Color.gray);
+        } else {
+            g.setColor(Color.red);
         }
 
         g.draw3DRect(0, 0, getSize().width, getSize().height, bState);
@@ -67,12 +67,12 @@ public class ImageButton extends JButton implements MouseListener {
    }
 
     public void mousePressed(MouseEvent e) {
-        bState = false;
+        bState = true;
         repaint();
     }
 
     public void mouseReleased(MouseEvent e) {
-        bState = true;
+        bState = false;
         action = true;
         repaint();
     }
@@ -81,7 +81,7 @@ public class ImageButton extends JButton implements MouseListener {
     }
 
     public void mouseExited(MouseEvent e) {
-        bState = true;
+        bState = false;
         repaint();
     }
 }

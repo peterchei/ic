@@ -18,6 +18,8 @@ public class Main3 {
 
         //-------------------------------------------------------------------
 
+
+
         File image = new File("c://temp//hand.png");
 
 
@@ -30,7 +32,7 @@ public class Main3 {
         //-------------------------------------------------------------------
 
 
-       // Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("10.18.1.1", 4444));
+       // Proxy proxy = new Proxy(Proxy.ActionType.HTTP, new InetSocketAddress("10.18.1.1", 4444));
 
         url = new URL ("https://graph.facebook.com/me/feed");
         //url = new URL("https://graph.facebook.com/me/photos?access_token=AAACkMOZA41QEBACsafBxqVfXX54JqGLQSaE6YQ062NuTe3XUZBTdTEvy3R2H9Yr4PZA9r38JvLni7r1hYLuZCnBZAAPPH3krMMSKtIraiswZCiIZBu0nyYT");
@@ -38,7 +40,7 @@ public class Main3 {
 
         urlConn = (HttpURLConnection) url.openConnection();
 
-        urlConn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + getBoundaryString());
+        urlConn.setRequestProperty("Content-ActionType", "multipart/form-data; boundary=" + getBoundaryString());
 
         urlConn.setDoOutput (true);
         urlConn.setUseCaches (false);
@@ -98,7 +100,7 @@ public class Main3 {
     {
         StringBuffer res = new StringBuffer("--").append(boundary).append("\r\n");
         res.append("Content-Disposition: form-data; name=\"").append(fileField).append("\"; filename=\"").append(fileName).append("\"\r\n")
-                .append("Content-Type: ").append(fileType).append("\r\n\r\n");
+                .append("Content-ActionType: ").append(fileType).append("\r\n\r\n");
 
         return res.toString();
     }

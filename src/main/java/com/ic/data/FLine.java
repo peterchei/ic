@@ -1,10 +1,12 @@
 package com.ic.data;
 
-public class FLine {
+public class FLine extends FRecord {
 
     private static final boolean isFixedLine = false;
     private Point point1 = new Point();
     private Point point2 = new Point();
+
+
     private int index1 = 0;
     private double value1 = 0f;
     private int index2 = 0;

@@ -94,21 +94,19 @@ public class Main2 extends JFrame implements WindowListener {
         glassPanel.add(jLabel4);
 
 
-
         setGlassPane(glassPanel);
 
         addComponentListener(new ComponentAdapter() {
             @Override
             public void componentResized(ComponentEvent e) {
                 super.componentResized(e);
-                if (Main2.this.getBounds().width <= 400 || Main2.this.getBounds().height <=400) {
+                if (Main2.this.getBounds().width <= 300 || Main2.this.getBounds().height <=300) {
                     getGlassPane().setVisible(true);
                 } else {
                     getGlassPane().setVisible(false);
                 }
             }
         });
-        //jp.setVisible(true);
 
         this.getContentPane().add(pnChart, BorderLayout.CENTER);
     }

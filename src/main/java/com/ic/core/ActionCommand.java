@@ -6,22 +6,12 @@ import com.ic.data.Point;
 import java.util.Vector;
 
 /**
- * Action Command what action is performing from GUI.
- * record the actions of insert lines, delete lines and so on.....
+ * Action Command stores the actions that performed on the Screen
+ *
+ * It records the actions of insert lines, delete lines and so on.....
  *
  */
 public class ActionCommand {
-
-    public enum Type {
-        NONEACTION,
-        WATCH,
-        INSERTLINE,
-        INSERTPARALLELLINE,
-        GOLDENPARTITION,
-        ZOOMIN,
-        MOVECHART,
-        EDITTEXT
-    }
 
     private Point startMousePoint = new Point();    //the point where the mouse click enter
     private Point currentMousePoint = new Point();  //the point of current mouse
@@ -30,9 +20,10 @@ public class ActionCommand {
 
     private Vector zoomRecords = new Vector();
     private Vector lineRecords = new Vector();
+    private Vector textRecords = new Vector();
     private FLine goldenPartitionLine = null;
 
-    private Type actionType = Type.ZOOMIN;
+    private ActionType actionType = ActionType.ZOOMIN;
 
     public Point getStartMousePoint() {
         return startMousePoint;
@@ -90,13 +81,20 @@ public class ActionCommand {
         this.goldenPartitionLine = goldenPartitionLine;
     }
 
-    public Type getActionType() {
+    public ActionType getActionType() {
         return actionType;
     }
 
-    public void setActionType(Type actionType) {
+    public void setActionType(ActionType actionType) {
         this.actionType = actionType;
     }
 
 
+    public Vector getTextRecords() {
+        return textRecords;
+    }
+
+    public void setTextRecords(Vector textRecords) {
+        this.textRecords = textRecords;
+    }
 }

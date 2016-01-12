@@ -64,7 +64,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     ///The space of top, left, right and bottom in pixels.
     private int topSpace = 20;
     private int leftSpace = 40;
-    private int rightSpace = 38;
+    private int rightSpace = 20;
     private int bottomSpace = 30;
     //The maximun number of point that the chart have....
     private int maxNumberOfChartPoint = 0;
@@ -428,7 +428,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
     public void watch(int watchPoint) {
         //  update the Screen and notify to listener
-        //getAction().setActionType(ActionCommand.Type.WATCH);
+        //getAction().setActionType(ActionCommand.ActionType.WATCH);
         //this.updateBaseScreen();
         IsWatching = true;
         watchingPoint = watchPoint;
@@ -479,8 +479,24 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
             }
         }
 
+
+        for (int i = 0; i < actionCommand.getTextRecords().size(); i++) {
+            FText record = (FText) actionCommand.getTextRecords().elementAt(i);
+
+            g.setColor(Color.black);
+            ChartItem cchart = getLeftChart();
+            if (cchart != null) {
+                double Max = cchart.getUpperBound();
+                double Min = cchart.getLowerBound();
+                int y1 = getScreenYPosition(record.getYValue(), Max, Min);
+                int x1 = getScreenXPositionFromPoint(record.getXIndex());
+                g.drawString(record.getText(), x1, y1);
+            }
+
+        }
+
         // if we are not process GOLDENPAERTITION and we have one need to draw
-        if (actionCommand.getActionType() != ActionCommand.Type.GOLDENPARTITION || actionCommand.isProcessing() == false) {
+        if (actionCommand.getActionType() != ActionType.GOLDENPARTITION || actionCommand.isProcessing() == false) {
             if (actionCommand.getGoldenPartitionLine() != null) {
                 int MaxY = 0, MinY = 0;
                 int x1, x2;
@@ -491,7 +507,6 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                     x2 = actionCommand.getGoldenPartitionLine().getPoint2().x;
 
                 } else {
-                    //      g.setColor(Color.black);
                     x1 = getScreenXPositionFromPoint(actionCommand.getGoldenPartitionLine().getIndex1());
                     x2 = getScreenXPositionFromPoint(actionCommand.getGoldenPartitionLine().getIndex2());
                     int y1, y2;
@@ -794,11 +809,13 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                 case CANDLE:
                 case LINE:
                 case BAR:
-                    sb.append(lbArray[5][language]).append(":").append(FormatUtil.formatData3(fpoint.getOpen())).append(", ");
-                    sb.append(lbArray[6][language]).append(":").append(FormatUtil.formatData3(fpoint.getClose())).append(", ");
-                    sb.append(lbArray[7][language]).append(":").append(FormatUtil.formatData3(fpoint.getMaximum())).append(", ");
-                    sb.append(lbArray[8][language]).append(":").append(FormatUtil.formatData3(fpoint.getMinimum())).append(", ");
-                    sb.append(lbArray[9][language]).append(":").append(FormatUtil.formatInteger(fpoint.getVolume()));
+
+
+                    sb.append("OPEN:").append(FormatUtil.formatData3(fpoint.getOpen())).append(", ");
+                    sb.append("CLOSE:").append(FormatUtil.formatData3(fpoint.getClose())).append(", ");
+                    sb.append("HIGH:").append(FormatUtil.formatData3(fpoint.getMaximum())).append(", ");
+                    sb.append("LOW:").append(FormatUtil.formatData3(fpoint.getMinimum())).append(", ");
+                    sb.append("VOL:").append(FormatUtil.formatInteger(fpoint.getVolume()));
                     g.drawString(sb.toString(), x, y);
                     break;
             }
@@ -879,6 +896,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                 plotChart(currentChart);
             }
         }
+
         isUpdatingBaseScreen = false;
     }
 
@@ -949,7 +967,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         } else if (resolution >= 7 && resolution <= 8) {
             hWidth = 5;
         } else if (resolution >= 9 && resolution <= 10) {
-            hWidth = 7;
+            hWidth = 8;
         } else if (resolution >= 11) {
             hWidth = resolution / 2;
         }
@@ -990,6 +1008,9 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                         g.setColor(FConfig.CandleColorDown);
                         g.drawLine(this.getScreenXPositionFromPoint(i), this.getScreenYPosition(fpoint.getMaximum(), Max, Min), getScreenXPositionFromPoint(i), getScreenYPosition(fpoint.getOpen(), Max, Min));
                         g.fillRoundRect(this.getScreenXPositionFromPoint(i) - CandleWidth, this.getScreenYPosition(fpoint.getOpen(), Max, Min), CandleWidth * 2 + 1, getScreenYPosition(fpoint.getClose(), Max, Min) - getScreenYPosition(fpoint.getOpen(), Max, Min), 1, 1);
+                        g.setColor(FConfig.CandleColorDown2);
+                        g.drawRoundRect(this.getScreenXPositionFromPoint(i) - CandleWidth, this.getScreenYPosition(fpoint.getOpen(), Max, Min), CandleWidth * 2 + 1, getScreenYPosition(fpoint.getClose(), Max, Min) - getScreenYPosition(fpoint.getOpen(), Max, Min), 1, 1);
+                        g.setColor(FConfig.CandleColorDown);
                         g.drawLine(this.getScreenXPositionFromPoint(i), this.getScreenYPosition(fpoint.getClose(), Max, Min), getScreenXPositionFromPoint(i), getScreenYPosition(fpoint.getMinimum(), Max, Min));
                         if (fpoint.getClose() == fpoint.getOpen()) {
                             g.drawLine(this.getScreenXPositionFromPoint(i) - CandleWidth, this.getScreenYPosition(fpoint.getOpen(), Max, Min), this.getScreenXPositionFromPoint(i) + CandleWidth, getScreenYPosition(fpoint.getClose(), Max, Min));
@@ -997,7 +1018,10 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                     } else {
                         g.setColor(FConfig.CandleColorUp);
                         g.drawLine(this.getScreenXPositionFromPoint(i), this.getScreenYPosition(fpoint.getMaximum(), Max, Min), getScreenXPositionFromPoint(i), getScreenYPosition(fpoint.getClose(), Max, Min));
+                        g.fillRoundRect(this.getScreenXPositionFromPoint(i) - CandleWidth, this.getScreenYPosition(fpoint.getClose(), Max, Min), CandleWidth * 2, getScreenYPosition(fpoint.getOpen(), Max, Min) - getScreenYPosition(fpoint.getClose(), Max, Min), 1, 1);
+                        g.setColor(FConfig.CandleColorUp2);
                         g.drawRoundRect(this.getScreenXPositionFromPoint(i) - CandleWidth, this.getScreenYPosition(fpoint.getClose(), Max, Min), CandleWidth * 2, getScreenYPosition(fpoint.getOpen(), Max, Min) - getScreenYPosition(fpoint.getClose(), Max, Min), 1, 1);
+                        g.setColor(FConfig.CandleColorUp);
                         g.drawLine(this.getScreenXPositionFromPoint(i), this.getScreenYPosition(fpoint.getOpen(), Max, Min), getScreenXPositionFromPoint(i), getScreenYPosition(fpoint.getMinimum(), Max, Min));
                         if (fpoint.getClose() == fpoint.getOpen()) {
                             g.drawLine(this.getScreenXPositionFromPoint(i) - CandleWidth, this.getScreenYPosition(fpoint.getOpen(), Max, Min), this.getScreenXPositionFromPoint(i) + CandleWidth, getScreenYPosition(fpoint.getClose(), Max, Min));
@@ -1294,6 +1318,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                     int y2 = getScreenYPosition(fTApoint2.getRSI(), Max, Min);
                     g.setColor(FConfig.RSIColor);
                     g.drawLine(x1, y1, x2, y2);
+                    g.drawLine(x1, y1 - 1, x2, y2 - 1);
                     lastValidPoint = i;
                 } catch (Exception ee) {
                 }
@@ -1580,16 +1605,20 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
             }
             Graphics gg = getAllscreenImage().getGraphics();
             gg.setColor(new Color(240, 240, 240));
-            gg.fill3DRect(x1, y1, ww, hh, true);
+            //gg.fill3DRect(x1, y1, ww, hh, true);
             int lcount = 1;
             for (int i = 0; i < chartObjects.size(); i++) {
                 ChartItem cchart = (ChartItem) chartObjects.elementAt(i);
                 if (cchart.getChartType() == ChartType.PERCENTAGE) {
-                    gg.setColor(cchart.getFirstColor());
-                    gg.setFont(new Font("", 0, 10));
+
+                    gg.setFont(FConfig.DEFAULT_FONT);
                     String Name = cchart.getChartData().getName();
                     String slabel = FormatUtil.getCode(cchart.getChartData().getCode()) + " " + Name;
-                    gg.drawString(slabel, getSize().width - rightSpace - 150 + 5, topSpace + 5 + 3 + lcount * 14);
+                    int labelWith = gg.getFontMetrics().charsWidth(slabel.toCharArray(), 0, slabel.length());
+                    gg.setColor(new Color(128, 128, 128));
+                    gg.fill3DRect(getSize().width - rightSpace - labelWith + 5, topSpace + 5 + 3 + (lcount - 1) * 18, labelWith, 19, true);
+                    gg.setColor(cchart.getFirstColor());
+                    gg.drawString(slabel, getSize().width - rightSpace - labelWith + 5, topSpace + 5 + 3 + lcount * 17);
                     lcount++;
                 }
             }
@@ -1771,8 +1800,8 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
             g.setFont(new Font("", 0, 10));
             gg.setFont(new Font("", 0, 10));
         } else {
-            g.setFont(new Font("", 0, 15));
-            gg.setFont(new Font("", 0, 15));
+            g.setFont(FConfig.DEFAULT_FONT);
+            gg.setFont(FConfig.DEFAULT_FONT);
 
         }
 
@@ -1913,7 +1942,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         screenG.setColor(Color.black);
         screenG.drawLine(leftSpace, topSpace, leftSpace, topSpace + getYAxisWidth());
         screenG.drawLine(leftSpace, topSpace + getYAxisWidth(), leftSpace + getXAxisWidth(), topSpace + getYAxisWidth());
-        screenG.drawLine(leftSpace + getXAxisWidth(), topSpace, leftSpace + getXAxisWidth(), topSpace + getYAxisWidth());
+        // screenG.drawLine(leftSpace + getXAxisWidth(), topSpace, leftSpace + getXAxisWidth(), topSpace + getYAxisWidth());
         screenG.setColor(FConfig.ScreenBackground);
 
         try {
@@ -1975,7 +2004,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     }
 
     public void mouseDragged(MouseEvent e) {
-        if (actionCommand.getActionType() == ActionCommand.Type.WATCH || actionCommand.getActionType() == ActionCommand.Type.MOVECHART) {
+        if (actionCommand.getActionType() == ActionType.WATCH || actionCommand.getActionType() == ActionType.MOVECHART) {
             if (!isWithinChartRegion(e.getX(), e.getY())) {
                 actionCommand.setProcessing(false);
                 repaint();
@@ -2056,8 +2085,8 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
             case MOVECHART:
                 Toolkit toolkit = Toolkit.getDefaultToolkit();
-                Cursor c = toolkit.createCustomCursor(moveCursorImage , new Point(getX(),getY()), "img");
-                setCursor (c);
+                Cursor c = toolkit.createCustomCursor(moveCursorImage, new Point(getX(), getY()), "img");
+                setCursor(c);
 
                 actionCommand.setProcessing(true);
                 actionCommand.getStartMousePoint().x = e.getPoint().x;
@@ -2072,7 +2101,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     }
 
     public void mouseReleased(MouseEvent e) {
-        if (actionCommand.getActionType() == ActionCommand.Type.WATCH || actionCommand.getActionType() == ActionCommand.Type.MOVECHART) {
+        if (actionCommand.getActionType() == ActionType.WATCH || actionCommand.getActionType() == ActionType.MOVECHART) {
             if (!isWithinChartRegion(e.getX(), e.getY())) {
                 actionCommand.setProcessing(false);
                 return;
@@ -2080,7 +2109,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         }
 
 
-        setCursor (null);
+        setCursor(null);
 
         FLine fline;
         switch (actionCommand.getActionType()) {
@@ -2270,6 +2299,22 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                         actionCommand.getLineRecords().addElement(newfline);
                     }
 
+                }
+                repaint();
+                break;
+            case EDITTEXT:
+                ChartItem cchart = this.getLeftChart();
+                if (cchart != null) {
+                    float Min = (float) cchart.getLowerBound();
+                    float Max = (float) cchart.getUpperBound();
+                    int x1 = getPointIndexFromScreen(e.getX());
+                    float y1 = (float) getYValueFromScreen(e.getY(), Max, Min);
+                    JDialog jd = new JDialog();
+                    String s = (String) JOptionPane.showInputDialog(this, "", "");
+                    if (s != null && !s.trim().equals("")) {
+                        FText textRecord = new FText(s, x1, y1);
+                        actionCommand.getTextRecords().addElement(textRecord);
+                    }
                 }
                 repaint();
                 break;

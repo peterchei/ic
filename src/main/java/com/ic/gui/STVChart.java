@@ -3,11 +3,15 @@ package com.ic.gui;
 import com.ic.core.ChartScreen;
 import com.ic.core.FConfig;
 import com.ic.util.BasicPrint;
+import com.ic.util.CopyImageToClipBoard;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 public class STVChart extends JPanel {
 
@@ -140,7 +144,7 @@ public class STVChart extends JPanel {
     }
 
     private void jbInit() throws Exception {
-
+        setBackground(FConfig.ScreenBackground);
         this.setLayout(null);
         panelToolbar.setBackground(FConfig.ToolBarColor);
         panelToolbar.setLayout(null);
@@ -185,7 +189,7 @@ public class STVChart extends JPanel {
         btFacebookShare.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                btOpenClose_actionPerformed(e);
+                btFacebookShare_actionPerformed(e);
             }
         });
 
@@ -220,10 +224,16 @@ public class STVChart extends JPanel {
         this.add(chartScreen3, null);
     }
 
-    void btOpenClose_actionPerformed(ActionEvent e) {
+    void btFacebookShare_actionPerformed(ActionEvent e) {
 
-//TODO
-
+        try {
+            if (Desktop.isDesktopSupported()) {
+                new CopyImageToClipBoard(chartScreen1.getAllscreenImage());
+                Desktop.getDesktop().browse(new URI("http://www.facebook.com"));
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     //change the language

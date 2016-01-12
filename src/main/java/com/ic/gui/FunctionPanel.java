@@ -2,6 +2,7 @@ package com.ic.gui;
 
 import com.ic.app.Controller;
 import com.ic.core.*;
+import com.ic.data.FRecord;
 import com.ic.util.CopyImageToClipBoard;
 
 import javax.swing.*;
@@ -68,6 +69,7 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
 
     private void initComponents() {
 
+        this.setBackground(FConfig.ScreenBackground);
         settingWindow1 = new SettingDialog(null);
         getBtNone().setButtonImage(new ImageIcon(getClass().getResource("/cursor.png")).getImage());
         getBtWatch().setButtonImage(new ImageIcon(getClass().getResource("/watch.png")).getImage());
@@ -187,7 +189,7 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
     void btNone_actionPerformed(ActionEvent e) {
         for (ChartScreen screen : screens) {
             if (screen != null) {
-                screen.getAction().setActionType(ActionCommand.Type.NONEACTION);
+                screen.getAction().setActionType(ActionType.NONEACTION);
             }
         }
     }
@@ -195,7 +197,7 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
     void btWatch_actionPerformed(ActionEvent e) {
         for (ChartScreen screen : screens) {
             if (screen != null) {
-                screen.getAction().setActionType(ActionCommand.Type.WATCH);
+                screen.getAction().setActionType(ActionType.WATCH);
             }
         }
     }
@@ -203,22 +205,22 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
     void btEdit_actionPerformed(ActionEvent e) {
         for (ChartScreen screen : screens) {
             if (screen != null) {
-                screen.getAction().setActionType(ActionCommand.Type.EDITTEXT);
+                screen.getAction().setActionType(ActionType.EDITTEXT);
             }
         }
     }
 
     void btZoomIn_actionPerformed(ActionEvent e) {
         if (chartScreen1 != null) {
-            chartScreen1.getAction().setActionType(ActionCommand.Type.ZOOMIN);
+            chartScreen1.getAction().setActionType(ActionType.ZOOMIN);
         }
 
         if (chartScreen2 != null) {
-            chartScreen2.getAction().setActionType(ActionCommand.Type.NONEACTION);
+            chartScreen2.getAction().setActionType(ActionType.NONEACTION);
         }
 
         if (chartScreen3 != null) {
-            chartScreen3.getAction().setActionType(ActionCommand.Type.NONEACTION);
+            chartScreen3.getAction().setActionType(ActionType.NONEACTION);
         }
     }
 
@@ -236,7 +238,7 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
     void btMove_actionPerformed(ActionEvent e) {
         for (ChartScreen screen : screens) {
             if (screen != null) {
-                screen.getAction().setActionType(ActionCommand.Type.MOVECHART);
+                screen.getAction().setActionType(ActionType.MOVECHART);
             }
         }
     }
@@ -244,7 +246,7 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
     void btInsertLine_actionPerformed(ActionEvent e) {
         for (ChartScreen screen : screens) {
             if (screen != null) {
-                screen.getAction().setActionType(ActionCommand.Type.INSERTLINE);
+                screen.getAction().setActionType(ActionType.INSERTLINE);
             }
         }
     }
@@ -252,7 +254,7 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
     void btInsertPLine_actionPerformed(ActionEvent e) {
         for (ChartScreen screen : screens) {
             if (screen != null) {
-                screen.getAction().setActionType(ActionCommand.Type.INSERTPARALLELLINE);
+                screen.getAction().setActionType(ActionType.INSERTPARALLELLINE);
             }
         }
     }
@@ -260,17 +262,44 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
     void btGPartition_actionPerformed(ActionEvent e) {
         for (ChartScreen screen : screens) {
             if (screen != null) {
-                screen.getAction().setActionType(ActionCommand.Type.GOLDENPARTITION);
+                screen.getAction().setActionType(ActionType.GOLDENPARTITION);
             }
         }
     }
 
     void btRemoveLine_actionPerformed(ActionEvent e) {
+        FRecord recordToDelete = null;
         for (ChartScreen screen : screens) {
             if (screen != null) {
-                screen.undoInsertLine();
+
+                FRecord r1 = screen.getActionCommand().getTextRecords().size() > 0 ? (FRecord) screen.getActionCommand().getTextRecords().lastElement() : null;
+
+                if (r1 != null && (recordToDelete == null || r1.getCreationDateTime().after(recordToDelete.getCreationDateTime()))) {
+                    recordToDelete = r1;
+                }
+
+                FRecord r2 = screen.getActionCommand().getLineRecords().size() > 0 ? (FRecord) screen.getActionCommand().getLineRecords().lastElement() : null;
+
+                if (r2 != null && (recordToDelete == null || r2.getCreationDateTime().after(recordToDelete.getCreationDateTime()))) {
+                    recordToDelete = r2;
+                }
             }
         }
+
+        for (ChartScreen screen : screens) {
+            if (screen != null && recordToDelete != null) {
+
+                if (screen.getActionCommand().getTextRecords().contains(recordToDelete)) {
+                    screen.getActionCommand().getTextRecords().remove(recordToDelete);
+                }
+                if (screen.getActionCommand().getLineRecords().contains(recordToDelete)) {
+                    screen.getActionCommand().getLineRecords().remove(recordToDelete);
+                }
+                screen.repaint();
+            }
+        }
+
+
     }
 
     void btCompare_actionPerformed(ActionEvent e) {
@@ -366,6 +395,7 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
             if (screen != null) {
                 screen.getAction().getLineRecords().removeAllElements();
                 screen.getAction().setGoldenPartitionLine(null);
+                screen.getAction().getTextRecords().removeAllElements();
                 screen.repaint();
             }
         }
