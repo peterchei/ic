@@ -15,7 +15,7 @@ public class FConfig {
     public static final Color DialogColor = new Color(200, 181, 21);
     public static final Color WatchLabelColor = Color.darkGray;
 
-    public static final Color BarColor = Color.black;
+    public static final Color BarColor = new Color(0, 118, 215);
     public static final Color CandleColorUp = new Color(170, 0, 51);
     public static final Color CandleColorDown = new Color(0, 170, 51);
     public static final Color CandleColorUp2 = new Color(170, 50, 100);

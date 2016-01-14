@@ -1,5 +1,7 @@
 package com.ic.gui;
 
+import com.ic.core.FConfig;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -36,7 +38,7 @@ public class ImageButton extends JButton implements MouseListener {
         if (!bState) {
             g.setColor(Color.gray);
         } else {
-            g.setColor(Color.red);
+            g.setColor(FConfig.BarColor);
         }
 
         g.draw3DRect(0, 0, getSize().width, getSize().height, bState);
