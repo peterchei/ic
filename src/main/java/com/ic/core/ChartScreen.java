@@ -1839,7 +1839,9 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                     }
                 }
                 g.setColor(Color.black);
-                g.drawString(ss, 2, ypos + 3);
+                int strLength = g.getFontMetrics().charsWidth(ss.toCharArray(),0,ss.length());
+
+                g.drawString(ss, leftSpace - strLength - 10, ypos + 3);
             }
         } else if (currentChart.getAxisBar() == AxisType.RIGHTAXIS) {
             for (; sg < Max; sg = sg + ddiv) {

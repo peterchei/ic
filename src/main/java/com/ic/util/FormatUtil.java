@@ -136,7 +136,7 @@ public class FormatUtil {
     public static String format2DecimalPlace(double value) {
         BigDecimal price = BigDecimal.valueOf(value);
         price = price.setScale(2, BigDecimal.ROUND_HALF_UP);
-        return price.toString();
+        return price.toString().replace(".00","");
     }
 
     public static String formatTime(int mHour, int mMinute) {
