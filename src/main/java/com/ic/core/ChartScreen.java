@@ -156,12 +156,11 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
         for (int i = 0; i < this.chartObjects.size(); i++) {
             ChartItem cchart = (ChartItem) chartObjects.elementAt(i);
-            if (cchart.getChartData().getData().size() > tempNumb) {
+            if (tempNumb == 0 || cchart.getChartData().getData().size() < tempNumb) {
                 tempNumb = cchart.getChartData().getData().size();
             }
         }
         maxNumberOfChartPoint = tempNumb;
-
         return true;
     }
 

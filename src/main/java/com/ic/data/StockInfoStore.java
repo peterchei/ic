@@ -10,9 +10,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * @author Hung
- */
+
 public class StockInfoStore {
 
     private static StockInfoStore stockInfo = null;

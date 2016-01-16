@@ -36,7 +36,7 @@ public class Main2 extends JFrame implements WindowListener {
         setVisible(true);
         setBounds(0, 0, 1280, 960);
         setResizable(true);
-        setTitle("IC");
+        setTitle("IC - Hong Kong Market");
     }
 
     public Main2() {
@@ -58,41 +58,21 @@ public class Main2 extends JFrame implements WindowListener {
         JPanel glassPanel = new JPanel() { public void paint() {System.out.println("XXX");}};
 
 
-        ImageIcon icon1 = new ImageIcon(getClass().getResource("/UpLeftArrow.png"));
-        ImageIcon icon2 = new ImageIcon(getClass().getResource("/UpRightArrow.png"));
-        ImageIcon icon3 = new ImageIcon(getClass().getResource("/DownLeftArrow.png"));
-        ImageIcon icon4 = new ImageIcon(getClass().getResource("/DownRightArrow.png"));
+        ImageIcon icon1 = new ImageIcon(getClass().getResource("/expand.png"));
 
 
-        JLabel jLabel1 = new javax.swing.JLabel();
-        JLabel jLabel2 = new javax.swing.JLabel();
-        JLabel jLabel3 = new javax.swing.JLabel();
-        JLabel jLabel4 = new javax.swing.JLabel();
-
-
+        JButton jLabel1 = new javax.swing.JButton();
 
         jLabel1.setIcon(icon1);
-        jLabel2.setIcon(icon2);
-        jLabel3.setIcon(icon3);
-        jLabel4.setIcon(icon4);
 
-        glassPanel.setLayout(new java.awt.GridLayout(2,2));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+
+        glassPanel.setLayout(new java.awt.GridLayout(1,1));
+        jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
+        jLabel1.setVerticalAlignment(SwingConstants.CENTER);
         glassPanel.add(jLabel1);
 
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel2.setVerticalAlignment(javax.swing.SwingConstants.TOP);
-        glassPanel.add(jLabel2);
 
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel3.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        glassPanel.add(jLabel3);
-
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        jLabel4.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
-        glassPanel.add(jLabel4);
-
+        jLabel1.setEnabled(false);
 
         setGlassPane(glassPanel);
 
@@ -120,7 +100,7 @@ public class Main2 extends JFrame implements WindowListener {
         coreChart.chartOptionBar1.btVolume.setButtonImage(new ImageIcon(getClass().getResource("/chartTypeC.png")).getImage());
         coreChart.btFacebookShare.setButtonImage(new ImageIcon(getClass().getResource("/facebook.png")).getImage());
         coreChart.getBtPrinter().setButtonImage(new ImageIcon(getClass().getResource("/print.png")).getImage());
-        coreChart.fCompareBar.getCloseButton().setButtonImage(new ImageIcon(getClass().getResource("/close.png")).getImage());
+        coreChart.fCompareBar.getCloseButton().setButtonImage(new ImageIcon(getClass().getResource("/exit.png")).getImage());
         coreChart.fCompareBar.getAddButton().setButtonImage(new ImageIcon(getClass().getResource("/add.png")).getImage());
         coreChart.fCompareBar.getRemoveButton().setButtonImage(new ImageIcon(getClass().getResource("/minus.png")).getImage());
         setIconImage(new ImageIcon(getClass().getResource("/ICChart.png")).getImage());
