@@ -7,16 +7,17 @@ import java.util.Date;
  */
 public class FRecord {
 
-    private Date creationDateTime = null;
-    public FRecord() {
-        setCreationDateTime(new Date());
-    }
+	private Date creationDateTime = null;
 
-    public Date getCreationDateTime() {
-        return creationDateTime;
-    }
+	public FRecord() {
+		setCreationDateTime(new Date());
+	}
 
-    public void setCreationDateTime(Date creationDateTime) {
-        this.creationDateTime = creationDateTime;
-    }
+	public Date getCreationDateTime() {
+		return creationDateTime;
+	}
+
+	public void setCreationDateTime(Date creationDateTime) {
+		this.creationDateTime = creationDateTime;
+	}
 }
