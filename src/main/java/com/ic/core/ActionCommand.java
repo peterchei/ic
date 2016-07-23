@@ -8,9 +8,8 @@ import java.util.Vector;
 
 /**
  * Action Command stores the actions that performed on the Screen
- *
+ * <p/>
  * It records the actions of insert lines, delete lines and so on.....
- *
  */
 public class ActionCommand {
 
@@ -20,8 +19,8 @@ public class ActionCommand {
     private boolean isProcessing = false;
 
     private Vector zoomRecords = new Vector();
-    private Vector<FRecord>  lineRecords = new Vector<FRecord> ();
-    private Vector<FRecord>  textRecords = new Vector<FRecord> ();
+    private Vector<FRecord> lineRecords = new Vector<FRecord>();
+    private Vector<FRecord> textRecords = new Vector<FRecord>();
     private FLine goldenPartitionLine = null;
 
     private ActionType actionType = ActionType.ZOOMIN;
