@@ -2,8 +2,6 @@ package com.ic.app;
 
 import java.io.*;
 import java.net.HttpURLConnection;
-import java.net.InetSocketAddress;
-import java.net.Proxy;
 import java.net.URL;
 
 public class Main3 {

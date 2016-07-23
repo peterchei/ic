@@ -10,11 +10,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static com.ic.data.CommandType.*;
+import static com.ic.data.CommandType.DAILY;
 
 public class RequestCommand {
 
