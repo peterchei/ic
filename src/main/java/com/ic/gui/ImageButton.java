@@ -66,7 +66,7 @@ public class ImageButton extends JButton implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-   }
+    }
 
     public void mousePressed(MouseEvent e) {
         bState = true;

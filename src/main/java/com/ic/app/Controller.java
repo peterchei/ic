@@ -2,12 +2,12 @@ package com.ic.app;
 
 public class Controller {
 
-    private static Main2 app;
+    private static GUI app;
 
-    public synchronized static Main2 getInstance() {
+    public synchronized static GUI getInstance() {
 
         if (app == null) {
-            app = new Main2();
+            app = new GUI();
             return app;
         }
         return app;

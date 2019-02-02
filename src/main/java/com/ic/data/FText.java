@@ -3,7 +3,7 @@ package com.ic.data;
 /**
  * Enum to indicate Chart Data Interval
  */
-public class FText extends FRecord  {
+public class FText extends FRecord {
 
     private int xIndex = 0;
     private double yValue = 0f;

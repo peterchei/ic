@@ -47,7 +47,7 @@ public class ChartData {
             startIndex = 0;
             endIndex = getData().size() - 1;
         }
-        endIndex = Math.min(endIndex, getData().size()-1);
+        endIndex = Math.min(endIndex, getData().size() - 1);
         for (int i = startIndex; i <= endIndex; i++) {
             StockData fpoint = (StockData) getData().get(i);
             if (!fpoint.isValid()) continue;
@@ -79,9 +79,9 @@ public class ChartData {
             startIndex = 0;
             endIndex = getData().size() - 1;
         }
-       // startIndex = 0;
-       // endIndex = getData().size() - 1;
-        endIndex = Math.min(endIndex, getData().size()-1);
+        // startIndex = 0;
+        // endIndex = getData().size() - 1;
+        endIndex = Math.min(endIndex, getData().size() - 1);
         for (int i = startIndex; i <= endIndex; i++) {
             StockData fpoint = (StockData) getData().get(i);
             if (!fpoint.isValid()) continue;

@@ -213,8 +213,8 @@ public class RequestCommand {
 
             int m_NumberOfPoints = Integer.parseInt(htokens.nextToken(";"));
             newChartData.setName(htokens.nextToken(";"));
-           // newChartData.setName(htokens.nextToken(";"));
-           // System.out.println("NumberOfPoints: " + m_NumberOfPoints + " Ename " + newChartData.getEName() + " CName " + newChartData.getCName());
+            // newChartData.setName(htokens.nextToken(";"));
+            // System.out.println("NumberOfPoints: " + m_NumberOfPoints + " Ename " + newChartData.getEName() + " CName " + newChartData.getCName());
 
             if (m_NumberOfPoints == 0) {
                 return null;
@@ -756,7 +756,7 @@ public class RequestCommand {
             }
 
         } catch (Exception exception) {
-           // System.out.println("Error when download profile");
+            // System.out.println("Error when download profile");
             exception.printStackTrace();
             return null;
         }

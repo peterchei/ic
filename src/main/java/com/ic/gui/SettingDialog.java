@@ -132,7 +132,6 @@ public class SettingDialog extends JDialog implements WindowListener {
         JLabel15.setText("Deviation");
 
 
-
         //jpMain.setBorder(BorderFactory.createEtchedBorder());
 
         jp6.setLayout(null);
@@ -176,8 +175,8 @@ public class SettingDialog extends JDialog implements WindowListener {
         jpWMA.add(tfWMA3, null);
 
 
-      //  jPanel2.add(btOK, null);
-      //  jPanel2.add(btCancel, null);
+        //  jPanel2.add(btOK, null);
+        //  jPanel2.add(btCancel, null);
 
         jpEMA.add(JLabel10, null);
         jpEMA.add(tfEMA1, null);
@@ -185,8 +184,6 @@ public class SettingDialog extends JDialog implements WindowListener {
         jpEMA.add(tfEMA2, null);
         jpEMA.add(JLabel12, null);
         jpEMA.add(tfEMA3, null);
-
-
 
 
         JLabelx1.setText("MA1");

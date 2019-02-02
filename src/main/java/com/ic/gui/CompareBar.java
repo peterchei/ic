@@ -83,8 +83,8 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
 
         chACode.setFont(new Font("Dialog", 0, 18));
         chACode.setBorder(BorderFactory.createLineBorder(Color.black));
-        chACode.setBounds(new Rectangle(FConfig.BUTTON_SIZE * 3 , 0, FConfig.BUTTON_SIZE * 2, FConfig.BUTTON_SIZE));
-        getRemoveButton().setBounds(new Rectangle(FConfig.BUTTON_SIZE * 5 , 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
+        chACode.setBounds(new Rectangle(FConfig.BUTTON_SIZE * 3, 0, FConfig.BUTTON_SIZE * 2, FConfig.BUTTON_SIZE));
+        getRemoveButton().setBounds(new Rectangle(FConfig.BUTTON_SIZE * 5, 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getRemoveButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 btRemove_actionPerformed(e);
@@ -92,7 +92,7 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
         });
 
 
-        getCloseButton().setBounds(new Rectangle(FConfig.BUTTON_SIZE * 6 , 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
+        getCloseButton().setBounds(new Rectangle(FConfig.BUTTON_SIZE * 6, 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE));
         getCloseButton().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 btClose_actionPerformed(e);
@@ -198,7 +198,7 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
         mychart1.setAxisBar(AxisType.NONE);
         mychart1.setChartType(ChartType.PERCENTAGE);
         mychart1.setShowXaxis(false);
-       // System.out.println("XXXX:" + (pcCharts.size() ) % lineColor.length);
+        // System.out.println("XXXX:" + (pcCharts.size() ) % lineColor.length);
         mychart1.setFirstColor(lineColor[pcCharts.size() % lineColor.length]);
 
         chartScreen1.addChart(mychart1);

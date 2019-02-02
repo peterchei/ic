@@ -368,7 +368,7 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
 
         settingWindow1.setBounds(x + width / 2 - 220, y + height / 2 - 290, 400, 600);
 //        settingWindow1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // Already there
-       // settingWindow1.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        // settingWindow1.setExtendedState(JFrame.MAXIMIZED_BOTH);
         //settingWindow1.setUndecorated(true);
         settingWindow1.setVisible(true);
     }

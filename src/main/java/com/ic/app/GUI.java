@@ -16,13 +16,10 @@ import java.awt.event.WindowListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
-* Main entry point
-*
- */
-public class Main2 extends JFrame implements WindowListener {
 
-    public static Logger log = Logger.getLogger(Main2.class.getName());
+public class GUI extends JFrame implements WindowListener {
+
+    public static Logger log = Logger.getLogger(GUI.class.getName());
 
     private BorderLayout borderLayout1 = new BorderLayout();
     private STVChart chartPanel = null;
@@ -39,7 +36,7 @@ public class Main2 extends JFrame implements WindowListener {
         setTitle("IC - Hong Kong Market");
     }
 
-    public Main2() {
+    public GUI() {
         try {
             configure();
         } catch (Exception e) {
@@ -54,8 +51,11 @@ public class Main2 extends JFrame implements WindowListener {
         originalContainer = pnChart.getParent();
 
 
-
-        JPanel glassPanel = new JPanel() { public void paint() {System.out.println("XXX");}};
+        JPanel glassPanel = new JPanel() {
+            public void paint() {
+                System.out.println("XXX");
+            }
+        };
 
 
         ImageIcon icon1 = new ImageIcon(getClass().getResource("/expand.png"));
@@ -66,7 +66,7 @@ public class Main2 extends JFrame implements WindowListener {
         jLabel1.setIcon(icon1);
 
 
-        glassPanel.setLayout(new java.awt.GridLayout(1,1));
+        glassPanel.setLayout(new java.awt.GridLayout(1, 1));
         jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
         jLabel1.setVerticalAlignment(SwingConstants.CENTER);
         glassPanel.add(jLabel1);
@@ -80,7 +80,7 @@ public class Main2 extends JFrame implements WindowListener {
             @Override
             public void componentResized(ComponentEvent e) {
                 super.componentResized(e);
-                if (Main2.this.getBounds().width <= 300 || Main2.this.getBounds().height <=300) {
+                if (GUI.this.getBounds().width <= 300 || GUI.this.getBounds().height <= 300) {
                     getGlassPane().setVisible(true);
                 } else {
                     getGlassPane().setVisible(false);
