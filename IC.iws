@@ -1,38 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="64376b75-5379-4c35-8e3b-851894dd430d" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/IC.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/IC.ipr" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/IC.iws" beforeDir="false" afterPath="$PROJECT_DIR$/IC.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/app/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/app/Controller.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/app/Main2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/app/GUI.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/app/Main3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/app/Main3.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/AnalyticalResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/AnalyticalResult.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/ChartData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/ChartData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/ChartDataServiceCallback.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/ChartDataServiceCallback.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/CommandType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/CommandType.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/FLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/FLine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/FRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/FRecord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/FText.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/FText.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/Point.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/RequestCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/RequestCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/StockData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/StockData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/gui/ChartOptionBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/gui/ChartOptionBar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/gui/CompareBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/gui/CompareBar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/gui/FunctionPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/gui/FunctionPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/gui/ImageButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/gui/ImageButton.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/gui/MenuBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/gui/MenuBar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/gui/STVChart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/gui/STVChart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/gui/SettingDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/gui/SettingDialog.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/gui/TAMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/gui/TAMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/gui/Testing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/gui/Testing.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/util/CopyImageToClipBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/util/CopyImageToClipBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/util/FormatUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/util/FormatUtil.java" afterDir="false" />
-    </list>
-    <ignored path="$PROJECT_DIR$/.gradle/" />
-    <ignored path="$PROJECT_DIR$/build/" />
-    <ignored path="$PROJECT_DIR$/out/" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <list default="true" id="64376b75-5379-4c35-8e3b-851894dd430d" name="Default" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -86,12 +58,62 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
         <projects_view>
           <tree_state>
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="ic" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ic" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ic" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ic" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build setup" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ic" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="documentation" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ic" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="help" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ic" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="ide" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ic" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="ic" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="verification" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -231,7 +253,6 @@
       <profile-state />
     </entry>
   </component>
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
   </component>
@@ -326,44 +347,22 @@
       <pane id="Scope" />
     </panes>
   </component>
-  <component name="PropertiesComponent">
-    <property name="GoToClass.includeLibraries" value="false" />
-    <property name="GoToClass.toSaveIncludeLibraries" value="false" />
-    <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="MemberChooser.copyJavadoc" value="false" />
-    <property name="MemberChooser.showClasses" value="true" />
-    <property name="MemberChooser.sorted" value="false" />
-    <property name="SearchEverywhereHistoryKey" value="hand.png&#9;FILE&#9;file://C:/Users/peter/git/ic/src/main/resources/hand.png" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1549107305274" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.0" />
-    <property name="project.structure.side.proportion" value="0.0" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.project.gradle" />
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
-  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "git-widget-placeholder": "master"
+  }
+}]]></component>
   <component name="RunManager" selected="Application.GUI">
-    <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
-      <Host>localhost</Host>
-      <Port>5050</Port>
-    </configuration>
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
         <option name="BuildArtifacts" enabled="false" />
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration name="&lt;template&gt;" type="WebApp" default="true" selected="false">
+      <Host>localhost</Host>
+      <Port>5050</Port>
     </configuration>
     <configuration name="GUI" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="INCLUDE_PROVIDED_SCOPE" value="true" />
@@ -516,7 +515,6 @@
     </layout>
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="OFFER_MOVE_TO_ANOTHER_CHANGELIST_ON_PARTIAL_COMMIT" value="true" />
     <MESSAGE value="commit" />
     <option name="LAST_COMMIT_MESSAGE" value="commit" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
@@ -548,7 +546,7 @@
     <entry file="file://$PROJECT_DIR$/ic_main.iml">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="jar://C:/DevTools/Java/jdk-11.0.2/lib/src.zip!/java.desktop/javax/swing/ImageIcon.java">
+    <entry file="jar://$PROJECT_DIR$/../../../../DevTools/Java/jdk-11.0.2/lib/src.zip!/java.desktop/javax/swing/ImageIcon.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="190">
           <caret line="216" selection-start-line="216" selection-end-line="216" />
@@ -586,7 +584,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/DevTools/Java/jdk-11.0.2/lib/src.zip!/java.base/sun/net/www/protocol/http/HttpURLConnection.java">
+    <entry file="jar://$PROJECT_DIR$/../../../../DevTools/Java/jdk-11.0.2/lib/src.zip!/java.base/sun/net/www/protocol/http/HttpURLConnection.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="215">
           <caret line="1254" column="49" selection-start-line="1254" selection-start-column="48" selection-end-line="1254" selection-end-column="49" />

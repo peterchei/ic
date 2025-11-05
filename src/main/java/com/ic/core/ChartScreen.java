@@ -1730,9 +1730,9 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
                 StockData fpoint = (StockData) currentChart.getChartData().getData().get(startDisplayIndex);
                 String sdate = "";
                 if (currentChart.getChartData().dataInterval == DataInterval.INTRADAY) {
-                    sdate = lbArray[24][language] + " : " + FormatUtil.formatTime(fpoint.getHour(), fpoint.getMinute());
+                    sdate = lbArray[22][language] + " : " + FormatUtil.formatTime(fpoint.getHour(), fpoint.getMinute());
                 } else {
-                    sdate = lbArray[23][language] + " : " + fpoint.getDay() + "-" + fpoint.getMonth() + "-"
+                    sdate = lbArray[21][language] + " : " + fpoint.getDay() + "-" + fpoint.getMonth() + "-"
                             + fpoint.getYear();
                 }
                 g.drawString(sdate, leftSpace + 5, FConfig.SCREEN_FONT_SIZE + 10);
@@ -1750,7 +1750,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
             g.drawString(tempString, leftSpace + 5, FConfig.SCREEN_FONT_SIZE + 10);
             tempString = "EMA(" + currentChart.getChartData().getfTAconfig().MACDAEMA + ")";
             g.setColor(FConfig.MACDColor2);
-            g.drawString(tempString, leftSpace + 5, (FConfig.SCREEN_FONT_SIZE + 10) * 2);
+            g.drawString(tempString, leftSpace + 5 + 110, FConfig.SCREEN_FONT_SIZE + 10);
             tempString = "DIFF";
             g.setColor(FConfig.MACDColor3);
             g.drawString(tempString, leftSpace + 100, (FConfig.SCREEN_FONT_SIZE + 10) * 2);
