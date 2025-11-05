@@ -1381,7 +1381,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
             if (fTApoint1 != null && fTApoint2 != null && fTApoint1.isValid() && fTApoint2.isValid()) {
                 try {
                     int x1 = this.getScreenXPositionFromPoint(i);
-                    int x2 = getScreenXPositionFromPoint(lastValidPoint);
+                    int x2 = this.getScreenXPositionFromPoint(lastValidPoint);
                     int y1 = this.getScreenYPosition(fTApoint1.getRSI(), Max, Min);
                     int y2 = getScreenYPosition(fTApoint2.getRSI(), Max, Min);
                     g.setColor(FConfig.RSIColor);
@@ -2178,7 +2178,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
             case MOVECHART:
                 Toolkit toolkit = Toolkit.getDefaultToolkit();
-                Cursor c = toolkit.createCustomCursor(moveCursorImage, new Point(getX(), getY()), "img");
+                Cursor c = toolkit.createCustomCursor(moveCursorImage, new Point(16, 16), "img");
                 setCursor(c);
 
                 actionCommand.setProcessing(true);

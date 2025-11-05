@@ -352,7 +352,7 @@
     "git-widget-placeholder": "master"
   }
 }]]></component>
-  <component name="RunManager" selected="Application.GUI">
+  <component name="RunManager" selected="Groovy.build">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -443,6 +443,14 @@
       <method v="2">
         <option name="BuildArtifacts" enabled="false" />
       </method>
+    </configuration>
+    <configuration default="true" type="aws.lambda" factoryName="Remote">
+      <option name="credentialProviderId" />
+      <option name="regionId" />
+      <option name="functionName" />
+      <option name="input" />
+      <option name="inputIsFile" value="false" />
+      <method v="2" />
     </configuration>
     <list>
       <item itemvalue="Application.Main3" />

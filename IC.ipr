@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AgentMigrationStateService">
+    <pendingWorkingSetItems>
+      <entry key="4ca5985f-08e8-4eae-b2ef-40cf158184e6">
+        <set>
+          <option value="file://$PROJECT_DIR$/src/main/java/com/ic/core/ChartScreen.java" />
+        </set>
+      </entry>
+    </pendingWorkingSetItems>
+  </component>
   <component name="CompilerConfiguration">
     <resourceExtensions>
       <entry name=".+\.(properties|xml|html|dtd|tld)" />
