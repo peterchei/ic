@@ -10,7 +10,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Vector;
+import java.util.List;
+import java.util.ArrayList;
 
 public class CompareBar extends JPanel implements KeyListener, ChartDataServiceCallback {
 
@@ -36,7 +37,7 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
     private ImageButton addButton = new ImageButton();
     private ImageButton removeButton = new ImageButton();
     private ImageButton closeButton = new ImageButton();
-    private Vector<ChartItem> pcCharts = new Vector<ChartItem>();
+    private List<ChartItem> pcCharts = new ArrayList<ChartItem>();
 
 
     private ChartScreen chartScreen1 = null;
@@ -112,7 +113,7 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
             if (taChart != null) {
                 String chTa = (String) fMenuBar.chMA1.getSelectedItem();
 
-                if (chTa == fMenuBar.lbTA1Array[0][0] || chTa == fMenuBar.lbTA1Array[0][1]) {
+                if (chTa.equals(fMenuBar.lbTA1Array[0][0]) || chTa.equals(fMenuBar.lbTA1Array[0][1])) {
                     taChart.setVisible(false);
                 } else {
                     taChart.setVisible(true);              // set TA chart to be visible return to normal state.
@@ -127,8 +128,8 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
                 cchart.setChartType(chartType);
             }
         }
-        pcCharts.removeAllElements();
-        chartScreen1.getAction().getLineRecords().removeAllElements();
+        pcCharts.clear();
+        chartScreen1.getAction().getLineRecords().clear();
         chartScreen1.getAction().setGoldenPartitionLine(null);
         chartScreen1.removeChartsByType(ChartType.PERCENTAGE);
         chartScreen1.updateBaseScreen();
@@ -158,21 +159,21 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
     void btAddChart_actionPerformed(ActionEvent e) {
 
         if (fMenuBar == null || chartScreen1.getLeftChart() == null) return;
-        String cc = tfCode.getText();
+        String cc = tfCode.getText().trim();
 
-        if (!FormatUtil.isNumber(cc)) {
+        if (cc.isEmpty()) {
             this.tfCode.setText("");
             return;
         }
 
-        int Code = Integer.parseInt(cc);
+        String Code = cc;
         this.tfCode.setText("");
-        if (Code != chartScreen1.getLeftChart().getChartData().getCode()) {
+        if (!Code.equals(String.valueOf(chartScreen1.getLeftChart().getChartData().getCode()))) {
             int intervals = chartScreen1.getLeftChart().getChartData().getIntradayInterval();
             int NumberOfPoints = chartScreen1.getLeftChart().getChartData().getData().size();
 
             RequestCommand fc = new RequestCommand(Code, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART,
-                    (CommandType) fMenuBar.chDuration.getSelectedItem(), String.valueOf(Code), NumberOfPoints, intervals, true, this);
+                    (CommandType) fMenuBar.chDuration.getSelectedItem(), Code, NumberOfPoints, intervals, true, this);
 
             ChartDataService.getInstance().addCommand(fc);
             chartScreen1.setScreenState(ChartScreen.LOADING);
@@ -188,13 +189,13 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
     public void OnReceivedChartData(RequestCommand fc, Object result) {
 
         ChartData chartData = (ChartData) result;
-        if (chartScreen1.getChart(String.valueOf(fc.getCode())) != null) {
+        if (chartScreen1.getChart(fc.getCode()) != null) {
             chartScreen1.setScreenState(ChartScreen.STARTED);
             return;
         }
 
         ChartData mydata = chartData;
-        ChartItem mychart1 = new ChartItem(mydata, String.valueOf(fc.getCode()));
+        ChartItem mychart1 = new ChartItem(mydata, fc.getCode());
         mychart1.setAxisBar(AxisType.NONE);
         mychart1.setChartType(ChartType.PERCENTAGE);
         mychart1.setShowXaxis(false);
@@ -202,29 +203,19 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
         mychart1.setFirstColor(lineColor[pcCharts.size() % lineColor.length]);
 
         chartScreen1.addChart(mychart1);
-        chartScreen1.getAction().getZoomRecords().removeAllElements();
-        chartScreen1.getAction().getLineRecords().removeAllElements();
+        chartScreen1.getAction().getZoomRecords().clear();
+        chartScreen1.getAction().getLineRecords().clear();
         chartScreen1.updateBaseScreen();
         chartScreen1.setScreenState(ChartScreen.STARTED);
-        pcCharts.addElement(mychart1);
-        chACode.removeAllItems();
-
-
-        for (ChartItem item : pcCharts) {
-            chACode.addItem(String.valueOf(item.getChartData().getCode()));
-        }
-
-
+        pcCharts.add(mychart1);
+        updateCodeComboBox();
     }
 
     void btRemove_actionPerformed(ActionEvent e) {
         if (chACode.getItemCount() == 0) return;
-        pcCharts.removeElementAt(chACode.getSelectedIndex());
+        pcCharts.remove(chACode.getSelectedIndex());
         chartScreen1.removeChart(Integer.parseInt((String) chACode.getSelectedItem()));
-        chACode.removeAllItems();
-        for (ChartItem item : pcCharts) {
-            chACode.addItem(String.valueOf(item.getChartData().getCode()));
-        }
+        updateCodeComboBox();
         chartScreen1.updateBaseScreen();
         chartScreen1.repaint();
     }
@@ -255,5 +246,12 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
 
     public void setRemoveButton(ImageButton removeButton) {
         this.removeButton = removeButton;
+    }
+
+    private void updateCodeComboBox() {
+        chACode.removeAllItems();
+        for (ChartItem item : pcCharts) {
+            chACode.addItem(String.valueOf(item.getChartData().getCode()));
+        }
     }
 }

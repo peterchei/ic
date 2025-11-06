@@ -26,10 +26,10 @@ public class GUI extends JFrame implements WindowListener {
     private Container originalContainer = null;
 
     public static void main(String args[]) {
-        Controller.getInstance().lanuch();
+        Controller.getInstance().launch();
     }
 
-    public void lanuch() {
+    public void launch() {
         setVisible(true);
         setBounds(0, 0, 1280, 960);
         setResizable(true);
@@ -114,7 +114,7 @@ public class GUI extends JFrame implements WindowListener {
         ChartDataService.getInstance().enable();
 
         // add a chart data
-        RequestCommand fc = new RequestCommand(2800, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART,
+        RequestCommand fc = new RequestCommand("IBM", RequestCommand.TYPE_DOWNLOAD_LEFT_CHART,
                 (CommandType) coreChart.fmenuBar.chDuration.getSelectedItem(), "LMain1", 500, 1, false, coreChart.fmenuBar);
 
         ChartDataService.getInstance().addCommand(fc);

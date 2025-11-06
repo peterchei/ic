@@ -137,7 +137,7 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
             this.chMA1.setVisible(true);
             ChartItem lchart = chartScreen1.getLeftChart();
             if (chartScreen1.getLeftChart() != null) {
-                int Code = lchart.getChartData().getCode();
+                String Code = String.valueOf(lchart.getChartData().getCode());
                 RequestCommand fc = new RequestCommand(Code, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART,
                         (CommandType) chDuration.getSelectedItem(), "LMain1", 500, intervals, false, this);
                 ChartDataService.getInstance().addCommand(fc);
@@ -153,7 +153,7 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
             this.chMinute.setVisible(false);
             ChartItem lchart = chartScreen1.getLeftChart();
             if (chartScreen1.getLeftChart() != null) {
-                int Code = lchart.getChartData().getCode();
+                String Code = String.valueOf(lchart.getChartData().getCode());
                 RequestCommand fc = new RequestCommand(Code, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART,
                         (CommandType) chDuration.getSelectedItem(), "LMain1", 500, intervals, false, this);
                 ChartDataService.getInstance().addCommand(fc);
@@ -169,7 +169,7 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
             this.chMinute.setVisible(false);
             ChartItem lchart = chartScreen1.getLeftChart();
             if (chartScreen1.getLeftChart() != null) {
-                int Code = lchart.getChartData().getCode();
+                String Code = String.valueOf(lchart.getChartData().getCode());
                 RequestCommand fc = new RequestCommand(Code, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART,
                         (CommandType) chDuration.getSelectedItem(), "LMain1", 500, intervals, false, this);
                 ChartDataService.getInstance().addCommand(fc);
@@ -185,7 +185,7 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
             this.chMinute.setVisible(true);
             ChartItem lchart = chartScreen1.getLeftChart();
             if (chartScreen1.getLeftChart() != null) {
-                int Code = lchart.getChartData().getCode();
+                String Code = String.valueOf(lchart.getChartData().getCode());
                 this.chChartType.setSelectedIndex(0);
                 RequestCommand fc = new RequestCommand(Code, RequestCommand.TYPE_DOWNLOAD_LEFT_CHART,
                         (CommandType) chDuration.getSelectedItem(), "LMain1", 500, intervals, false, this);
@@ -209,7 +209,7 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
 
         ChartItem lchart = chartScreen1.getLeftChart();
         if (chartScreen1.getLeftChart() != null) {
-            RequestCommand fc = new RequestCommand(lchart.getChartData().getCode(),
+            RequestCommand fc = new RequestCommand(String.valueOf(lchart.getChartData().getCode()),
                     RequestCommand.TYPE_DOWNLOAD_LEFT_CHART, (CommandType) chDuration.getSelectedItem(), "LMain1", 500,
                     intervals, false, this);
             ChartDataService.getInstance().addCommand(fc);
@@ -379,7 +379,7 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
             this.tfCode.setText("");
             return;
         }
-        int Code = Integer.parseInt(cc);
+        String Code = cc;
         this.tfCode.setText("");
 
         setEnable(false);

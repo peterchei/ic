@@ -3,8 +3,11 @@ package com.ic.data;
 // the command for the engine to download data,
 
 import com.ic.util.FormatUtil;
+import org.json.JSONObject;
+import org.json.JSONException;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -13,6 +16,7 @@ import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -33,13 +37,13 @@ public class RequestCommand {
     private int actionType = TYPE_DOWNLOAD_RIGHT_CHART; // the action of the RequestCommand
     private CommandType dType = DAILY;                  // the type of the chart
     private String sKey = "RMain1";                     // the key of the chart used to id the chart.
-    private int code;                                   // the code to download
+    private String code;                                   // the code to download
     private int numberOfPoint = 100;                    // Number of point to download
     private int intradayInterval = 1;                   // for intraday only
     private boolean isFillEmptyPoints = false;
     private ChartDataServiceCallback reference;          // the reference to the object that create this command.
 
-    public RequestCommand(int sCode, int atype, CommandType type, String key, int num, int intervals, boolean fillEmptyPoints, ChartDataServiceCallback re) {
+    public RequestCommand(String sCode, int atype, CommandType type, String key, int num, int intervals, boolean fillEmptyPoints, ChartDataServiceCallback re) {
         code = sCode;
         actionType = atype;
         dType = type;
@@ -50,7 +54,7 @@ public class RequestCommand {
         isFillEmptyPoints = fillEmptyPoints;
     }
 
-    public RequestCommand(int sCode, CommandType type, ChartDataServiceCallback re) {
+    public RequestCommand(String sCode, CommandType type, ChartDataServiceCallback re) {
         code = sCode;
         dType = type;
         reference = re;
@@ -122,7 +126,7 @@ public class RequestCommand {
         return actionType;
     }
 
-    public int getCode() {
+    public String getCode() {
         return code;
     }
 
@@ -187,7 +191,7 @@ public class RequestCommand {
 
     public ChartData getIntradayData(RequestCommand fc) {
 
-        int Code = fc.getCode();
+        int Code = Integer.parseInt(fc.getCode());
         int NumberOfPoints = fc.getNumberOfPoint();
         int intervals = fc.getIntadayInterval();
         if (intervals != 1 && intervals != 10) {
@@ -366,7 +370,7 @@ public class RequestCommand {
 
     public ChartData getDailyData(RequestCommand fc) {
 
-        int Code = fc.getCode();
+        int Code = Integer.parseInt(fc.getCode());
         int NumberOfPoints = fc.getNumberOfPoint();
 
         String srcAddr = "??/" + dailyInterface + "?code=" + Code + "&data_num=" + NumberOfPoints;// + "&startdate=2000-11-1";
@@ -455,7 +459,7 @@ public class RequestCommand {
     }
 
     public ChartData getWeeklyData(RequestCommand fc) {
-        int Code = fc.getCode();
+        int Code = Integer.parseInt(fc.getCode());
         int NumberOfPoints = fc.getNumberOfPoint();
 
         String srcAddr = "http://??/" + weeklyInterface + "?code=" + Code + "&data_num=" + NumberOfPoints;// + "&startdate=2000-11-1";
@@ -543,7 +547,7 @@ public class RequestCommand {
 
     public ChartData getMonthlyData(RequestCommand fc) {
 
-        int Code = fc.getCode();
+        int Code = Integer.parseInt(fc.getCode());
         int NumberOfPoints = fc.getNumberOfPoint();
 
         String srcAddr = "http://??/" + monthlyInterface + "?code=" + Code + "&data_num=" + NumberOfPoints;// + "&startdate=2000-11-1";
@@ -631,7 +635,8 @@ public class RequestCommand {
         return newChartData;
     }
 
-    public String getReadTimeQuote(int code) {
+    public String getReadTimeQuote(String codeStr) {
+        int code = Integer.parseInt(codeStr);
         try {
             String symbol = "00000" + code;
             symbol = symbol.substring(symbol.length() - 4);
@@ -670,78 +675,99 @@ public class RequestCommand {
 
     public ChartData getYahooDailyData() {
 
-        int Code = getCode();
+        String code = getCode();
         int NumberOfPoints = getNumberOfPoint();
 
-        String strCode = "0000" + Code + ".HK";
-        strCode = strCode.substring(strCode.length() - 7);
+        String strCode;
+        try {
+            int numCode = Integer.parseInt(code);
+            strCode = "0000" + numCode + ".HK";
+            strCode = strCode.substring(strCode.length() - 7);
+        } catch (NumberFormatException e) {
+            strCode = code;
+        }
 
-        Date now = new Date();
-        String srcAddr = "http://ichart.yahoo.com/table.csv?a=5&b=5&c=2010&s=" + strCode;
+        // Replace YOUR_API_KEY with your actual Alpha Vantage API key (free at https://www.alphavantage.co/support/#api-key)
+        Properties props = new Properties();
+        String apiKey = "YOUR_API_KEY"; // default
+        try (FileInputStream fis = new FileInputStream("config.properties")) {
+            props.load(fis);
+            apiKey = props.getProperty("api.key", apiKey);
+        } catch (Exception e) {
+            System.out.println("Warning: Could not load API key from config.properties, using default");
+        }
+
+        String srcAddr = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + strCode + "&apikey=" + apiKey + "&outputsize=compact";
 
         System.out.println(srcAddr);
         ChartData newChartData = new ChartData();
-        newChartData.setCode(Code);
+        try {
+            int parsedCode = Integer.parseInt(code);
+            newChartData.setCode(parsedCode);
+        } catch (NumberFormatException e) {
+            newChartData.setCode(0); // default
+        }
         newChartData.dataInterval = DataInterval.DAILY;
 
         try {
-            URL Finet;
-            Finet = new URL(srcAddr);
+            URL url = new URL(srcAddr);
+            URLConnection connection = url.openConnection();
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            StringBuilder response = new StringBuilder();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                response.append(line);
+            }
+            reader.close();
 
-            URLConnection FinetConnection = Finet.openConnection();
-            BufferedReader DS = new BufferedReader(new InputStreamReader(FinetConnection.getInputStream()));
+            JSONObject json = new JSONObject(response.toString());
+            if (!json.has("Time Series (Daily)")) {
+                System.out.println("API Response: " + response.toString());
+                System.out.println("Error: No data available or invalid API key");
+                return null;
+            }
+            JSONObject timeSeries = json.getJSONObject("Time Series (Daily)");
 
-            String RawData = DS.readLine();   //Header Columns
+            newChartData.setName(StockInfoStore.getInstance().getStockName(String.valueOf(code)));
 
-            StringTokenizer htokens = new StringTokenizer(RawData);
+            List<String> dates = new ArrayList<>(timeSeries.keySet());
+            // Sort dates descending (newest first) to match original behavior
+            dates.sort((a, b) -> b.compareTo(a));
 
+            List<StockData> rawPoints = new ArrayList<>();
             int m_NumberOfPoints = 0;
 
-            newChartData.setName(StockInfoStore.getInstance().getStockName(String.valueOf(code)));
-            newChartData.setName(StockInfoStore.getInstance().getStockName(String.valueOf(code)));
-
-            List<StockData> rawPoints = new ArrayList<StockData>(1000);
-            String line = DS.readLine();
-            while (line != null && !line.startsWith("<!--")) {
+            for (String date : dates) {
+                if (m_NumberOfPoints >= NumberOfPoints) break; // Limit to requested points
                 m_NumberOfPoints++;
-                String tempDate;
-                String tempHigh;
-                String tempLow;
-                String tempOpen;
-                String tempClose;
-                String tempVol;
 
+                JSONObject dayData = timeSeries.getJSONObject(date);
                 StockData fpoint = new StockData();
-                RawData = line;//DS.readLine();   //retrieve a point line
-                // System.out.println(line);
-                StringTokenizer tokens = new StringTokenizer(RawData);
-                tempDate = tokens.nextToken(",");
-                tempOpen = tokens.nextToken(",");
-                tempHigh = tokens.nextToken(",");
-                tempLow = tokens.nextToken(",");
-                tempClose = tokens.nextToken(",");
-                tempVol = tokens.nextToken(",");
-                fpoint.setOpen(Float.valueOf(tempOpen).floatValue());
-                fpoint.setClose(Float.valueOf(tempClose).floatValue());
-                fpoint.setMaximum(Float.valueOf(tempHigh).floatValue());
-                fpoint.setMinimum(Float.valueOf(tempLow).floatValue());
-                fpoint.setVolume(Integer.parseInt(tempVol));
-                //fpoint.Year = FormatUtil.getYahooYear(tempDate);
-                //fpoint.Month = FormatUtil.getYahooMonth(tempDate);
-                //fpoint.Day = FormatUtil.getYahooDay(tempDate);
-                fpoint.setDate(FormatUtil.getDateFrom(tempDate));
+
+                float open = Float.parseFloat(dayData.getString("1. open"));
+                float high = Float.parseFloat(dayData.getString("2. high"));
+                float low = Float.parseFloat(dayData.getString("3. low"));
+                float close = Float.parseFloat(dayData.getString("4. close"));
+                int volume = Integer.parseInt(dayData.getString("5. volume"));
+
+                fpoint.setOpen(open);
+                fpoint.setClose(close);
+                fpoint.setMaximum(high);
+                fpoint.setMinimum(low);
+                fpoint.setVolume(volume);
+                fpoint.setDate(FormatUtil.getDateFrom(date));
+
                 if (fpoint.getOpen() == 0) {
                     fpoint.setOpen(fpoint.getClose());
                     fpoint.setMaximum(fpoint.getClose());
                     fpoint.setMinimum(fpoint.getClose());
-
                 }
+
                 rawPoints.add(fpoint);
-                line = DS.readLine();
                 getListener().OnProgress(0);
             }
 
-            // add "empty" point at the end..
+            // Add empty points if needed
             if (isFillEmptyPoints()) {
                 if (NumberOfPoints > m_NumberOfPoints) {
                     for (int j = 0; j < NumberOfPoints - m_NumberOfPoints; j++) {
@@ -751,12 +777,13 @@ public class RequestCommand {
                     }
                 }
             }
+
+            // Reverse to oldest first
             for (int i = rawPoints.size() - 1; i >= 0; i--) {
                 newChartData.getData().add(rawPoints.get(i));
             }
 
         } catch (Exception exception) {
-            // System.out.println("Error when download profile");
             exception.printStackTrace();
             return null;
         }

@@ -1,47 +1,49 @@
-apply plugin: 'java'
-apply plugin: 'idea'
-apply plugin: 'eclipse'
+plugins {
+    id 'java'
+    id 'idea'
+    id 'eclipse'
+}
 
 version = '1.0-SNAPSHOT'
 group = 'IC'
 
-sourceCompatibility = 1.8
-
-repositories {
-    jcenter()
-    maven {
-        url "http://repo.marketcetera.org/maven";
-    }
-    mavenCentral()
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
 }
 
 sourceSets {
     main {
-        output.resourcesDir = "build/classes/main"
+        java {
+            srcDirs = ['src']
+        }
     }
 }
 
-
-dependencies {
-    compile 'org.slf4j:slf4j-api:1.7.5'
-            //'org.apache.mina:mina-core:1.1.7'
-
-    runtime 'org.slf4j:slf4j-api:1.7.5'
-            //'com.google.inject:guice:3.0',
-           // 'org.apache.derby:derbyclient:10.11.1.1'
-
-    testCompile 'junit:junit:4.11',
-            'org.mockito:mockito-core:1.9.5',
-            'org.assertj:assertj-core:1.6.1',
-            'org.slf4j:slf4j-api:1.7.5',
-            'org.apache.derby:derbyclient:10.11.1.1'
+repositories {
+    mavenCentral()
 }
 
+dependencies {
+    implementation 'org.slf4j:slf4j-api:1.7.36'
+    runtimeOnly 'org.slf4j:slf4j-simple:1.7.36'
+    implementation 'org.json:json:20240303'
+
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-core:4.11.0'
+    testImplementation 'org.assertj:assertj-core:3.24.2'
+    testRuntimeOnly 'org.apache.derby:derbyclient:10.15.2.0'
+}
 
 jar {
     manifest {
         attributes("Implementation-Title": "IC",
                 "Implementation-Version": "1.0",
-                "Main-Class": "com.ic.app.Main2")
+                "Main-Class": "com.ic.app.GUI")
     }
+}
+
+task run(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    mainClass = 'com.ic.app.GUI'
 }
