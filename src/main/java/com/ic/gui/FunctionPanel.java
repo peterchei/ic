@@ -188,7 +188,7 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
   void btNone_actionPerformed(ActionEvent e) {
     for (ChartScreen screen : screens) {
       if (screen != null) {
-        screen.getAction().setActionType(ActionType.NONEACTION);
+        screen.getAction().setActionType(ActionType.NONE_ACTION);
       }
     }
   }
@@ -204,22 +204,22 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
   void btEdit_actionPerformed(ActionEvent e) {
     for (ChartScreen screen : screens) {
       if (screen != null) {
-        screen.getAction().setActionType(ActionType.EDITTEXT);
+        screen.getAction().setActionType(ActionType.EDIT_TEXT);
       }
     }
   }
 
   void btZoomIn_actionPerformed(ActionEvent e) {
     if (chartScreen1 != null) {
-      chartScreen1.getAction().setActionType(ActionType.ZOOMIN);
+      chartScreen1.getAction().setActionType(ActionType.ZOOM_IN);
     }
 
     if (chartScreen2 != null) {
-      chartScreen2.getAction().setActionType(ActionType.NONEACTION);
+      chartScreen2.getAction().setActionType(ActionType.NONE_ACTION);
     }
 
     if (chartScreen3 != null) {
-      chartScreen3.getAction().setActionType(ActionType.NONEACTION);
+      chartScreen3.getAction().setActionType(ActionType.NONE_ACTION);
     }
   }
 
@@ -237,7 +237,7 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
   void btMove_actionPerformed(ActionEvent e) {
     for (ChartScreen screen : screens) {
       if (screen != null) {
-        screen.getAction().setActionType(ActionType.MOVECHART);
+        screen.getAction().setActionType(ActionType.MOVE_CHART);
       }
     }
   }
@@ -245,7 +245,7 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
   void btInsertLine_actionPerformed(ActionEvent e) {
     for (ChartScreen screen : screens) {
       if (screen != null) {
-        screen.getAction().setActionType(ActionType.INSERTLINE);
+        screen.getAction().setActionType(ActionType.INSERT_LINE);
       }
     }
   }
@@ -253,7 +253,7 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
   void btInsertPLine_actionPerformed(ActionEvent e) {
     for (ChartScreen screen : screens) {
       if (screen != null) {
-        screen.getAction().setActionType(ActionType.INSERTPARALLELLINE);
+        screen.getAction().setActionType(ActionType.INSERT_PARALLEL_LINE);
       }
     }
   }
@@ -261,7 +261,7 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
   void btGPartition_actionPerformed(ActionEvent e) {
     for (ChartScreen screen : screens) {
       if (screen != null) {
-        screen.getAction().setActionType(ActionType.GOLDENPARTITION);
+        screen.getAction().setActionType(ActionType.GOLDEN_PARTITION);
       }
     }
   }

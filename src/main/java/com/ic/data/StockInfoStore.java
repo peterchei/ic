@@ -7,6 +7,7 @@ package com.ic.data;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,7 +21,7 @@ public class StockInfoStore {
 
     this.stockMap = new HashMap<String, String>();
 
-    BufferedReader reader = new BufferedReader(new java.io.InputStreamReader(StockInfoStore.class.getResourceAsStream("/stocks.csv")));
+    BufferedReader reader = new BufferedReader(new java.io.InputStreamReader(Objects.requireNonNull(StockInfoStore.class.getResourceAsStream("/stocks.csv"))));
     String line;
     try {
       line = reader.readLine();

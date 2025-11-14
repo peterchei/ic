@@ -15,8 +15,7 @@ public class ChartData {
 
   //Stock information
   private int Code = 0;
-  private String name = "Unkonwn";
-  //private String CName = "Unkonwn";
+  private String name = "Unknown";
   private int intradayInterval = 1;//5, or 10;
 
   public ChartData() {
@@ -26,7 +25,6 @@ public class ChartData {
   public double getMaximumVolume(int startIndex, int endIndex) {
     double Maximum = 0;
     if (startIndex == 0 && endIndex == 0) {
-      startIndex = 0;
       endIndex = getData().size() - 1;
     }
     for (int i = startIndex; i <= endIndex; i++) {
@@ -44,7 +42,6 @@ public class ChartData {
   public double getMaximum(int startIndex, int endIndex, String cType) {
     double Maximum = 0;
     if (startIndex == 0 && endIndex == 0) {
-      startIndex = 0;
       endIndex = getData().size() - 1;
     }
     endIndex = Math.min(endIndex, getData().size() - 1);
@@ -86,15 +83,15 @@ public class ChartData {
       StockData fpoint = getData().get(i);
       if (!fpoint.isValid()) continue;
       double Mvalue = 0f;
-      if (cType == "STOCK") {
+      if (cType.equals("STOCK")) {
         Mvalue = fpoint.getMinimum();
-      } else if (cType == "PERCENTAGE") {
+      } else if (cType.equals("PERCENTAGE")) {
         Mvalue = fpoint.getPercent();
-      } else if (cType == "MACD") {
+      } else if (cType.equals("MACD")) {
         AnalyticalResult fTApoint = getAnalyticalResults().get(i);
         Mvalue = Math.min(fTApoint.getMACD1(), fTApoint.getMACD2());
         Mvalue = Math.min(Mvalue, fTApoint.getMACDdiff());
-      } else if (cType == "OBV") {
+      } else if (cType.equals("OBV")) {
         AnalyticalResult fTApoint = getAnalyticalResults().get(i);
         Mvalue = fTApoint.getOBV();
       }

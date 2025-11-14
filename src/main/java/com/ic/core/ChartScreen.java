@@ -485,7 +485,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     }
 
     // if we are not process GOLDENPAERTITION and we have one need to draw
-    if (actionCommand.getActionType() != ActionType.GOLDENPARTITION || !actionCommand.isProcessing()) {
+    if (actionCommand.getActionType() != ActionType.GOLDEN_PARTITION || !actionCommand.isProcessing()) {
       if (actionCommand.getGoldenPartitionLine() != null) {
         int MaxY = 0, MinY = 0;
         int x1;
@@ -577,7 +577,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
       switch (actionCommand.getActionType()) {
         //// ----------------------Response to Zoom Action
         //// ------------------------------------------////////
-        case ZOOMIN:
+        case ZOOM_IN:
           if (actionCommand.isProcessing()) {
             Point opoint = new Point();
             Point epoint = new Point();
@@ -618,7 +618,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
           break;
         //// ----------------------Response to INSERTLINE Action
         //// ------------------------------------------////////
-        case INSERTLINE:
+        case INSERT_LINE:
           // System.out.println(actionCommand.isProcessing);
           if (actionCommand.isProcessing()) {
             g.drawLine(actionCommand.getCurrentMousePoint().x, actionCommand.getCurrentMousePoint().y,
@@ -627,7 +627,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
           break;
         //// ----------------------Response to Insert Parallel Line Action
         //// ------------------------------------------////////
-        case INSERTPARALLELLINE:
+        case INSERT_PARALLEL_LINE:
           // if (actionCommand.isProcessing == true &&
           // isWithinChartRegion(actionCommand.currentMousePoint.x,actionCommand.currentMousePoint.y))
           if (actionCommand.isProcessing()) {
@@ -650,7 +650,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
         //// ----------------------Response to Golden partition Action
         //// ------------------------------------------////////
-        case GOLDENPARTITION:
+        case GOLDEN_PARTITION:
           // if (actionCommand.isProcessing == true &&
           // isWithinChartRegion(actionCommand.currentMousePoint.x,actionCommand.currentMousePoint.y))
           if (actionCommand.isProcessing()) {
@@ -2090,7 +2090,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
   public void mouseDragged(MouseEvent e) {
     if (actionCommand.getActionType() == ActionType.WATCH
-      || actionCommand.getActionType() == ActionType.MOVECHART) {
+      || actionCommand.getActionType() == ActionType.MOVE_CHART) {
       if (!isWithinChartRegion(e.getX(), e.getY())) {
         actionCommand.setProcessing(false);
         repaint();
@@ -2098,15 +2098,15 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
       }
     }
     switch (actionCommand.getActionType()) {
-      case ZOOMIN:
-      case INSERTLINE:
-      case GOLDENPARTITION:
+      case ZOOM_IN:
+      case INSERT_LINE:
+      case GOLDEN_PARTITION:
         actionCommand.getCurrentMousePoint().x = e.getPoint().x;
         actionCommand.getCurrentMousePoint().y = e.getPoint().y;
         repaint();
         break;
 
-      case MOVECHART:
+      case MOVE_CHART:
         if (e.getPoint().x > actionCommand.getCurrentMousePoint().x + 1) {
           this.moveLeft();
           actionCommand.getCurrentMousePoint().x = e.getPoint().x;
@@ -2130,7 +2130,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     actionCommand.getCurrentMousePoint().x = e.getX();
     actionCommand.getCurrentMousePoint().y = e.getY();
     switch (actionCommand.getActionType()) {
-      case INSERTPARALLELLINE:
+      case INSERT_PARALLEL_LINE:
         if (actionCommand.getLineRecords().size() == 0) {
           actionCommand.setProcessing(false);
         } else {
@@ -2144,7 +2144,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         repaint();
         break;
 
-      case NONEACTION:
+      case NONE_ACTION:
       default:
         actionCommand.setProcessing(false);
         break;
@@ -2160,15 +2160,15 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     }
 
     switch (actionCommand.getActionType()) {
-      case ZOOMIN:
-      case INSERTLINE:
-      case GOLDENPARTITION:
+      case ZOOM_IN:
+      case INSERT_LINE:
+      case GOLDEN_PARTITION:
         actionCommand.setProcessing(true);
         actionCommand.getStartMousePoint().x = e.getPoint().x;
         actionCommand.getStartMousePoint().y = e.getPoint().y;
         break;
 
-      case MOVECHART:
+      case MOVE_CHART:
         Toolkit toolkit = Toolkit.getDefaultToolkit();
         Cursor c = toolkit.createCustomCursor(moveCursorImage, new Point(16, 16), "img");
         setCursor(c);
@@ -2186,7 +2186,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
   public void mouseReleased(MouseEvent e) {
     if (actionCommand.getActionType() == ActionType.WATCH
-      || actionCommand.getActionType() == ActionType.MOVECHART) {
+      || actionCommand.getActionType() == ActionType.MOVE_CHART) {
       if (!isWithinChartRegion(e.getX(), e.getY())) {
         actionCommand.setProcessing(false);
         return;
@@ -2200,7 +2200,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
       ///// Handle Zoom in action
       ///// ///////////////////////////////////////////////////////////////////
-      case ZOOMIN:
+      case ZOOM_IN:
         // actionCommand.mouseFlag = false;
         actionCommand.setProcessing(false);
         actionCommand.getReleaseMousePoint().x = e.getPoint().x;
@@ -2228,7 +2228,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
       ///// Handle insert line action
       ///// //////////////////////////////////////////////////////////////////
-      case INSERTLINE:
+      case INSERT_LINE:
         actionCommand.setProcessing(false);
         actionCommand.getReleaseMousePoint().x = e.getPoint().x;
         actionCommand.getReleaseMousePoint().y = e.getPoint().y;
@@ -2257,7 +2257,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         repaint();
         break;
 
-      case GOLDENPARTITION:
+      case GOLDEN_PARTITION:
         actionCommand.setProcessing(false);
         actionCommand.getReleaseMousePoint().x = e.getPoint().x;
         actionCommand.getReleaseMousePoint().y = e.getPoint().y;
@@ -2294,7 +2294,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
       // handle move chart action -- disable it when release the button
       // .//////////////////////////////
-      case MOVECHART:
+      case MOVE_CHART:
         actionCommand.setProcessing(false);
         break;
 
@@ -2308,10 +2308,10 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
   public void mouseExited(MouseEvent e) {
     switch (actionCommand.getActionType()) {
       // still perform the action.
-      case GOLDENPARTITION:
-      case INSERTPARALLELLINE:
-      case INSERTLINE:
-      case ZOOMIN:
+      case GOLDEN_PARTITION:
+      case INSERT_PARALLEL_LINE:
+      case INSERT_LINE:
+      case ZOOM_IN:
         break;
 
       // cancel the action.
@@ -2341,7 +2341,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
       return;
     }
     switch (actionCommand.getActionType()) {
-      case ZOOMIN:
+      case ZOOM_IN:
         String mparamString = e.paramString();
         // if right click mouse
         if (mparamString.indexOf("mods=4") > 0) {
@@ -2351,7 +2351,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
       // when mouse click insert a parallel line into
       // action.lineRecords.///////////////////////////////////
-      case INSERTPARALLELLINE:
+      case INSERT_PARALLEL_LINE:
         if (!isWithinChartRegion(e.getX(), e.getY())) {
           return;
         }
@@ -2393,7 +2393,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         }
         repaint();
         break;
-      case EDITTEXT:
+      case EDIT_TEXT:
         ChartItem cchart = this.getLeftChart();
         if (cchart != null) {
           float Min = (float) cchart.getLowerBound();

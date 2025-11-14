@@ -177,7 +177,7 @@ public class RequestCommand {
           getListener().OnReceivedError(currentCommand);
         }
         break;
-      case REALTIMEQUOTE:
+      case REALTIME_QUOTE:
         String price = getReadTimeQuote(currentCommand.getCode());
         getListener().OnReceivedChartData(currentCommand, price);
         break;

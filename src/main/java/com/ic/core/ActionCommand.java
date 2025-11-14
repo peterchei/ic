@@ -23,7 +23,7 @@ public class ActionCommand {
   private Vector<FRecord> textRecords = new Vector<FRecord>();
   private FLine goldenPartitionLine = null;
 
-  private ActionType actionType = ActionType.ZOOMIN;
+  private ActionType actionType = ActionType.ZOOM_IN;
 
   public Point getStartMousePoint() {
     return startMousePoint;

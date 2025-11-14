@@ -26,6 +26,21 @@
       <module name="ic_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
+  <component name="CopilotDiffPersistence">
+    <option name="pendingDiffs">
+      <map>
+        <entry key="$PROJECT_DIR$/README.md">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/README.md" />
+              <option name="originalContent" value="# IC Project&#10;&#10;This is a Java Swing-based charting application for Hong Kong Market data.&#10;&#10;## Prerequisites&#10;&#10;- Java 21 or higher&#10;- Gradle 8.13 or higher (wrapper included)&#10;&#10;## Setup&#10;&#10;1. Ensure JAVA_HOME is set to your Java 21+ installation.&#10;2. Get a free API key from [Alpha Vantage](https://www.alphavantage.co/support/#api-key).&#10;3. Create a `config.properties` file in the project root with your API key:&#10;   ```&#10;   api.key=YOUR_API_KEY_HERE&#10;   ```&#10;4. Run `./gradlew build` (on Windows: `gradlew.bat build`)&#10;&#10;## Running&#10;&#10;Run `./gradlew run` or execute the jar: `java -jar build/libs/IC-1.0-SNAPSHOT.jar`&#10;&#10;## Development&#10;&#10;- Import as Gradle project in your IDE.&#10;- Main class: `com.ic.app.GUI`&#10;&#10;## Gradle Tasks&#10;&#10;- `.\gradlew build` - Build the project&#10;- `.\gradlew run` - Run the application directly&#10;- `.\gradlew jar` - Build the JAR file&#10;- `.\gradlew clean` - Clean build directory&#10;&#10;## Data Source&#10;&#10;The application now uses Alpha Vantage API for stock data instead of the discontinued Yahoo Finance CSV API.&#10;" />
+              <option name="updatedContent" value="# IC Project&#10;&#10;This is a Java Swing-based charting application for Hong Kong Market data. It provides interactive stock charts with various technical analysis indicators.&#10;&#10;## Features&#10;&#10;- Real-time stock data visualization&#10;- Multiple chart types: Line, Bar, Candlestick&#10;- Technical indicators: SMA, EMA, WMA, RSI, MACD, Bollinger Bands, etc.&#10;- Interactive zooming and panning&#10;- Drawing tools: Lines, Golden Ratio partitions&#10;- Volume charts&#10;- Percentage change charts&#10;- Customizable chart options&#10;&#10;## Prerequisites&#10;&#10;- Java 21 or higher&#10;- Gradle 8.13 or higher (wrapper included)&#10;&#10;## Setup&#10;&#10;1. Ensure JAVA_HOME is set to your Java 21+ installation.&#10;2. Get a free API key from [Alpha Vantage](https://www.alphavantage.co/support/#api-key).&#10;3. Create a `config.properties` file in the project root with your API key:&#10;   ```&#10;   api.key=YOUR_API_KEY_HERE&#10;   ```&#10;4. Run `./gradlew build` (on Windows: `gradlew.bat build`)&#10;&#10;## Running&#10;&#10;Run `./gradlew run` or execute the jar: `java -jar build/libs/IC-1.0-SNAPSHOT.jar`&#10;&#10;Upon launch, enter the stock symbol in the text editor to load the corresponding stock prices.&#10;&#10;## Development&#10;&#10;- Import as Gradle project in your IDE.&#10;- Main class: `com.ic.app.GUI`&#10;- Build with `./gradlew build`&#10;- Run tests with `./gradlew test`&#10;&#10;## Gradle Tasks&#10;&#10;- `.\gradlew build` - Build the project&#10;- `.\gradlew run` - Run the application directly&#10;- `.\gradlew jar` - Build the JAR file&#10;- `.\gradlew clean` - Clean build directory&#10;- `.\gradlew test` - Run unit tests&#10;&#10;## Data Source&#10;&#10;The application uses Alpha Vantage API for stock data.&#10;&#10;## License&#10;&#10;This project is licensed under the MIT License - see the LICENSE file for details.&#10;&#10;## Contributing&#10;&#10;Contributions are welcome! Please fork the repository and submit a pull request." />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="CopyrightManager" default="" />
   <component name="DependencyValidationManager">
     <option name="SKIP_IMPORT_STATEMENTS" value="false" />

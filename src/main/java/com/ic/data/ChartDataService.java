@@ -237,7 +237,7 @@ public class ChartDataService extends Thread {
     }
 
     try {
-      if (command.getChartType() == CommandType.REALTIMEQUOTE) {
+      if (command.getChartType() == CommandType.REALTIME_QUOTE) {
         realtimeQuoteQueue.put(command);
         LOGGER.fine("Added real-time quote command to queue");
       } else {
