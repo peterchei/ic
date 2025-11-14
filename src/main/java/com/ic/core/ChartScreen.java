@@ -20,7 +20,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
   public static final int STARTED = 2;
   private static final Logger log = Logger.getLogger(ChartScreen.class.getName());
   private static final long serialVersionUID = -6984851432299222149L;
-  private final String[][] lbArray = {{"None", "\u7121"} // 0
+  private final String[][] lbArray = {{"None", "無"} // 0
     , {"Simple Moving Average", "\u7c21\u55ae\u79fb\u52d5\u5e73\u5747\u7dda"} // 1
     , {"Weighted Moving Average", "\u52a0\u6b0a\u79fb\u52d5\u5e73\u5747\u7dda"} // 2
     , {"Exponential Moving Average", "\u6307\u6578\u79fb\u52d5\u5e73\u5747\u7dda"} // 3
@@ -89,7 +89,6 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
       init();
     } catch (Exception e) {
       log.warning(e.getMessage());
-      e.printStackTrace();
     }
 
   }
@@ -101,7 +100,6 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
       init();
     } catch (Exception e) {
       log.warning(e.getMessage());
-      e.printStackTrace();
     }
   }
 
@@ -389,7 +387,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
       }
       super.setBounds(x, y, w, h);
     } catch (Exception ee) {
-      ee.printStackTrace();
+      log.warning(ee.getMessage());
     }
 
   }
