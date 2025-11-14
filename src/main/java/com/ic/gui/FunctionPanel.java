@@ -289,12 +289,8 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
         for (ChartScreen screen : screens) {
             if (screen != null && recordToDelete != null) {
 
-                if (screen.getActionCommand().getTextRecords().contains(recordToDelete)) {
-                    screen.getActionCommand().getTextRecords().remove(recordToDelete);
-                }
-                if (screen.getActionCommand().getLineRecords().contains(recordToDelete)) {
-                    screen.getActionCommand().getLineRecords().remove(recordToDelete);
-                }
+                screen.getActionCommand().getTextRecords().remove(recordToDelete);
+                screen.getActionCommand().getLineRecords().remove(recordToDelete);
                 screen.repaint();
             }
         }

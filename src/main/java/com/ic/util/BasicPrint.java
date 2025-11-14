@@ -11,7 +11,7 @@ import java.util.Date;
 
 public class BasicPrint extends Component//  implements FilenameFilter
 {
-    private PrintJob pjob = null;
+    private final PrintJob pjob = null;
     private ChartScreen chartScreen1;
     private ChartScreen chartScreen2;
     private ChartScreen chartScreen3;

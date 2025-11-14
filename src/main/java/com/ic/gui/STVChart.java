@@ -65,7 +65,7 @@ public class STVChart extends JPanel {
 
     public void resizeChartScreen(int x, int y, int w, int h) {
 
-        btFacebookShare.setBounds(w - (FConfig.BUTTON_SIZE) * 1, 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE);
+        btFacebookShare.setBounds(w - (FConfig.BUTTON_SIZE), 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE);
         getBtPrinter().setBounds(w - (FConfig.BUTTON_SIZE) * 2, 0, FConfig.BUTTON_SIZE, FConfig.BUTTON_SIZE);
         chartOptionBar1.setBounds(w - (FConfig.BUTTON_SIZE) * 4, 0, FConfig.BUTTON_SIZE * 2, FConfig.BUTTON_SIZE);
 
@@ -201,7 +201,7 @@ public class STVChart extends JPanel {
                 try {
                     // create printer object and connect to the printer
                     setBasicPrinter(new BasicPrint());
-                    if (getBasicPrinter().initPrinter(chartScreen1, chartScreen2, chartScreen3) == true) {
+                    if (getBasicPrinter().initPrinter(chartScreen1, chartScreen2, chartScreen3)) {
                         getBasicPrinter().startPrint();
                     }
                 } catch (Exception ex) {

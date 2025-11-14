@@ -90,10 +90,10 @@ public class Main3 {
     }
 
     public static String getBoundaryMessage(String boundary, String fileField, String fileName, String fileType) {
-        StringBuffer res = new StringBuffer("--").append(boundary).append("\r\n");
-        res.append("Content-Disposition: form-data; name=\"").append(fileField).append("\"; filename=\"")
-                .append(fileName).append("\"\r\n").append("Content-ActionType: ").append(fileType).append("\r\n\r\n");
+        String res = "--" + boundary + "\r\n" +
+                "Content-Disposition: form-data; name=\"" + fileField + "\"; filename=\"" +
+                fileName + "\"\r\n" + "Content-ActionType: " + fileType + "\r\n\r\n";
 
-        return res.toString();
+        return res;
     }
 }

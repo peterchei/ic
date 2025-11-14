@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 public class StockInfoStore {
 
     private static StockInfoStore stockInfo = null;
-    private HashMap<String, String> stockMap;
+    private final HashMap<String, String> stockMap;
 
     private StockInfoStore() {
 
@@ -26,7 +26,7 @@ public class StockInfoStore {
             line = reader.readLine();
 
             while (line != null) {
-                String data[] = line.split(",");
+                String[] data = line.split(",");
                 if (data.length >= 2) {
                     String code = data[0];
                     code = "00000" + code;

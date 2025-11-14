@@ -13,7 +13,7 @@ import java.util.logging.Logger;
  */
 public class RealTimeFeed implements Runnable {
 
-    private static RealTimeFeed rtf = new RealTimeFeed();
+    private static final RealTimeFeed rtf = new RealTimeFeed();
     private ArrayList<RequestCommand> realTimeQuotesCommand = null;
     private ArrayList<RequestCommand> currentCommands = null;
 

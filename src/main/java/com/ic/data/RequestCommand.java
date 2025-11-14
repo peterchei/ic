@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -37,7 +38,7 @@ public class RequestCommand {
     private int actionType = TYPE_DOWNLOAD_RIGHT_CHART; // the action of the RequestCommand
     private CommandType dType = DAILY;                  // the type of the chart
     private String sKey = "RMain1";                     // the key of the chart used to id the chart.
-    private String code;                                   // the code to download
+    private final String code;                                   // the code to download
     private int numberOfPoint = 100;                    // Number of point to download
     private int intradayInterval = 1;                   // for intraday only
     private boolean isFillEmptyPoints = false;
@@ -271,11 +272,11 @@ public class RequestCommand {
             int tempH, tempM;
             int i = rawPoints.size() - 1;
             while (i >= 0) {
-                StockData fpoint = (StockData) rawPoints.get(i);
+                StockData fpoint = rawPoints.get(i);
                 int timeStamp = fpoint.getHour() * 60 + fpoint.getMinute();
                 int currentTimeStamp = currentHour * 60 + currentMinute;
                 if (timeStamp < currentTimeStamp) {
-                    StockData pp = (StockData) rawPoints.get(i);
+                    StockData pp = rawPoints.get(i);
                     if (!fc.isFillEmptyPoints() || newChartData.getData().size() < NumberOfPoints) {
                         newChartData.getData().add(rawPoints.get(i));
                     }
@@ -327,8 +328,8 @@ public class RequestCommand {
             }
 
             for (int k = 1; k < newChartData.getData().size(); k++) {
-                StockData fpoint1 = (StockData) newChartData.getData().get(k - 1);
-                StockData fpoint2 = (StockData) newChartData.getData().get(k);
+                StockData fpoint1 = newChartData.getData().get(k - 1);
+                StockData fpoint2 = newChartData.getData().get(k);
                 if (!fpoint2.isValid() && fpoint1.isValid()) {
                     fpoint2.setClose(fpoint1.getClose());
                     fpoint2.setMaximum(fpoint2.getClose());
@@ -341,8 +342,8 @@ public class RequestCommand {
             }
 
             for (int k = newChartData.getData().size() - 2; k >= 0; k--) {
-                StockData fpoint1 = (StockData) newChartData.getData().get(k + 1);
-                StockData fpoint2 = (StockData) newChartData.getData().get(k);
+                StockData fpoint1 = newChartData.getData().get(k + 1);
+                StockData fpoint2 = newChartData.getData().get(k);
                 if (!fpoint2.isValid() && fpoint1.isValid()) {
                     fpoint2.setClose(fpoint1.getClose());
                     fpoint2.setMaximum(fpoint2.getClose());
@@ -357,7 +358,7 @@ public class RequestCommand {
             }
 
             for (int k = 0; k < newChartData.getData().size(); k++) {
-                StockData fpoint = (StockData) newChartData.getData().get(k);
+                StockData fpoint = newChartData.getData().get(k);
             }
 
         } catch (Exception exception) {
@@ -643,7 +644,7 @@ public class RequestCommand {
             URL url = new URL("http://www.aastocks.com/tc/LTP/RTQuote.aspx?&symbol=" + symbol);
             // System.out.println(url.getRef());
             InputStream in = url.openStream();
-            InputStreamReader ii = new InputStreamReader(in, "UTF8");
+            InputStreamReader ii = new InputStreamReader(in, StandardCharsets.UTF_8);
             //System.out.println(ii.getEncoding());
             BufferedReader reader = new BufferedReader(ii);
             String line = reader.readLine();
@@ -722,7 +723,7 @@ public class RequestCommand {
 
             JSONObject json = new JSONObject(response.toString());
             if (!json.has("Time Series (Daily)")) {
-                System.out.println("API Response: " + response.toString());
+                System.out.println("API Response: " + response);
                 System.out.println("Error: No data available or invalid API key");
                 return null;
             }

@@ -11,15 +11,15 @@ import java.awt.event.*;
 
 public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCallback {
 
-    final String lbDurationArray[][] = { // 3
+    final String[][] lbDurationArray = { // 3
             {"Daily", "\u65e5\u7dda"} // 0
             , {"Weekly", "\u661f\u671f\u7dda"} // 1
             , {"Monthly", "\u6708\u7dda"} // 2
             , {"Intraday", "\u5373\u5e02"} // 3
     };
-    final String lbMinuteArray[][] = {{"10", "10 Min", "10 Min"}, {"1", "1 Min", "1 Min"},};
+    final String[][] lbMinuteArray = {{"10", "10 Min", "10 Min"}, {"1", "1 Min", "1 Min"},};
 
-    final String lbTA1Array[][] = {{"None", "\u7121"} // 0
+    final String[][] lbTA1Array = {{"None", "\u7121"} // 0
             , {"Simple Moving Average", "\u7c21\u55ae\u79fb\u52d5\u5e73\u5747\u7dda"} // 1
             , {"Weighted Moving Average", "\u52a0\u6b0a\u79fb\u52d5\u5e73\u5747\u7dda"} // 2
             , {"Exponential Moving Average", "\u6307\u6578\u79fb\u52d5\u5e73\u5747\u7dda"} // 3
@@ -375,11 +375,8 @@ public class MenuBar extends JPanel implements KeyListener, ChartDataServiceCall
         // intervals
 
         String cc = tfCode.getText();
-        if (!FormatUtil.isNumber(cc)) {
-            this.tfCode.setText("");
-            return;
-        }
-        String Code = cc;
+
+        String Code = cc.trim();
         this.tfCode.setText("");
 
         setEnable(false);

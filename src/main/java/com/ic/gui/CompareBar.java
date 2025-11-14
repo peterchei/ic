@@ -17,7 +17,7 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
 
     private static final long serialVersionUID = -5350551016952212042L;
 
-    private final Color lineColor[] = {
+    private final Color[] lineColor = {
             FConfig.LINE_COLOR_0,
             FConfig.LINE_COLOR_1,
             FConfig.LINE_COLOR_2,
@@ -37,7 +37,7 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
     private ImageButton addButton = new ImageButton();
     private ImageButton removeButton = new ImageButton();
     private ImageButton closeButton = new ImageButton();
-    private List<ChartItem> pcCharts = new ArrayList<ChartItem>();
+    private final List<ChartItem> pcCharts = new ArrayList<ChartItem>();
 
 
     private ChartScreen chartScreen1 = null;
@@ -46,7 +46,7 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
     private FunctionPanel fButtonBar = null;
     private MenuBar fMenuBar = null;
 
-    private int language = FConfig.constEnglish;
+    private final int language = FConfig.constEnglish;
 
 
     public CompareBar() {
@@ -113,11 +113,8 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
             if (taChart != null) {
                 String chTa = (String) fMenuBar.chMA1.getSelectedItem();
 
-                if (chTa.equals(fMenuBar.lbTA1Array[0][0]) || chTa.equals(fMenuBar.lbTA1Array[0][1])) {
-                    taChart.setVisible(false);
-                } else {
-                    taChart.setVisible(true);              // set TA chart to be visible return to normal state.
-                }
+                // set TA chart to be visible return to normal state.
+                taChart.setVisible(!chTa.equals(fMenuBar.lbTA1Array[0][0]) && !chTa.equals(fMenuBar.lbTA1Array[0][1]));
             }
             this.setVisible(false);
             fMenuBar.setVisible(true);

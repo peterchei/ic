@@ -1,6 +1,7 @@
 package com.ic.util;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -79,13 +80,13 @@ public class FormatUtil {
         double absValue = Math.abs(value);
         if (absValue < 1000 && absValue >= 0) {
             iValue = Math.round((float) value);
-            return String.valueOf(iValue) + "K";
+            return iValue + "K";
         } else if (absValue < 1000000 && absValue >= 1000) {
             iValue = Math.round((float) (value / 1000f));
-            return String.valueOf(iValue) + "M";
+            return iValue + "M";
         } else if (absValue >= 1000000) {
             iValue = Math.round((float) (value / 1000000f));
-            return String.valueOf(iValue) + "B";
+            return iValue + "B";
         }
         return String.valueOf(value);
     }
@@ -97,17 +98,17 @@ public class FormatUtil {
             return String.valueOf(ivalue);
         } else if (value < 1000000 && value >= 1000) {
             ivalue = Math.round((float) (value / 1000f));
-            return String.valueOf(ivalue) + "K";
+            return ivalue + "K";
         } else if (value >= 1000000) {
             ivalue = Math.round((float) (value / 1000000f));
-            return String.valueOf(ivalue) + "M";
+            return ivalue + "M";
         }
         return "X";
     }
 
     public static String format3DecimalPlace(double value) {
         BigDecimal price = BigDecimal.valueOf(value);
-        price = price.setScale(3, BigDecimal.ROUND_HALF_UP);
+        price = price.setScale(3, RoundingMode.HALF_UP);
         return price.toString();
     }
 
@@ -132,7 +133,7 @@ public class FormatUtil {
 
     public static String format2DecimalPlace(double value) {
         BigDecimal price = BigDecimal.valueOf(value);
-        price = price.setScale(2, BigDecimal.ROUND_HALF_UP);
+        price = price.setScale(2, RoundingMode.HALF_UP);
         return price.toString().replace(".00", "");
     }
 

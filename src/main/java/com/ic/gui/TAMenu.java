@@ -12,11 +12,11 @@ import java.awt.event.ItemListener;
 
 public class TAMenu extends JPanel {
 
-    private static final ChartType TA_CHART_TYPE_LIST[] = {ChartType.RSI, ChartType.STC, ChartType.OBV,
+    private static final ChartType[] TA_CHART_TYPE_LIST = {ChartType.RSI, ChartType.STC, ChartType.OBV,
             ChartType.WILLIAM_R};
 
     private static final long serialVersionUID = -4589991589319998628L;
-    private JComboBox<ChartType> chChartType = new JComboBox<ChartType>(TA_CHART_TYPE_LIST);
+    private final JComboBox<ChartType> chChartType = new JComboBox<ChartType>(TA_CHART_TYPE_LIST);
     private ChartScreen chartScreen = null;
 
     public TAMenu() {

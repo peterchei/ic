@@ -52,7 +52,7 @@ public class ImageButton extends JButton implements MouseListener {
             super.paint(g);
         }
 
-        if (actionListener != null && action == true) {
+        if (actionListener != null && action) {
             action = false;
             actionListener.actionPerformed(new ActionEvent(this, 0, "ImageButton"));
         }

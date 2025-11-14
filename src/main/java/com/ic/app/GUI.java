@@ -21,11 +21,11 @@ public class GUI extends JFrame implements WindowListener {
 
     public static Logger log = Logger.getLogger(GUI.class.getName());
 
-    private BorderLayout borderLayout1 = new BorderLayout();
+    private final BorderLayout borderLayout1 = new BorderLayout();
     private STVChart chartPanel = null;
     private Container originalContainer = null;
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         Controller.getInstance().launch();
     }
 
@@ -80,11 +80,7 @@ public class GUI extends JFrame implements WindowListener {
             @Override
             public void componentResized(ComponentEvent e) {
                 super.componentResized(e);
-                if (GUI.this.getBounds().width <= 300 || GUI.this.getBounds().height <= 300) {
-                    getGlassPane().setVisible(true);
-                } else {
-                    getGlassPane().setVisible(false);
-                }
+                getGlassPane().setVisible(GUI.this.getBounds().width <= 300 || GUI.this.getBounds().height <= 300);
             }
         });
 

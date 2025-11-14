@@ -54,8 +54,7 @@ public class Point implements java.io.Serializable {
     }
 
     public boolean equals(Object obj) {
-        if (obj instanceof Point) {
-            Point pt = (Point) obj;
+        if (obj instanceof Point pt) {
             return (x == pt.x) && (y == pt.y);
         }
         return super.equals(obj);

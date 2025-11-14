@@ -83,7 +83,7 @@ public class SettingDialog extends JDialog implements WindowListener {
     private final JButton btCancel = new JButton();
     private final JButton btOK = new JButton();
 
-    private String TAChartName = new String("TA1Chart"); // the chart Name (id) that this setting window can control
+    private String TAChartName = "TA1Chart"; // the chart Name (id) that this setting window can control
     private ChartScreen chartScreen = null;
     private ChartScreen chartScreen2 = null;
 
@@ -192,7 +192,7 @@ public class SettingDialog extends JDialog implements WindowListener {
         jlabely1.setText("MA1");
         jlabel11y.setText("MA2");
         jlabelx2.setText("MA3");
-        lbWilliam.setText("William\'s %R");
+        lbWilliam.setText("William's %R");
         jlabelx4.setText("%R");
 
 
