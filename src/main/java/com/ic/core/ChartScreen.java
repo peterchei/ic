@@ -15,10 +15,10 @@ import java.util.logging.Logger;
 
 public class ChartScreen extends JPanel implements MouseListener, MouseMotionListener {
 
-    private static final Logger log = Logger.getLogger(ChartScreen.class.getName());
     public static final int NONE = 0;
     public static final int LOADING = 1;
     public static final int STARTED = 2;
+    private static final Logger log = Logger.getLogger(ChartScreen.class.getName());
     private static final long serialVersionUID = -6984851432299222149L;
     private final String[][] lbArray = {{"None", "\u7121"} // 0
             , {"Simple Moving Average", "\u7c21\u55ae\u79fb\u52d5\u5e73\u5747\u7dda"} // 1
@@ -47,19 +47,20 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     };
     // Define of Resolution and display information
     private final int minResolution = 3;
+    private final int language = FConfig.constEnglish;
+    // A list of add ChartUIObject needed to plot to this screen.....
+    private final Vector chartObjects = new Vector();
+    public Image[] loadingBarImage = new Image[4];
     // The screenImage for drawing....
     private Image screenImage = null; // the chart image
     private Image allscreenImage = null; // the full screen image
     private Image moveCursorImage = null;
-
-    public Image[] loadingBarImage = new Image[4];
     // Action Object to record and repersent all the action.
     private ActionCommand actionCommand = new ActionCommand();
     private int screenState = STARTED;
     private boolean isUpdatingBaseScreen = false; // check isUpdatingBaseScreen
     // or not.
     private Color gridColor;
-    private final int language = FConfig.constEnglish;
     /// The space of top, left, right and bottom in pixels.
     private int topSpace = 20;
     private int leftSpace = 40;
@@ -72,8 +73,6 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     private int startDisplayIndex = 0;
     private int endDisplayIndex = 0;
     private ScreenActionListener screenActionListener = null;
-    // A list of add ChartUIObject needed to plot to this screen.....
-    private final Vector chartObjects = new Vector();
     private boolean IsWatching = false;
     private int watchingPoint = 0;
 

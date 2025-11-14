@@ -2,7 +2,6 @@ package com.ic.gui;
 
 import com.ic.core.*;
 import com.ic.data.*;
-import com.ic.util.FormatUtil;
 
 import javax.swing.*;
 import javax.swing.border.Border;

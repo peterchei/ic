@@ -17,14 +17,6 @@ import java.awt.event.WindowListener;
 public class SettingDialog extends JDialog implements WindowListener {
 
 
-    private class SimpleTextField extends JTextField {
-        public SimpleTextField() {
-            setText("");
-            setColumns(5);
-            setBackground(Color.white);
-        }
-    }
-
     private final JLabel JLabelx1 = new JLabel();
     private final JLabel jlabelx6 = new JLabel();
     private final JLabel jlabely1 = new JLabel();
@@ -44,8 +36,6 @@ public class SettingDialog extends JDialog implements WindowListener {
     private final JLabel JLabel12 = new JLabel();
     private final JLabel JLabel14 = new JLabel();
     private final JLabel JLabel15 = new JLabel();
-
-
     private final SimpleTextField tfSTCD = new SimpleTextField();
     private final SimpleTextField tfSTCK = new SimpleTextField();
     private final SimpleTextField tfELMA = new SimpleTextField();
@@ -64,7 +54,6 @@ public class SettingDialog extends JDialog implements WindowListener {
     private final SimpleTextField tfEMA3 = new SimpleTextField();
     private final SimpleTextField tfBB = new SimpleTextField();
     private final SimpleTextField tfDevation = new SimpleTextField();
-
     private final JPanel jpRSI = new JPanel();
     private final JPanel jpSTC = new JPanel();
     private final JPanel jpMACD = new JPanel();
@@ -77,12 +66,9 @@ public class SettingDialog extends JDialog implements WindowListener {
     private final JPanel jpEMA = new JPanel();
     private final JPanel jpWMA = new JPanel();
     private final JPanel jPanel2 = new JPanel();
-
     private final BorderLayout borderLayout1 = new BorderLayout();
-
     private final JButton btCancel = new JButton();
     private final JButton btOK = new JButton();
-
     private String TAChartName = "TA1Chart"; // the chart Name (id) that this setting window can control
     private ChartScreen chartScreen = null;
     private ChartScreen chartScreen2 = null;
@@ -243,7 +229,6 @@ public class SettingDialog extends JDialog implements WindowListener {
 
     }
 
-
     private void btOK_actionPerformed(ActionEvent e) {
         this.btWilliamApply_actionPerformed(null);
         this.btMACDApply_actionPerformed(null);
@@ -257,7 +242,6 @@ public class SettingDialog extends JDialog implements WindowListener {
 
         this.dispose();
     }
-
 
     private void btRSIApply_actionPerformed(ActionEvent e) {
         if (!FormatUtil.isNumber(tfRSI.getText())) {
@@ -386,7 +370,6 @@ public class SettingDialog extends JDialog implements WindowListener {
         chartScreen.updateBaseScreen();
         chartScreen.repaint();
     }
-
 
     private void btCancel_actionPerformed(ActionEvent e) {
 
@@ -573,6 +556,14 @@ public class SettingDialog extends JDialog implements WindowListener {
 
     public void windowDeactivated(WindowEvent e) {
         //System.out.println("deactivated");
+    }
+
+    private class SimpleTextField extends JTextField {
+        public SimpleTextField() {
+            setText("");
+            setColumns(5);
+            setBackground(Color.white);
+        }
     }
 
 }

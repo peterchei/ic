@@ -109,12 +109,12 @@ public class ChartItem {
         showXaxis = ss;
     }
 
-    public void setVisible(boolean isV) {
-        visible = isV;
-    }
-
     public boolean isVisible() {
         return visible;
+    }
+
+    public void setVisible(boolean isV) {
+        visible = isV;
     }
 
     public AxisType getAxisBar() {

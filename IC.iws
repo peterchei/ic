@@ -5,7 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64376b75-5379-4c35-8e3b-851894dd430d" name="Default" comment="Upgrade">
-      <changelist_data name="Peter Chei" email="" automatic="false" />
+      <change beforePath="$PROJECT_DIR$/IC.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/IC.ipr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/app/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/app/GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/core/ChartItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/core/ChartItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/core/ChartScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/core/ChartScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/ChartDataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/ChartDataService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/RequestCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/RequestCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/gui/CompareBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/gui/CompareBar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/gui/FunctionPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/gui/FunctionPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/gui/MenuBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/gui/MenuBar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/gui/STVChart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/gui/STVChart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/gui/SettingDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/gui/SettingDialog.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -576,7 +586,15 @@
       <option name="project" value="LOCAL" />
       <updated>1763157014930</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Upgrade">
+      <option name="closed" value="true" />
+      <created>1763157167862</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1763157167862</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -625,6 +643,8 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="commit" />
     <MESSAGE value="Upgrade" />
     <option name="LAST_COMMIT_MESSAGE" value="Upgrade" />
@@ -635,22 +655,22 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/ic/data/RequestCommand.java</url>
-          <line>713</line>
+          <line>707</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/ic/data/RequestCommand.java</url>
-          <line>700</line>
+          <line>694</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/ic/gui/MenuBar.java</url>
-          <line>126</line>
+          <line>125</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/ic/gui/MenuBar.java</url>
-          <line>359</line>
+          <line>358</line>
           <option name="timeStamp" value="4" />
         </line-breakpoint>
       </breakpoints>

@@ -29,15 +29,14 @@ public class STVChart extends JPanel {
     public MenuBar fmenuBar = new MenuBar();// the menu bar
     public CompareBar fCompareBar = new CompareBar();
     public TAMenu fTAMenu1 = new TAMenu();
+    public ImageButton btFacebookShare = new ImageButton();
+    public ChartOptionBar chartOptionBar1 = new ChartOptionBar();
     // public ImageButton btOpenClose = new ImageButton();
     // public FloatingChartWindow chartWindow = new FloatingChartWindow(); //
     // the popup window.
     // the printer object to print the graphic.....
     private BasicPrint basicPrinter;
     private ImageButton btPrinter = new ImageButton();
-    public ImageButton btFacebookShare = new ImageButton();
-
-    public ChartOptionBar chartOptionBar1 = new ChartOptionBar();
     private int language = FConfig.constEnglish;
 
     public STVChart() {

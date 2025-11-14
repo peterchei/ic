@@ -28,9 +28,9 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
     private final ImageButton btClear = new ImageButton();
     private final ImageButton btCompare = new ImageButton();
     private final ImageButton btSetting = new ImageButton();
+    private final ArrayList<ChartScreen> screens = new ArrayList<ChartScreen>();
     private ImageButton btCapture = new ImageButton();
     private ImageButton btEdit = new ImageButton();
-
     private int numberOfButtons = 0;
     // the reference of bars
     private MenuBar fMenuBar = null;
@@ -39,7 +39,6 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
     private ChartScreen chartScreen1 = null;
     private ChartScreen chartScreen2 = null;
     private ChartScreen chartScreen3 = null;
-    private final ArrayList<ChartScreen> screens = new ArrayList<ChartScreen>();
     private SettingDialog settingWindow1 = null;
 
     public FunctionPanel() {

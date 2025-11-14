@@ -21,25 +21,39 @@ public class ChartDataService extends Thread {
 
     private static final Logger LOGGER = Logger.getLogger(ChartDataService.class.getName());
 
-    /** Singleton instance */
+    /**
+     * Singleton instance
+     */
     private static final ChartDataService INSTANCE = new ChartDataService();
 
-    /** Polling interval in milliseconds for checking real-time quote commands */
+    /**
+     * Polling interval in milliseconds for checking real-time quote commands
+     */
     private static final int POLLING_INTERVAL_MS = 100;
 
-    /** Maximum wait time for refresh cycle in milliseconds */
+    /**
+     * Maximum wait time for refresh cycle in milliseconds
+     */
     private static final int REFRESH_CYCLE_MS = 10000; // 100 * 100ms = 10 seconds
 
-    /** Queue for high-priority commands (non-real-time quotes) */
+    /**
+     * Queue for high-priority commands (non-real-time quotes)
+     */
     private final BlockingQueue<RequestCommand> priorityQueue = new LinkedBlockingQueue<>();
 
-    /** Queue for low-priority real-time quote commands */
+    /**
+     * Queue for low-priority real-time quote commands
+     */
     private final BlockingQueue<RequestCommand> realtimeQuoteQueue = new LinkedBlockingQueue<>();
 
-    /** Current service state */
+    /**
+     * Current service state
+     */
     private volatile ServiceState serviceState = ServiceState.STOPPED;
 
-    /** Flag to indicate the service should shut down */
+    /**
+     * Flag to indicate the service should shut down
+     */
     private volatile boolean shutdownRequested = false;
 
     /**
@@ -268,13 +282,19 @@ public class ChartDataService extends Thread {
      * Enumeration of possible service states.
      */
     protected enum ServiceState {
-        /** Service is stopped and not processing commands */
+        /**
+         * Service is stopped and not processing commands
+         */
         STOPPED,
 
-        /** Service is actively processing commands */
+        /**
+         * Service is actively processing commands
+         */
         STARTED,
 
-        /** Service is idle and waiting for commands */
+        /**
+         * Service is idle and waiting for commands
+         */
         IDLE
     }
 }

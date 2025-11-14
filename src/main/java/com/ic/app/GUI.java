@@ -22,19 +22,6 @@ public class GUI extends JFrame implements WindowListener {
     public static Logger log = Logger.getLogger(GUI.class.getName());
 
     private final BorderLayout borderLayout1 = new BorderLayout();
-    private STVChart chartPanel = null;
-    private Container originalContainer = null;
-
-    public static void main(String[] args) {
-        Controller.getInstance().launch();
-    }
-
-    public void launch() {
-        setVisible(true);
-        setBounds(0, 0, 1280, 960);
-        setResizable(true);
-        setTitle("IC - Hong Kong Market");
-    }
 
     public GUI() {
         try {
@@ -46,33 +33,36 @@ public class GUI extends JFrame implements WindowListener {
         }
     }
 
+    public static void main(String[] args) {
+        Controller.getInstance().launch();
+    }
+
+    public void launch() {
+        setVisible(true);
+        setBounds(0, 0, 1280, 960);
+        setResizable(true);
+        setTitle("IC - Stock Chart");
+    }
+
     public void setChartPanel(STVChart pnChart) {
-        chartPanel = pnChart;
-        originalContainer = pnChart.getParent();
+        JPanel glassPanel = new JPanel();
 
 
-        JPanel glassPanel = new JPanel() {
-            public void paint() {
-                System.out.println("XXX");
-            }
-        };
+        ImageIcon icon1 = loadImageIcon("/expand.png");
 
 
-        ImageIcon icon1 = new ImageIcon(getClass().getResource("/expand.png"));
+        JButton expandButton = new JButton();
+
+        expandButton.setIcon(icon1);
 
 
-        JButton jLabel1 = new javax.swing.JButton();
-
-        jLabel1.setIcon(icon1);
-
-
-        glassPanel.setLayout(new java.awt.GridLayout(1, 1));
-        jLabel1.setHorizontalAlignment(SwingConstants.CENTER);
-        jLabel1.setVerticalAlignment(SwingConstants.CENTER);
-        glassPanel.add(jLabel1);
+        glassPanel.setLayout(new GridLayout(1, 1));
+        expandButton.setHorizontalAlignment(SwingConstants.CENTER);
+        expandButton.setVerticalAlignment(SwingConstants.CENTER);
+        glassPanel.add(expandButton);
 
 
-        jLabel1.setEnabled(false);
+        expandButton.setEnabled(false);
 
         setGlassPane(glassPanel);
 
@@ -87,19 +77,37 @@ public class GUI extends JFrame implements WindowListener {
         this.getContentPane().add(pnChart, BorderLayout.CENTER);
     }
 
-    private void configure() throws Exception {
+    private ImageIcon loadImageIcon(String path) {
+        java.net.URL url = getClass().getResource(path);
+        if (url != null) {
+            return new ImageIcon(url);
+        } else {
+            log.warning("Image not found: " + path);
+            return null;
+        }
+    }
+
+    private Image loadImage(String path) {
+        ImageIcon icon = loadImageIcon(path);
+        return icon != null ? icon.getImage() : null;
+    }
+
+    private void configure() {
         this.getContentPane().setLayout(borderLayout1);
 
         STVChart coreChart = new STVChart();
 
-        coreChart.chartOptionBar1.btTA.setButtonImage(new ImageIcon(getClass().getResource("/chartTypeA.png")).getImage());
-        coreChart.chartOptionBar1.btVolume.setButtonImage(new ImageIcon(getClass().getResource("/chartTypeC.png")).getImage());
-        coreChart.btFacebookShare.setButtonImage(new ImageIcon(getClass().getResource("/facebook.png")).getImage());
-        coreChart.getBtPrinter().setButtonImage(new ImageIcon(getClass().getResource("/print.png")).getImage());
-        coreChart.fCompareBar.getCloseButton().setButtonImage(new ImageIcon(getClass().getResource("/exit.png")).getImage());
-        coreChart.fCompareBar.getAddButton().setButtonImage(new ImageIcon(getClass().getResource("/add.png")).getImage());
-        coreChart.fCompareBar.getRemoveButton().setButtonImage(new ImageIcon(getClass().getResource("/minus.png")).getImage());
-        setIconImage(new ImageIcon(getClass().getResource("/ICChart.png")).getImage());
+        coreChart.chartOptionBar1.btTA.setButtonImage(loadImage("/chartTypeA.png"));
+        coreChart.chartOptionBar1.btVolume.setButtonImage(loadImage("/chartTypeC.png"));
+        coreChart.btFacebookShare.setButtonImage(loadImage("/facebook.png"));
+        coreChart.getBtPrinter().setButtonImage(loadImage("/print.png"));
+        coreChart.fCompareBar.getCloseButton().setButtonImage(loadImage("/exit.png"));
+        coreChart.fCompareBar.getAddButton().setButtonImage(loadImage("/add.png"));
+        coreChart.fCompareBar.getRemoveButton().setButtonImage(loadImage("/minus.png"));
+        Image iconImage = loadImage("/ICChart.png");
+        if (iconImage != null) {
+            setIconImage(iconImage);
+        }
 
 
         // Init the chart screen
@@ -130,7 +138,7 @@ public class GUI extends JFrame implements WindowListener {
     }
 
     public void windowOpened(WindowEvent e) {
-        log.finest("closed");
+        log.finest("opened");
     }
 
     public void windowClosed(WindowEvent e) {

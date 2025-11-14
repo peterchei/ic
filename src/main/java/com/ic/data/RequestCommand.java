@@ -4,18 +4,12 @@ package com.ic.data;
 
 import com.ic.util.FormatUtil;
 import org.json.JSONObject;
-import org.json.JSONException;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.StringTokenizer;
@@ -35,10 +29,10 @@ public class RequestCommand {
     private final String weeklyInterface = "newchart/getWeekly.php";
     private final String monthlyInterface = "newchart/getMonthly.php";
     private final String intradayInterface = "newchart/getIntra.php";
+    private final String code;                                   // the code to download
     private int actionType = TYPE_DOWNLOAD_RIGHT_CHART; // the action of the RequestCommand
     private CommandType dType = DAILY;                  // the type of the chart
     private String sKey = "RMain1";                     // the key of the chart used to id the chart.
-    private final String code;                                   // the code to download
     private int numberOfPoint = 100;                    // Number of point to download
     private int intradayInterval = 1;                   // for intraday only
     private boolean isFillEmptyPoints = false;

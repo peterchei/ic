@@ -2,7 +2,6 @@ package com.ic.gui;
 
 import com.ic.core.*;
 import com.ic.data.*;
-import com.ic.util.FormatUtil;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,8 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CompareBar extends JPanel implements KeyListener, ChartDataServiceCallback {
 
@@ -29,24 +28,18 @@ public class CompareBar extends JPanel implements KeyListener, ChartDataServiceC
             FConfig.LINE_COLOR_8,
             FConfig.LINE_COLOR_9
     };
-
+    private final List<ChartItem> pcCharts = new ArrayList<ChartItem>();
+    private final int language = FConfig.constEnglish;
     JTextField tfCode = new JTextField();
-
     JComboBox<String> chACode = new JComboBox<String>();
-
     private ImageButton addButton = new ImageButton();
     private ImageButton removeButton = new ImageButton();
     private ImageButton closeButton = new ImageButton();
-    private final List<ChartItem> pcCharts = new ArrayList<ChartItem>();
-
-
     private ChartScreen chartScreen1 = null;
     private ChartScreen chartScreen2 = null;
     private ChartScreen chartScreen3 = null;
     private FunctionPanel fButtonBar = null;
     private MenuBar fMenuBar = null;
-
-    private final int language = FConfig.constEnglish;
 
 
     public CompareBar() {
