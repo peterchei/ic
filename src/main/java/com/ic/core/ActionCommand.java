@@ -13,88 +13,88 @@ import java.util.Vector;
  */
 public class ActionCommand {
 
-    private Point startMousePoint = new Point();    //the point where the mouse click enter
-    private Point currentMousePoint = new Point();  //the point of current mouse
-    private Point releaseMousePoint = new Point();  //the point where the mouse click release
-    private boolean isProcessing = false;
+  private Point startMousePoint = new Point();    //the point where the mouse click enter
+  private Point currentMousePoint = new Point();  //the point of current mouse
+  private Point releaseMousePoint = new Point();  //the point where the mouse click release
+  private boolean isProcessing = false;
 
-    private Vector zoomRecords = new Vector();
-    private Vector<FRecord> lineRecords = new Vector<FRecord>();
-    private Vector<FRecord> textRecords = new Vector<FRecord>();
-    private FLine goldenPartitionLine = null;
+  private Vector zoomRecords = new Vector();
+  private Vector<FRecord> lineRecords = new Vector<FRecord>();
+  private Vector<FRecord> textRecords = new Vector<FRecord>();
+  private FLine goldenPartitionLine = null;
 
-    private ActionType actionType = ActionType.ZOOMIN;
+  private ActionType actionType = ActionType.ZOOMIN;
 
-    public Point getStartMousePoint() {
-        return startMousePoint;
-    }
+  public Point getStartMousePoint() {
+    return startMousePoint;
+  }
 
-    public void setStartMousePoint(Point startMousePoint) {
-        this.startMousePoint = startMousePoint;
-    }
+  public void setStartMousePoint(Point startMousePoint) {
+    this.startMousePoint = startMousePoint;
+  }
 
-    public Point getCurrentMousePoint() {
-        return currentMousePoint;
-    }
+  public Point getCurrentMousePoint() {
+    return currentMousePoint;
+  }
 
-    public void setCurrentMousePoint(Point currentMousePoint) {
-        this.currentMousePoint = currentMousePoint;
-    }
+  public void setCurrentMousePoint(Point currentMousePoint) {
+    this.currentMousePoint = currentMousePoint;
+  }
 
-    public Point getReleaseMousePoint() {
-        return releaseMousePoint;
-    }
+  public Point getReleaseMousePoint() {
+    return releaseMousePoint;
+  }
 
-    public void setReleaseMousePoint(Point releaseMousePoint) {
-        this.releaseMousePoint = releaseMousePoint;
-    }
+  public void setReleaseMousePoint(Point releaseMousePoint) {
+    this.releaseMousePoint = releaseMousePoint;
+  }
 
-    public boolean isProcessing() {
-        return isProcessing;
-    }
+  public boolean isProcessing() {
+    return isProcessing;
+  }
 
-    public void setProcessing(boolean processing) {
-        isProcessing = processing;
-    }
+  public void setProcessing(boolean processing) {
+    isProcessing = processing;
+  }
 
-    public Vector getZoomRecords() {
-        return zoomRecords;
-    }
+  public Vector getZoomRecords() {
+    return zoomRecords;
+  }
 
-    public void setZoomRecords(Vector zoomRecords) {
-        this.zoomRecords = zoomRecords;
-    }
+  public void setZoomRecords(Vector zoomRecords) {
+    this.zoomRecords = zoomRecords;
+  }
 
-    public Vector getLineRecords() {
-        return lineRecords;
-    }
+  public Vector getLineRecords() {
+    return lineRecords;
+  }
 
-    public void setLineRecords(Vector lineRecords) {
-        this.lineRecords = lineRecords;
-    }
+  public void setLineRecords(Vector lineRecords) {
+    this.lineRecords = lineRecords;
+  }
 
-    public FLine getGoldenPartitionLine() {
-        return goldenPartitionLine;
-    }
+  public FLine getGoldenPartitionLine() {
+    return goldenPartitionLine;
+  }
 
-    public void setGoldenPartitionLine(FLine goldenPartitionLine) {
-        this.goldenPartitionLine = goldenPartitionLine;
-    }
+  public void setGoldenPartitionLine(FLine goldenPartitionLine) {
+    this.goldenPartitionLine = goldenPartitionLine;
+  }
 
-    public ActionType getActionType() {
-        return actionType;
-    }
+  public ActionType getActionType() {
+    return actionType;
+  }
 
-    public void setActionType(ActionType actionType) {
-        this.actionType = actionType;
-    }
+  public void setActionType(ActionType actionType) {
+    this.actionType = actionType;
+  }
 
 
-    public Vector getTextRecords() {
-        return textRecords;
-    }
+  public Vector getTextRecords() {
+    return textRecords;
+  }
 
-    public void setTextRecords(Vector textRecords) {
-        this.textRecords = textRecords;
-    }
+  public void setTextRecords(Vector textRecords) {
+    this.textRecords = textRecords;
+  }
 }

@@ -5,17 +5,45 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64376b75-5379-4c35-8e3b-851894dd430d" name="Default" comment="Upgrade">
-      <change beforePath="$PROJECT_DIR$/IC.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/IC.ipr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/app/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/app/Controller.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/app/GUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/app/GUI.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/app/Main3.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/app/Main3.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/core/ActionCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/core/ActionCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/core/ActionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/core/ActionType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/core/AxisType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/core/AxisType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/core/ChartItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/core/ChartItem.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/core/ChartScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/core/ChartScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/core/ChartType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/core/ChartType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/core/FConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/core/FConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/core/ScreenActionListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/core/ScreenActionListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/core/TAConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/core/TAConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/AnalyticalResult.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/AnalyticalResult.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/ChartData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/ChartData.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/ChartDataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/ChartDataService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/ChartDataServiceCallback.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/ChartDataServiceCallback.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/CommandType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/CommandType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/DataInterval.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/DataInterval.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/FBound.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/FBound.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/FLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/FLine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/FRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/FRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/FText.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/FText.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/Point.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/Point.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/RealTimeFeed.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/RealTimeFeed.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/RequestCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/RequestCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/StockData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/StockData.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/StockInfoStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/StockInfoStore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/gui/ChartOptionBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/gui/ChartOptionBar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/gui/CompareBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/gui/CompareBar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/gui/FunctionPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/gui/FunctionPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/gui/ImageButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/gui/ImageButton.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/gui/MenuBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/gui/MenuBar.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/gui/STVChart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/gui/STVChart.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/gui/SettingDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/gui/SettingDialog.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/gui/TAMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/gui/TAMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/gui/Testing.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/gui/Testing.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/util/BasicPrint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/util/BasicPrint.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/util/CopyImageToClipBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/util/CopyImageToClipBoard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/util/FormatUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/util/FormatUtil.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -272,7 +300,7 @@
     <option name="LAST_EDITED_TAB_NAME" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="DEPENDENCY_CHECKER_PROBLEMS_TAB" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -399,6 +427,7 @@
     "git-widget-placeholder": "master",
     "junie.onboarding.icon.badge.shown": "true",
     "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "preferences.sourceCode.Java",
     "to.speed.mode.migration.done": "true"
   }
 }]]></component>
@@ -594,7 +623,15 @@
       <option name="project" value="LOCAL" />
       <updated>1763157167862</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Upgrade">
+      <option name="closed" value="true" />
+      <created>1763157501681</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1763157501681</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="ToolWindowManager">

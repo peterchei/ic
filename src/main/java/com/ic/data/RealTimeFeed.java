@@ -13,45 +13,45 @@ import java.util.logging.Logger;
  */
 public class RealTimeFeed implements Runnable {
 
-    private static final RealTimeFeed rtf = new RealTimeFeed();
-    private ArrayList<RequestCommand> realTimeQuotesCommand = null;
-    private ArrayList<RequestCommand> currentCommands = null;
+  private static final RealTimeFeed rtf = new RealTimeFeed();
+  private ArrayList<RequestCommand> realTimeQuotesCommand = null;
+  private ArrayList<RequestCommand> currentCommands = null;
 
-    private RealTimeFeed() {
-        new Thread(this).start();
-    }
+  private RealTimeFeed() {
+    new Thread(this).start();
+  }
 
-    public static synchronized RealTimeFeed getInstance() {
-        return rtf;
-    }
+  public static synchronized RealTimeFeed getInstance() {
+    return rtf;
+  }
 
-    public void stopFeed() {
-        currentCommands = null;
-    }
+  public void stopFeed() {
+    currentCommands = null;
+  }
 
-    public void startFeed(ArrayList<RequestCommand> commands) {
-        realTimeQuotesCommand = commands;
-    }
+  public void startFeed(ArrayList<RequestCommand> commands) {
+    realTimeQuotesCommand = commands;
+  }
 
-    public void run() {
-        Logger.getLogger(RealTimeFeed.class.getName()).log(Level.SEVERE, "RealTimeFeed started.");
-        while (true) {
+  public void run() {
+    Logger.getLogger(RealTimeFeed.class.getName()).log(Level.SEVERE, "RealTimeFeed started.");
+    while (true) {
 
-            if (currentCommands != null && currentCommands.size() > 0) {
-                for (RequestCommand fc : currentCommands) {
-                    fc.execute();
-                }
-            }
-            if (realTimeQuotesCommand != null) {
-                currentCommands = realTimeQuotesCommand;
-                realTimeQuotesCommand = null;
-            } else {
-                try {
-                    Thread.sleep(6000);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(RealTimeFeed.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+      if (currentCommands != null && currentCommands.size() > 0) {
+        for (RequestCommand fc : currentCommands) {
+          fc.execute();
         }
+      }
+      if (realTimeQuotesCommand != null) {
+        currentCommands = realTimeQuotesCommand;
+        realTimeQuotesCommand = null;
+      } else {
+        try {
+          Thread.sleep(6000);
+        } catch (InterruptedException ex) {
+          Logger.getLogger(RealTimeFeed.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      }
     }
+  }
 }
