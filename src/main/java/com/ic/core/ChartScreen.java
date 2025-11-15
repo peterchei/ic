@@ -1204,13 +1204,10 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
     AnalyticalResult fTApoint1 = null;
     AnalyticalResult fTApoint2 = null;
-    int lastValidPoint = 0;
 
     g.setColor(FConfig.OBVColor);
     for (int i = startDisplayIndex + 1; i <= endDisplayIndex; i++) {
-      // System.out.println("pp: " + i);
       fTApoint1 = currentChart.getChartData().getAnalyticalResults().get(i);
-      // System.out.println("fpoint1: " + fpoint1.isValid());
       fTApoint2 = currentChart.getChartData().getAnalyticalResults().get(i - 1);
 
       if (fTApoint1 != null && fTApoint2 != null && fTApoint1.isValid() && fTApoint2.isValid()) {
@@ -1222,9 +1219,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
           // plot OBV
           int y1 = this.getScreenYPosition(fTApoint1.getOBV(), Max, Min);
           int y2 = getScreenYPosition(fTApoint2.getOBV(), Max, Min);
-          // System.out.println("x1:" + x1 + " y1: "+ y1 + " x2: " +
-          // x2 + " y2: " + y2);
-          g.drawLine(x1, y1, x2, y2);
+          drawLineWithWidth(g, x1, y1, x2, y2, 2f);
 
         } catch (Exception ee) {
           ee.printStackTrace();
@@ -1245,9 +1240,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     AnalyticalResult fTApoint1 = null;
     AnalyticalResult fTApoint2 = null;
     for (int i = startDisplayIndex + 1; i <= endDisplayIndex; i++) {
-      // System.out.println("pp: " + i);
       fTApoint1 = currentChart.getChartData().getAnalyticalResults().get(i);
-      // System.out.println("fpoint1: " + fpoint1.isValid());
       fTApoint2 = currentChart.getChartData().getAnalyticalResults().get(i - 1);
 
       if (fTApoint1 != null && fTApoint2 != null && fTApoint1.isValid() && fTApoint2.isValid()) {
@@ -1305,7 +1298,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
           int y1 = this.getScreenYPosition(fTApoint1.getR(), Max, Min);
           int y2 = getScreenYPosition(fTApoint2.getR(), Max, Min);
           g.setColor(FConfig.WilliamRColor);
-          g.drawLine(x1, y1, x2, y2);
+          drawLineWithWidth(g, x1, y1, x2, y2, 3f);
         } catch (Exception ee) {
           ee.printStackTrace();
         }
@@ -1342,13 +1335,13 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
           int y1 = this.getScreenYPosition(fTApoint1.getK(), Max, Min);
           int y2 = getScreenYPosition(fTApoint2.getK(), Max, Min);
           g.setColor(FConfig.STCColorK);
-          g.drawLine(x1, y1, x2, y2);
+          drawLineWithWidth(g, x1, y1, x2, y2, 3f);
 
           // plot %D
           y1 = this.getScreenYPosition(fTApoint1.getD(), Max, Min);
           y2 = getScreenYPosition(fTApoint2.getD(), Max, Min);
           g.setColor(FConfig.STCColorD);
-          g.drawLine(x1, y1, x2, y2);
+          drawLineWithWidth(g, x1, y1, x2, y2, 3f);
         } catch (Exception ee) {
           ee.printStackTrace();
         }
@@ -1455,7 +1448,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
           y1 = this.getScreenYPosition(fTApoint1.getMA1(), Max, Min);
           y2 = getScreenYPosition(fTApoint2.getMA1(), Max, Min);
           if (i > N1) {
-            g.drawLine(x1, y1, x2, y2);
+            drawLineWithWidth(g, x1, y1, x2, y2, 2f);
           }
 
           // plot MA2 line
@@ -1463,7 +1456,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
           y1 = this.getScreenYPosition(fTApoint1.getMA2(), Max, Min);
           y2 = getScreenYPosition(fTApoint2.getMA2(), Max, Min);
           if (i > N2) {
-            g.drawLine(x1, y1, x2, y2);
+            drawLineWithWidth(g, x1, y1, x2, y2, 2f);
           }
 
           // plot MA3 line
@@ -1471,7 +1464,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
           y1 = this.getScreenYPosition(fTApoint1.getMA3(), Max, Min);
           y2 = getScreenYPosition(fTApoint2.getMA3(), Max, Min);
           if (i > N3) {
-            g.drawLine(x1, y1, x2, y2);
+            drawLineWithWidth(g, x1, y1, x2, y2, 2f);
           }
 
         } catch (Exception ee) {
