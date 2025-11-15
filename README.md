@@ -2,6 +2,10 @@
 
 This is a Java Swing-based charting application for Hong Kong Market data.
 
+## Screenshot
+
+![Main Screen](src/main/resources/IC_MainScreen.png)
+
 ## Prerequisites
 
 - Java 21 or higher
@@ -26,6 +30,14 @@ Run `./gradlew run` or execute the jar: `java -jar build/libs/IC-1.0-SNAPSHOT.ja
 - Import as Gradle project in your IDE.
 - Main class: `com.ic.app.GUI`
 
+## Features
+
+- Real-time stock charting
+- Multiple chart types (Candlestick, Line, Bar, etc.)
+- Technical indicators (RSI, MACD, Bollinger Bands, etc.)
+- Zoom and pan functionality
+- Drawing tools (lines, golden ratio)
+
 ## Gradle Tasks
 
 - `.\gradlew build` - Build the project
@@ -36,4 +48,3 @@ Run `./gradlew run` or execute the jar: `java -jar build/libs/IC-1.0-SNAPSHOT.ja
 ## Data Source
 
 The application now uses Alpha Vantage API for stock data instead of the discontinued Yahoo Finance CSV API.
-
