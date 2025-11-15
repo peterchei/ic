@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64376b75-5379-4c35-8e3b-851894dd430d" name="Default" comment="STC Chart Label Overlap Fixed!&#10;Problem&#10;The STC (Stochastics) chart labels were overlapping because they were positioned at fixed pixel locations (leftSpace + 150 and leftSpace + 250), regardless of the actual text width.&#10;Solution&#10;I've updated the code to dynamically calculate label positions based on the actual width of each text element:&#10;Chart Name (&quot;Stochastics&quot;): Positioned at leftSpace + 10 (unchanged)&#10;%K Label: Positioned based on chart name width + 20px spacing&#10;%D Label: Positioned based on %K label width + 20px spacing&#10;What Changed&#10;Instead of hardcoded positions: leftSpace + 150 and leftSpace + 250&#10;Now uses: g.getFontMetrics().stringWidth() to measure actual text width&#10;Adds 20 pixels of spacing between each label&#10;This ensures labels never overlap, regardless of:&#10;Language (English vs Chinese)&#10;Font size&#10;Parameter values in parentheses">
-      <change beforePath="$PROJECT_DIR$/IC.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/IC.ipr" afterDir="false" />
+    <list default="true" id="64376b75-5379-4c35-8e3b-851894dd430d" name="Default" comment="ChartScreen UI Improvements Complete!&#10;I've successfully enhanced your stock chart application with professional visual improvements! Here's what was done:&#10;🎨 Major Improvements Applied&#10;Anti-Aliasing Enabled - Smooth rendering for all graphics (text, lines, shapes)&#10;Gradient Background - Subtle white-to-gray gradient for depth&#10;Refined Grid Lines - Subtle solid lines (0.5px) instead of harsh dotted lines&#10;Professional Axes - Dark gray color, proper thickness (1.5px for main axes)&#10;Better Typography - SansSerif fonts with proper weights (Bold for titles, Plain for indicators)&#10;Enhanced Chart Lines - Smooth anti-aliased lines with rounded caps&#10;Fixed STC Label Overlap - Dynamic positioning prevents text overlap&#10;📊 Color Refinements&#10;Grid: Softer gray (230, 230, 235)&#10;Axes: Professional dark gray (80, 80, 80)&#10;Labels: Readable dark gray (60, 60, 60)&#10;Background: Subtle gradient for depth">
+      <change afterPath="$PROJECT_DIR$/TA_LABEL_FIX_SUMMARY.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/TA_LABEL_OVERLAP_FIX.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IC.iws" beforeDir="false" afterPath="$PROJECT_DIR$/IC.iws" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/core/ChartScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/core/ChartScreen.java" afterDir="false" />
     </list>
@@ -672,7 +673,15 @@
       <option name="project" value="LOCAL" />
       <updated>1763225574800</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="ChartScreen UI Improvements Complete!&#10;I've successfully enhanced your stock chart application with professional visual improvements! Here's what was done:&#10;🎨 Major Improvements Applied&#10;Anti-Aliasing Enabled - Smooth rendering for all graphics (text, lines, shapes)&#10;Gradient Background - Subtle white-to-gray gradient for depth&#10;Refined Grid Lines - Subtle solid lines (0.5px) instead of harsh dotted lines&#10;Professional Axes - Dark gray color, proper thickness (1.5px for main axes)&#10;Better Typography - SansSerif fonts with proper weights (Bold for titles, Plain for indicators)&#10;Enhanced Chart Lines - Smooth anti-aliased lines with rounded caps&#10;Fixed STC Label Overlap - Dynamic positioning prevents text overlap&#10;📊 Color Refinements&#10;Grid: Softer gray (230, 230, 235)&#10;Axes: Professional dark gray (80, 80, 80)&#10;Labels: Readable dark gray (60, 60, 60)&#10;Background: Subtle gradient for depth">
+      <option name="closed" value="true" />
+      <created>1763226050652</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1763226050652</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -726,7 +735,8 @@
     <MESSAGE value="commit" />
     <MESSAGE value="Upgrade" />
     <MESSAGE value="STC Chart Label Overlap Fixed!&#10;Problem&#10;The STC (Stochastics) chart labels were overlapping because they were positioned at fixed pixel locations (leftSpace + 150 and leftSpace + 250), regardless of the actual text width.&#10;Solution&#10;I've updated the code to dynamically calculate label positions based on the actual width of each text element:&#10;Chart Name (&quot;Stochastics&quot;): Positioned at leftSpace + 10 (unchanged)&#10;%K Label: Positioned based on chart name width + 20px spacing&#10;%D Label: Positioned based on %K label width + 20px spacing&#10;What Changed&#10;Instead of hardcoded positions: leftSpace + 150 and leftSpace + 250&#10;Now uses: g.getFontMetrics().stringWidth() to measure actual text width&#10;Adds 20 pixels of spacing between each label&#10;This ensures labels never overlap, regardless of:&#10;Language (English vs Chinese)&#10;Font size&#10;Parameter values in parentheses" />
-    <option name="LAST_COMMIT_MESSAGE" value="STC Chart Label Overlap Fixed!&#10;Problem&#10;The STC (Stochastics) chart labels were overlapping because they were positioned at fixed pixel locations (leftSpace + 150 and leftSpace + 250), regardless of the actual text width.&#10;Solution&#10;I've updated the code to dynamically calculate label positions based on the actual width of each text element:&#10;Chart Name (&quot;Stochastics&quot;): Positioned at leftSpace + 10 (unchanged)&#10;%K Label: Positioned based on chart name width + 20px spacing&#10;%D Label: Positioned based on %K label width + 20px spacing&#10;What Changed&#10;Instead of hardcoded positions: leftSpace + 150 and leftSpace + 250&#10;Now uses: g.getFontMetrics().stringWidth() to measure actual text width&#10;Adds 20 pixels of spacing between each label&#10;This ensures labels never overlap, regardless of:&#10;Language (English vs Chinese)&#10;Font size&#10;Parameter values in parentheses" />
+    <MESSAGE value="ChartScreen UI Improvements Complete!&#10;I've successfully enhanced your stock chart application with professional visual improvements! Here's what was done:&#10; Major Improvements Applied&#10;Anti-Aliasing Enabled - Smooth rendering for all graphics (text, lines, shapes)&#10;Gradient Background - Subtle white-to-gray gradient for depth&#10;Refined Grid Lines - Subtle solid lines (0.5px) instead of harsh dotted lines&#10;Professional Axes - Dark gray color, proper thickness (1.5px for main axes)&#10;Better Typography - SansSerif fonts with proper weights (Bold for titles, Plain for indicators)&#10;Enhanced Chart Lines - Smooth anti-aliased lines with rounded caps&#10;Fixed STC Label Overlap - Dynamic positioning prevents text overlap&#10; Color Refinements&#10;Grid: Softer gray (230, 230, 235)&#10;Axes: Professional dark gray (80, 80, 80)&#10;Labels: Readable dark gray (60, 60, 60)&#10;Background: Subtle gradient for depth" />
+    <option name="LAST_COMMIT_MESSAGE" value="ChartScreen UI Improvements Complete!&#10;I've successfully enhanced your stock chart application with professional visual improvements! Here's what was done:&#10; Major Improvements Applied&#10;Anti-Aliasing Enabled - Smooth rendering for all graphics (text, lines, shapes)&#10;Gradient Background - Subtle white-to-gray gradient for depth&#10;Refined Grid Lines - Subtle solid lines (0.5px) instead of harsh dotted lines&#10;Professional Axes - Dark gray color, proper thickness (1.5px for main axes)&#10;Better Typography - SansSerif fonts with proper weights (Bold for titles, Plain for indicators)&#10;Enhanced Chart Lines - Smooth anti-aliased lines with rounded caps&#10;Fixed STC Label Overlap - Dynamic positioning prevents text overlap&#10; Color Refinements&#10;Grid: Softer gray (230, 230, 235)&#10;Axes: Professional dark gray (80, 80, 80)&#10;Labels: Readable dark gray (60, 60, 60)&#10;Background: Subtle gradient for depth" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="XDebuggerManager">
@@ -741,6 +751,11 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/ic/gui/MenuBar.java</url>
           <line>358</line>
           <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/ic/core/ChartScreen.java</url>
+          <line>1855</line>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

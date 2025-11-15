@@ -29,8 +29,9 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     , {"Close", "\u6536\u5e02"} // 6
     , {"High", "\u6700\u9ad8"} // 7
     , {"Low", "\u6700\u4f4e"} // 8
-    , {"Volume", "\u6210\u4ea4"}// \u91cf"} //9 , { "RSI",
-    // "ç›¸å°�å¼·å¼±æŒ‡æ•¸" } // 10 , { "STC", "STC" } // 11
+    , {"Volume", "\u6210\u4ea4"}// \u91cf"} //9
+    , {"RSI", "RSI" } //10
+    , {"STC", "STC" } // 11
     , {"EMA", "EMA"} // 12
     , {"WMA", "WMA"} // 13
     , {"SMA", "SMA"} // 14
@@ -1747,6 +1748,15 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
   // draw the chart name .
   private void drawLabel(ChartItem currentChart) {
 
+    // Skip drawing labels for overlay indicators (they share the main chart panel)
+    // These indicators don't get their own label since they overlay on the price chart
+    if (currentChart.getChartType() == ChartType.SIMPLE_MOVING_AVERAGE ||
+        currentChart.getChartType() == ChartType.WEIGHTED_MOVING_AVERAGE ||
+        currentChart.getChartType() == ChartType.EXPONENTIAL_MOVING_AVERAGE ||
+        currentChart.getChartType() == ChartType.BOLLINGERBAND) {
+      return; // Don't draw label for overlay indicators
+    }
+
     Graphics g = getAllScreenImage().getGraphics();
 
     // Use professional font with anti-aliasing
@@ -1785,6 +1795,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     g.setFont(new Font("SansSerif", Font.PLAIN, FConfig.SCREEN_FONT_SIZE - 2));
 
     if (currentChart.getChartType() == ChartType.VOLUME) {
+      g.setColor(new Color(60, 60, 60)); // Professional dark gray
       g.drawString(lbArray[9][language], leftSpace + 5, FConfig.SCREEN_FONT_SIZE + 10);
     } else if (currentChart.getChartType() == ChartType.MACD) {
       String tempString;
@@ -1842,15 +1853,17 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     } else if (currentChart.getChartType() == ChartType.RSI) {
       String tempString;
       tempString = lbArray[17][language] + " (" + currentChart.getChartData().getfTAconfig().RSIPeriod + ")";
-      g.setColor(FConfig.RSIColor);
+      g.setColor(new Color(60, 60, 60)); // Professional dark gray
       g.drawString(tempString, leftSpace + 5, FConfig.SCREEN_FONT_SIZE + 10);
 
     } else if (currentChart.getChartType() == ChartType.OBV) {
+      g.setColor(new Color(60, 60, 60)); // Professional dark gray
       g.drawString(currentChart.getChartData().getCode() + " " + lbArray[19][language],
         leftSpace + 10, FConfig.SCREEN_FONT_SIZE + 10);
     } else if (currentChart.getChartType() == ChartType.STC) {
-      // Draw chart name
+      // Draw chart name in dark gray
       String chartName = lbArray[18][language];
+      g.setColor(new Color(60, 60, 60)); // Professional dark gray
       g.drawString(chartName, leftSpace + 10, FConfig.SCREEN_FONT_SIZE + 10);
 
       // Calculate position for %K label based on chart name width
@@ -1873,7 +1886,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     } else if (currentChart.getChartType() == ChartType.WILLIAM_R) {
       String tempString = currentChart.getChartData().getCode() + " " + lbArray[21][language];
       tempString = tempString + "(" + currentChart.getChartData().getfTAconfig().WilliamPeriod + ")";
-      g.setColor(FConfig.WilliamRColor);
+      g.setColor(new Color(60, 60, 60)); // Professional dark gray
       g.drawString(tempString, leftSpace + 10, FConfig.SCREEN_FONT_SIZE + 10);
     }
   }
