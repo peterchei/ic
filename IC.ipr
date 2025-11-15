@@ -26,6 +26,36 @@
       <module name="ic_test" target="1.8" />
     </bytecodeTargetLevel>
   </component>
+  <component name="CopilotDiffPersistence">
+    <option name="pendingDiffs">
+      <map>
+        <entry key="$PROJECT_DIR$/docs/DATA_PROVIDERS.md">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/docs/DATA_PROVIDERS.md" />
+              <option name="updatedContent" value="# Data Providers&#10;&#10;(Original content moved from project root.)&#10;&#10;Refer to provider implementations under `src/main/java/com/ic/data/provider/`.&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/docs/TA_LABEL_FIX_SUMMARY.md">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/docs/TA_LABEL_FIX_SUMMARY.md" />
+              <option name="updatedContent" value="# TA Label Fix Summary&#10;&#10;(Moved from root into docs/.)&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/docs/TA_LABEL_OVERLAP_FIX.md">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/docs/TA_LABEL_OVERLAP_FIX.md" />
+              <option name="updatedContent" value="# TA Label Overlap Fix&#10;&#10;(Moved from root into docs/.)&#10;" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="CopyrightManager" default="" />
   <component name="DependencyValidationManager">
     <option name="SKIP_IMPORT_STATEMENTS" value="false" />
