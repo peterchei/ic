@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64376b75-5379-4c35-8e3b-851894dd430d" name="Default" comment="Upgrade">
-      <change beforePath="$PROJECT_DIR$/IC.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/IC.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IC.iws" beforeDir="false" afterPath="$PROJECT_DIR$/IC.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/gui/STVChart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/gui/STVChart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/util/BasicPrint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/util/BasicPrint.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/util/CopyImageToClipBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/util/CopyImageToClipBoard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/util/FormatUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/util/FormatUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/ChartDataServiceCallback.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/ChartDataServiceCallback.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/RequestCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/RequestCommand.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -240,12 +237,9 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;peterchei&quot;
-  }
-}</component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {}
+}]]></component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/peterchei/ic.git&quot;,
@@ -630,7 +624,15 @@
       <option name="project" value="LOCAL" />
       <updated>1763215434210</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Upgrade">
+      <option name="closed" value="true" />
+      <created>1763216269838</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1763216269838</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -691,12 +693,12 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/ic/data/RequestCommand.java</url>
-          <line>704</line>
+          <line>703</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/ic/data/RequestCommand.java</url>
-          <line>694</line>
+          <line>693</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">

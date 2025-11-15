@@ -24,7 +24,6 @@ public class RequestCommand {
   public static final int TYPE_DOWNLOAD_RIGHT_CHART = 0;
   public static final int TYPE_DOWNLOAD_LEFT_CHART = 2;
 
-
   private final String dailyInterface = "newchart/getDaily.php";
   private final String weeklyInterface = "newchart/getWeekly.php";
   private final String monthlyInterface = "newchart/getMonthly.php";
