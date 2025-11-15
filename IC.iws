@@ -5,7 +5,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64376b75-5379-4c35-8e3b-851894dd430d" name="Default" comment="Upgrade">
+      <change afterPath="$PROJECT_DIR$/BUILD_FIX_SOLUTION.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/DATA_PROVIDERS.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/FIX_BUILD_ERRORS.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/QUICK_START.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/REFACTORING_SUMMARY.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build.bat" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config.properties.template" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/provider/AlphaVantageProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/provider/DataSourceFactory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/provider/DataSourceProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/provider/YahooFinanceProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ic/test/DataProviderTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/verify-build.ps1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IC.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/IC.ipr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IC.iws" beforeDir="false" afterPath="$PROJECT_DIR$/IC.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/core/ChartScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/core/ChartScreen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/core/FConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/core/FConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/RequestCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/RequestCommand.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -638,7 +658,15 @@
       <option name="project" value="LOCAL" />
       <updated>1763220603520</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Upgrade">
+      <option name="closed" value="true" />
+      <created>1763221055700</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1763221055700</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -697,16 +725,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/ic/data/RequestCommand.java</url>
-          <line>703</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/ic/data/RequestCommand.java</url>
-          <line>693</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/ic/gui/MenuBar.java</url>
           <line>125</line>

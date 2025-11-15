@@ -11,7 +11,8 @@ nbproject/
 **/*java~
 /.metadata/
 **/*.bak
+
+# Configuration files (contains API keys)
 config.properties
-config.properties
-config.properties
+
 /gradle/wrapper/gradle-wrapper.jar

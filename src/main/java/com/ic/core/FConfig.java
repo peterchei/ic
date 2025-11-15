@@ -1,8 +1,16 @@
 package com.ic.core;
 
+import com.ic.data.provider.DataSourceFactory;
+
 import java.awt.*;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+import java.util.logging.Logger;
 
 public class FConfig {
+  private static final Logger log = Logger.getLogger(FConfig.class.getName());
+
   public static final int constEnglish = 0;
 
   public static final int SCREEN_FONT_SIZE = 25;
@@ -52,4 +60,63 @@ public class FConfig {
   public static final Color LINE_COLOR_7 = new Color(180, 202, 146);
   public static final Color LINE_COLOR_8 = new Color(169, 155, 189);
   public static final Color LINE_COLOR_9 = new Color(69, 114, 167);
+
+  // Data Provider Configuration
+  public static DataSourceFactory.ProviderType DATA_SOURCE_PROVIDER;
+  public static String API_KEY_ALPHAVANTAGE;
+  public static String API_KEY_TWELVEDATA;
+  public static String API_KEY_FINNHUB;
+
+  static {
+    loadConfiguration();
+  }
+
+  /**
+   * Load configuration from config.properties file
+   */
+  private static void loadConfiguration() {
+    Properties properties = new Properties();
+    try (FileInputStream fis = new FileInputStream("config.properties")) {
+      properties.load(fis);
+
+      // Load provider type
+      String providerName = properties.getProperty("data.source.provider", "YAHOO_FINANCE");
+      try {
+        DATA_SOURCE_PROVIDER = DataSourceFactory.ProviderType.valueOf(providerName.toUpperCase());
+        log.info("Data source provider set to: " + DATA_SOURCE_PROVIDER);
+      } catch (IllegalArgumentException e) {
+        log.warning("Invalid provider name in config: " + providerName + ", defaulting to YAHOO_FINANCE");
+        DATA_SOURCE_PROVIDER = DataSourceFactory.ProviderType.YAHOO_FINANCE;
+      }
+
+      // Load API keys
+      API_KEY_ALPHAVANTAGE = properties.getProperty("api.key.alphavantage", "");
+      API_KEY_TWELVEDATA = properties.getProperty("api.key.twelvedata", "");
+      API_KEY_FINNHUB = properties.getProperty("api.key.finnhub", "");
+
+    } catch (IOException e) {
+      log.warning("Failed to load config.properties: " + e.getMessage() + ", using defaults");
+      DATA_SOURCE_PROVIDER = DataSourceFactory.ProviderType.YAHOO_FINANCE;
+      API_KEY_ALPHAVANTAGE = "";
+      API_KEY_TWELVEDATA = "";
+      API_KEY_FINNHUB = "";
+    }
+  }
+
+  /**
+   * Get the API key for the current provider
+   */
+  public static String getApiKeyForCurrentProvider() {
+    switch (DATA_SOURCE_PROVIDER) {
+      case ALPHA_VANTAGE:
+        return API_KEY_ALPHAVANTAGE;
+      case TWELVE_DATA:
+        return API_KEY_TWELVEDATA;
+      case FINNHUB:
+        return API_KEY_FINNHUB;
+      default:
+        return "";
+    }
+  }
 }
+

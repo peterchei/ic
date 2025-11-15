@@ -2,6 +2,9 @@ package com.ic.data;
 
 // the command for the engine to download data,
 
+import com.ic.core.FConfig;
+import com.ic.data.provider.DataSourceFactory;
+import com.ic.data.provider.DataSourceProvider;
 import com.ic.util.FormatUtil;
 import org.json.JSONObject;
 
@@ -19,6 +22,8 @@ import java.util.logging.Logger;
 import static com.ic.data.CommandType.DAILY;
 
 public class RequestCommand {
+
+  private static final Logger log = Logger.getLogger(RequestCommand.class.getName());
 
   // Static attributes.
   public static final int TYPE_DOWNLOAD_RIGHT_CHART = 0;
@@ -668,7 +673,6 @@ public class RequestCommand {
   }
 
   public ChartData getYahooDailyData() {
-
     String code = getCode();
     int NumberOfPoints = getNumberOfPoint();
 
@@ -681,74 +685,173 @@ public class RequestCommand {
       strCode = code;
     }
 
-    // Replace YOUR_API_KEY with your actual Alpha Vantage API key (free at https://www.alphavantage.co/support/#api-key)
-    Properties props = new Properties();
-    String apiKey = "YOUR_API_KEY"; // default
-    try (FileInputStream fis = new FileInputStream("config.properties")) {
-      props.load(fis);
-      apiKey = props.getProperty("api.key", apiKey);
-    } catch (Exception e) {
-      System.out.println("Warning: Could not load API key from config.properties, using default");
-    }
+    log.info("Fetching daily data for symbol: " + strCode + " using provider: " + FConfig.DATA_SOURCE_PROVIDER);
 
-    String srcAddr = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=" + strCode + "&apikey=" + apiKey + "&outputsize=compact";
-
-    System.out.println(srcAddr);
     ChartData newChartData = new ChartData();
-
     newChartData.setCode(code);
-
     newChartData.dataInterval = DataInterval.DAILY;
 
     try {
-      URL url = new URL(srcAddr);
-      URLConnection connection = url.openConnection();
-      BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-      StringBuilder response = new StringBuilder();
-      String line;
-      while ((line = reader.readLine()) != null) {
-        response.append(line);
-      }
-      reader.close();
+      // Create provider based on configuration
+      String apiKey = FConfig.getApiKeyForCurrentProvider();
+      DataSourceProvider provider = DataSourceFactory.createProvider(FConfig.DATA_SOURCE_PROVIDER, apiKey);
 
-      JSONObject json = new JSONObject(response.toString());
-      if (!json.has("Time Series (Daily)")) {
-        System.out.println("API Response: " + response);
-        System.out.println("Error: No data available or invalid API key");
+      log.info("Using data provider: " + provider.getProviderName());
+
+      // Fetch data from provider
+      JSONObject json = provider.fetchDailyData(strCode, "1d");
+
+      // Parse response based on provider type
+      if (FConfig.DATA_SOURCE_PROVIDER == DataSourceFactory.ProviderType.ALPHA_VANTAGE) {
+        return parseAlphaVantageResponse(json, newChartData, NumberOfPoints);
+      } else if (FConfig.DATA_SOURCE_PROVIDER == DataSourceFactory.ProviderType.YAHOO_FINANCE) {
+        return parseYahooFinanceResponse(json, newChartData, NumberOfPoints);
+      } else {
+        log.warning("Unsupported provider, trying Alpha Vantage format");
+        return parseAlphaVantageResponse(json, newChartData, NumberOfPoints);
+      }
+
+    } catch (Exception exception) {
+      log.log(Level.SEVERE, "Error fetching data for " + strCode, exception);
+      return null;
+    }
+  }
+
+  /**
+   * Parse Alpha Vantage JSON response
+   */
+  private ChartData parseAlphaVantageResponse(JSONObject json, ChartData newChartData, int NumberOfPoints) {
+    if (!json.has("Time Series (Daily)")) {
+      log.warning("No data available in Alpha Vantage response");
+      if (json.has("Information")) {
+        log.warning("API Message: " + json.getString("Information"));
+      }
+      return null;
+    }
+
+    JSONObject timeSeries = json.getJSONObject("Time Series (Daily)");
+    newChartData.setName(StockInfoStore.getInstance().getStockName(newChartData.getCode()));
+
+    List<String> dates = new ArrayList<>(timeSeries.keySet());
+    dates.sort((a, b) -> b.compareTo(a)); // Sort descending (newest first)
+
+    List<StockData> rawPoints = new ArrayList<>();
+    int m_NumberOfPoints = 0;
+
+    for (String date : dates) {
+      if (m_NumberOfPoints >= NumberOfPoints) break;
+      m_NumberOfPoints++;
+
+      JSONObject dayData = timeSeries.getJSONObject(date);
+      StockData fpoint = new StockData();
+
+      float open = Float.parseFloat(dayData.getString("1. open"));
+      float high = Float.parseFloat(dayData.getString("2. high"));
+      float low = Float.parseFloat(dayData.getString("3. low"));
+      float close = Float.parseFloat(dayData.getString("4. close"));
+      int volume = Integer.parseInt(dayData.getString("5. volume"));
+
+      fpoint.setOpen(open);
+      fpoint.setClose(close);
+      fpoint.setMaximum(high);
+      fpoint.setMinimum(low);
+      fpoint.setVolume(volume);
+      fpoint.setDate(FormatUtil.getDateFrom(date));
+
+      if (fpoint.getOpen() == 0) {
+        fpoint.setOpen(fpoint.getClose());
+        fpoint.setMaximum(fpoint.getClose());
+        fpoint.setMinimum(fpoint.getClose());
+      }
+
+      rawPoints.add(fpoint);
+      getListener().OnProgress(0);
+    }
+
+    // Add empty points if needed
+    if (isFillEmptyPoints() && NumberOfPoints > m_NumberOfPoints) {
+      for (int j = 0; j < NumberOfPoints - m_NumberOfPoints; j++) {
+        StockData fpoint = new StockData();
+        fpoint.setValid(false);
+        rawPoints.add(fpoint);
+      }
+    }
+
+    // Reverse to oldest first
+    for (int i = rawPoints.size() - 1; i >= 0; i--) {
+      newChartData.getData().add(rawPoints.get(i));
+    }
+
+    return newChartData;
+  }
+
+  /**
+   * Parse Yahoo Finance JSON response
+   */
+  private ChartData parseYahooFinanceResponse(JSONObject json, ChartData newChartData, int NumberOfPoints) {
+    try {
+      if (!json.has("chart")) {
+        log.warning("No chart data in Yahoo Finance response");
         return null;
       }
-      JSONObject timeSeries = json.getJSONObject("Time Series (Daily)");
 
-      newChartData.setName(StockInfoStore.getInstance().getStockName(String.valueOf(code)));
+      JSONObject chart = json.getJSONObject("chart");
+      if (!chart.has("result") || chart.getJSONArray("result").length() == 0) {
+        log.warning("No result in Yahoo Finance response");
+        return null;
+      }
 
-      List<String> dates = new ArrayList<>(timeSeries.keySet());
-      // Sort dates descending (newest first) to match original behavior
-      dates.sort((a, b) -> b.compareTo(a));
+      JSONObject result = chart.getJSONArray("result").getJSONObject(0);
+
+      // Get metadata
+      if (result.has("meta")) {
+        JSONObject meta = result.getJSONObject("meta");
+        if (meta.has("symbol")) {
+          String symbol = meta.getString("symbol");
+          newChartData.setName(StockInfoStore.getInstance().getStockName(symbol));
+        }
+      }
+
+      // Get timestamps and indicators
+      org.json.JSONArray timestamps = result.getJSONArray("timestamp");
+      JSONObject indicators = result.getJSONObject("indicators");
+      org.json.JSONArray quotes = indicators.getJSONArray("quote");
+
+      if (quotes.length() == 0) {
+        log.warning("No quote data in Yahoo Finance response");
+        return null;
+      }
+
+      JSONObject quote = quotes.getJSONObject(0);
+      org.json.JSONArray opens = quote.getJSONArray("open");
+      org.json.JSONArray highs = quote.getJSONArray("high");
+      org.json.JSONArray lows = quote.getJSONArray("low");
+      org.json.JSONArray closes = quote.getJSONArray("close");
+      org.json.JSONArray volumes = quote.getJSONArray("volume");
 
       List<StockData> rawPoints = new ArrayList<>();
-      int m_NumberOfPoints = 0;
+      int m_NumberOfPoints = Math.min(timestamps.length(), NumberOfPoints);
 
-      for (String date : dates) {
-        if (m_NumberOfPoints >= NumberOfPoints) break; // Limit to requested points
-        m_NumberOfPoints++;
-
-        JSONObject dayData = timeSeries.getJSONObject(date);
+      for (int i = timestamps.length() - m_NumberOfPoints; i < timestamps.length(); i++) {
         StockData fpoint = new StockData();
 
-        float open = Float.parseFloat(dayData.getString("1. open"));
-        float high = Float.parseFloat(dayData.getString("2. high"));
-        float low = Float.parseFloat(dayData.getString("3. low"));
-        float close = Float.parseFloat(dayData.getString("4. close"));
-        int volume = Integer.parseInt(dayData.getString("5. volume"));
+        long timestamp = timestamps.getLong(i);
+        java.util.Date date = new java.util.Date(timestamp * 1000L);
+
+        float open = opens.isNull(i) ? 0 : (float) opens.getDouble(i);
+        float high = highs.isNull(i) ? 0 : (float) highs.getDouble(i);
+        float low = lows.isNull(i) ? 0 : (float) lows.getDouble(i);
+        float close = closes.isNull(i) ? 0 : (float) closes.getDouble(i);
+        int volume = volumes.isNull(i) ? 0 : volumes.getInt(i);
 
         fpoint.setOpen(open);
         fpoint.setClose(close);
         fpoint.setMaximum(high);
         fpoint.setMinimum(low);
         fpoint.setVolume(volume);
-        fpoint.setDate(FormatUtil.getDateFrom(date));
+        fpoint.setDate(date);
 
-        if (fpoint.getOpen() == 0) {
+        if (fpoint.getOpen() == 0 && fpoint.getClose() != 0) {
           fpoint.setOpen(fpoint.getClose());
           fpoint.setMaximum(fpoint.getClose());
           fpoint.setMinimum(fpoint.getClose());
@@ -759,26 +862,22 @@ public class RequestCommand {
       }
 
       // Add empty points if needed
-      if (isFillEmptyPoints()) {
-        if (NumberOfPoints > m_NumberOfPoints) {
-          for (int j = 0; j < NumberOfPoints - m_NumberOfPoints; j++) {
-            StockData fpoint = new StockData();
-            fpoint.setValid(false);
-            rawPoints.add(fpoint);
-          }
+      if (isFillEmptyPoints() && NumberOfPoints > m_NumberOfPoints) {
+        for (int j = 0; j < NumberOfPoints - m_NumberOfPoints; j++) {
+          StockData fpoint = new StockData();
+          fpoint.setValid(false);
+          rawPoints.add(0, fpoint); // Add at beginning for Yahoo
         }
       }
 
-      // Reverse to oldest first
-      for (int i = rawPoints.size() - 1; i >= 0; i--) {
-        newChartData.getData().add(rawPoints.get(i));
-      }
+      // Add to chart data (already in chronological order from oldest to newest)
+      newChartData.getData().addAll(rawPoints);
 
-    } catch (Exception exception) {
-      exception.printStackTrace();
+      return newChartData;
+
+    } catch (Exception e) {
+      log.log(Level.SEVERE, "Error parsing Yahoo Finance response", e);
       return null;
     }
-
-    return newChartData;
   }
 }

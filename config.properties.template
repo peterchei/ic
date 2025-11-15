@@ -1,0 +1,43 @@
+# IC Stock Chart Application - Configuration Template
+# Copy this file to 'config.properties' and update with your settings
+
+# =============================================================================
+# Data Source Provider Configuration
+# =============================================================================
+# Options: YAHOO_FINANCE, ALPHA_VANTAGE, TWELVE_DATA, FINNHUB
+# Default: YAHOO_FINANCE (recommended - no API key required)
+data.source.provider=YAHOO_FINANCE
+
+# =============================================================================
+# API Keys (only needed for specific providers)
+# =============================================================================
+
+# Alpha Vantage API Key
+# Get your free key at: https://www.alphavantage.co/support/#api-key
+# Free tier: 25 requests per day
+api.key.alphavantage=YOUR_ALPHA_VANTAGE_KEY_HERE
+
+# Twelve Data API Key
+# Get your free key at: https://twelvedata.com/
+# Free tier: 800 requests per day
+api.key.twelvedata=YOUR_TWELVE_DATA_KEY_HERE
+
+# Finnhub API Key
+# Get your free key at: https://finnhub.io/
+# Free tier: 60 requests per minute
+api.key.finnhub=YOUR_FINNHUB_KEY_HERE
+
+# =============================================================================
+# Legacy Configuration (for backward compatibility)
+# =============================================================================
+api.key=YOUR_API_KEY_HERE
+
+# =============================================================================
+# Notes
+# =============================================================================
+# - Yahoo Finance is the default and recommended provider (no API key needed)
+# - Alpha Vantage free tier has a limit of 25 requests per day
+# - You only need to set the API key for the provider you're using
+# - Never commit this file with real API keys to version control
+# - See DATA_PROVIDERS.md for detailed provider information
+

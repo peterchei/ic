@@ -1509,7 +1509,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
           // g.fillRect(x1, y1, Math.abs(x2-x1),y0-y1);
           lastValidPoint = i;
         } catch (Exception ee) {
-          ee.printStackTrace();
+          log.warning("Error plotting line chart at index " + i + ": " + ee.getMessage());
         }
       }
 
@@ -2043,7 +2043,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         }
       }
     } catch (Exception e) {
-      e.printStackTrace();
+      log.warning("Error plotting chart axes: " + e.getMessage());
     }
     return true;
   }
