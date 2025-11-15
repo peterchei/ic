@@ -228,7 +228,7 @@ public class STVChart extends JPanel {
 
     try {
       if (Desktop.isDesktopSupported()) {
-        new CopyImageToClipBoard(chartScreen1.getAllscreenImage());
+        new CopyImageToClipBoard(chartScreen1.getAllScreenImage());
         Desktop.getDesktop().browse(new URI("http://www.facebook.com"));
       }
     } catch (Exception ex) {

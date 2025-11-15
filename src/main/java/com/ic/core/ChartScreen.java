@@ -291,8 +291,8 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
       if (getScreenImage() == null) {
         setScreenImage(createImage(getSize().width, getSize().height));
       }
-      if (getAllscreenImage() == null) {
-        setAllscreenImage(createImage(getSize().width, getSize().height));
+      if (getAllScreenImage() == null) {
+        setAllScreenImage(createImage(getSize().width, getSize().height));
       }
 
       if (loadingBarImage[0] == null) {
@@ -328,7 +328,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
   public boolean removeChart(int code) {
     for (int i = 0; i < chartObjects.size(); i++) {
       ChartItem chartobj = (ChartItem) chartObjects.elementAt(i);
-      if (chartobj.getChartData().getCode() == code) {
+      if (chartobj.getChartData().getCode().equals(code)) {
         chartObjects.removeElementAt(i);
       }
     }
@@ -380,10 +380,10 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         newImage1 = createImage(w, h);
         setScreenImage(newImage1);
       }
-      if (getAllscreenImage() != null
-        && (getAllscreenImage().getHeight(this) != h || getAllscreenImage().getWidth(this) != w)) {
+      if (getAllScreenImage() != null
+        && (getAllScreenImage().getHeight(this) != h || getAllScreenImage().getWidth(this) != w)) {
         newImage2 = createImage(w, h);
-        setAllscreenImage(newImage2);
+        setAllScreenImage(newImage2);
       }
       super.setBounds(x, y, w, h);
     } catch (Exception ee) {
@@ -441,11 +441,11 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     if (getScreenImage() == null) {
       setScreenImage(createImage(getSize().width, this.getSize().height));
     }
-    if (getAllscreenImage() == null) {
-      setAllscreenImage(createImage(getSize().width, this.getSize().height));
+    if (getAllScreenImage() == null) {
+      setAllScreenImage(createImage(getSize().width, this.getSize().height));
     }
 
-    Graphics g = getAllscreenImage().getGraphics();
+    Graphics g = getAllScreenImage().getGraphics();
     g.drawImage(getScreenImage(), 0, 0, getSize().width, getSize().height, this);
     g.setColor(Color.black);
     for (int i = 0; i < actionCommand.getLineRecords().size(); i++) {
@@ -769,11 +769,11 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     if (this.screenState == LOADING) {
       plotLoading();
     }
-    gg.drawImage(getAllscreenImage(), 0, 0, getSize().width, getSize().height, this);
+    gg.drawImage(getAllScreenImage(), 0, 0, getSize().width, getSize().height, this);
   }
 
   private void plotWatchTable(ChartItem cchart) {
-    Graphics g = getAllscreenImage().getGraphics();
+    Graphics g = getAllScreenImage().getGraphics();
     if (cchart != null) {
       int index = getPointIndexFromScreen(actionCommand.getCurrentMousePoint().x);
       StockData fpoint = cchart.getChartData().getData().get(index);
@@ -856,7 +856,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     // draw the value where the mouse pointed.
     double pointedValue = this.getYValueFromScreen(actionCommand.getCurrentMousePoint().y,
       leftChart.getUpperBound(), leftChart.getLowerBound());
-    Graphics g = getAllscreenImage().getGraphics();
+    Graphics g = getAllScreenImage().getGraphics();
     g.setColor(FConfig.WatchLabelColor);
     g.setFont(new Font("default", 1, 14));
     if (leftChart.getChartType() == ChartType.VOLUME) {
@@ -887,7 +887,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     if (this.getScreenImage() == null) {
       return;
     }
-    if (this.getAllscreenImage() == null) {
+    if (this.getAllScreenImage() == null) {
       return;
     }
     isUpdatingBaseScreen = true;
@@ -926,7 +926,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
    * plot a loading messaage box in the font of the screen...
    */
   private void plotLoading() {
-    Graphics gg = getAllscreenImage().getGraphics();
+    Graphics gg = getAllScreenImage().getGraphics();
     int currentIndex = (loadingBarIndex++) % 4;
     gg.drawImage(loadingBarImage[currentIndex],
       getSize().width / 2 - loadingBarImage[currentIndex].getWidth(null) / 2, getSize().height / 2, this);
@@ -1541,7 +1541,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
       gridColor = new Color(200, 200, 200);
     }
     int dpoint = endDisplayIndex;// this.getMaxNumberOfDisplayPointInCurrentResolution()+startDisplayIndex;
-    Graphics g = getAllscreenImage().getGraphics();
+    Graphics g = getAllScreenImage().getGraphics();
     Graphics gg = getScreenImage().getGraphics();
 
     // when the resolution is small, set the font size to some.
@@ -1678,7 +1678,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         && actionCommand.getCurrentMousePoint().y < (y1 + hh)) {
         return;
       }
-      Graphics gg = getAllscreenImage().getGraphics();
+      Graphics gg = getAllScreenImage().getGraphics();
       gg.setColor(new Color(240, 240, 240));
       // gg.fill3DRect(x1, y1, ww, hh, true);
       int lcount = 1;
@@ -1688,7 +1688,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
           gg.setFont(FConfig.DEFAULT_FONT);
           String Name = cchart.getChartData().getName();
-          String slabel = FormatUtil.getCode(cchart.getChartData().getCode()) + " " + Name;
+          String slabel = cchart.getChartData().getCode() + " " + Name;
           int labelWith = gg.getFontMetrics().charsWidth(slabel.toCharArray(), 0, slabel.length());
           // gg.setColor(new Color(128, 128, 128));
           // gg.fill3DRect(getSize().width - rightSpace - labelWith +
@@ -1707,7 +1707,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
   // draw the chart name .
   private void drawLabel(ChartItem currentChart) {
 
-    Graphics g = getAllscreenImage().getGraphics();
+    Graphics g = getAllScreenImage().getGraphics();
     g.setFont(new Font("default", 0, FConfig.SCREEN_FONT_SIZE));
     if (currentChart.getAxisBar() == AxisType.LEFTAXIS) {
       if (currentChart.getChartType() == ChartType.BAR || currentChart.getChartType() == ChartType.LINE
@@ -1715,7 +1715,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         g.setColor(currentChart.getFirstColor());
         String cname = "";
         cname = currentChart.getChartData().getName();
-        g.drawString(FormatUtil.getCode(currentChart.getChartData().getCode()) + " " + cname, leftSpace + 5,
+        g.drawString(currentChart.getChartData().getCode() + " " + cname, leftSpace + 5,
           FConfig.SCREEN_FONT_SIZE + 10);
       }
 
@@ -1795,7 +1795,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
       g.drawString(tempString, leftSpace + 5, FConfig.SCREEN_FONT_SIZE + 10);
 
     } else if (currentChart.getChartType() == ChartType.OBV) {
-      g.drawString(FormatUtil.getCode(currentChart.getChartData().getCode()) + " " + lbArray[19][language],
+      g.drawString(currentChart.getChartData().getCode() + " " + lbArray[19][language],
         leftSpace + 10, FConfig.SCREEN_FONT_SIZE + 10);
     } else if (currentChart.getChartType() == ChartType.STC) {
       g.drawString(lbArray[18][language], leftSpace + 10, FConfig.SCREEN_FONT_SIZE + 10);
@@ -1807,7 +1807,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
       g.setColor(FConfig.STCColorD);
       g.drawString(tempString, leftSpace + 250, FConfig.SCREEN_FONT_SIZE + 10);
     } else if (currentChart.getChartType() == ChartType.WILLIAM_R) {
-      String tempString = FormatUtil.getCode(currentChart.getChartData().getCode()) + " " + lbArray[21][language];
+      String tempString = currentChart.getChartData().getCode() + " " + lbArray[21][language];
       tempString = tempString + "(" + currentChart.getChartData().getfTAconfig().WilliamPeriod + ")";
       g.setColor(FConfig.WilliamRColor);
       g.drawString(tempString, leftSpace + 10, FConfig.SCREEN_FONT_SIZE + 10);
@@ -1874,7 +1874,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
       ddiv = 20f;
     }
 
-    Graphics g = getAllscreenImage().getGraphics();
+    Graphics g = getAllScreenImage().getGraphics();
     Graphics gg = getScreenImage().getGraphics();
 
     // if the screen is small, reduce the font size
@@ -2019,7 +2019,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
   // plot the Axis
   private boolean plotAxis(boolean isLabel) {
-    Graphics screenG = getAllscreenImage().getGraphics();
+    Graphics screenG = getAllScreenImage().getGraphics();
 
     screenG.setColor(Color.black);
     screenG.drawLine(leftSpace, topSpace, leftSpace, topSpace + getYAxisWidth());
@@ -2498,11 +2498,11 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     this.screenImage = screenImage;
   }
 
-  public Image getAllscreenImage() {
+  public Image getAllScreenImage() {
     return allscreenImage;
   }
 
-  public void setAllscreenImage(Image allscreenImage) {
+  public void setAllScreenImage(Image allscreenImage) {
     this.allscreenImage = allscreenImage;
   }
 }

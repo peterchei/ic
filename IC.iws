@@ -5,18 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="64376b75-5379-4c35-8e3b-851894dd430d" name="Default" comment="Upgrade">
-      <change beforePath="$PROJECT_DIR$/IC.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/IC.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IC.iws" beforeDir="false" afterPath="$PROJECT_DIR$/IC.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/core/ActionCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/core/ActionCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/core/ActionType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/core/ActionType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/core/ChartScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/core/ChartScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/ChartData.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/ChartData.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/ChartDataService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/ChartDataService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/ChartDataServiceCallback.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/ChartDataServiceCallback.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/CommandType.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/CommandType.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/RequestCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/RequestCommand.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/StockInfoStore.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/StockInfoStore.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/gui/FunctionPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/gui/FunctionPanel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/gui/STVChart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/gui/STVChart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/util/BasicPrint.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/util/BasicPrint.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -388,22 +384,22 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.GUI.executor": "Run",
-    "Gradle.ic [assemble].executor": "Run",
-    "Gradle.ic [build].executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultAutoModeForALLUsers.v1": "true",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "master",
-    "junie.onboarding.icon.badge.shown": "true",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "preferences.sourceCode.Java",
-    "to.speed.mode.migration.done": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.GUI.executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ic [assemble].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.ic [build].executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultAutoModeForALLUsers.v1&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.Java&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Gradle.ic [build]">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
@@ -547,8 +543,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.ic [build]" />
-        <item itemvalue="Application.GUI" />
         <item itemvalue="Gradle.ic [assemble]" />
+        <item itemvalue="Application.GUI" />
         <item itemvalue="Groovy.build" />
         <item itemvalue="Application.Main3" />
       </list>
@@ -681,7 +677,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/main/java/com/ic/data/RequestCommand.java</url>
-          <line>707</line>
+          <line>704</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
@@ -860,6 +856,14 @@
         </state>
       </provider>
     </entry>
+  </component>
+  <component name="github-copilot-workspace">
+    <instructionFileLocations>
+      <option value=".github/instructions" />
+    </instructionFileLocations>
+    <promptFileLocations>
+      <option value=".github/prompts" />
+    </promptFileLocations>
   </component>
   <component name="masterDetails">
     <states>

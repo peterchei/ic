@@ -336,7 +336,7 @@ public class FunctionPanel extends JPanel implements ScreenActionListener {
         for (ChartScreen screen : screens) {
 
           if (screen.isVisible()) {
-            g.drawImage(screen.getAllscreenImage(), 0, y, screen.getWidth(), screen.getHeight(), null);
+            g.drawImage(screen.getAllScreenImage(), 0, y, screen.getWidth(), screen.getHeight(), null);
             y = y + screen.getHeight();
           }
         }

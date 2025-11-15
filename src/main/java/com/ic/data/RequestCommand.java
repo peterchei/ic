@@ -56,7 +56,7 @@ public class RequestCommand {
   }
 
   // for test only......
-  public static ChartData getTestData(int Code, int NumberOfPoints) {
+  public static ChartData getTestData(String Code, int NumberOfPoints) {
 
     ChartData newChartData = new ChartData();
 
@@ -186,7 +186,7 @@ public class RequestCommand {
 
   public ChartData getIntradayData(RequestCommand fc) {
 
-    int Code = Integer.parseInt(fc.getCode());
+    String Code = fc.getCode();
     int NumberOfPoints = fc.getNumberOfPoint();
     int intervals = fc.getIntadayInterval();
     if (intervals != 1 && intervals != 10) {
@@ -365,7 +365,7 @@ public class RequestCommand {
 
   public ChartData getDailyData(RequestCommand fc) {
 
-    int Code = Integer.parseInt(fc.getCode());
+    String Code = fc.getCode();
     int NumberOfPoints = fc.getNumberOfPoint();
 
     String srcAddr = "??/" + dailyInterface + "?code=" + Code + "&data_num=" + NumberOfPoints;// + "&startdate=2000-11-1";
@@ -454,7 +454,7 @@ public class RequestCommand {
   }
 
   public ChartData getWeeklyData(RequestCommand fc) {
-    int Code = Integer.parseInt(fc.getCode());
+    String Code = fc.getCode();
     int NumberOfPoints = fc.getNumberOfPoint();
 
     String srcAddr = "http://??/" + weeklyInterface + "?code=" + Code + "&data_num=" + NumberOfPoints;// + "&startdate=2000-11-1";
@@ -542,7 +542,7 @@ public class RequestCommand {
 
   public ChartData getMonthlyData(RequestCommand fc) {
 
-    int Code = Integer.parseInt(fc.getCode());
+    String Code = fc.getCode();
     int NumberOfPoints = fc.getNumberOfPoint();
 
     String srcAddr = "http://??/" + monthlyInterface + "?code=" + Code + "&data_num=" + NumberOfPoints;// + "&startdate=2000-11-1";
@@ -696,12 +696,9 @@ public class RequestCommand {
 
     System.out.println(srcAddr);
     ChartData newChartData = new ChartData();
-    try {
-      int parsedCode = Integer.parseInt(code);
-      newChartData.setCode(parsedCode);
-    } catch (NumberFormatException e) {
-      newChartData.setCode(0); // default
-    }
+
+    newChartData.setCode(code);
+
     newChartData.dataInterval = DataInterval.DAILY;
 
     try {

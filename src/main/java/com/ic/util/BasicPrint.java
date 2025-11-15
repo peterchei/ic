@@ -52,15 +52,15 @@ public class BasicPrint extends Component//  implements FilenameFilter
     int realHeight3 = 0;
     if (chartScreen1.isVisible()) {
       realHeight1 = chartScreen1.getSize().height;
-      g.drawImage(chartScreen1.getAllscreenImage(), 0, 0, this);
+      g.drawImage(chartScreen1.getAllScreenImage(), 0, 0, this);
     }
     if (chartScreen2.isVisible()) {
       realHeight2 = chartScreen2.getSize().height;
-      g.drawImage(chartScreen2.getAllscreenImage(), 0, realHeight1 + 1, this);
+      g.drawImage(chartScreen2.getAllScreenImage(), 0, realHeight1 + 1, this);
     }
     if (chartScreen3.isVisible()) {
       realHeight3 = chartScreen3.getSize().height;
-      g.drawImage(chartScreen3.getAllscreenImage(), 0, realHeight1 + realHeight2 + 1, this);
+      g.drawImage(chartScreen3.getAllScreenImage(), 0, realHeight1 + realHeight2 + 1, this);
     }
 
   }

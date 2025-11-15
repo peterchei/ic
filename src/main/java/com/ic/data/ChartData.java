@@ -14,7 +14,7 @@ public class ChartData {
   private TAConfig fTAconfig = new TAConfig();
 
   //Stock information
-  private int Code = 0;
+  private String Code = "";
   private String name = "Unknown";
   private int intradayInterval = 1;//5, or 10;
 
@@ -548,11 +548,11 @@ public class ChartData {
     this.fTAconfig = fTAconfig;
   }
 
-  public int getCode() {
+  public String getCode() {
     return Code;
   }
 
-  public void setCode(int code) {
+  public void setCode(String code) {
     Code = code;
   }
 
