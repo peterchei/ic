@@ -1802,14 +1802,27 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
       g.drawString(currentChart.getChartData().getCode() + " " + lbArray[19][language],
         leftSpace + 10, FConfig.SCREEN_FONT_SIZE + 10);
     } else if (currentChart.getChartType() == ChartType.STC) {
-      g.drawString(lbArray[18][language], leftSpace + 10, FConfig.SCREEN_FONT_SIZE + 10);
-      String tempString;
-      tempString = "%K(" + currentChart.getChartData().getfTAconfig().STCKPeriod + ")";
+      // Draw chart name
+      String chartName = lbArray[18][language];
+      g.drawString(chartName, leftSpace + 10, FConfig.SCREEN_FONT_SIZE + 10);
+
+      // Calculate position for %K label based on chart name width
+      int chartNameWidth = g.getFontMetrics().stringWidth(chartName);
+      int xPosK = leftSpace + 10 + chartNameWidth + 20; // 20px spacing
+
+      // Draw %K label
+      String tempStringK = "%K(" + currentChart.getChartData().getfTAconfig().STCKPeriod + ")";
       g.setColor(FConfig.STCColorK);
-      g.drawString(tempString, leftSpace + 150, FConfig.SCREEN_FONT_SIZE + 10);
-      tempString = "%D(" + currentChart.getChartData().getfTAconfig().STCDPeriod + ")";
+      g.drawString(tempStringK, xPosK, FConfig.SCREEN_FONT_SIZE + 10);
+
+      // Calculate position for %D label based on %K label width
+      int kLabelWidth = g.getFontMetrics().stringWidth(tempStringK);
+      int xPosD = xPosK + kLabelWidth + 20; // 20px spacing
+
+      // Draw %D label
+      String tempStringD = "%D(" + currentChart.getChartData().getfTAconfig().STCDPeriod + ")";
       g.setColor(FConfig.STCColorD);
-      g.drawString(tempString, leftSpace + 250, FConfig.SCREEN_FONT_SIZE + 10);
+      g.drawString(tempStringD, xPosD, FConfig.SCREEN_FONT_SIZE + 10);
     } else if (currentChart.getChartType() == ChartType.WILLIAM_R) {
       String tempString = currentChart.getChartData().getCode() + " " + lbArray[21][language];
       tempString = tempString + "(" + currentChart.getChartData().getfTAconfig().WilliamPeriod + ")";
