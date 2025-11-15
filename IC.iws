@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64376b75-5379-4c35-8e3b-851894dd430d" name="Default" comment="Upgrade">
+    <list default="true" id="64376b75-5379-4c35-8e3b-851894dd430d" name="Default" comment="STC Chart Label Overlap Fixed!&#10;Problem&#10;The STC (Stochastics) chart labels were overlapping because they were positioned at fixed pixel locations (leftSpace + 150 and leftSpace + 250), regardless of the actual text width.&#10;Solution&#10;I've updated the code to dynamically calculate label positions based on the actual width of each text element:&#10;Chart Name (&quot;Stochastics&quot;): Positioned at leftSpace + 10 (unchanged)&#10;%K Label: Positioned based on chart name width + 20px spacing&#10;%D Label: Positioned based on %K label width + 20px spacing&#10;What Changed&#10;Instead of hardcoded positions: leftSpace + 150 and leftSpace + 250&#10;Now uses: g.getFontMetrics().stringWidth() to measure actual text width&#10;Adds 20 pixels of spacing between each label&#10;This ensures labels never overlap, regardless of:&#10;Language (English vs Chinese)&#10;Font size&#10;Parameter values in parentheses">
+      <change beforePath="$PROJECT_DIR$/IC.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/IC.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/IC.iws" beforeDir="false" afterPath="$PROJECT_DIR$/IC.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/core/ChartScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/core/ChartScreen.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -654,7 +656,23 @@
       <option name="project" value="LOCAL" />
       <updated>1763222535784</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="STC Chart Label Overlap Fixed!&#10;Problem&#10;The STC (Stochastics) chart labels were overlapping because they were positioned at fixed pixel locations (leftSpace + 150 and leftSpace + 250), regardless of the actual text width.&#10;Solution&#10;I've updated the code to dynamically calculate label positions based on the actual width of each text element:&#10;Chart Name (&quot;Stochastics&quot;): Positioned at leftSpace + 10 (unchanged)&#10;%K Label: Positioned based on chart name width + 20px spacing&#10;%D Label: Positioned based on %K label width + 20px spacing&#10;What Changed&#10;Instead of hardcoded positions: leftSpace + 150 and leftSpace + 250&#10;Now uses: g.getFontMetrics().stringWidth() to measure actual text width&#10;Adds 20 pixels of spacing between each label&#10;This ensures labels never overlap, regardless of:&#10;Language (English vs Chinese)&#10;Font size&#10;Parameter values in parentheses">
+      <option name="closed" value="true" />
+      <created>1763225560614</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1763225560614</updated>
+    </task>
+    <task id="LOCAL-00015" summary="STC Chart Label Overlap Fixed!&#10;Problem&#10;The STC (Stochastics) chart labels were overlapping because they were positioned at fixed pixel locations (leftSpace + 150 and leftSpace + 250), regardless of the actual text width.&#10;Solution&#10;I've updated the code to dynamically calculate label positions based on the actual width of each text element:&#10;Chart Name (&quot;Stochastics&quot;): Positioned at leftSpace + 10 (unchanged)&#10;%K Label: Positioned based on chart name width + 20px spacing&#10;%D Label: Positioned based on %K label width + 20px spacing&#10;What Changed&#10;Instead of hardcoded positions: leftSpace + 150 and leftSpace + 250&#10;Now uses: g.getFontMetrics().stringWidth() to measure actual text width&#10;Adds 20 pixels of spacing between each label&#10;This ensures labels never overlap, regardless of:&#10;Language (English vs Chinese)&#10;Font size&#10;Parameter values in parentheses">
+      <option name="closed" value="true" />
+      <created>1763225574800</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1763225574800</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -707,7 +725,8 @@
     <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="commit" />
     <MESSAGE value="Upgrade" />
-    <option name="LAST_COMMIT_MESSAGE" value="Upgrade" />
+    <MESSAGE value="STC Chart Label Overlap Fixed!&#10;Problem&#10;The STC (Stochastics) chart labels were overlapping because they were positioned at fixed pixel locations (leftSpace + 150 and leftSpace + 250), regardless of the actual text width.&#10;Solution&#10;I've updated the code to dynamically calculate label positions based on the actual width of each text element:&#10;Chart Name (&quot;Stochastics&quot;): Positioned at leftSpace + 10 (unchanged)&#10;%K Label: Positioned based on chart name width + 20px spacing&#10;%D Label: Positioned based on %K label width + 20px spacing&#10;What Changed&#10;Instead of hardcoded positions: leftSpace + 150 and leftSpace + 250&#10;Now uses: g.getFontMetrics().stringWidth() to measure actual text width&#10;Adds 20 pixels of spacing between each label&#10;This ensures labels never overlap, regardless of:&#10;Language (English vs Chinese)&#10;Font size&#10;Parameter values in parentheses" />
+    <option name="LAST_COMMIT_MESSAGE" value="STC Chart Label Overlap Fixed!&#10;Problem&#10;The STC (Stochastics) chart labels were overlapping because they were positioned at fixed pixel locations (leftSpace + 150 and leftSpace + 250), regardless of the actual text width.&#10;Solution&#10;I've updated the code to dynamically calculate label positions based on the actual width of each text element:&#10;Chart Name (&quot;Stochastics&quot;): Positioned at leftSpace + 10 (unchanged)&#10;%K Label: Positioned based on chart name width + 20px spacing&#10;%D Label: Positioned based on %K label width + 20px spacing&#10;What Changed&#10;Instead of hardcoded positions: leftSpace + 150 and leftSpace + 250&#10;Now uses: g.getFontMetrics().stringWidth() to measure actual text width&#10;Adds 20 pixels of spacing between each label&#10;This ensures labels never overlap, regardless of:&#10;Language (English vs Chinese)&#10;Font size&#10;Parameter values in parentheses" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="XDebuggerManager">

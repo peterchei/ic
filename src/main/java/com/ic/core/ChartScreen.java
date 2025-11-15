@@ -446,6 +446,15 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     }
 
     Graphics g = getAllScreenImage().getGraphics();
+
+    // Enable anti-aliasing for professional smooth rendering
+    if (g instanceof Graphics2D) {
+      Graphics2D g2d = (Graphics2D) g;
+      g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+      g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+      g2d.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY);
+      g2d.setRenderingHint(RenderingHints.KEY_STROKE_CONTROL, RenderingHints.VALUE_STROKE_PURE);
+    }
     g.drawImage(getScreenImage(), 0, 0, getSize().width, getSize().height, this);
     g.setColor(Color.black);
     for (int i = 0; i < actionCommand.getLineRecords().size(); i++) {
@@ -883,15 +892,25 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
   }
 
   /**
-   * Draw a line with specified width using Graphics2D
+   * Draw a line with specified width using Graphics2D with anti-aliasing for professional appearance
    */
   private void drawLineWithWidth(Graphics g, int x1, int y1, int x2, int y2, float width) {
     if (g instanceof Graphics2D) {
       Graphics2D g2 = (Graphics2D) g;
+
+      // Enable anti-aliasing for smooth lines
+      Object oldAntiAlias = g2.getRenderingHint(RenderingHints.KEY_ANTIALIASING);
+      g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
       Stroke oldStroke = g2.getStroke();
       g2.setStroke(new BasicStroke(width, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
       g2.drawLine(x1, y1, x2, y2);
       g2.setStroke(oldStroke);
+
+      // Restore previous anti-aliasing setting
+      if (oldAntiAlias != null) {
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, oldAntiAlias);
+      }
     } else {
       // Fallback for non-Graphics2D
       g.drawLine(x1, y1, x2, y2);
@@ -1025,6 +1044,13 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     double Min = currentChart.getChartBound().getLowerStockBound();
 
     Graphics g = getScreenImage().getGraphics();
+
+    // Enable anti-aliasing for smooth candle rendering
+    if (g instanceof Graphics2D) {
+      Graphics2D g2d = (Graphics2D) g;
+      g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+    }
+
     g.setColor(currentChart.getFirstColor());
 
     int CandleWidth = 1;
@@ -1541,17 +1567,18 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
   }
 
   private void plotXAxis(ChartItem currentChart, boolean isLabel) {
+    // Use consistent grid color
     if (gridColor == null) {
-      gridColor = new Color(200, 200, 200);
+      gridColor = new Color(230, 230, 235); // Match Y-axis grid color
     }
-    int dpoint = endDisplayIndex;// this.getMaxNumberOfDisplayPointInCurrentResolution()+startDisplayIndex;
+    int dpoint = endDisplayIndex;
     Graphics g = getAllScreenImage().getGraphics();
     Graphics gg = getScreenImage().getGraphics();
 
     // when the resolution is small, set the font size to some.
     if (resolution <= 4) {
-      g.setFont(new Font("default", 0, 12));
-      gg.setFont(new Font("default", 0, 12));
+      g.setFont(new Font("SansSerif", Font.PLAIN, 11));
+      gg.setFont(new Font("SansSerif", Font.PLAIN, 11));
     }
 
     if (currentChart.isShowXaxis()) {
@@ -1569,12 +1596,21 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
           if (fpoint.getMonth() != fpoint2.getMonth()) {
             if (!isLabel) {
               gg.setColor(gridColor);
-              drawDotLine(gg, getScreenXPositionFromPoint(i), topSpace, getScreenXPositionFromPoint(i),
-                topSpace + getYAxisWidth());
+              // Draw solid grid lines for professional look
+              if (gg instanceof Graphics2D) {
+                Graphics2D g2d = (Graphics2D) gg;
+                g2d.setStroke(new BasicStroke(0.5f));
+                g2d.drawLine(getScreenXPositionFromPoint(i), topSpace, getScreenXPositionFromPoint(i),
+                  topSpace + getYAxisWidth());
+                g2d.setStroke(new BasicStroke(1.0f));
+              } else {
+                drawDotLine(gg, getScreenXPositionFromPoint(i), topSpace, getScreenXPositionFromPoint(i),
+                  topSpace + getYAxisWidth());
+              }
               continue;
             }
 
-            g.setColor(Color.black);
+            g.setColor(new Color(80, 80, 80)); // Professional dark gray for tick marks
             g.drawLine(getScreenXPositionFromPoint(i), topSpace + getYAxisWidth(),
               getScreenXPositionFromPoint(i), topSpace + getYAxisWidth() + 2);
             String dateMY = FormatUtil.formatMonth(fpoint.getDate());
@@ -1712,7 +1748,14 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
   private void drawLabel(ChartItem currentChart) {
 
     Graphics g = getAllScreenImage().getGraphics();
-    g.setFont(new Font("default", 0, FConfig.SCREEN_FONT_SIZE));
+
+    // Use professional font with anti-aliasing
+    g.setFont(new Font("SansSerif", Font.BOLD, FConfig.SCREEN_FONT_SIZE));
+    if (g instanceof Graphics2D) {
+      Graphics2D g2d = (Graphics2D) g;
+      g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+    }
+
     if (currentChart.getAxisBar() == AxisType.LEFTAXIS) {
       if (currentChart.getChartType() == ChartType.BAR || currentChart.getChartType() == ChartType.LINE
         || currentChart.getChartType() == ChartType.CANDLE) {
@@ -1737,6 +1780,10 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
       }
 
     }
+
+    // Use slightly smaller, regular weight font for indicator labels
+    g.setFont(new Font("SansSerif", Font.PLAIN, FConfig.SCREEN_FONT_SIZE - 2));
+
     if (currentChart.getChartType() == ChartType.VOLUME) {
       g.drawString(lbArray[9][language], leftSpace + 5, FConfig.SCREEN_FONT_SIZE + 10);
     } else if (currentChart.getChartType() == ChartType.MACD) {
@@ -1839,8 +1886,10 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     if (currentChart.getChartBound() == null) {
       return;
     }
+
+    // Use a more subtle grid color for professional appearance
     if (gridColor == null) {
-      gridColor = new Color(200, 200, 200);
+      gridColor = new Color(230, 230, 235); // Softer grid lines
     }
 
     // calculate the actual bound in the Yaxis.
@@ -1911,12 +1960,21 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
           continue;
         }
         if (!isLabel) {
+          // Draw solid grid lines with subtle color for professional look
           gg.setColor(gridColor);
-          drawDotLine(gg, leftSpace, ypos, leftSpace + getXAxisWidth(), ypos);
+          if (gg instanceof Graphics2D) {
+            Graphics2D g2d = (Graphics2D) gg;
+            g2d.setStroke(new BasicStroke(0.5f)); // Thin, subtle grid lines
+            g2d.drawLine(leftSpace, ypos, leftSpace + getXAxisWidth(), ypos);
+            g2d.setStroke(new BasicStroke(1.0f)); // Reset stroke
+          } else {
+            drawDotLine(gg, leftSpace, ypos, leftSpace + getXAxisWidth(), ypos);
+          }
           continue;
         }
 
-        g.setColor(Color.black);
+        // Draw axis tick marks
+        g.setColor(new Color(80, 80, 80)); // Professional dark gray
         g.drawLine(leftSpace, ypos, leftSpace - 3, ypos);
         g.setColor(currentChart.getFirstColor());
         String ss;
@@ -1937,7 +1995,8 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
             ss = FormatUtil.format2DecimalPlace(sg);
           }
         }
-        g.setColor(Color.black);
+        // Use professional dark gray for axis labels
+        g.setColor(new Color(60, 60, 60));
         int strLength = g.getFontMetrics().charsWidth(ss.toCharArray(), 0, ss.length());
 
         g.drawString(ss, leftSpace - strLength - 10, ypos + 3);
@@ -1948,7 +2007,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
           continue;
         }
         int ypos = getScreenYPosition(sg, Max, Min);
-        g.setColor(Color.black);
+        g.setColor(new Color(60, 60, 60)); // Professional dark gray
         g.drawLine(leftSpace + getXAxisWidth(), ypos, leftSpace + getXAxisWidth() + 3, ypos);
         String ss = FormatUtil.format2DecimalPlace(sg);
         g.setColor(currentChart.getFirstColor());
@@ -2021,10 +2080,28 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
   // clear the Screen
   private synchronized boolean clearScreen() {
-    // System.out.println("Entering ClearScreen");
     Graphics screenG = getScreenImage().getGraphics();
-    screenG.setColor(FConfig.ChatBackground);
-    screenG.fillRect(0, 0, getSize().width, getSize().height);
+
+    // Enable anti-aliasing for smooth rendering
+    if (screenG instanceof Graphics2D) {
+      Graphics2D g2d = (Graphics2D) screenG;
+      g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+      g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+    }
+
+    // Use a subtle gradient background for professional look
+    if (screenG instanceof Graphics2D) {
+      Graphics2D g2d = (Graphics2D) screenG;
+      GradientPaint gradient = new GradientPaint(
+        0, 0, new Color(255, 255, 255),
+        0, getSize().height, new Color(248, 248, 250)
+      );
+      g2d.setPaint(gradient);
+      g2d.fillRect(0, 0, getSize().width, getSize().height);
+    } else {
+      screenG.setColor(FConfig.ChatBackground);
+      screenG.fillRect(0, 0, getSize().width, getSize().height);
+    }
     return true;
   }
 
@@ -2038,12 +2115,30 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
   private boolean plotAxis(boolean isLabel) {
     Graphics screenG = getAllScreenImage().getGraphics();
 
-    screenG.setColor(Color.black);
+    // Enable anti-aliasing for smooth lines
+    if (screenG instanceof Graphics2D) {
+      Graphics2D g2d = (Graphics2D) screenG;
+      g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+      g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+    }
+
+    // Draw main axes with a professional dark gray color
+    screenG.setColor(new Color(80, 80, 80));
+    if (screenG instanceof Graphics2D) {
+      Graphics2D g2d = (Graphics2D) screenG;
+      g2d.setStroke(new BasicStroke(1.5f));
+    }
+
     screenG.drawLine(leftSpace, topSpace, leftSpace, topSpace + getYAxisWidth());
     screenG.drawLine(leftSpace, topSpace + getYAxisWidth(), leftSpace + getXAxisWidth(),
       topSpace + getYAxisWidth());
-    // screenG.drawLine(leftSpace + getXAxisWidth(), topSpace, leftSpace +
-    // getXAxisWidth(), topSpace + getYAxisWidth());
+
+    // Reset to normal stroke
+    if (screenG instanceof Graphics2D) {
+      Graphics2D g2d = (Graphics2D) screenG;
+      g2d.setStroke(new BasicStroke(1.0f));
+    }
+
     screenG.setColor(FConfig.ScreenBackground);
 
     try {
