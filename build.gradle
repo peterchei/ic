@@ -44,6 +44,11 @@ jar {
                 "Implementation-Version": "1.0",
                 "Main-Class": "com.ic.app.GUI")
     }
+    // Include all dependencies in the JAR (fat JAR)
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
 
 task run(type: JavaExec) {
