@@ -96,6 +96,15 @@ ChartDataService -> ChartScreen (render) -> User Interaction (ActionCommand)
 ```powershell
 ./gradlew.bat clean build --refresh-dependencies
 ```
+
+### "NoClassDefFoundError: org/json/JSONObject"
+This was fixed by bundling all dependencies into the JAR (fat JAR). If you still see this:
+```powershell
+# Rebuild with dependencies
+./gradlew.bat clean build
+```
+See `docs/JSON_DEPENDENCY_FIX.md` for details.
+
 ### "No data available"
 - Verify symbol (e.g., AAPL, IBM)
 - If Alpha Vantage: check rate limit or key correctness
