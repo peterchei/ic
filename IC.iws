@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64376b75-5379-4c35-8e3b-851894dd430d" name="Default" comment="Update Doc">
-      <change beforePath="$PROJECT_DIR$/IC.iws" beforeDir="false" afterPath="$PROJECT_DIR$/IC.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-    </list>
+    <list default="true" id="64376b75-5379-4c35-8e3b-851894dd430d" name="Default" comment="Update Dependence" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -738,7 +735,23 @@
       <option name="project" value="LOCAL" />
       <updated>1763229673198</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Update Dependence">
+      <option name="closed" value="true" />
+      <created>1763230574996</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1763230574996</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Update Dependence">
+      <option name="closed" value="true" />
+      <created>1763230634584</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1763230634584</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -797,7 +810,8 @@
     <MESSAGE value="Summary of changes:&#10;Added new file ChartLabelText.java containing the original 0..24 label matrix and static getters.&#10;Removed the lbArray field from ChartScreen.&#10;Replaced each lbArray usage with ChartLabelText.getLabel(&lt;index&gt;, language).&#10;Left the rest of the rendering logic untouched to minimize risk.&#10;Preserved original indices; no semantic remap beyond extraction." />
     <MESSAGE value="Update" />
     <MESSAGE value="Update Doc" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update Doc" />
+    <MESSAGE value="Update Dependence" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update Dependence" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="true" />
   </component>
   <component name="XDebuggerManager">

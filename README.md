@@ -2,6 +2,17 @@
 
 A Java Swing-based stock charting application with multi-provider data sourcing, technical analysis indicators, and interactive drawing tools.
 
+- Lightweight by design: zero heavy frameworks, minimal runtime dependencies
+- Runs anywhere with Java 21; single self-contained JAR output
+
+## Why it's lightweight
+- Only two small runtime libraries beyond the JDK
+  - org.json for simple JSON parsing
+  - slf4j-simple for logging
+- Uses standard Java Swing (no extra UI toolkit)
+- No DI containers, no ORM, no web server
+- Ships as one fat JAR for portability; starts fast and uses modest memory
+
 ## Current Status
 - Active providers: Yahoo Finance (default, no API key), Alpha Vantage (rate-limited)
 - Technical Indicators: RSI, MACD, Bollinger Bands, STC, William %R, OBV, Moving Averages
@@ -26,7 +37,8 @@ ic/
 │   ├── UI_IMPROVEMENTS_SUMMARY.md
 │   ├── QUICK_START.md
 │   ├── FIX_BUILD_ERRORS.md
-│   └── BUILD_FIX_SOLUTION.md
+│   ├── BUILD_FIX_SOLUTION.md
+│   └── JSON_DEPENDENCY_FIX.md
 ├── src/
 │   ├── main/java/com/ic/app/GUI.java
 │   ├── main/java/com/ic/core/ChartScreen.java
@@ -39,7 +51,12 @@ ic/
 
 ## Prerequisites
 - Java 21+ (set `JAVA_HOME` accordingly)
-- Gradle 8.13+ (wrapper included)
+- Gradle wrapper included; no local Gradle install required
+
+## Dependencies (minimal)
+- org.json: JSON parsing
+- slf4j-simple: logging backend (with slf4j-api)
+- Everything else is part of the JDK (Swing, AWT)
 
 ## Quick Start (Yahoo Finance Default)
 ```powershell
@@ -90,6 +107,7 @@ ChartDataService -> ChartScreen (render) -> User Interaction (ActionCommand)
 - TA_LABEL_FIX_SUMMARY.md / TA_LABEL_OVERLAP_FIX.md – Indicator label fixes
 - UI_IMPROVEMENTS_SUMMARY.md – Visual polish changes
 - FIX_BUILD_ERRORS.md / BUILD_FIX_SOLUTION.md – Build stabilization notes
+- JSON_DEPENDENCY_FIX.md – Why the fat JAR is used and how it helps
 
 ## Troubleshooting
 ### Build Issues
