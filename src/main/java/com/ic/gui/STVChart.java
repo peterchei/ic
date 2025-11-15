@@ -10,10 +10,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URI;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class STVChart extends JPanel {
 
   private static final long serialVersionUID = -280148111733446555L;
+  private static final Logger log = Logger.getLogger(STVChart.class.getName());
   public JPanel panelToolbar = new JPanel();
   public ChartScreen chartScreen1 = new ChartScreen(20, 35, 42, 15); // the
   // first
@@ -58,7 +61,7 @@ public class STVChart extends JPanel {
       chartScreen3.addScreenActionListen(functionPanel);
 
     } catch (Exception e) {
-      e.printStackTrace();
+      log.log(Level.SEVERE, "Failed to initialize STVChart layout", e);
     }
   }
 
@@ -76,7 +79,7 @@ public class STVChart extends JPanel {
     int x3 = xx;
 
     if (!chartScreen1.isVisible()) {
-      System.out.println("s1 is zero");
+      log.fine("Chart Screen 1 is hidden while resizing");
       if (chartScreen2.isVisible()) {
         x2 = x2 + x1;
         x1 = 0;
@@ -85,7 +88,7 @@ public class STVChart extends JPanel {
         x1 = 0;
       } else {
         x1 = 0;
-        System.out.println("s1 is zero");
+        log.fine("Chart Screen 1 is zero");
       }
     }
 
@@ -198,13 +201,12 @@ public class STVChart extends JPanel {
     getBtPrinter().addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
         try {
-          // create printer object and connect to the printer
           setBasicPrinter(new BasicPrint());
           if (getBasicPrinter().initPrinter(chartScreen1, chartScreen2, chartScreen3)) {
             getBasicPrinter().startPrint();
           }
         } catch (Exception ex) {
-          ex.printStackTrace();
+          log.log(Level.SEVERE, "Failed to start print job", ex);
         }
       }
     });
@@ -232,7 +234,7 @@ public class STVChart extends JPanel {
         Desktop.getDesktop().browse(new URI("http://www.facebook.com"));
       }
     } catch (Exception ex) {
-      ex.printStackTrace();
+      log.log(Level.WARNING, "Failed to open browser for Facebook share", ex);
     }
   }
 

@@ -3,20 +3,24 @@ package com.ic.util;
 import java.awt.*;
 import java.awt.datatransfer.*;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class CopyImageToClipBoard implements ClipboardOwner {
+  private static final Logger log = Logger.getLogger(CopyImageToClipBoard.class.getName());
+
   public CopyImageToClipBoard(Image image) {
     try {
       TransferableImage trans = new TransferableImage(image);
       Clipboard c = Toolkit.getDefaultToolkit().getSystemClipboard();
       c.setContents(trans, this);
     } catch (Exception ex) {
-      ex.printStackTrace();
+      log.log(Level.WARNING, "Unable to copy chart image to clipboard", ex);
     }
   }
 
   public void lostOwnership(Clipboard clip, Transferable trans) {
-    System.out.println("Lost Clipboard Ownership");
+    log.info("Clipboard ownership lost");
   }
 
   private class TransferableImage implements Transferable {

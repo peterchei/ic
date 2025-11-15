@@ -7,10 +7,13 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class BasicPrint extends Component//  implements FilenameFilter
 {
+  private static final Logger log = Logger.getLogger(BasicPrint.class.getName());
   private final PrintJob pjob = null;
   private ChartScreen chartScreen1;
   private ChartScreen chartScreen2;
@@ -40,7 +43,7 @@ public class BasicPrint extends Component//  implements FilenameFilter
     offimage = new BufferedImage(ww, hh, BufferedImage.TYPE_INT_RGB);// chartScreen1.createImage(ww, hh);
 
     if (offimage == null) {
-      System.out.println("NO Memory to print " + ww + " : " + hh);
+      log.warning("Insufficient memory to construct combined chart image: " + ww + "x" + hh);
       return;
     }
 
@@ -72,8 +75,7 @@ public class BasicPrint extends Component//  implements FilenameFilter
       fd.setFile("IC_" + new Date().getTime() + ".png");
       fd.show();
       if (fd.getDirectory() == null || fd.getFile() == null) return;
-      System.out.println(fd.getDirectory());
-      System.out.println(fd.getFile());
+      log.fine("Saving chart image to " + fd.getDirectory() + fd.getFile());
       String fullFileName = fd.getDirectory() + fd.getFile();
       File outputfile = new File(fullFileName);
       createFullImage();
@@ -83,7 +85,7 @@ public class BasicPrint extends Component//  implements FilenameFilter
       ImageIO.write(offimage, "png", outputfile);
 
     } catch (Exception ee) {
-      ee.printStackTrace();
+      log.log(Level.SEVERE, "Failed to save chart image to disk", ee);
     }
   }
 
@@ -94,4 +96,3 @@ public class BasicPrint extends Component//  implements FilenameFilter
     return true;
   }
 }
-

@@ -5,8 +5,11 @@ import java.math.RoundingMode;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FormatUtil {
+  private static final Logger log = Logger.getLogger(FormatUtil.class.getName());
 
   public static String getCode(int code) {
     String cc = "0000" + code;
@@ -33,7 +36,7 @@ public class FormatUtil {
     try {
       return sdf.parse(date);
     } catch (ParseException e) {
-      e.printStackTrace();
+      log.log(Level.WARNING, "Failed to parse date string: " + date, e);
     }
     return new Date();
   }
