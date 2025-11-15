@@ -4,7 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="64376b75-5379-4c35-8e3b-851894dd430d" name="Default" comment="Update Doc" />
+    <list default="true" id="64376b75-5379-4c35-8e3b-851894dd430d" name="Default" comment="Update Doc">
+      <change beforePath="$PROJECT_DIR$/IC.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/IC.ipr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/IC.iws" beforeDir="false" afterPath="$PROJECT_DIR$/IC.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/DATA_PROVIDERS.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/DATA_PROVIDERS.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/REFACTORING_SUMMARY.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/REFACTORING_SUMMARY.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/TA_LABEL_FIX_SUMMARY.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/TA_LABEL_FIX_SUMMARY.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/TA_LABEL_OVERLAP_FIX.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/TA_LABEL_OVERLAP_FIX.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -711,7 +718,15 @@
       <option name="project" value="LOCAL" />
       <updated>1763228688789</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Update Doc">
+      <option name="closed" value="true" />
+      <created>1763228798265</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1763228798265</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="ToolWindowManager">
