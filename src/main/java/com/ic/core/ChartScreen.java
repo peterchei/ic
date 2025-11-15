@@ -9,6 +9,7 @@ import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.Serial;
 import java.text.SimpleDateFormat;
 import java.util.Vector;
 import java.util.logging.Logger;
@@ -19,33 +20,9 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
   public static final int LOADING = 1;
   public static final int STARTED = 2;
   private static final Logger log = Logger.getLogger(ChartScreen.class.getName());
+  @Serial
   private static final long serialVersionUID = -6984851432299222149L;
-  private final String[][] lbArray = {{"None", "無"} // 0
-    , {"Simple Moving Average", "\u7c21\u55ae\u79fb\u52d5\u5e73\u5747\u7dda"} // 1
-    , {"Weighted Moving Average", "\u52a0\u6b0a\u79fb\u52d5\u5e73\u5747\u7dda"} // 2
-    , {"Exponential Moving Average", "\u6307\u6578\u79fb\u52d5\u5e73\u5747\u7dda"} // 3
-    , {"Bollinger Bands", "\u4fdd\u6b77\u52a0\u901a\u9053"} // 4
-    , {"Open", "\u958b\u5e02"} // 5
-    , {"Close", "\u6536\u5e02"} // 6
-    , {"High", "\u6700\u9ad8"} // 7
-    , {"Low", "\u6700\u4f4e"} // 8
-    , {"Volume", "\u6210\u4ea4"}// \u91cf"} //9
-    , {"RSI", "RSI" } //10
-    , {"STC", "STC" } // 11
-    , {"EMA", "EMA"} // 12
-    , {"WMA", "WMA"} // 13
-    , {"SMA", "SMA"} // 14
-    , {"Date", "\u671f\u9593"} // 15
-    , {"Time", "\u671f\u9593"} // 16
-    , {"Relative Strength Index", "\u76f8\u5c0d\ufffd\u5f31\u6307\u6578"} // 17
-    , {"Stochastics", "\u96a8\u6a5f\u6307\u6578"} // 18
-    , {"On Balance Volume", "\u6210\u4ea4\u91cf\u5e73 \u6307\u6578"} // 19
-    , {"Moving Average Convergence Divergence", "\u79fb\u52d5\u5e73\u5747\u7dda\u532f\u805a\u80cc\u99b3\u6307\u6a19"} // 20
-    , {"William %R", "\u5a01\u5ec9\u6307\u6a19"} // 21
-    , {"Deviation", "Deviation"} // 22
-    , {"Date Reference", "Date Reference"} // 23
-    , {"Time Reference", "Time Reference"} // 24
-  };
+  // Removed legacy lbArray; now use ChartLabelText.getLabel(index, language)
   // Define of Resolution and display information
   private final int minResolution = 3;
   private final int language = FConfig.constEnglish;
@@ -137,7 +114,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
   }
 
   // add a chart to this screen
-  public boolean addChart(ChartItem newChart) {
+  public void addChart(ChartItem newChart) {
     int tempNumb = 0;
     for (int i = 0; i < chartObjects.size(); i++) {
       ChartItem cchart = (ChartItem) chartObjects.elementAt(i);
@@ -155,7 +132,6 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
       }
     }
     maxNumberOfChartPoint = tempNumb;
-    return true;
   }
 
   // get the LowerBound and UpperBound of the L or R chart
@@ -1781,9 +1757,9 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
         StockData fpoint = currentChart.getChartData().getData().get(startDisplayIndex);
         String sdate = "";
         if (currentChart.getChartData().dataInterval == DataInterval.INTRADAY) {
-          sdate = lbArray[22][language] + " : " + FormatUtil.formatTime(fpoint.getHour(), fpoint.getMinute());
+          sdate = ChartLabelText.getLabel(22, language) + " : " + FormatUtil.formatTime(fpoint.getHour(), fpoint.getMinute());
         } else {
-          sdate = lbArray[21][language] + " : " + fpoint.getDay() + "-" + fpoint.getMonth() + "-"
+          sdate = ChartLabelText.getLabel(21, language) + " : " + fpoint.getDay() + "-" + fpoint.getMonth() + "-"
             + fpoint.getYear();
         }
         g.drawString(sdate, leftSpace + 5, FConfig.SCREEN_FONT_SIZE + 10);
@@ -1796,10 +1772,10 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
 
     if (currentChart.getChartType() == ChartType.VOLUME) {
       g.setColor(new Color(60, 60, 60)); // Professional dark gray
-      g.drawString(lbArray[9][language], leftSpace + 5, FConfig.SCREEN_FONT_SIZE + 10);
+      g.drawString(ChartLabelText.getLabel(9, language), leftSpace + 5, FConfig.SCREEN_FONT_SIZE + 10);
     } else if (currentChart.getChartType() == ChartType.MACD) {
       String tempString;
-      tempString = lbArray[20][language];
+      tempString = ChartLabelText.getLabel(20, language);
       tempString = tempString + " (" + currentChart.getChartData().getfTAconfig().MACDLEMA + "-"
         + currentChart.getChartData().getfTAconfig().MACDSEMA + ")";
       g.setColor(FConfig.MACDColor1);
@@ -1847,22 +1823,22 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
       String tempString;
       g.setColor(FConfig.BollingerBandColor);
       tempString = "SMA(" + currentChart.getChartData().getfTAconfig().bbN + ")";
-      tempString = tempString + "  " + lbArray[22][language] + "("
+      tempString = tempString + "  " + ChartLabelText.getLabel(22, language) + "("
         + currentChart.getChartData().getfTAconfig().bbDevation + ")";
       g.drawString(tempString, leftSpace + 5, (FConfig.SCREEN_FONT_SIZE + 10) * 2);
     } else if (currentChart.getChartType() == ChartType.RSI) {
       String tempString;
-      tempString = lbArray[17][language] + " (" + currentChart.getChartData().getfTAconfig().RSIPeriod + ")";
+      tempString = ChartLabelText.getLabel(17, language) + " (" + currentChart.getChartData().getfTAconfig().RSIPeriod + ")";
       g.setColor(new Color(60, 60, 60)); // Professional dark gray
       g.drawString(tempString, leftSpace + 5, FConfig.SCREEN_FONT_SIZE + 10);
 
     } else if (currentChart.getChartType() == ChartType.OBV) {
       g.setColor(new Color(60, 60, 60)); // Professional dark gray
-      g.drawString(currentChart.getChartData().getCode() + " " + lbArray[19][language],
+      g.drawString(currentChart.getChartData().getCode() + " " + ChartLabelText.getLabel(19, language),
         leftSpace + 10, FConfig.SCREEN_FONT_SIZE + 10);
     } else if (currentChart.getChartType() == ChartType.STC) {
       // Draw chart name in dark gray
-      String chartName = lbArray[18][language];
+      String chartName = ChartLabelText.getLabel(18, language);
       g.setColor(new Color(60, 60, 60)); // Professional dark gray
       g.drawString(chartName, leftSpace + 10, FConfig.SCREEN_FONT_SIZE + 10);
 
@@ -1884,7 +1860,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
       g.setColor(FConfig.STCColorD);
       g.drawString(tempStringD, xPosD, FConfig.SCREEN_FONT_SIZE + 10);
     } else if (currentChart.getChartType() == ChartType.WILLIAM_R) {
-      String tempString = currentChart.getChartData().getCode() + " " + lbArray[21][language];
+      String tempString = currentChart.getChartData().getCode() + " " + ChartLabelText.getLabel(21, language);
       tempString = tempString + "(" + currentChart.getChartData().getfTAconfig().WilliamPeriod + ")";
       g.setColor(new Color(60, 60, 60)); // Professional dark gray
       g.drawString(tempString, leftSpace + 10, FConfig.SCREEN_FONT_SIZE + 10);
