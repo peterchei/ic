@@ -1,139 +1,114 @@
 # IC Project
 
-This is a Java Swing-based stock charting application with support for multiple data providers.
+A Java Swing-based stock charting application with multi-provider data sourcing, technical analysis indicators, and interactive drawing tools.
+
+## Current Status
+- Active providers: Yahoo Finance (default, no API key), Alpha Vantage (rate-limited)
+- Technical Indicators: RSI, MACD, Bollinger Bands, STC, William %R, OBV, Moving Averages
+- Drawing Tools: Trend lines, Parallel lines, Golden Ratio partition
+- Recent refactors: Centralized labels (`ChartLabelText`), documentation moved to `docs/`
 
 ## Screenshot
 
 ![Main Screen](src/main/resources/IC_MainScreen.png)
 
-## Prerequisites
-
-- Java 21 or higher
-- Gradle 8.13 or higher (wrapper included)
-
-## Quick Start
-
-### Option 1: Yahoo Finance (Recommended - No API Key Required)
-1. Ensure JAVA_HOME is set to your Java 21+ installation
-2. The default configuration uses Yahoo Finance (no setup needed)
-3. Run `./gradlew build` (on Windows: `gradlew.bat build`)
-4. Run `./gradlew run` to start the application
-
-### Option 2: Alpha Vantage (API Key Required)
-1. Get a free API key from [Alpha Vantage](https://www.alphavantage.co/support/#api-key)
-2. Edit `config.properties` in the project root:
-   ```properties
-   data.source.provider=ALPHA_VANTAGE
-   api.key.alphavantage=YOUR_API_KEY_HERE
-   ```
-3. Run `./gradlew build` and `./gradlew run`
-
-## Data Source Configuration
-
-The application supports multiple stock data providers. You can easily switch between them:
-
-- **Yahoo Finance** (Default) - No API key, unlimited use ⭐
-- **Alpha Vantage** - Free tier: 25 requests/day
-- **Twelve Data** - Coming soon
-- **Finnhub** - Coming soon
-
-See [DATA_PROVIDERS.md](DATA_PROVIDERS.md) for detailed provider documentation.
-
-### Switching Providers
-
-Edit `config.properties`:
-```properties
-# Options: YAHOO_FINANCE, ALPHA_VANTAGE, TWELVE_DATA, FINNHUB
-data.source.provider=YAHOO_FINANCE
-
-# API Keys (only needed for some providers)
-api.key.alphavantage=YOUR_KEY_HERE
+## Directory Structure (key folders)
+```
+ic/
+├── build.gradle
+├── config.properties
+├── README.md
+├── docs/
+│   ├── DATA_PROVIDERS.md
+│   ├── REFACTORING_SUMMARY.md
+│   ├── TA_LABEL_FIX_SUMMARY.md
+│   ├── TA_LABEL_OVERLAP_FIX.md
+│   ├── UI_IMPROVEMENTS_SUMMARY.md
+│   ├── QUICK_START.md
+│   ├── FIX_BUILD_ERRORS.md
+│   └── BUILD_FIX_SOLUTION.md
+├── src/
+│   ├── main/java/com/ic/app/GUI.java
+│   ├── main/java/com/ic/core/ChartScreen.java
+│   ├── main/java/com/ic/core/ChartLabelText.java
+│   ├── main/java/com/ic/data/provider/* (data sources)
+│   ├── main/resources/ (images, stocks.csv)
+│   └── test/java/com/ic/test/DataProviderTest.java
+└── build/ (generated artifacts)
 ```
 
-## Running
+## Prerequisites
+- Java 21+ (set `JAVA_HOME` accordingly)
+- Gradle 8.13+ (wrapper included)
 
-**Using Gradle:**
+## Quick Start (Yahoo Finance Default)
+```powershell
+# Windows PowerShell
+./gradlew.bat clean build
+./gradlew.bat run
+```
+Or (Unix-like):
 ```bash
+./gradlew clean build
 ./gradlew run
 ```
 
-**Using JAR:**
-```bash
+## Switching Data Providers
+Edit `config.properties`:
+```properties
+# Options: YAHOO_FINANCE, ALPHA_VANTAGE
+data.source.provider=YAHOO_FINANCE
+api.key.alphavantage=YOUR_API_KEY_HERE
+```
+Yahoo Finance requires no key; Alpha Vantage free tier is limited (25 requests/day).
+
+## Running from JAR
+```powershell
 java -jar build/libs/ic-1.0-SNAPSHOT.jar
 ```
 
-## Development
-
-- Import as Gradle project in your IDE
-- Main class: `com.ic.app.GUI`
-- Test providers: Run `com.ic.test.DataProviderTest`
-
 ## Features
+- Multi-provider data (factory pattern)
+- Candlestick, Line, Bar, Volume charts
+- Percentage comparison mode
+- Technical indicators: MA (SMA/WMA/EMA), Bollinger Band, MACD, RSI, STC, OBV, William %R
+- Interactive zoom and pan
+- Mouse-based drawing & measurement tools
+- Golden ratio partition overlay
+- Symbol input (type any ticker, e.g., AAPL, MSFT)
 
-- **Multiple Data Providers** - Switch between Yahoo Finance, Alpha Vantage, and more
-- **Real-time Stock Charting** - Live price updates
-- **Multiple Chart Types** - Candlestick, Line, Bar, Volume
-- **Technical Indicators** - RSI, MACD, Bollinger Bands, STC, William %R, OBV
-- **Drawing Tools** - Lines, Parallel Lines, Golden Ratio
-- **Zoom & Pan** - Interactive chart navigation
-- **Symbol Input** - Load any stock by entering its symbol
-- **Comparison Mode** - Compare multiple stocks
-
-## Gradle Tasks
-
-- `.\gradlew build` - Build the project
-- `.\gradlew run` - Run the application
-- `.\gradlew jar` - Build the JAR file
-- `.\gradlew clean` - Clean build directory
-- `.\gradlew test` - Run tests
-
-## Architecture
-
-The application uses a provider pattern for data sources:
-
+## Architecture Overview
 ```
-┌─────────────────┐
-│ RequestCommand  │
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│ DataSourceFactory│
-└────────┬────────┘
-         │
-         ▼
-┌─────────────────┐
-│   Providers     │
-├─────────────────┤
-│ Yahoo Finance   │
-│ Alpha Vantage   │
-│ Twelve Data     │
-│ Finnhub         │
-└─────────────────┘
+RequestCommand -> DataSourceFactory -> (YahooFinanceProvider | AlphaVantageProvider ...)
+ChartDataService -> ChartScreen (render) -> User Interaction (ActionCommand)
 ```
+
+## Documentation (see `docs/`)
+- DATA_PROVIDERS.md – Provider capabilities and limits
+- QUICK_START.md – Alternate startup flows
+- REFACTORING_SUMMARY.md – Recent code base improvements
+- TA_LABEL_FIX_SUMMARY.md / TA_LABEL_OVERLAP_FIX.md – Indicator label fixes
+- UI_IMPROVEMENTS_SUMMARY.md – Visual polish changes
+- FIX_BUILD_ERRORS.md / BUILD_FIX_SOLUTION.md – Build stabilization notes
 
 ## Troubleshooting
-
-### "No data available" Error
-- **Yahoo Finance**: Verify the stock symbol is correct (e.g., "IBM", "AAPL")
-- **Alpha Vantage**: Check if you've hit the daily limit (25 requests/day)
-- Try switching providers in `config.properties`
-
-### Build Errors
-```bash
-.\gradlew clean build --refresh-dependencies
+### Build Issues
+```powershell
+./gradlew.bat clean build --refresh-dependencies
 ```
+### "No data available"
+- Verify symbol (e.g., AAPL, IBM)
+- If Alpha Vantage: check rate limit or key correctness
+- Switch to `YAHOO_FINANCE` in `config.properties`
 
-### API Rate Limit
-- Switch to Yahoo Finance (unlimited)
-- Get a new Alpha Vantage API key
-- Wait 24 hours for limit reset
+### Empty / Incorrect Indicator Labels
+- Confirm `ChartLabelText` indices for TA labels (see docs for mapping)
 
-## Documentation
-
-- [DATA_PROVIDERS.md](DATA_PROVIDERS.md) - Complete provider documentation
-- [REFACTORING_SUMMARY.md](REFACTORING_SUMMARY.md) - Technical implementation details
+## Contributing
+1. Fork / branch
+2. Keep UI changes isolated (core logic vs rendering)
+3. Add/update docs under `docs/`
+4. Ensure build passes before PR: `gradlew.bat clean test build`
 
 ## License
-
-[Add your license here]
+Add your license text here.
