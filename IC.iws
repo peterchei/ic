@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="64376b75-5379-4c35-8e3b-851894dd430d" name="Default" comment="Upgrade">
       <change beforePath="$PROJECT_DIR$/IC.iws" beforeDir="false" afterPath="$PROJECT_DIR$/IC.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/ChartDataServiceCallback.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/ChartDataServiceCallback.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/data/RequestCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/data/RequestCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ic/core/ChartScreen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ic/core/ChartScreen.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -237,9 +236,9 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {}
-}]]></component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {}
+}</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/peterchei/ic.git&quot;,

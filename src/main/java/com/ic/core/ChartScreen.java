@@ -882,6 +882,22 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
     this.screenActionListener.OnWatch(this, actionCommand.getCurrentMousePoint().x);
   }
 
+  /**
+   * Draw a line with specified width using Graphics2D
+   */
+  private void drawLineWithWidth(Graphics g, int x1, int y1, int x2, int y2, float width) {
+    if (g instanceof Graphics2D) {
+      Graphics2D g2 = (Graphics2D) g;
+      Stroke oldStroke = g2.getStroke();
+      g2.setStroke(new BasicStroke(width, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+      g2.drawLine(x1, y1, x2, y2);
+      g2.setStroke(oldStroke);
+    } else {
+      // Fallback for non-Graphics2D
+      g.drawLine(x1, y1, x2, y2);
+    }
+  }
+
   // Plot function:::
   public void updateBaseScreen() {
     if (this.getScreenImage() == null) {
@@ -963,9 +979,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
           int x2 = getScreenXPositionFromPoint(lastValidPoint);
           int y1 = this.getScreenYPosition(fpoint1.getPercent(), Max, Min);
           int y2 = getScreenYPosition(fpoint2.getPercent(), Max, Min);
-          g.drawLine(x1, y1, x2, y2);
-          g.drawLine(x1, y1 - 1, x2, y2 - 1);
-          g.drawLine(x1, y1 - 2, x2, y2 - 2);
+          drawLineWithWidth(g, x1, y1, x2, y2, 3f);
           lastValidPoint = i;
         } catch (Exception ee) {
           ee.printStackTrace();
@@ -1379,8 +1393,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
           int y1 = this.getScreenYPosition(fTApoint1.getRSI(), Max, Min);
           int y2 = getScreenYPosition(fTApoint2.getRSI(), Max, Min);
           g.setColor(FConfig.RSIColor);
-          g.drawLine(x1, y1, x2, y2);
-          g.drawLine(x1, y1 - 1, x2, y2 - 1);
+          drawLineWithWidth(g, x1, y1 , x2, y2 , 3f);
           lastValidPoint = i;
         } catch (Exception ee) {
         }
@@ -1497,9 +1510,7 @@ public class ChartScreen extends JPanel implements MouseListener, MouseMotionLis
           int y2 = getScreenYPosition(fpoint2.getClose(), Max, Min);
 
           int y0 = getScreenYPosition(Min, Max, Min);
-          g.drawLine(x1, y1, x2, y2);
-          g.drawLine(x1, y1 - 1, x2, y2 - 1);
-          g.drawLine(x1, y1 + 1, x2, y2 + 1);
+          drawLineWithWidth(g, x1, y1, x2, y2, 3f);
 
           // g.setColor(Color.red);
           // g.fillRect(x1, y1, Math.abs(x2-x1),y0-y1);
